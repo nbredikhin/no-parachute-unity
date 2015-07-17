@@ -1,5 +1,5 @@
 <project>
- <properties touchToMouse="1" logicalHeight="480" fps="60" assetsOnly="0" architecture="0" retinaDisplay="0" encryptCode="0" windowWidth="0" iosDevice="0" scaleMode="0" osx_org="GiderosMobile" win_domain="giderosmobile.com" packageName="com.yourdomain.yourapp" autorotation="0" logicalWidth="320" osx_domain="giderosmobile.com" win_org="GiderosMobile" encryptAssets="0" mouseTouchOrder="0" mouseToTouch="1" android_template="0" orientation="1" windowHeight="0">
+ <properties osx_domain="giderosmobile.com" assetsOnly="0" architecture="2" encryptAssets="0" windowHeight="0" win_domain="NoDomain.No" encryptCode="0" iosDevice="0" win_org="DunnoGames" scaleMode="0" logicalWidth="320" mouseToTouch="1" logicalHeight="480" windowWidth="0" packageName="com.yourdomain.yourapp" fps="60" osx_org="GiderosMobile" retinaDisplay="0" autorotation="0" android_template="0" mouseTouchOrder="0" orientation="1" touchToMouse="1">
   <imageScales/>
  </properties>
  <folder name="assets">

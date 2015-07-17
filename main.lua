@@ -1,5 +1,6 @@
 application:configureFrustum(45, 9000)
 application:setBackgroundColor(0x000000)
+application:setFps(60)
 screenHeight, screenWidth = application:getDeviceWidth(), application:getDeviceHeight()
 
 local world = Sprite.new()
@@ -10,8 +11,39 @@ local worldSize = 1000
 local worldHeight = worldSize * worldHeightScale
 
 local cameraCenterPos = {screenWidth / 2, screenHeight / 2, -worldSize * worldHeightScale / 2}
+
+local cameraPos = {}
+function setCameraX(x)
+	world:setX(cameraCenterPos[1] - x)
+	cameraPos[1] = x
+end
+
+function setCameraY(y)
+	world:setY(cameraCenterPos[2] - y)
+	cameraPos[2] = y
+end
+
+function setCameraZ(z)
+	world:setZ(cameraCenterPos[3] - z)
+	cameraPos[3] = z
+end
+
+function getCameraX()
+	return cameraPos[1]
+end
+
+function getCameraY()
+	return cameraPos[2]
+end
+
+function getCameraZ()
+	return cameraPos[3]
+end
+
 function setCameraPos(x, y, z)
-	world:setPosition(cameraCenterPos[1] - x, cameraCenterPos[2] - y, cameraCenterPos[3] - z)
+	setCameraX(x)
+	setCameraY(y)
+	setCameraZ(z)
 end
 
 function buildWalls()
@@ -67,7 +99,7 @@ function buildPlanes(count)
 end
 
 local planes = buildPlanes(30)
-local fallingSpeed = 25
+local fallingSpeed = 3000
 
 local fpsText = TextField.new(nil, "FPS: 0")
 fpsText:setX(5)
@@ -87,7 +119,7 @@ stage:addEventListener(Event.ENTER_FRAME,
 			fpsText:setText("FPS: " .. fps)
 		end
 		for i, plane in ipairs(planes) do
-			plane:setZ(plane:getZ() + fallingSpeed)
+			plane:setZ(plane:getZ() + fallingSpeed * e.deltaTime)
 			if plane:getZ() > worldHeight / 2 then
 				plane:setZ(plane:getZ() - worldHeight)
 			end
@@ -95,5 +127,29 @@ stage:addEventListener(Event.ENTER_FRAME,
 			local mul = (plane:getZ() + worldHeight/2) / worldHeight
 			plane:setColorTransform(mul, mul, mul, 1)
 		end
+	end
+)
+
+local startX = 0
+local startY = 0
+
+stage:addEventListener(Event.TOUCHES_BEGIN, 
+	function(e)
+		startX = e.touch.x
+		startY = e.touch.y
+	end
+)
+
+stage:addEventListener(Event.TOUCHES_MOVE, 
+	function(e)
+		local mul = 3
+		local dx = (startX - e.touch.x) * mul
+		setCameraX(math.min(math.max(-worldSize / 2 + screenWidth / 2, getCameraX() + dx), worldSize / 2 - screenWidth / 2))
+
+		local dy = (startY - e.touch.y) * mul
+		setCameraY(math.min(math.max(-worldSize / 2 + screenHeight / 2, getCameraY() + dy), worldSize / 2 - screenHeight / 2))
+
+		startX = e.touch.x
+		startY = e.touch.y
 	end
 )
