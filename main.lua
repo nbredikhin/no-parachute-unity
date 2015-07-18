@@ -153,3 +153,7 @@ stage:addEventListener(Event.TOUCHES_MOVE,
 		startY = e.touch.y
 	end
 )
+
+require "lib/png"
+img = pngImage("assets/plane.png")
+print(img:getPixel(16, 16):format())

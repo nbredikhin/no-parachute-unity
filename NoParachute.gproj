@@ -1,7 +1,14 @@
 <project>
- <properties osx_domain="giderosmobile.com" assetsOnly="0" architecture="2" encryptAssets="0" windowHeight="0" win_domain="NoDomain.No" encryptCode="0" iosDevice="0" win_org="DunnoGames" scaleMode="0" logicalWidth="320" mouseToTouch="1" logicalHeight="480" windowWidth="0" packageName="com.yourdomain.yourapp" fps="60" osx_org="GiderosMobile" retinaDisplay="0" autorotation="0" android_template="0" mouseTouchOrder="0" orientation="1" touchToMouse="1">
+ <properties architecture="2" scaleMode="0" retinaDisplay="0" fps="60" orientation="1" android_template="0" encryptAssets="0" windowHeight="0" touchToMouse="1" autorotation="0" iosDevice="0" windowWidth="0" win_org="DunnoGames" osx_org="GiderosMobile" win_domain="NoDomain.No" osx_domain="giderosmobile.com" encryptCode="0" assetsOnly="0" packageName="com.yourdomain.yourapp" mouseToTouch="1" logicalWidth="320" logicalHeight="480" mouseTouchOrder="0">
   <imageScales/>
  </properties>
+ <folder name="lib">
+  <file source="numberlua.lua"/>
+  <file source="deflate.lua"/>
+  <file source="png.lua"/>
+  <file source="30log.lua"/>
+  <file source="stream.lua"/>
+ </folder>
  <folder name="assets">
   <file source="assets/plane.png"/>
   <file source="assets/wall.png"/>
