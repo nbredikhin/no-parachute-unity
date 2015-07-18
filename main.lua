@@ -148,12 +148,15 @@ stage:addEventListener(Event.TOUCHES_MOVE,
 
 		local dy = (startY - e.touch.y) * mul
 		setCameraY(math.min(math.max(-worldSize / 2 + screenHeight / 2, getCameraY() + dy), worldSize / 2 - screenHeight / 2))
-
+	
+		world:setRotationX(-getCameraY() / 50)
+		world:setRotationY(getCameraX() / 50)
+		
 		startX = e.touch.x
 		startY = e.touch.y
 	end
 )
 
-require "lib/png"
+
 img = pngImage("assets/plane.png")
 print(img:getPixel(16, 16):format())
