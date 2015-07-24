@@ -11,11 +11,14 @@
 		<file source="assets/player2.png"/>
 	</folder>
 	<!-- source code -->
+	<file source="math.lua"/>
+
 	<file source="ScreenManager.lua"/>
 	<file source="Screen.lua"/>
 
 	<file source="Player.lua"/>
 	<file source="PlaneMesh.lua"/>
+	<file source="InputManager.lua"/>
 	<file source="FramerateCounter.lua"/>
 	<file source="Camera.lua"/>
 	<file source="World.lua"/>

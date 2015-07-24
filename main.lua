@@ -1,3 +1,4 @@
+require "math"
 local ScreenManager = require "ScreenManager"
 local GameScreen 	= require "GameScreen"
 
