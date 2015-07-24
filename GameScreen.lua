@@ -50,15 +50,15 @@ function GameScreen:update(dt)
 	self.player.inputX, self.player.inputY = self.input.valueX, self.input.valueY
 
 	-- Столкновение игрока с боковыми стенами
-	if self.player:getX() > self.world.size / 2 - self.player:getWidth() then
-		self.player:setX(self.world.size / 2 - self.player:getWidth())
-	elseif self.player:getX() < -(self.world.size / 2 - self.player:getWidth()) then
-		self.player:setX(-(self.world.size / 2 - self.player:getWidth()))
+	if self.player:getX() > self.world.size / 2 - self.player.size then
+		self.player:setX(self.world.size / 2 - self.player.size)
+	elseif self.player:getX() < -(self.world.size / 2 - self.player.size) then
+		self.player:setX(-(self.world.size / 2 - self.player.size))
 	end
-	if self.player:getY() > self.world.size / 2 - self.player:getHeight() then
-		self.player:setY(self.world.size / 2 - self.player:getHeight())
-	elseif self.player:getY() < -(self.world.size / 2 - self.player:getHeight()) then
-		self.player:setY(-(self.world.size / 2 - self.player:getHeight()))
+	if self.player:getY() > self.world.size / 2 - self.player.size then
+		self.player:setY(self.world.size / 2 - self.player.size)
+	elseif self.player:getY() < -(self.world.size / 2 - self.player.size) then
+		self.player:setY(-(self.world.size / 2 - self.player.size))
 	end
 
 	-- Ограничение движения камеры

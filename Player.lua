@@ -3,20 +3,20 @@ local PlaneMesh = require "PlaneMesh"
 local Player = Core.class(Sprite)
 
 function Player:init()
-	self.movementSpeed = 10
+	self.size = 50
+	self.movementSpeed = 400
 	self.textures = {}
 	self.textures[1] = Texture.new("assets/player1.png")
 	self.textures[2] = Texture.new("assets/player2.png")
 	self.currentFrame = 1
 	self.currentDelay = 0
 	self.animationDelay = 0.07
-
-	self.plane = PlaneMesh.new(self.textures[1], 100)
+	self.plane = PlaneMesh.new(self.textures[1], self.size * 2)
 	self:addChild(self.plane)
-
 	self:setColorTransform(0.2, 0.4, 1, 1)
-
 	self.inputX, self.inputY = 0, 0
+
+	self.sx, self.sy = 0, 0
 end
 
 function Player:updateAnimation()
@@ -36,10 +36,12 @@ function Player:update(dt)
 	end
 
 	-- Движение
-	self:setX(self:getX() + self.inputX * self.movementSpeed)
-	self:setY(self:getY() + self.inputY * self.movementSpeed)
+	self.sx = self.sx + (self.inputX - self.sx) * 0.2
+	self.sy = self.sy + (self.inputY - self.sy) * 0.2
+	self:setX(self:getX() + self.sx * self.movementSpeed * dt)
+	self:setY(self:getY() + self.sy * self.movementSpeed * dt)
 
-	self:setRotation(self.inputX * 30)
+	self:setRotation(self.sx * 30)
 end
 
 function Player:setInput(x, y)
