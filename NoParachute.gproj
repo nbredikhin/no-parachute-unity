@@ -7,11 +7,14 @@
 	<folder name="assets">
 		<file source="assets/plane.png"/>
 		<file source="assets/wall.png"/>
+		<file source="assets/player1.png"/>
+		<file source="assets/player2.png"/>
 	</folder>
 	<!-- source code -->
 	<file source="ScreenManager.lua"/>
 	<file source="Screen.lua"/>
 
+	<file source="Player.lua"/>
 	<file source="PlaneMesh.lua"/>
 	<file source="FramerateCounter.lua"/>
 	<file source="Camera.lua"/>

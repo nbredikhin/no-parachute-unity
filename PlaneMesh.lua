@@ -15,7 +15,9 @@ function PlaneMesh:init(texture, size, color)
 	self:setTextureCoordinate(3, 100, 100)
 	self:setTextureCoordinate(4, 100, 100)
 
-	self:setPlaneTexture(texture)
+	if texture then
+		self:setPlaneTexture(texture)
+	end
 	self:setPlaneColor(color)
 end
 

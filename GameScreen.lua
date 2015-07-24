@@ -1,7 +1,8 @@
+local FramerateCounter = require "FramerateCounter"
 local Screen = require "Screen"
 local World  = require "World"
 local Camera = require "Camera"
-local FramerateCounter = require "FramerateCounter"
+local Player = require "Player"
 
 local GameScreen = Core.class(Screen)
 
@@ -16,7 +17,12 @@ function GameScreen:load()
 	-- Камера
 	self.camera = Camera.new(self.world)
 	self.camera:setCenter(self.camera.width / 2, self.camera.height / 2, -self.world.depth / 2)
-	self.camera:setPosition(0, 0, self.camera.width)
+	self.camera:setPosition(0, 0, -self.camera.width)
+
+	-- Игрок
+	self.player = Player.new()
+	self.world:addChild(self.player)
+	self.player:setPosition(0, 0, self.world.depth/2 - 1200)
 
 	-- Счётчик фпс
 	self.framerateCounter = FramerateCounter.new(1)
@@ -24,12 +30,16 @@ function GameScreen:load()
 end
 
 function GameScreen:unload()
-	
+
 end
 
 function GameScreen:update(dt)
 	self.world:update(dt)
+	self.player:update(dt)
 	self.framerateCounter:update(dt)
+
+	-- Следование камеры за игроком
+	self.camera:setPosition(self.player:getX(), self.player:getY(), -self.camera.width)
 end
 
 return GameScreen
