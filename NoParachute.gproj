@@ -1,19 +1,22 @@
 <project>
- <properties architecture="2" scaleMode="0" retinaDisplay="0" fps="60" orientation="1" android_template="0" encryptAssets="0" windowHeight="0" touchToMouse="1" autorotation="0" iosDevice="0" windowWidth="0" win_org="DunnoGames" osx_org="GiderosMobile" win_domain="NoDomain.No" osx_domain="giderosmobile.com" encryptCode="0" assetsOnly="0" packageName="com.yourdomain.yourapp" mouseToTouch="1" logicalWidth="320" logicalHeight="480" mouseTouchOrder="0">
-  <imageScales/>
- </properties>
- <folder name="lib">
-  <file source="numberlua.lua"/>
-  <file source="deflate.lua"/>
-  <file source="png.lua"/>
-  <file source="30log.lua"/>
-  <file source="stream.lua"/>
- </folder>
- <folder name="assets">
-  <file source="assets/plane.png"/>
-  <file source="assets/wall.png"/>
- </folder>
- <file source="utils.lua"/>
- <file source="main.lua"/>
- <dependency from="main.lua" to="utils.lua"/>
+	<properties architecture="2" scaleMode="0" retinaDisplay="0" fps="60" orientation="1" android_template="0" encryptAssets="0" windowHeight="0" touchToMouse="1" autorotation="0" iosDevice="0" windowWidth="0" win_org="DunnoGames" osx_org="GiderosMobile" win_domain="NoDomain.No" osx_domain="giderosmobile.com" encryptCode="0" assetsOnly="0" packageName="com.yourdomain.yourapp" mouseToTouch="1" logicalWidth="320" logicalHeight="480" mouseTouchOrder="0">
+	<imageScales/>
+	</properties>
+
+	<!-- assets -->
+	<folder name="assets">
+		<file source="assets/plane.png"/>
+		<file source="assets/wall.png"/>
+	</folder>
+	<!-- source code -->
+	<file source="ScreenManager.lua"/>
+	<file source="Screen.lua"/>
+
+	<file source="PlaneMesh.lua"/>
+	<file source="FramerateCounter.lua"/>
+	<file source="Camera.lua"/>
+	<file source="World.lua"/>
+	<file source="GameScreen.lua"/>
+
+	<file source="main.lua"/>
 </project>
