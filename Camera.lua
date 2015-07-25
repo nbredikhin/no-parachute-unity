@@ -3,12 +3,7 @@ local Camera = Core.class()
 function Camera:init(container)
 	self.container = container
 
-	self.width = application:getDeviceWidth()
-	self.height = application:getDeviceHeight()
-
-	if string.find(application:getOrientation(), "landscape") then
-		self.width, self.height = self.height, self.width
-	end
+	self.width, self.height = utils.getScreenSize()
 
 	self.center = {
 		x = 0,

@@ -1,6 +1,5 @@
-local FramerateCounter 	= require "FramerateCounter"
 local InputManager 		= require "InputManager"
-local Screen 			= require "Screen"
+local Screen 			= require "screens/Screen"
 local World  			= require "World"
 local Camera 			= require "Camera"
 local Player 			= require "Player"
@@ -8,7 +7,6 @@ local Player 			= require "Player"
 local GameScreen = Core.class(Screen)
 
 function GameScreen:load()
-	application:configureFrustum(45, 10000)
 	application:setBackgroundColor(0)
 
 	-- Мир
@@ -25,10 +23,6 @@ function GameScreen:load()
 	self.world:addChild(self.player)
 	self.player:setPosition(32, -12, self.world.depth/2 - 1200)
 
-	-- Счётчик фпс
-	self.framerateCounter = FramerateCounter.new(1)
-	self:addChild(self.framerateCounter)
-
 	-- Ввод
 	self.input = InputManager.new()
 	self:addChild(self.input)
@@ -41,7 +35,6 @@ end
 function GameScreen:update(dt)
 	self.world:update(dt)
 	self.player:update(dt)
-	self.framerateCounter:update(dt)
 
 	-- Следование камеры за игроком
 	self.camera:setPosition(self.player:getX(), self.player:getY(), -self.camera.width)

@@ -1,7 +1,12 @@
+local FramerateCounter 	= require "FramerateCounter"
 local ScreenManager = Core.class(Sprite)
 
 function ScreenManager:init()
 	self.currentScreen = false
+
+	-- Счётчик фпс
+	self.framerateCounter = FramerateCounter.new(0.2)
+	self:addChild(self.framerateCounter)
 end
 
 function ScreenManager:loadScreen(screen)
@@ -11,8 +16,8 @@ function ScreenManager:loadScreen(screen)
 		self.currentScreen:unload()
 		self.currentScreen = false
 	end
-	application:configureFrustum(0, 100)
 	application:setBackgroundColor(0xFFFFFF)
+
 	-- Если нового экрана нет, ничего не делать
 	if not screen then
 		return false
@@ -26,6 +31,9 @@ function ScreenManager:loadScreen(screen)
 	self.currentScreen = screen
 	self.currentScreen:load()
 	self:addChild(self.currentScreen)
+
+	self:removeChild(self.framerateCounter)
+	self:addChild(self.framerateCounter)
 	return true
 end
 
@@ -33,6 +41,7 @@ function ScreenManager:update(deltaTime)
 	if self.currentScreen then
 		self.currentScreen:update(deltaTime)
 	end
+	self.framerateCounter:update(deltaTime)
 end
 
 function ScreenManager:getCurrentScreen()

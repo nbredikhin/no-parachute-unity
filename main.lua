@@ -1,9 +1,13 @@
+require "utils"
 require "math"
-local ScreenManager = require "ScreenManager"
-local GameScreen 	= require "GameScreen"
+local ScreenManager 	= require "screens/ScreenManager"
+local GameScreen 		= require "screens/GameScreen"
+local MainMenuScreen 	= require "screens/MainMenuScreen"
+
+application:configureFrustum(45, 10000)
 
 screenManager = ScreenManager.new()
-screenManager:loadScreen(GameScreen.new())
+screenManager:loadScreen(MainMenuScreen.new())
 stage:addChild(screenManager)
 
 local function updateGame(e)

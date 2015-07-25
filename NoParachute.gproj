@@ -5,24 +5,36 @@
 
 	<!-- assets -->
 	<folder name="assets">
+		<file source="assets/logo.png"/>
 		<file source="assets/plane.png"/>
 		<file source="assets/wall.png"/>
 		<file source="assets/player1.png"/>
 		<file source="assets/player2.png"/>
 	</folder>
 	<!-- source code -->
+	<file source="utils.lua"/>
 	<file source="math.lua"/>
 
-	<file source="ScreenManager.lua"/>
-	<file source="Screen.lua"/>
+	<folder name="ui">
+		<folder name="menu">
+			<file source="ui/menu/MenuButton.lua"/>
+			<file source="ui/menu/MenuRectangle.lua"/>
+			<file source="ui/menu/MenuBackground.lua"/>
+		</folder>
+	</folder>
 
+	<folder name="screens">
+		<file source="screens/ScreenManager.lua"/>
+		<file source="screens/Screen.lua"/>
+		<file source="screens/MainMenuScreen.lua"/>
+		<file source="screens/GameScreen.lua"/>
+	</folder>
 	<file source="Player.lua"/>
 	<file source="PlaneMesh.lua"/>
 	<file source="InputManager.lua"/>
 	<file source="FramerateCounter.lua"/>
 	<file source="Camera.lua"/>
 	<file source="World.lua"/>
-	<file source="GameScreen.lua"/>
 
 	<file source="main.lua"/>
 </project>

@@ -40,6 +40,7 @@ function World:update(dt)
 		
 		if plane:getZ() > self.depth / 2 then
 			plane:setZ(plane:getZ() - self.depth)
+			plane:setRotation(math.random(1, 4) * 90)
 		end
 		
 		local mul = (plane:getZ() + self.depth / 2) / self.depth
