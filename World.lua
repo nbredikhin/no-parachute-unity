@@ -74,6 +74,16 @@ function World:updatePlane(plane, dt)
 	plane:setColorTransform(mul, mul, mul, 1)
 end
 
+function World:respawn()
+	for i, plane in ipairs(self.planes) do
+		plane:setZ(plane:getZ() + 800)
+		self:updatePlane(plane, 0)
+	end
+
+	self.player:respawn()
+	self.fallingSpeed = defaultFallingSpeed
+end
+
 function World:update(dt)
 	for i, plane in ipairs(self.decorativePlanes) do
 		self:updatePlane(plane, dt)
@@ -88,14 +98,17 @@ function World:update(dt)
 		end
 
 		-- Проверка столкновений
-		if plane:getZ() > self.player:getZ() - self.fallingSpeed * dt and plane:getZ() < self.player:getZ() + self.fallingSpeed * dt then
-			local x = math.floor((self.player:getX() + self.size / 2) / self.size * textureSize)
-			local y = math.floor((self.player:getY() + self.size / 2) / self.size * textureSize)
-			local pixel = self.planePNG:getPixel(x, y)
-			if pixel.A > 0 then
-				plane:setZ(self.player:getZ() - 1)
-				self.player:die()
-				self.fallingSpeed = 0
+		if self.player.isAlive then
+			local checkZ = self.player:getZ() + self.player.size * 8.5
+			if plane:getZ() >= checkZ - self.fallingSpeed * dt * 1.1 and plane:getZ() < checkZ then
+				local x = math.floor((self.player:getX() + self.size / 2) / self.size * textureSize)
+				local y = math.floor((self.player:getY() + self.size / 2) / self.size * textureSize)
+				local pixel = self.planePNG:getPixel(x, y)
+				if pixel.A > 0 then
+					--plane:setZ(self.player:getZ() + self.player.size * 8.5)
+					self.player:die()
+					self.fallingSpeed = 0
+				end
 			end
 		end
 	end

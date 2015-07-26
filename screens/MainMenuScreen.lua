@@ -1,7 +1,6 @@
 local MenuRectangle = require "ui/menu/MenuRectangle"
 local MenuButton	= require "ui/menu/MenuButton"
 local Screen 		= require "screens/Screen"
-local GameScreen 	= require "screens/GameScreen"
 
 local MainMenuScreen = Core.class(Screen)
 
@@ -78,7 +77,7 @@ end
 
 function MainMenuScreen:buttonClick(e)
 	if e:getTarget() == self.startButton then
-		screenManager:loadScreen(GameScreen.new())
+		screenManager:loadScreen(screenManager.screens.GameScreen.new())
 	end
 end
 

@@ -36,7 +36,7 @@ function Player:update(dt)
 			self.currentDelay = 0
 			self:updateAnimation() 
 		end
-		
+
 		-- Движение
 		self.sx = self.sx + (self.inputX - self.sx) * 0.2
 		self.sy = self.sy + (self.inputY - self.sy) * 0.2
@@ -59,6 +59,11 @@ function Player:die()
 	self.sy = 0
 	self.isAlive = false
 	self.inputX, self.inputY = 0, 0
+end
+
+function Player:respawn()
+	self.isAlive = true
+	self:setPosition(0, 0)
 end
 
 return Player

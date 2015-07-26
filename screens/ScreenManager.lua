@@ -1,4 +1,7 @@
 local FramerateCounter 	= require "FramerateCounter"
+local GameScreen 		= require "screens/GameScreen"
+local MainMenuScreen 	= require "screens/MainMenuScreen"
+
 local ScreenManager = Core.class(Sprite)
 
 function ScreenManager:init()
@@ -7,6 +10,11 @@ function ScreenManager:init()
 	-- Счётчик фпс
 	self.framerateCounter = FramerateCounter.new(0.2)
 	self:addChild(self.framerateCounter)
+
+	self.screens = {
+		GameScreen = GameScreen,
+		MainMenuScreen = MainMenuScreen
+	}
 end
 
 function ScreenManager:loadScreen(screen)
