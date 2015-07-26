@@ -17,6 +17,7 @@ function Player:init()
 	self.inputX, self.inputY = 0, 0
 
 	self.sx, self.sy = 0, 0
+	self.isAlive = true
 end
 
 function Player:updateAnimation()
@@ -28,24 +29,36 @@ function Player:updateAnimation()
 end
 
 function Player:update(dt)
-	-- Анимация
-	self.currentDelay = self.currentDelay + dt
-	if self.currentDelay >= self.animationDelay then
-		self.currentDelay = 0
-		self:updateAnimation() 
+	if self.isAlive then
+		-- Анимация
+		self.currentDelay = self.currentDelay + dt
+		if self.currentDelay >= self.animationDelay then
+			self.currentDelay = 0
+			self:updateAnimation() 
+		end
+		
+		-- Движение
+		self.sx = self.sx + (self.inputX - self.sx) * 0.2
+		self.sy = self.sy + (self.inputY - self.sy) * 0.2
+
+		self:setX(self:getX() + self.sx * self.movementSpeed * dt)
+		self:setY(self:getY() + self.sy * self.movementSpeed * dt)
+
+		self:setRotation(self.sx * 30)
 	end
-
-	-- Движение
-	self.sx = self.sx + (self.inputX - self.sx) * 0.2
-	self.sy = self.sy + (self.inputY - self.sy) * 0.2
-	self:setX(self:getX() + self.sx * self.movementSpeed * dt)
-	self:setY(self:getY() + self.sy * self.movementSpeed * dt)
-
-	self:setRotation(self.sx * 30)
 end
 
 function Player:setInput(x, y)
-	self.inputX, self.inputY = x, getY()
+	if self.isAlive then
+		self.inputX, self.inputY = x, getY()
+	end
+end
+
+function Player:die()
+	self.sx = 0
+	self.sy = 0
+	self.isAlive = false
+	self.inputX, self.inputY = 0, 0
 end
 
 return Player

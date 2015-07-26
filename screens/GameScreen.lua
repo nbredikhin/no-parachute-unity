@@ -9,19 +9,17 @@ local GameScreen = Core.class(Screen)
 function GameScreen:load()
 	application:setBackgroundColor(0)
 
+	-- Игрок
+	self.player = Player.new()
+
 	-- Мир
-	self.world = World.new()
+	self.world = World.new(self.player)
 	self:addChild(self.world)
 
 	-- Камера
 	self.camera = Camera.new(self.world)
 	self.camera:setCenter(self.camera.width / 2, self.camera.height / 2, -self.world.depth / 2)
 	self.camera:setPosition(0, 0, -self.camera.width)
-
-	-- Игрок
-	self.player = Player.new()
-	self.world:addChild(self.player)
-	self.player:setPosition(32, -12, self.world.depth/2 - 1200)
 
 	-- Ввод
 	self.input = InputManager.new()

@@ -6,12 +6,21 @@
 	<!-- assets -->
 	<folder name="assets">
 		<file source="assets/logo.png"/>
-		<file source="assets/plane.png"/>
+		<file source="assets/plane1.png"/>
+		<file source="assets/plane2.png"/>
 		<file source="assets/wall.png"/>
 		<file source="assets/player1.png"/>
 		<file source="assets/player2.png"/>
 	</folder>
 	<!-- source code -->
+	<folder name="lib">
+		<file source="lib/30log.lua"/>
+		<file source="lib/deflate.lua"/>
+		<file source="lib/numberlua.lua"/>
+		<file source="lib/png.lua"/>
+		<file source="lib/stream.lua"/>
+	</folder>
+
 	<file source="utils.lua"/>
 	<file source="math.lua"/>
 

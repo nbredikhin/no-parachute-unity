@@ -5,7 +5,8 @@ local GameScreen 	= require "screens/GameScreen"
 
 local MainMenuScreen = Core.class(Screen)
 
-local backgroundRectSize = 7
+local backgroundRectsCount = 100
+local backgroundRectSize = 0
 local flyingRectSize = 10
 local flyingRectsCount = 10
 local flyingRectsSpeed = 2000
@@ -14,6 +15,7 @@ function MainMenuScreen:load()
 	application:setBackgroundColor(0)
 
 	-- Фон
+	backgroundRectSize = utils.screenWidth / backgroundRectsCount
 	self.backgroundRects = {}
 	local rectsCount = math.floor(utils.screenWidth / backgroundRectSize) + 1
 	for i = 1, rectsCount do
