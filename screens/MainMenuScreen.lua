@@ -39,7 +39,7 @@ function MainMenuScreen:load()
 	-- Логотип игры
 	local logoTexture = Texture.new("assets/logo.png")
 	self.logo = Bitmap.new(logoTexture)
-	local logoScale =  (utils.screenWidth / 1.2) / logoTexture:getWidth()
+	local logoScale = (utils.screenWidth / 1.2) / logoTexture:getWidth()
 	self.logo:setScale(logoScale, logoScale)
 	self:addChild(self.logo)
 	self.logoY = 10
@@ -60,6 +60,9 @@ function MainMenuScreen:load()
 	self.aboutButton:setPosition(buttonsX, buttonsY)
 	self:addChild(self.aboutButton)	
 	self.aboutButton:addEventListener(MenuButton.CLICK, self.buttonClick, self)
+
+	-- Нажатие кнопки
+	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
 end
 
 function MainMenuScreen:updateFlyingRect(rect)
@@ -94,6 +97,12 @@ function MainMenuScreen:update(dt)
 	end
 
 	self.logo:setY(self.logoY + math.sin(os.timer() * 2.5) * self.logoY)
+end
+
+function MainMenuScreen:onKey(e)
+	if e.keyCode == KeyCode.BACK or e.keyCode == 8 then
+		application:exit()
+	end
 end
 
 return MainMenuScreen

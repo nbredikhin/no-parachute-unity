@@ -3,8 +3,8 @@ local PlaneMesh = require "PlaneMesh"
 local Player = Core.class(Sprite)
 
 function Player:init()
-	self.size = 50
-	self.movementSpeed = 400
+	self.size = 150
+	self.movementSpeed = 1200
 	self.textures = {}
 	self.textures[1] = Texture.new("assets/player1.png")
 	self.textures[2] = Texture.new("assets/player2.png")
@@ -38,8 +38,8 @@ function Player:update(dt)
 		end
 
 		-- Движение
-		self.sx = self.sx + (self.inputX - self.sx) * 0.2
-		self.sy = self.sy + (self.inputY - self.sy) * 0.2
+		self.sx = self.sx + (self.inputX - self.sx) * 10 * dt
+		self.sy = self.sy + (self.inputY - self.sy) * 10 * dt
 
 		self:setX(self:getX() + self.sx * self.movementSpeed * dt)
 		self:setY(self:getY() + self.sy * self.movementSpeed * dt)

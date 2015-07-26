@@ -3,8 +3,10 @@ local PlaneMesh = require "PlaneMesh"
 
 local World = Core.class(Sprite)
 
-local defaultWorldSize = 1000
-local defaultFallingSpeed = 3000
+local testScale = 3
+
+local defaultWorldSize = 1000 * testScale
+local defaultFallingSpeed = 3000 * testScale
 local defaultDecorativePlanesCount = 30
 local defaultPlanesCount = 2
 
@@ -16,12 +18,13 @@ function World:init(player)
 	-- Размеры мира
 	self.size = defaultWorldSize
 	self.depth = self.size * 10
+
 	self.fallingSpeed = defaultFallingSpeed
 
 	-- Игрок
 	self.player = player
 	self:addChild(self.player)
-	self.player:setPosition(32, -12, self.depth/2 - 1200)
+	self.player:setPosition(32, -12, self.depth/2 - 3600)
 
 	-- Боковые стены
 	self.walls = Sprite.new()
@@ -76,7 +79,7 @@ end
 
 function World:respawn()
 	for i, plane in ipairs(self.planes) do
-		plane:setZ(plane:getZ() + 800)
+		plane:setZ(plane:getZ() + 3200)
 		self:updatePlane(plane, 0)
 	end
 
@@ -99,7 +102,7 @@ function World:update(dt)
 
 		-- Проверка столкновений
 		if self.player.isAlive then
-			local checkZ = self.player:getZ() + self.player.size * 8.5
+			local checkZ = self.player:getZ()	
 			if plane:getZ() >= checkZ - self.fallingSpeed * dt * 1.1 and plane:getZ() < checkZ then
 				local x = math.floor((self.player:getX() + self.size / 2) / self.size * textureSize)
 				local y = math.floor((self.player:getY() + self.size / 2) / self.size * textureSize)

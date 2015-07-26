@@ -25,7 +25,6 @@ function GameScreen:load()
 	-- Камера
 	self.camera = Camera.new(self.world)
 	self.camera:setCenter(self.camera.width / 2, self.camera.height / 2, -self.world.depth / 2)
-	self.camera:setPosition(0, 0, -self.camera.width)
 
 	-- Ввод
 	self.input = InputManager.new()
@@ -52,7 +51,7 @@ function GameScreen:update(dt)
 	end
 	local rotX = math.cos(os.timer() * cameraRotationSpeed) * cameraRotationRadius
 	local rotY = math.sin(os.timer() * cameraRotationSpeed) * cameraRotationRadius
- 	self.camera:setPosition(self.player:getX() + rotX, self.player:getY() + rotY, -self.camera.width)
+ 	self.camera:setPosition(self.player:getX() + rotX, self.player:getY() + rotY, -800)
 
 	-- Управление игроком
 	self.player.inputX, self.player.inputY = self.input.valueX, self.input.valueY

@@ -7,15 +7,12 @@ local defaultColorHover 	= 0x7B2AEA
 
 local maxShake = 30
 
-function MenuButton:init(textSize, colorNormal, colorHover)
-	if not textSize then textSize = defaultTextSize end
-	if not colorNormal then colorNormal = defaultColorNormal end
-	if not colorHover then colorHover = defaultColorHover end
-
-	self.colorNormal = colorNormal
-	self.colorHover = colorHover
+function MenuButton:init()
+	self.colorNormal = defaultColorNormal
+	self.colorHover = defaultColorHover
 
 	self:setTextColor(self.colorNormal)
+	local textSize = math.min(defaultTextSize, math.max(1, math.floor(defaultTextSize * utils.screenHeight / 500)))
 	self:setScale(textSize, textSize)
 
 	self.shake = 0
