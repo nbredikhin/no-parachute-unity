@@ -1,6 +1,6 @@
 require "utils"
 require "math"
-local ScreenManager 	= require "screens/ScreenManager"
+local ScreenManager = require "screens/ScreenManager"
 
 application:configureFrustum(45, 60000)
 

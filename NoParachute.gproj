@@ -28,7 +28,6 @@
 		<folder name="menu">
 			<file source="ui/menu/MenuButton.lua"/>
 			<file source="ui/menu/MenuRectangle.lua"/>
-			<file source="ui/menu/MenuBackground.lua"/>
 		</folder>
 	</folder>
 
