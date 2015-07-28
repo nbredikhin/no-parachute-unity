@@ -7,7 +7,14 @@
 	<folder name="assets">
 		<file source="assets/logo.png"/>
 		<file source="assets/plane1.png"/>
+
 		<file source="assets/plane2.png"/>
+		<file source="assets/plane3.png"/>
+		<file source="assets/plane4.png"/>
+		<file source="assets/plane5.png"/>
+		<file source="assets/plane6.png"/>
+		<file source="assets/plane7.png"/>
+		
 		<file source="assets/planeTest.png"/>
 		<file source="assets/wall.png"/>
 		<file source="assets/player1.png"/>

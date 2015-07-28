@@ -2,7 +2,7 @@ local InputManager = Core.class(Sprite)
 
 function InputManager:init()
 	self.valueX, self.valueY = 0, 0
-	self.maxTouchValue = 30
+	self.maxTouchValue = 50
 	self.startX, self.startY = 0, 0
 
 	-- Ввод тачем

@@ -50,7 +50,10 @@ function World:init(player)
 	-- Передние стены
 	self.planesCount = defaultPlanesCount
 	self.planes = {}
-	self.planeTextures = {TexturePNG.new("assets/plane1.png"), TexturePNG.new("assets/plane2.png")}
+	self.planeTextures = {}
+	for i = 1, 7 do
+		self.planeTextures[i] = TexturePNG.new("assets/plane" .. tostring(i) ..".png")
+	end
 	for i = 1, self.planesCount do
 		local texture = self.planeTextures[math.random(1, #self.planeTextures)]
 		local plane = Plane.new(texture, self.size)
