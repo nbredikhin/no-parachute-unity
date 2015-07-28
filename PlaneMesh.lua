@@ -7,6 +7,9 @@ function PlaneMesh:init(texture, size, color)
 	if not color then
 		color = 0xFFFFFF
 	end
+
+	self.size = size
+
 	local s = size / 2
 	self:setVertexArray(-s,-s,-s, -s,s,-s, s,s,-s, s,-s,-s)
 	self:setIndices(1,1,2,2,3,3,4,1,5,3,6,4)
@@ -35,6 +38,8 @@ function PlaneMesh:setPlaneTexture(texture)
 	self:setTextureCoordinate(3, textureWidth, textureWidth)
 	self:setTextureCoordinate(4, textureWidth, 0)
 	self:setTexture(texture)
+	self.texture = texture
+	return true
 end
 
 return PlaneMesh

@@ -4,6 +4,8 @@ function FramerateCounter:init(refreshRate)
 	if not refreshRate then
 		refreshRate = 0.5
 	end
+	assert(type(refreshRate) == "number", "refreshRate: number expected, but got \"" .. type(refreshRate) .. "\".")
+
 	self.text = "FPS: "
 
 	self.textField = TextField.new(nil, self.text .. "0")

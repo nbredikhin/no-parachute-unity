@@ -8,6 +8,7 @@
 		<file source="assets/logo.png"/>
 		<file source="assets/plane1.png"/>
 		<file source="assets/plane2.png"/>
+		<file source="assets/planeTest.png"/>
 		<file source="assets/wall.png"/>
 		<file source="assets/player1.png"/>
 		<file source="assets/player2.png"/>
@@ -23,7 +24,7 @@
 
 	<file source="utils.lua"/>
 	<file source="math.lua"/>
-
+	<file source="TexturePNG.lua"/>
 	<folder name="ui">
 		<folder name="menu">
 			<file source="ui/menu/MenuButton.lua"/>
@@ -39,6 +40,7 @@
 	</folder>
 	<file source="Player.lua"/>
 	<file source="PlaneMesh.lua"/>
+	<file source="Plane.lua"/>
 	<file source="InputManager.lua"/>
 	<file source="FramerateCounter.lua"/>
 	<file source="Camera.lua"/>

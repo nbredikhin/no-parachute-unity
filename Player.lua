@@ -4,7 +4,7 @@ local Player = Core.class(Sprite)
 
 function Player:init()
 	self.size = 150
-	self.movementSpeed = 1200
+	self.movementSpeed = 1500
 	self.textures = {}
 	self.textures[1] = Texture.new("assets/player1.png")
 	self.textures[2] = Texture.new("assets/player2.png")

@@ -1,16 +1,13 @@
-require "lib/png"
-local PlaneMesh = require "PlaneMesh"
+local PlaneMesh 	= require "PlaneMesh"
+local Plane 		= require "Plane"
+local TexturePNG 	= require "TexturePNG"
 
 local World = Core.class(Sprite)
 
-local testScale = 3
-
-local defaultWorldSize = 1000 * testScale
-local defaultFallingSpeed = 3000 * testScale
+local defaultWorldSize = 3000
+local defaultFallingSpeed = 9000
 local defaultDecorativePlanesCount = 30
 local defaultPlanesCount = 2
-
-local textureSize = 64
 
 local wallsColors = { 0xBBBBBB, 0x999999, 0xBBBBBB, 0xDDDDDD }
 
@@ -24,7 +21,7 @@ function World:init(player)
 	-- Игрок
 	self.player = player
 	self:addChild(self.player)
-	self.player:setPosition(32, -12, self.depth/2 - 3600)
+	self.player:setPosition(0, 0, self.depth/2 - 3600)
 
 	-- Боковые стены
 	self.walls = Sprite.new()
@@ -53,28 +50,30 @@ function World:init(player)
 	-- Передние стены
 	self.planesCount = defaultPlanesCount
 	self.planes = {}
+	self.planeTextures = {TexturePNG.new("assets/plane1.png"), TexturePNG.new("assets/plane2.png")}
 	for i = 1, self.planesCount do
-		local texture = Texture.new("assets/plane2.png")
-		local plane = PlaneMesh.new(texture, self.size)
+		local texture = self.planeTextures[math.random(1, #self.planeTextures)]
+		local plane = Plane.new(texture, self.size)
 		plane:setPosition(0, 0, -i * self.depth / self.planesCount + 10)
-		--plane:setRotation(math.random(1, 4) * 90)
+		plane:setRotation(math.random(1, 4) * 90)
 		self:addChild(plane)	
 		self.planes[i] = plane
 	end
-
-	self.planePNG = pngImage("assets/plane2.png")
 end
 
 function World:updatePlane(plane, dt)
+	local wasMovedToBottom = false
 	plane:setZ(plane:getZ() + self.fallingSpeed * dt)
 	
 	if plane:getZ() > self.depth / 2 then
 		plane:setZ(plane:getZ() - self.depth)
-		--plane:setRotation(math.random(1, 4) * 90)
+		plane:setRotation(math.random(1, 4) * 90)
+		wasMovedToBottom = true
 	end
 	
 	local mul = math.clamp((plane:getZ() + self.depth / 2) / self.depth, 0, 1)
 	plane:setColorTransform(mul, mul, mul, 1)
+	return wasMovedToBottom
 end
 
 function World:respawn()
@@ -93,7 +92,10 @@ function World:update(dt)
 	end
 
 	for i, plane in ipairs(self.planes) do
-		self:updatePlane(plane, dt)
+		if self:updatePlane(plane, dt) then
+			-- Обновление текстуры
+			plane:setPlaneTexture(self.planeTextures[math.random(1, #self.planeTextures)])
+		end
 		if plane:getZ() > self.depth / 2 - 800 then
 			local alpha = 1 - (plane:getZ() - self.depth / 2) / 800
 			local r, g, b = plane:getColorTransform()
@@ -104,10 +106,7 @@ function World:update(dt)
 		if self.player.isAlive then
 			local checkZ = self.player:getZ()	
 			if plane:getZ() >= checkZ - self.fallingSpeed * dt * 1.1 and plane:getZ() < checkZ then
-				local x = math.floor((self.player:getX() + self.size / 2) / self.size * textureSize)
-				local y = math.floor((self.player:getY() + self.size / 2) / self.size * textureSize)
-				local pixel = self.planePNG:getPixel(x, y)
-				if pixel.A > 0 then
+				if plane:hitTestPoint(self.player:getX(), self.player:getY())then
 					--plane:setZ(self.player:getZ() + self.player.size * 8.5)
 					self.player:die()
 					self.fallingSpeed = 0

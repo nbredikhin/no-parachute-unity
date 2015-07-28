@@ -8,7 +8,7 @@ function ScreenManager:init()
 	self.currentScreen = false
 
 	-- Счётчик фпс
-	self.framerateCounter = FramerateCounter.new(0.2)
+	self.framerateCounter = FramerateCounter.new(0.4)
 	self:addChild(self.framerateCounter)
 
 	self.screens = {
