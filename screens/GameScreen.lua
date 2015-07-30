@@ -32,15 +32,23 @@ function GameScreen:load()
 
 	self:addEventListener(Event.TOUCHES_BEGIN, self.onTouch, self)
 	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
+
+	-- Избежать обновления игры, пока происходит загрузка уровня
+	self.skipUpdate = true
 end
 
 function GameScreen:unload()
-
+	self:removeEventListener(Event.TOUCHES_BEGIN, self.onTouch, self)
+	stage:removeEventListener(Event.KEY_DOWN, self.onKey, self)
 end
 
 function GameScreen:update(dt)
-	self.world:update(dt)
+	if self.skipUpdate then
+		self.skipUpdate = false
+		return
+	end
 	self.player:update(dt)
+	self.world:update(dt)
 
 	-- Следование камеры за игроком
 	local cameraRotationRadius = cameraRotationRadiusAlive

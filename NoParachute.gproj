@@ -1,57 +1,43 @@
 <project>
-	<properties architecture="2" scaleMode="0" retinaDisplay="0" fps="60" orientation="1" android_template="0" encryptAssets="0" windowHeight="0" touchToMouse="1" autorotation="0" iosDevice="0" windowWidth="0" win_org="DunnoGames" osx_org="GiderosMobile" win_domain="NoDomain.No" osx_domain="giderosmobile.com" encryptCode="0" assetsOnly="0" packageName="com.yourdomain.yourapp" mouseToTouch="1" logicalWidth="320" logicalHeight="480" mouseTouchOrder="0">
-	<imageScales/>
-	</properties>
-
-	<!-- assets -->
-	<folder name="assets">
-		<file source="assets/logo.png"/>
-		<file source="assets/plane1.png"/>
-
-		<file source="assets/plane2.png"/>
-		<file source="assets/plane3.png"/>
-		<file source="assets/plane4.png"/>
-		<file source="assets/plane5.png"/>
-		<file source="assets/plane6.png"/>
-		<file source="assets/plane7.png"/>
-		
-		<file source="assets/planeTest.png"/>
-		<file source="assets/wall.png"/>
-		<file source="assets/player1.png"/>
-		<file source="assets/player2.png"/>
-	</folder>
-	<!-- source code -->
-	<folder name="lib">
-		<file source="lib/30log.lua"/>
-		<file source="lib/deflate.lua"/>
-		<file source="lib/numberlua.lua"/>
-		<file source="lib/png.lua"/>
-		<file source="lib/stream.lua"/>
-	</folder>
-
-	<file source="utils.lua"/>
-	<file source="math.lua"/>
-	<file source="TexturePNG.lua"/>
-	<folder name="ui">
-		<folder name="menu">
-			<file source="ui/menu/MenuButton.lua"/>
-			<file source="ui/menu/MenuRectangle.lua"/>
-		</folder>
-	</folder>
-
-	<folder name="screens">
-		<file source="screens/ScreenManager.lua"/>
-		<file source="screens/Screen.lua"/>
-		<file source="screens/MainMenuScreen.lua"/>
-		<file source="screens/GameScreen.lua"/>
-	</folder>
-	<file source="Player.lua"/>
-	<file source="PlaneMesh.lua"/>
-	<file source="Plane.lua"/>
-	<file source="InputManager.lua"/>
-	<file source="FramerateCounter.lua"/>
-	<file source="Camera.lua"/>
-	<file source="World.lua"/>
-
-	<file source="main.lua"/>
+ <properties retinaDisplay="0" windowWidth="0" logicalHeight="480" android_template="1" logicalWidth="320" packageName="com.wherry.noparachute" architecture="4" touchToMouse="1" osx_org="GiderosMobile" osx_domain="giderosmobile.com" windowHeight="0" assetsOnly="0" scaleMode="0" fps="60" mouseToTouch="1" encryptAssets="1" iosDevice="0" autorotation="0" win_org="DunnoGames" encryptCode="1" mouseTouchOrder="0" win_domain="NoDomain.No" orientation="1">
+  <imageScales/>
+ </properties>
+ <folder name="assets">
+  <file source="assets/logo.png"/>
+  <file source="assets/plane1.png"/>
+  <file source="assets/plane2.png"/>
+  <file source="assets/plane3.png"/>
+  <file source="assets/plane3.png.msk"/>
+  <file source="assets/plane4.png"/>
+  <file source="assets/plane5.png"/>
+  <file source="assets/plane6.png"/>
+  <file source="assets/plane7.png"/>
+  <file source="assets/planeTest.png"/>
+  <file source="assets/wall.png"/>
+  <file source="assets/player1.png"/>
+  <file source="assets/player2.png"/>
+ </folder>
+ <file source="utils.lua"/>
+ <file source="math.lua"/>
+ <file source="TexturePNG.lua"/>
+ <folder name="ui">
+  <folder name="menu">
+   <file source="ui/menu/MenuButton.lua"/>
+   <file source="ui/menu/MenuRectangle.lua"/>
+  </folder>
+ </folder>
+ <folder name="screens">
+  <file source="screens/ScreenManager.lua"/>
+  <file source="screens/Screen.lua"/>
+  <file source="screens/MainMenuScreen.lua"/>
+  <file source="screens/GameScreen.lua"/>
+ </folder>
+ <file source="Player.lua"/>
+ <file source="PlaneMesh.lua"/>
+ <file source="Plane.lua"/>
+ <file source="InputManager.lua"/>
+ <file source="FramerateCounter.lua"/>
+ <file source="Camera.lua"/>
+ <file source="World.lua"/>
+ <file source="main.lua"/>
 </project>

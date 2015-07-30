@@ -14,7 +14,7 @@ function Plane:getTexturePosition(x, y)
 end
 
 function Plane:hitTestPoint(x, y)
-	assert(self.texture.pngData, "Texture must be TexturePNG to use hitTestPoint method")
+	assert(self.texture.pixels, "Texture must be TexturePNG to use hitTestPoint method")
 	x, y = self:getTexturePosition(x, y)
 	x = math.floor((x + self.size / 2) / self.size * self.texture.width)
 	y = math.floor((y + self.size / 2) / self.size * self.texture.height)

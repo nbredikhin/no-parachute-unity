@@ -65,6 +65,10 @@ function MainMenuScreen:load()
 	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
 end
 
+function MainMenuScreen:unload()
+	stage:removeEventListener(Event.KEY_DOWN, self.onKey, self)
+end
+
 function MainMenuScreen:updateFlyingRect(rect)
 	-- Случайные координат
 	rect:setPosition(math.random(10, utils.screenWidth), -50)
@@ -85,6 +89,11 @@ function MainMenuScreen:buttonClick(e)
 end
 
 function MainMenuScreen:update(dt)
+	if not self.skippedFrame then
+		self.skippedFrame = true
+		return
+	end
+
 	for _, rect in ipairs(self.backgroundRects) do
 		rect:changeColor()
 	end

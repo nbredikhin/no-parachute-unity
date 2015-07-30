@@ -50,15 +50,15 @@ function World:init(player)
 	-- Передние стены
 	self.planesCount = defaultPlanesCount
 	self.planes = {}
-	self.planeTextures = {}
-	for i = 1, 7 do
+	self.planeTextures = {TexturePNG.new("assets/plane3.png")}
+	--[[for i = 1, 7 do
 		self.planeTextures[i] = TexturePNG.new("assets/plane" .. tostring(i) ..".png")
-	end
+	end]]
 	for i = 1, self.planesCount do
 		local texture = self.planeTextures[math.random(1, #self.planeTextures)]
 		local plane = Plane.new(texture, self.size)
 		plane:setPosition(0, 0, -i * self.depth / self.planesCount + 10)
-		plane:setRotation(math.random(1, 4) * 90)
+		--plane:setRotation(math.random(1, 4) * 90)
 		self:addChild(plane)	
 		self.planes[i] = plane
 	end
@@ -70,7 +70,7 @@ function World:updatePlane(plane, dt)
 	
 	if plane:getZ() > self.depth / 2 then
 		plane:setZ(plane:getZ() - self.depth)
-		plane:setRotation(math.random(1, 4) * 90)
+		--plane:setRotation(math.random(1, 4) * 90)
 		wasMovedToBottom = true
 	end
 	
@@ -107,10 +107,9 @@ function World:update(dt)
 
 		-- Проверка столкновений
 		if self.player.isAlive then
-			local checkZ = self.player:getZ()	
-			if plane:getZ() >= checkZ - self.fallingSpeed * dt * 1.1 and plane:getZ() < checkZ then
-				if plane:hitTestPoint(self.player:getX(), self.player:getY())then
-					--plane:setZ(self.player:getZ() + self.player.size * 8.5)
+			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt  * 2 and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt  * 2 then
+				if plane:hitTestPoint(self.player:getX(), self.player:getY()) then
+					plane:setZ(self.player:getZ() + self.player.size * 8.5)
 					self.player:die()
 					self.fallingSpeed = 0
 				end
