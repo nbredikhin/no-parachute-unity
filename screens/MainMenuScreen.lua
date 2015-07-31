@@ -33,7 +33,7 @@ function MainMenuScreen:load()
 		self:updateFlyingRect(rect)
 		rect:setPosition(math.random(10, utils.screenWidth), math.random(0, utils.screenHeight))
 		self:addChild(rect)
-		self.flyingRects[i] = rect	
+		self.flyingRects[i] = rect
 	end
 
 	-- Логотип игры
@@ -58,7 +58,7 @@ function MainMenuScreen:load()
 	self.aboutButton = MenuButton.new()
 	self.aboutButton:setText("Credits")
 	self.aboutButton:setPosition(buttonsX, buttonsY)
-	self:addChild(self.aboutButton)	
+	self:addChild(self.aboutButton)
 	self.aboutButton:addEventListener(MenuButton.CLICK, self.buttonClick, self)
 
 	-- Нажатие кнопки

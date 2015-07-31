@@ -30,10 +30,10 @@ function World:init(player)
 		local wall = PlaneMesh.new(wallTexture, self.size, wallsColors[i])
 		wall:setRotationX(90)
 		wall:setRotationY(90 * (i - 1))
-		self.walls:addChild(wall)	
+		self.walls:addChild(wall)
 	end
-	self.walls:setScaleZ(self.depth / self.size)	
-	self:addChild(self.walls)	
+	self.walls:setScaleZ(self.depth / self.size)
+	self:addChild(self.walls)
 
 	-- Передние декоративные стены
 	self.decorativePlanesCount = defaultDecorativePlanesCount
@@ -59,7 +59,7 @@ function World:init(player)
 		local plane = Plane.new(texture, self.size)
 		plane:setPosition(0, 0, -i * self.depth / self.planesCount + 10)
 		--plane:setRotation(math.random(1, 4) * 90)
-		self:addChild(plane)	
+		self:addChild(plane)
 		self.planes[i] = plane
 	end
 end
@@ -67,13 +67,13 @@ end
 function World:updatePlane(plane, dt)
 	local wasMovedToBottom = false
 	plane:setZ(plane:getZ() + self.fallingSpeed * dt)
-	
+
 	if plane:getZ() > self.depth / 2 then
 		plane:setZ(plane:getZ() - self.depth)
 		--plane:setRotation(math.random(1, 4) * 90)
 		wasMovedToBottom = true
 	end
-	
+
 	local mul = math.clamp((plane:getZ() + self.depth / 2) / self.depth, 0, 1)
 	plane:setColorTransform(mul, mul, mul, 1)
 	return wasMovedToBottom
@@ -108,8 +108,12 @@ function World:update(dt)
 		-- Проверка столкновений
 		if self.player.isAlive then
 			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt  * 2 and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt  * 2 then
-				if plane:hitTestPoint(self.player:getX(), self.player:getY()) then
-					plane:setZ(self.player:getZ() + self.player.size * 8.5)
+				if 	plane:hitTestPoint(self.player:getX(), self.player:getY() + self.player.size / 2.5) or
+				 	plane:hitTestPoint(self.player:getX() + self.player.size / 3, self.player:getY() + self.player.size / 2.5) or
+					plane:hitTestPoint(self.player:getX() + self.player.size / 3, self.player:getY() - self.player.size / 2.5) or
+					plane:hitTestPoint(self.player:getX() - self.player.size / 3, self.player:getY() - self.player.size / 2.5)
+				then
+					--plane:setZ(self.player:getZ())
 					self.player:die()
 					self.fallingSpeed = 0
 				end
