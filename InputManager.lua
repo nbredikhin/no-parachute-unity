@@ -18,17 +18,19 @@ function InputManager:init()
 end
 
 function InputManager:touchBegin(e)
-	self.startX = e.touch.x
-	self.startY = e.touch.y
+	local touch = e.allTouches[1]
+	self.startX = touch.x
+	self.startY = touch.y
 
 	local touchBeginEvent = Event.new(InputManager.TOUCH_BEGIN)
-	touchBeginEvent.x = e.touch.x
-	touchBeginEvent.y = e.touch.y
+	touchBeginEvent.x = touch.x
+	touchBeginEvent.y = touch.y
 	self:dispatchEvent(touchBeginEvent)
 end
 
 function InputManager:touchMove(e)
-	local x, y = e.touch.x - self.startX, e.touch.y - self.startY
+	local touch = e.allTouches[1]
+	local x, y = touch.x - self.startX, touch.y - self.startY
 	local maxLen = self.maxTouchValue
 	local len = math.sqrt((x*x)+(y*y))
 	if len > maxLen then
