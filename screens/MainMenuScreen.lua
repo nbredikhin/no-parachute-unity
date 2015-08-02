@@ -1,117 +1,58 @@
-local MenuRectangle = require "ui/menu/MenuRectangle"
-local MenuButton	= require "ui/menu/MenuButton"
-local Screen 		= require "screens/Screen"
+local MenuBackground 	= require "ui/menu/MenuBackground"
+local MenuButton		= require "ui/menu/MenuButton"
+local Screen 			= require "screens/Screen"
 
 local MainMenuScreen = Core.class(Screen)
 
-local backgroundRectsCount = 100
-local backgroundRectSize = 0
-local flyingRectSize = 10
-local flyingRectsCount = 10
-local flyingRectsSpeed = 2000
-
 function MainMenuScreen:load()
-	application:setBackgroundColor(0)
-
 	-- Фон
-	backgroundRectSize = utils.screenWidth / backgroundRectsCount
-	self.backgroundRects = {}
-	local rectsCount = math.floor(utils.screenWidth / backgroundRectSize) + 1
-	for i = 1, rectsCount do
-		local rect = MenuRectangle.new()
-		rect:setPosition((i - 1) * backgroundRectSize, 0)
-		rect:setScale(backgroundRectSize, utils.screenHeight)
-		rect:setAlpha(0.15 * (i - 1) / rectsCount)
-		self:addChild(rect)
-		self.backgroundRects[i] = rect
-	end
-
-	-- Летящие квадраты
-	self.flyingRects = {}
-	for i = 1, flyingRectsCount do
-		local rect = MenuRectangle.new()
-		self:updateFlyingRect(rect)
-		rect:setPosition(math.random(10, utils.screenWidth), math.random(0, utils.screenHeight))
-		self:addChild(rect)
-		self.flyingRects[i] = rect
-	end
-
-	-- Логотип игры
-	local logoTexture = Texture.new("assets/logo.png")
-	self.logo = Bitmap.new(logoTexture)
-	local logoScale = (utils.screenWidth / 1.2) / logoTexture:getWidth()
-	self.logo:setScale(logoScale, logoScale)
-	self:addChild(self.logo)
-	self.logoY = 10
-	self.logo:setPosition(utils.screenWidth / 2 - self.logo:getWidth() / 2, self.logoY)
+	self.background = MenuBackground.new()
+	self:addChild(self.background)
 
 	-- Кнопки
 	local buttonsX = utils.screenWidth * 0.05
 	local buttonsY = utils.screenHeight / 2
-	self.startButton = MenuButton.new()
-	self.startButton:setText("Start game")
-	self.startButton:setPosition(buttonsX, buttonsY)
-	self:addChild(self.startButton)
-	self.startButton:addEventListener(MenuButton.CLICK, self.buttonClick, self)
+	self.buttons = {}
+	self.buttons.start = MenuButton.new()
+	self.buttons.start:setText("Start game")
+	self.buttons.start:setPosition(buttonsX, buttonsY)
 
-	buttonsY = buttonsY + self.startButton:getHeight() * 2
-	self.aboutButton = MenuButton.new()
-	self.aboutButton:setText("Credits")
-	self.aboutButton:setPosition(buttonsX, buttonsY)
-	self:addChild(self.aboutButton)
-	self.aboutButton:addEventListener(MenuButton.CLICK, self.buttonClick, self)
+	buttonsY = buttonsY + self.buttons.start:getHeight() * 2
+	self.buttons.settings = MenuButton.new()
+	self.buttons.settings:setText("Settings")
+	self.buttons.settings:setPosition(buttonsX, buttonsY)
 
-	-- Нажатие кнопки
-	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
+	buttonsY = buttonsY + self.buttons.start:getHeight() * 2
+	self.buttons.credits = MenuButton.new()
+	self.buttons.credits:setText("Credits")
+	self.buttons.credits:setPosition(buttonsX, buttonsY)
+	
+
+	for _, button in pairs(self.buttons) do
+		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)
+		self:addChild(button)
+	end
 end
 
 function MainMenuScreen:unload()
-	stage:removeEventListener(Event.KEY_DOWN, self.onKey, self)
-end
 
-function MainMenuScreen:updateFlyingRect(rect)
-	-- Случайные координат
-	rect:setPosition(math.random(10, utils.screenWidth), -50)
-
-	-- Случайный цвет
-	rect:changeColor()
-
-	-- Случайный размер
-	local sizeMul = math.random(5, 10) / 10
-	rect:setScale(flyingRectSize * sizeMul * 2, flyingRectSize * sizeMul * 2)
-	rect:setAlpha(sizeMul / 2 * (rect:getX() / utils.screenWidth))
 end
 
 function MainMenuScreen:buttonClick(e)
-	if e:getTarget() == self.startButton then
+	if e:getTarget() == self.buttons.start then
 		screenManager:loadScreen(screenManager.screens.GameScreen.new())
+	elseif e:getTarget() == self.buttons.settings then
+		screenManager:loadScreen(screenManager.screens.SettingsMenuScreen.new())
 	end
 end
 
 function MainMenuScreen:update(dt)
-	if not self.skippedFrame then
-		self.skippedFrame = true
-		return
-	end
-
-	for _, rect in ipairs(self.backgroundRects) do
-		rect:changeColor()
-	end
-
-	for _, rect in ipairs(self.flyingRects) do
-		rect:setY(rect:getY() + flyingRectsSpeed * dt)
-		if rect:getY() > utils.screenHeight then
-			self:updateFlyingRect(rect)
-		end
-	end
-
-	self.logo:setY(self.logoY + math.sin(os.timer() * 2.5) * self.logoY)
+	-- Фон
+	self.background:update(dt)
 end
 
-function MainMenuScreen:onKey(e)
-	if e.keyCode == KeyCode.BACK or e.keyCode == 8 then
-		application:exit()
-	end
+function MainMenuScreen:back()
+	application:exit()
 end
 
 return MainMenuScreen

@@ -1,5 +1,5 @@
-local PlaneMesh 	= require "PlaneMesh"
 local Plane 		= require "Plane"
+local PlaneMesh 	= require "PlaneMesh"
 local TexturePNG 	= require "TexturePNG"
 
 local World = Core.class(Sprite)

@@ -3,6 +3,7 @@
   <imageScales/>
  </properties>
  <folder name="assets">
+  <file source="assets/button.png"/>
   <file source="assets/logo.png"/>
   <file source="assets/plane1.png"/>
   <file source="assets/plane2.png"/>
@@ -13,9 +14,9 @@
   <file source="assets/plane6.png"/>
   <file source="assets/plane7.png"/>
   <file source="assets/planeTest.png"/>
-  <file source="assets/wall.png"/>
   <file source="assets/player1.png"/>
   <file source="assets/player2.png"/>
+  <file source="assets/wall.png"/>
  </folder>
  <file source="utils.lua"/>
  <file source="math.lua"/>
@@ -24,20 +25,25 @@
   <folder name="menu">
    <file source="ui/menu/MenuButton.lua"/>
    <file source="ui/menu/MenuRectangle.lua"/>
+   <file source="ui/menu/MenuBackground.lua"/>
+  </folder>
+  <folder name="game">
+   <file source="ui/game/GameUI.lua"/>
   </folder>
  </folder>
- <folder name="screens">
-  <file source="screens/ScreenManager.lua"/>
-  <file source="screens/Screen.lua"/>
-  <file source="screens/MainMenuScreen.lua"/>
-  <file source="screens/GameScreen.lua"/>
- </folder>
+ <file source="InputManager.lua"/>
  <file source="Player.lua"/>
  <file source="PlaneMesh.lua"/>
  <file source="Plane.lua"/>
- <file source="InputManager.lua"/>
  <file source="FramerateCounter.lua"/>
  <file source="Camera.lua"/>
  <file source="World.lua"/>
  <file source="main.lua"/>
+ <folder name="screens">
+  <file source="screens/GameScreen.lua"/>
+  <file source="screens/MainMenuScreen.lua"/>
+  <file source="screens/SettingsMenuScreen.lua"/>
+  <file source="screens/Screen.lua"/>
+  <file source="screens/ScreenManager.lua"/>
+ </folder>
 </project>

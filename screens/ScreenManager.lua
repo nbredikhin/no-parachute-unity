@@ -1,6 +1,7 @@
-local FramerateCounter 	= require "FramerateCounter"
-local GameScreen 		= require "screens/GameScreen"
-local MainMenuScreen 	= require "screens/MainMenuScreen"
+local FramerateCounter 		= require "FramerateCounter"
+local GameScreen 			= require "screens/GameScreen"
+local MainMenuScreen 		= require "screens/MainMenuScreen"
+local SettingsMenuScreen 	= require "screens/SettingsMenuScreen"
 
 local ScreenManager = Core.class(Sprite)
 
@@ -13,8 +14,21 @@ function ScreenManager:init()
 
 	self.screens = {
 		GameScreen = GameScreen,
-		MainMenuScreen = MainMenuScreen
+		MainMenuScreen = MainMenuScreen,
+		SettingsMenuScreen = SettingsMenuScreen
 	}
+
+	-- Возврат назад
+	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
+end
+
+function ScreenManager:onKey()
+	-- Хардварная кнопка "назад" или backspace (для десктопа)
+	if e.keyCode == KeyCode.BACK or e.keyCode == 8 then
+		if self.currentScreen then
+			self.currentScreen:back()
+		end	
+	end
 end
 
 function ScreenManager:loadScreen(screen)

@@ -1,8 +1,9 @@
+local Camera 			= require "Camera"
+local GameUI			= require "ui/game/GameUI"
 local InputManager 		= require "InputManager"
+local Player 			= require "Player"
 local Screen 			= require "screens/Screen"
 local World  			= require "World"
-local Camera 			= require "Camera"
-local Player 			= require "Player"
 
 local GameScreen = Core.class(Screen)
 
@@ -29,17 +30,21 @@ function GameScreen:load()
 	-- Ввод
 	self.input = InputManager.new()
 	self:addChild(self.input)
-
-	self:addEventListener(Event.TOUCHES_BEGIN, self.onTouch, self)
-	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
+	-- Нажатие на экран
+	self.input:addEventListener(InputManager.TOUCH_BEGIN, self.onTouchBegin, self)
+	self.input:addEventListener(InputManager.TOUCH_END, self.onTouchEnd, self)
 
 	-- Избежать обновления игры, пока происходит загрузка уровня
 	self.skipUpdate = true
+
+	-- Интерфейс игры
+	self.ui = GameUI.new()
+	self:addChild(self.ui)
 end
 
 function GameScreen:unload()
-	self:removeEventListener(Event.TOUCHES_BEGIN, self.onTouch, self)
-	stage:removeEventListener(Event.KEY_DOWN, self.onKey, self)
+	self.input:removeEventListener(InputManager.TOUCH_BEGIN, self.onTouchBegin, self)
+	self.input:removeEventListener(InputManager.TOUCH_END, self.onTouchEnd, self)
 end
 
 function GameScreen:update(dt)
@@ -87,18 +92,36 @@ function GameScreen:update(dt)
 	elseif self.camera:getY() > self.world.size / 2 - self.camera.height / 2 then
 		self.camera:setY(self.world.size / 2 - self.camera.height / 2)
 	end
+
+	-- Обновление интерфейса
+	if self.ui.touchButton:isVisible() then
+		local touchX = self.input.startX + self.input.valueX * self.input.maxTouchValue
+		local touchY = self.input.startY + self.input.valueY * self.input.maxTouchValue
+		local touchAlpha = (self.input.valueX * self.input.valueX + self.input.valueY * self.input.valueY) * 0.5
+		self.ui.touchButton:setAlpha(touchAlpha)
+		self.ui.touchButton:setPosition(touchX, touchY)
+	end
 end
 
-function GameScreen:onTouch()
+function GameScreen:onTouchBegin(e)
 	if not self.player.isAlive then
 		self.world:respawn()
 	end
+
+	if self.player.isAlive then
+		self.ui.touchButton:setPosition(e.x, e.y)
+		self.ui.touchButton:setVisible(true)
+	else
+		self.ui.touchButton:setVisible(false)
+	end
 end
 
-function GameScreen:onKey(e)
-	if e.keyCode == KeyCode.BACK or e.keyCode == 8 then
-		screenManager:loadScreen(screenManager.screens.MainMenuScreen.new())
-	end
+function GameScreen:onTouchEnd()
+	self.ui.touchButton:setVisible(false)
+end
+
+function GameScreen:back()
+	screenManager:loadScreen(screenManager.screens.MainMenuScreen.new())
 end
 
 return GameScreen
