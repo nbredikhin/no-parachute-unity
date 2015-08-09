@@ -20,6 +20,7 @@ function GameScreen:load()
 
 	-- Игрок
 	self.player = Player.new()
+	self.player:addEventListener(Player.WASTED, self.onPlayerWasted, self)
 
 	-- Мир
 	self.world = World.new(self.player)
@@ -118,6 +119,7 @@ end
 
 function GameScreen:onTouchBegin(e)
 	if not self.player.isAlive then
+		self.ui.deathUI:setVisible(false)
 		self.world:respawn()
 	end
 
@@ -131,6 +133,10 @@ end
 
 function GameScreen:onTouchEnd()
 	self.ui.touchButton:setVisible(false)
+end
+
+function GameScreen:onPlayerWasted()
+	self.ui.deathUI:setVisible(true)
 end
 
 function GameScreen:back()

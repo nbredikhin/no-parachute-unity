@@ -1,6 +1,8 @@
 local PlaneMesh = require "PlaneMesh"
+local Blood 	= require "Blood"
 
 local Player = Core.class(Sprite)
+Player.WASTED = "playerDead"
 
 function Player:init()
 	self.size = 150
@@ -19,6 +21,9 @@ function Player:init()
 	self.sx, self.sy = 0, 0
 	self.isAlive = true
 	self.cameraRotation = 0
+
+	self.bloodTexture = Texture.new("assets/blood.png")
+	self.bloodParticles = {}
 end
 
 function Player:updateAnimation()
@@ -52,6 +57,11 @@ function Player:update(dt)
 		-- Вращение
 		self:setRotation(self.cameraRotation + self.sx * 30)
 	end
+	if #self.bloodParticles > 0 then
+		for i,p in ipairs(self.bloodParticles) do
+			p:update(dt)
+		end
+	end
 end
 
 function Player:setInput(x, y)
@@ -61,15 +71,84 @@ function Player:setInput(x, y)
 end
 
 function Player:die()
+	self:sprayBlood()
 	self.sx = 0
 	self.sy = 0
 	self.isAlive = false
 	self.inputX, self.inputY = 0, 0
+	self:dispatchEvent(Event.new(Player.WASTED))
 end
 
 function Player:respawn()
 	self.isAlive = true
 	self:setPosition(0, 0)
+	self:clearBlood()
 end
+
+function Player:clearBlood()
+	for i,v in ipairs(self.bloodParticles) do
+		self:removeChild(v)
+	end
+	self.bloodParticles = {}
+end
+
+function Player:sprayBlood()
+	for i = 1, math.random(30, 50) do
+		local b = Blood.new(self.bloodTexture)
+		b.sx = math.random(0, 20) - 10
+		b.sy = math.random(0, 20) - 10
+		table.insert(self.bloodParticles, b)
+		self:addChild(b)
+	end
+	for i = 1, math.random(30, 50) do
+		local b = Blood.new(self.bloodTexture)
+		b.sx = math.random(0, 20) - 10
+		b.sy = math.random(0, 20) - 10
+		table.insert(self.bloodParticles, b)
+		self:addChild(b)
+	end
+	for i = 1, math.random(10, 20) do
+		local b = Blood.new(self.bloodTexture)
+		b.sx = math.random(0, 30) - 10
+		b.sy = math.random(0, 20) - 10
+		table.insert(self.bloodParticles, b)
+		self:addChild(b)
+	end
+	for i = 1, math.random(3, 5) do
+		local b = Blood.new(self.bloodTexture)
+		b.sx = math.random(0, 50) - 25
+		b.sy = math.random(0, 50) - 25
+		table.insert(self.bloodParticles, b)
+		self:addChild(b)
+	end
+end
+
+--[[
+		{
+			var b:Blood;
+			var i:int;
+			for (i = 1; i <= Utils.randomRange(10, 20); i++)
+			{
+				b = new Blood();
+				b.x = x;
+				b.y = y; 
+				b.z = z;
+				b.velocity.x = Utils.randomRange(0, 20) - 10 + player.velocity.x / 2;
+				//b.velocity.y = Utils.randomRange(0, 10);
+				b.velocity.z = Utils.randomRange(0, 20) - 10 + player.velocity.y / 2;
+				addMoving(b);				
+			}
+			for (i = 1; i <= Utils.randomRange(60, 100); i++)
+			{
+				b = new Blood();
+				b.x = x;
+				b.y = y; 
+				b.z = z;
+				b.velocity.x = Utils.randomRange(0, 10) - 5;
+				//b.velocity.y = Utils.randomRange(0, 10);
+				b.velocity.z = Utils.randomRange(0, 10) - 5;
+				addMoving(b);				
+			}
+		}]]
 
 return Player

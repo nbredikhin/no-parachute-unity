@@ -3,6 +3,7 @@
   <imageScales/>
  </properties>
  <folder name="assets">
+  <file source="assets/blood.png"/>
   <file source="assets/button.png"/>
   <file source="assets/logo.png"/>
   <file source="assets/plane1.png"/>
@@ -23,12 +24,13 @@
  <file source="TexturePNG.lua"/>
  <folder name="ui">
   <folder name="menu">
-   <file source="ui/menu/MenuButton.lua"/>
-   <file source="ui/menu/MenuSlider.lua"/>
-   <file source="ui/menu/MenuRectangle.lua"/>
    <file source="ui/menu/MenuBackground.lua"/>
+   <file source="ui/menu/MenuButton.lua"/>
+   <file source="ui/menu/MenuRectangle.lua"/>
+   <file source="ui/menu/MenuSlider.lua"/>
   </folder>
   <folder name="game">
+   <file source="ui/game/DeathUI.lua"/>
    <file source="ui/game/GameUI.lua"/>
   </folder>
  </folder>
@@ -39,6 +41,7 @@
  <file source="FramerateCounter.lua"/>
  <file source="Camera.lua"/>
  <file source="World.lua"/>
+ <file source="Blood.lua"/>
  <file source="main.lua"/>
  <folder name="screens">
   <file source="screens/GameScreen.lua"/>
