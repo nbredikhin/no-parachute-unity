@@ -18,6 +18,7 @@ function Player:init()
 
 	self.sx, self.sy = 0, 0
 	self.isAlive = true
+	self.cameraRotation = 0
 end
 
 function Player:updateAnimation()
@@ -37,14 +38,19 @@ function Player:update(dt)
 			self:updateAnimation() 
 		end
 
-		-- Движение
+		-- Скорость
 		self.sx = self.sx + (self.inputX - self.sx) * 10 * dt
 		self.sy = self.sy + (self.inputY - self.sy) * 10 * dt
 
-		self:setX(self:getX() + self.sx * self.movementSpeed * dt)
-		self:setY(self:getY() + self.sy * self.movementSpeed * dt)
+		-- Перемещение
+		local moveX = self.sx * self.movementSpeed * dt
+		local moveY = self.sy * self.movementSpeed * dt
+		moveX, moveY = math.rotateVector(moveX, moveY, self.cameraRotation)
+		self:setX(self:getX() + moveX)
+		self:setY(self:getY() + moveY)
 
-		self:setRotation(self.sx * 30)
+		-- Вращение
+		self:setRotation(self.cameraRotation + self.sx * 30)
 	end
 end
 

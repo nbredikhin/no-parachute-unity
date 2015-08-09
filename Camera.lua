@@ -27,7 +27,10 @@ function Camera:setCenter(x, y, z)
 end
 
 function Camera:update()
-	self.container:setPosition(self.center.x - self.x, self.center.y - self.y, self.center.z - self.z)
+	local x = self.x
+	local y = self.y
+	x, y = math.rotateVector(x, y, -self.rx)
+	self.container:setPosition(self.center.x - x, self.center.y - y, self.center.z - self.z)
 	self.container:setRotation(-self.rx, -self.ry)
 end
 
@@ -54,9 +57,15 @@ function Camera:setPosition(x, y, z)
 end
 
 function Camera:setRotation(rx, ry)
-	self.rx = 0
-	self.ry = 0
+	self.rx = rx
+	if ry then
+		self.ry = ry
+	end
 	self:update()
+end
+
+function Camera:getRotation()
+	return self.rx, self.ty
 end
 
 function Camera:getX()

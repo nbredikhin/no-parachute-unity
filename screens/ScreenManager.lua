@@ -22,7 +22,7 @@ function ScreenManager:init()
 	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
 end
 
-function ScreenManager:onKey()
+function ScreenManager:onKey(e)
 	-- Хардварная кнопка "назад" или backspace (для десктопа)
 	if e.keyCode == KeyCode.BACK or e.keyCode == 8 then
 		if self.currentScreen then

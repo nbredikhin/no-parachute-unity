@@ -13,6 +13,8 @@ local cameraRotationSpeedAlive = 5
 local cameraRotationRadiusDead = 5
 local cameraRotationSpeedDead = 2.5
 
+local defaultWorldRotationSpeed = 32
+
 function GameScreen:load()
 	application:setBackgroundColor(0)
 
@@ -40,6 +42,10 @@ function GameScreen:load()
 	-- Интерфейс игры
 	self.ui = GameUI.new()
 	self:addChild(self.ui)
+
+	-- Вращение мира
+	self.worldRotationSpeed = defaultWorldRotationSpeed
+	self.camera:setRotation(0)
 end
 
 function GameScreen:unload()
@@ -65,6 +71,11 @@ function GameScreen:update(dt)
 	local rotX = math.cos(os.timer() * cameraRotationSpeed) * cameraRotationRadius
 	local rotY = math.sin(os.timer() * cameraRotationSpeed) * cameraRotationRadius
  	self.camera:setPosition(self.player:getX() + rotX, self.player:getY() + rotY, -800)
+
+ 	-- Вращение камеры
+ 	local cameraRotation = self.camera:getRotation()
+ 	self.camera:setRotation(cameraRotation + self.worldRotationSpeed * dt)
+ 	self.player.cameraRotation = cameraRotation
 
 	-- Управление игроком
 	self.player.inputX, self.player.inputY = self.input.valueX, self.input.valueY
