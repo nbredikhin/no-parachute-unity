@@ -73,9 +73,11 @@ function GameScreen:update(dt)
  	self.camera:setPosition(self.player:getX() + rotX, self.player:getY() + rotY, -800)
 
  	-- Вращение камеры
- 	local cameraRotation = self.camera:getRotation()
- 	self.camera:setRotation(cameraRotation + self.worldRotationSpeed * dt)
- 	self.player.cameraRotation = cameraRotation
+ 	if self.player.isAlive then
+	 	local cameraRotation = self.camera:getRotation()
+	 	self.camera:setRotation(cameraRotation + self.worldRotationSpeed * dt)
+	 	self.player.cameraRotation = cameraRotation
+	end
 
 	-- Управление игроком
 	self.player.inputX, self.player.inputY = self.input.valueX, self.input.valueY

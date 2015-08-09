@@ -12,6 +12,11 @@ function ScreenManager:init()
 	self.framerateCounter = FramerateCounter.new(0.4)
 	self:addChild(self.framerateCounter)
 
+	self.infoText = TextField.new(nil, "No Parachute! development version")
+	self.infoText:setTextColor(0xFFFFFF)
+	self.infoText:setPosition(5, utils.screenHeight - 5)
+	self:addChild(self.infoText)
+
 	self.screens = {
 		GameScreen = GameScreen,
 		MainMenuScreen = MainMenuScreen,
@@ -52,10 +57,7 @@ function ScreenManager:loadScreen(screen)
 	-- Отобразить новый экран
 	self.currentScreen = screen
 	self.currentScreen:load()
-	self:addChild(self.currentScreen)
-
-	self:removeChild(self.framerateCounter)
-	self:addChild(self.framerateCounter)
+	self:addChildAt(self.currentScreen, 1)
 	return true
 end
 
