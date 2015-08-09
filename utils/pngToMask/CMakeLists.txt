@@ -1,0 +1,13 @@
+cmake_minimum_required( VERSION 2.6 )
+project (pngToAplha)
+set (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+find_package (SFML 2 COMPONENTS system window graphics REQUIRED)
+if (${SFML_FOUND} EQUAL "TRUE")
+	MESSAGE ("SFML FOUND")
+else ()
+	MESSAGE (FATAL_ERROR "SFML not found, aborting cmake")
+endif ()
+
+include_directories (${SFML_INCLUDE_DIR})
+add_executable (pngToAlpha main.cpp)
+target_link_libraries (pngToAlpha ${SFML_LIBRARIES})
