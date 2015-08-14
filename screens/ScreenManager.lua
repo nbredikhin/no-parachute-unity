@@ -9,7 +9,7 @@ function ScreenManager:init()
 	self.currentScreen = false
 
 	-- Счётчик фпс
-	self.framerateCounter = FramerateCounter.new(0.4)
+	self.framerateCounter = FramerateCounter.new()
 	self:addChild(self.framerateCounter)
 
 	self.infoText = TextField.new(nil, "No Parachute! development version")

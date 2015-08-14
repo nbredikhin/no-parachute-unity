@@ -1,11 +1,6 @@
 local FramerateCounter = Core.class(Sprite)
 
-function FramerateCounter:init(refreshRate)
-	if not refreshRate then
-		refreshRate = 0.5
-	end
-	assert(type(refreshRate) == "number", "refreshRate: number expected, but got \"" .. type(refreshRate) .. "\".")
-
+function FramerateCounter:init()
 	self.text = "FPS: "
 
 	self.textField = TextField.new(nil, self.text .. "0")
@@ -14,17 +9,20 @@ function FramerateCounter:init(refreshRate)
 	self.textField:setTextColor(0xFFFFFF)
 	self:addChild(self.textField)
 
-	self.delayMax = refreshRate
+	self.framesCount = 0
+	self.delayMax = 1
 	self.delayCurrent = 0 
 end
 
 function FramerateCounter:update(dt)
+	self.framesCount = self.framesCount + 1
 	self.delayCurrent = self.delayCurrent + dt 
 	if self.delayCurrent >= self.delayMax then
 		self.delayCurrent = 0
 		-- Обновление счётчика
-		local currentFPS = math.floor(1/dt)
+		local currentFPS = self.framesCount
 		self.textField:setText(self.text .. currentFPS)
+		self.framesCount = 0
 	end
 end
 
