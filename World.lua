@@ -11,7 +11,10 @@ local defaultPlanesCount = 2
 
 local wallsColors = { 0xBBBBBB, 0x999999, 0xBBBBBB, 0xDDDDDD }
 
-function World:init(player)
+function World:init(player, levelID)
+	if not levelID then
+		levelID = 1
+	end
 	-- Размеры мира
 	self.size = defaultWorldSize
 	self.depth = self.size * 10
@@ -25,7 +28,7 @@ function World:init(player)
 
 	-- Боковые стены
 	self.walls = Sprite.new()
-	local wallTexture = Texture.new("assets/wall.png")
+	local wallTexture = Texture.new("assets/levels/" .. tostring(levelID) .."/wall.png")
 	for i = 1, 4 do
 		local wall = PlaneMesh.new(wallTexture, self.size, wallsColors[i])
 		wall:setRotationX(90)
@@ -38,10 +41,19 @@ function World:init(player)
 	-- Передние декоративные стены
 	self.decorativePlanesCount = defaultDecorativePlanesCount
 	self.decorativePlanes = {}
-	local planeTexture = Texture.new("assets/plane1.png")
+	self.decorativeTextures = {}
+	for i = 1, 50 do
+		local path = "assets/levels/" .. tostring(levelID) .."/deco/" .. tostring(i) ..".png"
+		if utils.fileExists(path) then
+			self.decorativeTextures[i] = Texture.new(path)
+		else
+			break
+		end
+	end
 	for i = 1, self.decorativePlanesCount do
 		local d = self.depth / self.decorativePlanesCount
-		self.decorativePlanes[i] = PlaneMesh.new(planeTexture, self.size)
+		local texture = self.decorativeTextures[math.random(1, #self.decorativeTextures)]
+		self.decorativePlanes[i] = PlaneMesh.new(texture, self.size)
 		self.decorativePlanes[i]:setPosition(0, 0, -i * d + self.depth / 2)
 		self.decorativePlanes[i]:setRotation(math.random(1, 4) * 90)
 		self:addChild(self.decorativePlanes[i])
@@ -50,15 +62,20 @@ function World:init(player)
 	-- Передние стены
 	self.planesCount = defaultPlanesCount
 	self.planes = {}
-	self.planeTextures = {TexturePNG.new("assets/plane3.png")}
-	--[[for i = 1, 7 do
-		self.planeTextures[i] = TexturePNG.new("assets/plane" .. tostring(i) ..".png")
-	end]]
+	self.planeTextures = {}
+	for i = 1, 50 do
+		local path = "assets/levels/" .. tostring(levelID) .. "/planes/" .. tostring(i) ..".png"
+		if utils.fileExists(path) then
+			self.planeTextures[i] = TexturePNG.new(path)
+		else
+			break
+		end
+	end
 	for i = 1, self.planesCount do
 		local texture = self.planeTextures[math.random(1, #self.planeTextures)]
 		local plane = Plane.new(texture, self.size)
 		plane:setPosition(0, 0, -i * self.depth / self.planesCount + 10)
-		--plane:setRotation(math.random(1, 4) * 90)
+		plane:setRotation(math.random(1, 4) * 90)
 		self:addChild(plane)
 		self.planes[i] = plane
 	end
@@ -70,7 +87,7 @@ function World:updatePlane(plane, dt)
 
 	if plane:getZ() > self.depth / 2 then
 		plane:setZ(plane:getZ() - self.depth)
-		--plane:setRotation(math.random(1, 4) * 90)
+		plane:setRotation(math.random(1, 4) * 90)
 		wasMovedToBottom = true
 	end
 
@@ -91,7 +108,9 @@ end
 
 function World:update(dt)
 	for i, plane in ipairs(self.decorativePlanes) do
-		self:updatePlane(plane, dt)
+		if self:updatePlane(plane, dt) then
+			plane:setPlaneTexture(self.decorativeTextures[math.random(1, #self.decorativeTextures)])
+		end
 	end
 
 	for i, plane in ipairs(self.planes) do

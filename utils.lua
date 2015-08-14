@@ -11,4 +11,13 @@ function utils.getScreenSize()
 	return width, height
 end
 
+function utils.fileExists(path)
+	local file = io.open(path)
+	if file then
+		file:close()
+		return true
+	end
+	return false
+end
+
 utils.screenWidth, utils.screenHeight = utils.getScreenSize()

@@ -15,7 +15,14 @@ local cameraRotationSpeedDead = 2.5
 
 local defaultWorldRotationSpeed = 32
 
+function GameScreen:init()
+end
+
 function GameScreen:load()
+	if not self.levelID then
+		self.levelID = 1
+	end
+
 	application:setBackgroundColor(0)
 
 	-- Игрок
@@ -23,7 +30,7 @@ function GameScreen:load()
 	self.player:addEventListener(Player.WASTED, self.onPlayerWasted, self)
 
 	-- Мир
-	self.world = World.new(self.player)
+	self.world = World.new(self.player, self.levelID)
 	self:addChild(self.world)
 
 	-- Камера

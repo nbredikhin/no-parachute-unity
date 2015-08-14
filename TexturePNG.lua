@@ -25,11 +25,8 @@ function TexturePNG:getPixels(path)
 	-- Чтение файла
 	local tx, ty = 1, 1
 	while true do
-		local byte = string.byte(file:read(1))
-		if not byte then
-			break
-		end
-		pixels[tx][ty] = byte
+		local pixel = tonumber(file:read(1))
+		pixels[tx][ty] = pixel
 		tx = tx + 1
 		if tx > self.width then
 			ty = ty + 1
@@ -39,22 +36,8 @@ function TexturePNG:getPixels(path)
 			break
 		end
 	end
-	--[[
-	for ty = 1, self.height do
-		for tx = 1, self.width do
-			
-			if not byte then
-				break
-			end
-			pixels[tx][ty] = byte
-		end
-	end]]
 	file:close()
 	return pixels
-end
-
-function TexturePNG:getPixel(x, y)
-	return self.pngData:getPixel(x, y)
 end
 
 function TexturePNG:getPixelAlpha(x, y)

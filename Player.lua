@@ -93,62 +93,13 @@ function Player:clearBlood()
 end
 
 function Player:sprayBlood()
-	for i = 1, math.random(30, 50) do
+	for i = 1, math.random(20, 30) do
 		local b = Blood.new(self.bloodTexture)
-		b.sx = math.random(0, 20) - 10
-		b.sy = math.random(0, 20) - 10
-		table.insert(self.bloodParticles, b)
-		self:addChild(b)
-	end
-	for i = 1, math.random(30, 50) do
-		local b = Blood.new(self.bloodTexture)
-		b.sx = math.random(0, 20) - 10
-		b.sy = math.random(0, 20) - 10
-		table.insert(self.bloodParticles, b)
-		self:addChild(b)
-	end
-	for i = 1, math.random(10, 20) do
-		local b = Blood.new(self.bloodTexture)
-		b.sx = math.random(0, 30) - 10
-		b.sy = math.random(0, 20) - 10
-		table.insert(self.bloodParticles, b)
-		self:addChild(b)
-	end
-	for i = 1, math.random(3, 5) do
-		local b = Blood.new(self.bloodTexture)
-		b.sx = math.random(0, 50) - 25
-		b.sy = math.random(0, 50) - 25
+		b.sx = math.random(0, 30) - 15
+		b.sy = math.random(0, 30) - 15
 		table.insert(self.bloodParticles, b)
 		self:addChild(b)
 	end
 end
-
---[[
-		{
-			var b:Blood;
-			var i:int;
-			for (i = 1; i <= Utils.randomRange(10, 20); i++)
-			{
-				b = new Blood();
-				b.x = x;
-				b.y = y; 
-				b.z = z;
-				b.velocity.x = Utils.randomRange(0, 20) - 10 + player.velocity.x / 2;
-				//b.velocity.y = Utils.randomRange(0, 10);
-				b.velocity.z = Utils.randomRange(0, 20) - 10 + player.velocity.y / 2;
-				addMoving(b);				
-			}
-			for (i = 1; i <= Utils.randomRange(60, 100); i++)
-			{
-				b = new Blood();
-				b.x = x;
-				b.y = y; 
-				b.z = z;
-				b.velocity.x = Utils.randomRange(0, 10) - 5;
-				//b.velocity.y = Utils.randomRange(0, 10);
-				b.velocity.z = Utils.randomRange(0, 10) - 5;
-				addMoving(b);				
-			}
-		}]]
 
 return Player
