@@ -5,10 +5,9 @@ local ScreenManager = require "screens/ScreenManager"
 application:configureFrustum(45, 60000)
 
 screenManager = ScreenManager.new()
---local startupScreen = screenManager.screens.GameScreen
-local startupScreen = screenManager.screens.MainMenuScreen
---local startupScreen = screenManager.screens.SettingsMenuScreen
-screenManager:loadScreen(startupScreen.new())
+local startupScreen = "MainMenuScreen"
+--local startupScreen = "LevelSelectScreen"
+screenManager:loadScreen(startupScreen)
 stage:addChild(screenManager)
 
 local function updateGame(e)

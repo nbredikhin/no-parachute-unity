@@ -48,14 +48,14 @@
     </folder>
   </folder>
   <folder name="icons">
-    <file source="assets/iconns/1.png"/>
-    <file source="assets/iconns/2.png"/>
-    <file source="assets/iconns/3.png"/>
-    <file source="assets/iconns/4.png"/>
-    <file source="assets/iconns/5.png"/>
-    <file source="assets/iconns/6.png"/>
-    <file source="assets/iconns/7.png"/>
-    <file source="assets/iconns/8.png"/>
+    <file source="assets/icons/2.png"/>
+    <file source="assets/icons/1.png"/>
+    <file source="assets/icons/3.png"/>
+    <file source="assets/icons/4.png"/>
+    <file source="assets/icons/5.png"/>
+    <file source="assets/icons/6.png"/>
+    <file source="assets/icons/7.png"/>
+    <file source="assets/icons/8.png"/>
   </folder>
   <file source="assets/blood.png"/>
   <file source="assets/button.png"/>
