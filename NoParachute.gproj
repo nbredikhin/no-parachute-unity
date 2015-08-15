@@ -79,6 +79,7 @@
  <file source="main.lua"/>
  <folder name="screens">
   <file source="screens/GameScreen.lua"/>
+  <file source="screens/LevelSelectScreen.lua"/>
   <file source="screens/MainMenuScreen.lua"/>
   <file source="screens/SettingsMenuScreen.lua"/>
   <file source="screens/Screen.lua"/>

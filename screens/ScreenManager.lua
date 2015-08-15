@@ -1,5 +1,6 @@
 local FramerateCounter 		= require "FramerateCounter"
 local GameScreen 			= require "screens/GameScreen"
+local LevelSelectScreen 	= require "screens/LevelSelectScreen"
 local MainMenuScreen 		= require "screens/MainMenuScreen"
 local SettingsMenuScreen 	= require "screens/SettingsMenuScreen"
 
@@ -18,9 +19,10 @@ function ScreenManager:init()
 	self:addChild(self.infoText)
 
 	self.screens = {
-		GameScreen = GameScreen,
-		MainMenuScreen = MainMenuScreen,
-		SettingsMenuScreen = SettingsMenuScreen
+		GameScreen 			= GameScreen,
+		LevelSelectScreen 	= LevelSelectScreen,
+		MainMenuScreen 		= MainMenuScreen,
+		SettingsMenuScreen 	= SettingsMenuScreen
 	}
 
 	-- Возврат назад
@@ -36,7 +38,7 @@ function ScreenManager:onKey(e)
 	end
 end
 
-function ScreenManager:loadScreen(screen)
+function ScreenManager:loadScreen(screen, ...)
 	-- Скрыть текущий экран
 	if self.currentScreen and self.currentScreen:getParent() then
 		self:removeChild(self.currentScreen)
@@ -49,6 +51,9 @@ function ScreenManager:loadScreen(screen)
 	if not screen then
 		return false
 	end
+	if type(screen) == "string" and self.screens[screen] then
+		screen = self.screens[screen].new() 
+	end
 	-- Если новый экран уже отображается, скрыть его
 	local parent = screen:getParent() 
 	if parent then
@@ -56,7 +61,7 @@ function ScreenManager:loadScreen(screen)
 	end
 	-- Отобразить новый экран
 	self.currentScreen = screen
-	self.currentScreen:load()
+	self.currentScreen:load(...)
 	self:addChildAt(self.currentScreen, 1)
 	return true
 end

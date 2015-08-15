@@ -40,7 +40,7 @@ end
 
 function MainMenuScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.start then
-		screenManager:loadScreen(screenManager.screens.GameScreen.new())
+		screenManager:loadScreen("LevelSelectScreen")
 	elseif e:getTarget() == self.buttons.settings then
 		screenManager:loadScreen(screenManager.screens.SettingsMenuScreen.new())
 	end

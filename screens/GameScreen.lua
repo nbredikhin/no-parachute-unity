@@ -18,10 +18,11 @@ local defaultWorldRotationSpeed = 32
 function GameScreen:init()
 end
 
-function GameScreen:load()
-	if not self.levelID then
-		self.levelID = 1
+function GameScreen:load(levelID)
+	if not levelID then
+		levelID = 1
 	end
+	self.levelID = levelID
 
 	application:setBackgroundColor(0)
 
