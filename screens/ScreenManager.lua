@@ -27,6 +27,7 @@ function ScreenManager:init()
 
 	-- Возврат назад
 	stage:addEventListener(Event.KEY_DOWN, self.onKey, self)
+	stage:addEventListener(Event.TOUCHES_BEGIN, function(self, e) if e.touch.x < 10 and e.touch.y < 10 then self:onKey({keyCode=8}) end end, self)
 end
 
 function ScreenManager:onKey(e)

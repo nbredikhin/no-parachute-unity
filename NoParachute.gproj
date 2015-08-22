@@ -46,6 +46,22 @@
       </folder>
       <file source="assets/levels/2/wall.png"/>
     </folder>
+
+    <folder name="3">
+      <folder name="planes">
+        <file source="assets/levels/3/planes/1.png"/>
+        <file source="assets/levels/3/planes/2.png"/>
+
+        <file source="assets/levels/3/planes/1.png.msk"/>
+        <file source="assets/levels/3/planes/2.png.msk"/>
+      </folder>
+      <folder name="deco">
+        <file source="assets/levels/3/deco/1.png"/>
+        <!--<file source="assets/levels/1/deco/2.png"/>-->
+      </folder>
+      <file source="assets/levels/3/wall.png"/>
+    </folder>
+
   </folder>
   <folder name="icons">
     <file source="assets/icons/2.png"/>

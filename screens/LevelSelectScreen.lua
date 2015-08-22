@@ -5,36 +5,47 @@ local Screen 			= require "screens/Screen"
 
 local LevelSelectScreen = Core.class(Screen)
 
+local ICONS_COUNT = 8
+local ICON_ALPHA_INACTIVE = 0.1
+local ICON_ALPHA_ACTIVE = 1
+
 function LevelSelectScreen:load()
 	self.background = MenuBackground.new()
 	self:addChild(self.background)
 
-	self.icons = {}
-	local iconsSpace = utils.screenWidth * 0.04
-	local iconsContainer = Sprite.new()
-	self:addChild(iconsContainer)
-	for y = 1, 2 do
-		for x = 1, 4 do
-			local icon = Bitmap.new(Texture.new("assets/icons/" .. tostring(#self.icons + 1) .. ".png"))
-			iconsContainer:addChild(icon)
-			icon:setAlpha(0.1)
-			icon:setPosition((x-1)*(icon:getWidth()+iconsSpace), (y-1)*(icon:getHeight()+iconsSpace))
-			icon:addEventListener(Event.TOUCHES_BEGIN, 
-				function(data, e)
-					if data.icon:hitTestPoint(e.touch.x, e.touch.y) then
-						data.self:iconClick(data.icon, data.id)
-					else
-						data.icon:setAlpha(0.1)
-					end
-				end, {icon=icon, id=#self.icons + 1, self=self})
-			table.insert(self.icons, icon)
-		end
+	self.ICONS_SPACE = utils.screenWidth * 0.1
+
+	self.levelsIcons = {}
+	self.iconsContainer = Sprite.new()
+	self:addChild(self.iconsContainer)
+
+	for i = 1, ICONS_COUNT do
+		-- Create bitmap
+		local iconPath = "assets/icons/" .. tostring(i) .. ".png"
+		local iconBitmap = Bitmap.new(Texture.new(iconPath))
+		iconBitmap:setAlpha(ICON_ALPHA_INACTIVE)
+		-- Set position
+		local x = (iconBitmap:getWidth() + self.ICONS_SPACE) * (i - 1)
+		iconBitmap:setX(x)
+		iconBitmap:setAnchorPoint(0.5, 0.5)
+		-- Add child
+		self.iconsContainer:addChild(iconBitmap)
+		self.levelsIcons[i] = {level = i, bitmap = iconBitmap}
 	end
-	iconsContainer:setPosition(utils.screenWidth / 2 - iconsContainer:getWidth() / 2, utils.screenHeight / 2 - iconsContainer:getHeight() / 2.5)
+	self.ICON_WIDTH = self.levelsIcons[1].bitmap:getWidth()
+	-- Select first icon
+	self:setSelectedIcon(1)
+
+	-- Center icons container
+	self.iconsContainer:setX(utils.screenWidth / 2 - self.ICON_WIDTH / 2)
+	self.iconsContainer:setY(utils.screenHeight / 2 + 10)
+
+	self.iconsContainer:addEventListener(Event.TOUCHES_BEGIN, self.iconsTouchBegin, self)
+	self.iconsContainer:addEventListener(Event.TOUCHES_MOVE, self.iconsTouchMove, self)
 
 	self.buttons = {}
 	self.buttons.start = MenuButton.new()
-	self.buttons.start:setText("Play level")
+	self.buttons.start:setText("Start")
 	self.buttons.start:setPosition(utils.screenWidth / 2 - self.buttons.start:getWidth() / 2, utils.screenHeight - self.buttons.start:getHeight())
 
 	for _, button in pairs(self.buttons) do
@@ -43,16 +54,47 @@ function LevelSelectScreen:load()
 	end
 end
 
-function LevelSelectScreen:iconClick(icon, id)
-	icon:setAlpha(1)
-	self.selectedLevel = id
+function LevelSelectScreen:iconsTouchBegin(e)
+	self.iconsStartX = e.touch.x
+	self.iconsStartY = e.touch.y
+end
+
+function LevelSelectScreen:setSelectedIcon(id)
+	if self.currentSelectedIcon then
+		local iconBitmap = self.levelsIcons[self.currentSelectedIcon].bitmap
+		iconBitmap:setAlpha(ICON_ALPHA_INACTIVE)
+		iconBitmap:setScale(1)
+	end
+	self.currentSelectedIcon = id
+	local iconBitmap = self.levelsIcons[self.currentSelectedIcon].bitmap
+	iconBitmap:setAlpha(ICON_ALPHA_ACTIVE)
+	iconBitmap:setScale(2.5)
+end
+
+function LevelSelectScreen:iconsTouchMove(e)
+	local dragX = e.touch.x - self.iconsStartX
+	local dragY = e.touch.y - self.iconsStartY
+	self.iconsStartX = e.touch.x
+	self.iconsStartY = e.touch.y
+
+	local x = self.iconsContainer:getX() + dragX
+	x = math.min(utils.screenWidth / 2 - (self.ICON_WIDTH) / 2, x)
+	x = math.max(utils.screenWidth / 2 - self.iconsContainer:getWidth() + self.ICON_WIDTH / 2, x)
+	self.iconsContainer:setX(x)
+
+	local selectedIcon = math.floor(((utils.screenWidth / 2 + self.ICONS_SPACE) - self.iconsContainer:getX(x)) / (self.ICON_WIDTH + self.ICONS_SPACE)) + 1
+	if self.currentSelectedIcon then
+		if self.currentSelectedIcon ~= selectedIcon then
+			self:setSelectedIcon(selectedIcon)
+		end
+	else
+		self:setSelectedIcon(selectedIcon)
+	end
 end
 
 function LevelSelectScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.start then
-		if self.selectedLevel and self.selectedLevel < 3 then
-			screenManager:loadScreen("GameScreen", self.selectedLevel)
-		end
+		screenManager:loadScreen("GameScreen", 1)
 	end
 end
 
