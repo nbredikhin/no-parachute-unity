@@ -13,7 +13,7 @@ function LevelSelectScreen:load()
 	self.background = MenuBackground.new()
 	self:addChild(self.background)
 
-	self.ICONS_SPACE = utils.screenWidth * 0.1
+	self.ICONS_SPACE = 40
 
 	self.levelsIcons = {}
 	self.iconsContainer = Sprite.new()
@@ -30,15 +30,16 @@ function LevelSelectScreen:load()
 		iconBitmap:setAnchorPoint(0.5, 0.5)
 		-- Add child
 		self.iconsContainer:addChild(iconBitmap)
-		self.levelsIcons[i] = {level = i, bitmap = iconBitmap}
+		self.levelsIcons[i] = {level = i, bitmap = iconBitmap, interpolate = {}}
 	end
 	self.ICON_WIDTH = self.levelsIcons[1].bitmap:getWidth()
-	-- Select first icon
-	self:setSelectedIcon(1)
 
 	-- Center icons container
 	self.iconsContainer:setX(utils.screenWidth / 2 - self.ICON_WIDTH / 2)
 	self.iconsContainer:setY(utils.screenHeight / 2 + 10)
+
+	-- Select first icon
+	self:setSelectedIcon(1)
 
 	self.iconsContainer:addEventListener(Event.TOUCHES_BEGIN, self.iconsTouchBegin, self)
 	self.iconsContainer:addEventListener(Event.TOUCHES_MOVE, self.iconsTouchMove, self)
@@ -60,46 +61,57 @@ function LevelSelectScreen:iconsTouchBegin(e)
 end
 
 function LevelSelectScreen:setSelectedIcon(id)
+	id = math.max(id, 1)
+	id = math.min(id, 8)
 	if self.currentSelectedIcon then
 		local iconBitmap = self.levelsIcons[self.currentSelectedIcon].bitmap
-		iconBitmap:setAlpha(ICON_ALPHA_INACTIVE)
-		iconBitmap:setScale(1)
+	self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_INACTIVE
+	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(1, 1 * utils.screenHeight / 360)
+	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(1, 1 * utils.screenHeight / 360)
 	end
 	self.currentSelectedIcon = id
 	local iconBitmap = self.levelsIcons[self.currentSelectedIcon].bitmap
-	iconBitmap:setAlpha(ICON_ALPHA_ACTIVE)
-	iconBitmap:setScale(2.5)
+	self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_ACTIVE
+	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(2, 2 * utils.screenHeight / 360)
+	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(2, 2 * utils.screenHeight / 360)
+
+	self.iconsContainerTargetX = utils.screenWidth / 2 - (self.ICON_WIDTH + self.ICONS_SPACE) * (id - 1)
 end
 
 function LevelSelectScreen:iconsTouchMove(e)
 	local dragX = e.touch.x - self.iconsStartX
 	local dragY = e.touch.y - self.iconsStartY
-	self.iconsStartX = e.touch.x
-	self.iconsStartY = e.touch.y
 
-	local x = self.iconsContainer:getX() + dragX
-	x = math.min(utils.screenWidth / 2 - (self.ICON_WIDTH) / 2, x)
-	x = math.max(utils.screenWidth / 2 - self.iconsContainer:getWidth() + self.ICON_WIDTH / 2, x)
-	self.iconsContainer:setX(x)
-
-	local selectedIcon = math.floor(((utils.screenWidth / 2 + self.ICONS_SPACE) - self.iconsContainer:getX(x)) / (self.ICON_WIDTH + self.ICONS_SPACE)) + 1
-	if self.currentSelectedIcon then
-		if self.currentSelectedIcon ~= selectedIcon then
-			self:setSelectedIcon(selectedIcon)
-		end
-	else
-		self:setSelectedIcon(selectedIcon)
+	if dragX < -self.ICON_WIDTH then
+		self:setSelectedIcon(self.currentSelectedIcon + 1)
+		self.iconsStartX = e.touch.x
+		self.iconsStartY = e.touch.y
+	elseif dragX > self.ICON_WIDTH then
+		self:setSelectedIcon(self.currentSelectedIcon - 1)
+		self.iconsStartX = e.touch.x
+		self.iconsStartY = e.touch.y
 	end
 end
 
 function LevelSelectScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.start then
-		screenManager:loadScreen("GameScreen", 1)
+		if self.currentSelectedIcon then
+			self.currentSelectedIcon = math.min(self.currentSelectedIcon, 3)
+			screenManager:loadScreen("GameScreen", self.currentSelectedIcon)
+		end
 	end
 end
 
 function LevelSelectScreen:update(dt)
 	self.background:update(dt)
+	self.iconsContainer:setX(self.iconsContainer:getX() + (self.iconsContainerTargetX - self.iconsContainer:getX()) * 0.2)
+	for i, icon in ipairs(self.levelsIcons) do
+		local iconBitmap = icon.bitmap
+		for property, targetValue in pairs(icon.interpolate) do
+			local currentValue = iconBitmap:get(property)
+			iconBitmap:set(property, currentValue + (targetValue - currentValue) * 0.2)
+		end
+	end
 end
 
 function LevelSelectScreen:back()
