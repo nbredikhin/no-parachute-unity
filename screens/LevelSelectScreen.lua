@@ -22,17 +22,28 @@ function LevelSelectScreen:load()
 	for i = 1, ICONS_COUNT do
 		-- Create bitmap
 		local iconPath = "assets/icons/" .. tostring(i) .. ".png"
-		local iconBitmap = Bitmap.new(Texture.new(iconPath))
-		iconBitmap:setAlpha(ICON_ALPHA_INACTIVE)
+		local iconSprite = Sprite.new()
+
+		local bitmap = Bitmap.new(Texture.new(iconPath))
+		iconSprite:addChild(bitmap)
+		bitmap:setAnchorPoint(0.5, 0.5)
+
+		if self:isLevelLocked(i) then
+			bitmap:setColorTransform(0.1, 0.1, 0.1, 1)
+			local lock = Bitmap.new(Texture.new("assets/icons/locked.png"))
+			iconSprite:addChild(lock)
+			lock:setAnchorPoint(0.5, 0.5)
+		end
+
+		iconSprite:setAlpha(ICON_ALPHA_INACTIVE)
 		-- Set position
-		local x = (iconBitmap:getWidth() + self.ICONS_SPACE) * (i - 1)
-		iconBitmap:setX(x)
-		iconBitmap:setAnchorPoint(0.5, 0.5)
+		local x = (iconSprite:getWidth() + self.ICONS_SPACE) * (i - 1)
+		iconSprite:setX(x)
 		-- Add child
-		self.iconsContainer:addChild(iconBitmap)
-		self.levelsIcons[i] = {level = i, bitmap = iconBitmap, interpolate = {}}
+		self.iconsContainer:addChild(iconSprite)
+		self.levelsIcons[i] = {level = i, image = iconSprite, interpolate = {}, icon = bitmap, lock = lock}
 	end
-	self.ICON_WIDTH = self.levelsIcons[1].bitmap:getWidth()
+	self.ICON_WIDTH = self.levelsIcons[1].image:getWidth()
 
 	-- Center icons container
 	self.iconsContainer:setX(utils.screenWidth / 2 - self.ICON_WIDTH / 2)
@@ -55,6 +66,10 @@ function LevelSelectScreen:load()
 	end
 end
 
+function LevelSelectScreen:isLevelLocked(levelID)
+	return levelID > 3
+end
+
 function LevelSelectScreen:iconsTouchBegin(e)
 	self.iconsStartX = e.touch.x
 	self.iconsStartY = e.touch.y
@@ -64,13 +79,13 @@ function LevelSelectScreen:setSelectedIcon(id)
 	id = math.max(id, 1)
 	id = math.min(id, 8)
 	if self.currentSelectedIcon then
-		local iconBitmap = self.levelsIcons[self.currentSelectedIcon].bitmap
+		local iconSprite = self.levelsIcons[self.currentSelectedIcon].image
 	self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_INACTIVE
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(1, 1 * utils.screenHeight / 360)
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(1, 1 * utils.screenHeight / 360)
 	end
 	self.currentSelectedIcon = id
-	local iconBitmap = self.levelsIcons[self.currentSelectedIcon].bitmap
+	local iconSprite = self.levelsIcons[self.currentSelectedIcon].image
 	self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_ACTIVE
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(2, 2 * utils.screenHeight / 360)
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(2, 2 * utils.screenHeight / 360)
@@ -95,8 +110,13 @@ end
 
 function LevelSelectScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.start then
-		if self.currentSelectedIcon then
-			self.currentSelectedIcon = math.min(self.currentSelectedIcon, 3)
+		local levelID = self.currentSelectedIcon
+		if levelID then
+			levelID = math.max(levelID, 1)
+			levelID = math.min(levelID, ICONS_COUNT)
+			if self:isLevelLocked(levelID) then
+				return
+			end
 			screenManager:loadScreen("GameScreen", self.currentSelectedIcon)
 		end
 	end
@@ -106,10 +126,10 @@ function LevelSelectScreen:update(dt)
 	self.background:update(dt)
 	self.iconsContainer:setX(self.iconsContainer:getX() + (self.iconsContainerTargetX - self.iconsContainer:getX()) * 0.2)
 	for i, icon in ipairs(self.levelsIcons) do
-		local iconBitmap = icon.bitmap
+		local iconSprite = icon.image
 		for property, targetValue in pairs(icon.interpolate) do
-			local currentValue = iconBitmap:get(property)
-			iconBitmap:set(property, currentValue + (targetValue - currentValue) * 0.2)
+			local currentValue = iconSprite:get(property)
+			iconSprite:set(property, currentValue + (targetValue - currentValue) * 0.2)
 		end
 	end
 end

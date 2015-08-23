@@ -64,8 +64,9 @@
 
   </folder>
   <folder name="icons">
-    <file source="assets/icons/2.png"/>
+    <file source="assets/icons/locked.png"/>
     <file source="assets/icons/1.png"/>
+    <file source="assets/icons/2.png"/>
     <file source="assets/icons/3.png"/>
     <file source="assets/icons/4.png"/>
     <file source="assets/icons/5.png"/>
