@@ -75,6 +75,7 @@
     <file source="assets/icons/8.png"/>
   </folder>
   <file source="assets/blood.png"/>
+  <file source="assets/pause.png"/>
   <file source="assets/button.png"/>
   <file source="assets/logo.png"/>
   <file source="assets/player1.png"/>
@@ -92,6 +93,7 @@
   </folder>
   <folder name="game">
    <file source="ui/game/DeathUI.lua"/>
+   <file source="ui/game/PauseUI.lua"/>
    <file source="ui/game/GameUI.lua"/>
   </folder>
  </folder>

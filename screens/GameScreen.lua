@@ -55,6 +55,9 @@ function GameScreen:load(levelID)
 	-- Вращение мира
 	self.worldRotationSpeed = defaultWorldRotationSpeed
 	self.camera:setRotation(0)
+
+	-- Пауза
+	self.isPaused = false
 end
 
 function GameScreen:unload()
@@ -67,6 +70,11 @@ function GameScreen:update(dt)
 		self.skipUpdate = false
 		return
 	end
+
+	if self.isPaused then
+		return
+	end
+
 	self.player:update(dt)
 	self.world:update(dt)
 
@@ -127,8 +135,18 @@ end
 
 function GameScreen:onTouchBegin(e)
 	if not self.player.isAlive then
-		self.ui.deathUI:setVisible(false)
+		self.ui:setDeathUIVisible(false)
 		self.world:respawn()
+	else
+		if not self.isPaused then 
+			if self.ui.pauseButton:hitTestPoint(e.x, e.y) then
+				self.ui:setPauseUIVisible(true)
+				self.isPaused = true
+			end
+		else
+			self.ui:setPauseUIVisible(false)
+			self.isPaused = false
+		end
 	end
 
 	if self.player.isAlive then
@@ -144,7 +162,7 @@ function GameScreen:onTouchEnd()
 end
 
 function GameScreen:onPlayerWasted()
-	self.ui.deathUI:setVisible(true)
+	self.ui:setDeathUIVisible(true)
 end
 
 function GameScreen:back()

@@ -50,7 +50,7 @@ function SettingsMenuScreen:load()
 
 	self.buttons.back = MenuButton.new()
 	self.buttons.back:setText("Back")
-	self.buttons.back:setPosition(buttonsX, buttonsY)
+	self.buttons.back:setPosition(utils.screenWidth - self.buttons.back:getWidth() - self.buttons.back:getHeight(), utils.screenHeight - self.buttons.back:getHeight())
 
 	for _, button in pairs(self.buttons) do
 		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)

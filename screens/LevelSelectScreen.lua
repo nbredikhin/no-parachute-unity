@@ -58,7 +58,12 @@ function LevelSelectScreen:load()
 	self.buttons = {}
 	self.buttons.start = MenuButton.new()
 	self.buttons.start:setText("Start")
-	self.buttons.start:setPosition(utils.screenWidth / 2 - self.buttons.start:getWidth() / 2, utils.screenHeight - self.buttons.start:getHeight())
+	self.buttons.start:setScale(self.buttons.start:getScale() * 2)
+	self.buttons.start:setPosition(utils.screenWidth / 2 - self.buttons.start:getWidth() / 2, utils.screenHeight - self.buttons.start:getHeight() / 2)
+
+	self.buttons.back = MenuButton.new()
+	self.buttons.back:setText("Back")
+	self.buttons.back:setPosition(utils.screenWidth - self.buttons.back:getWidth() - self.buttons.back:getHeight(), utils.screenHeight - self.buttons.back:getHeight())
 
 	for _, button in pairs(self.buttons) do
 		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)
@@ -119,6 +124,8 @@ function LevelSelectScreen:buttonClick(e)
 			end
 			screenManager:loadScreen("GameScreen", self.currentSelectedIcon)
 		end
+	elseif e:getTarget() == self.buttons.back then
+		self:back()
 	end
 end
 
