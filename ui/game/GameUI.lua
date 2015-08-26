@@ -39,4 +39,7 @@ function GameUI:setPauseUIVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 end
 
+function GameUI:update(deltaTime)
+end
+
 return GameUI

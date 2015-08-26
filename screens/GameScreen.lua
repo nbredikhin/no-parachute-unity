@@ -71,6 +71,8 @@ function GameScreen:update(dt)
 		return
 	end
 
+	self.ui:update(dt)
+
 	if self.isPaused then
 		return
 	end

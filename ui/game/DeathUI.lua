@@ -12,6 +12,11 @@ function DeathUI:init()
 	background:endPath()
 	self:addChild(background)
 
+	self.backgroundImage = Bitmap.new(Texture.new("assets/death_bg.png"))
+	self.backgroundImage:setScaleX(utils.screenWidth / self.backgroundImage:getWidth())
+	self.backgroundImage:setScaleY(utils.screenHeight / self.backgroundImage:getHeight())
+	self:addChild(self.backgroundImage)
+
 	local text = TextField.new(nil, "Tap to restart")
 	text:setScale(4)
 	text:setTextColor(0xFFFFFF)

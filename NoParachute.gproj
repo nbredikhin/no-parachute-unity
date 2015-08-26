@@ -1,78 +1,70 @@
 <project>
- <properties retinaDisplay="0" windowWidth="0" logicalHeight="480" android_template="1" logicalWidth="320" packageName="com.wherry.noparachute" architecture="4" touchToMouse="1" osx_org="GiderosMobile" osx_domain="giderosmobile.com" windowHeight="0" assetsOnly="0" scaleMode="0" fps="60" mouseToTouch="1" encryptAssets="1" iosDevice="0" autorotation="0" win_org="DunnoGames" encryptCode="1" mouseTouchOrder="0" win_domain="NoDomain.No" orientation="1">
+ <properties scaleMode="0" autorotation="0" win_org="DunnoGames" mouseTouchOrder="0" android_template="1" windowWidth="0" logicalWidth="768" encryptAssets="1" assetsOnly="0" packageName="com.wherry.noparachute" iosDevice="0" mouseToTouch="1" win_domain="NoDomain.No" orientation="1" logicalHeight="1024" osx_org="GiderosMobile" encryptCode="1" retinaDisplay="0" architecture="1" windowHeight="0" fps="60" touchToMouse="1" osx_domain="giderosmobile.com">
   <imageScales/>
  </properties>
  <folder name="assets">
   <folder name="levels">
-    <folder name="1">
-      <folder name="planes">
-        <file source="assets/levels/1/planes/1.png"/>
-        <file source="assets/levels/1/planes/2.png"/>
-        <file source="assets/levels/1/planes/3.png"/>
-        <file source="assets/levels/1/planes/4.png"/>
-        <file source="assets/levels/1/planes/5.png"/>
-        <file source="assets/levels/1/planes/6.png"/>
-
-        <file source="assets/levels/1/planes/1.png.msk"/>
-        <file source="assets/levels/1/planes/2.png.msk"/>
-        <file source="assets/levels/1/planes/3.png.msk"/>
-        <file source="assets/levels/1/planes/4.png.msk"/>
-        <file source="assets/levels/1/planes/5.png.msk"/>
-        <file source="assets/levels/1/planes/6.png.msk"/>
-      </folder>
-      <folder name="deco">
-        <file source="assets/levels/1/deco/1.png"/>
-        <file source="assets/levels/1/deco/2.png"/>
-      </folder>
-      <file source="assets/levels/1/wall.png"/>
+   <folder name="1">
+    <folder name="planes">
+     <file source="assets/levels/1/planes/1.png"/>
+     <file source="assets/levels/1/planes/2.png"/>
+     <file source="assets/levels/1/planes/3.png"/>
+     <file source="assets/levels/1/planes/4.png"/>
+     <file source="assets/levels/1/planes/5.png"/>
+     <file source="assets/levels/1/planes/6.png"/>
+     <file source="assets/levels/1/planes/1.png.msk"/>
+     <file source="assets/levels/1/planes/2.png.msk"/>
+     <file source="assets/levels/1/planes/3.png.msk"/>
+     <file source="assets/levels/1/planes/4.png.msk"/>
+     <file source="assets/levels/1/planes/5.png.msk"/>
+     <file source="assets/levels/1/planes/6.png.msk"/>
     </folder>
-
-
-    <folder name="2">
-      <folder name="planes">
-        <file source="assets/levels/2/planes/1.png"/>
-        <file source="assets/levels/2/planes/2.png"/>
-        <file source="assets/levels/2/planes/3.png"/>
-
-        <file source="assets/levels/2/planes/1.png.msk"/>
-        <file source="assets/levels/2/planes/2.png.msk"/>
-        <file source="assets/levels/2/planes/3.png.msk"/>
-      </folder>
-      <folder name="deco">
-        <file source="assets/levels/2/deco/1.png"/>
-        <file source="assets/levels/2/deco/2.png"/>
-        <file source="assets/levels/2/deco/3.png"/>
-        <file source="assets/levels/2/deco/4.png"/>
-      </folder>
-      <file source="assets/levels/2/wall.png"/>
+    <folder name="deco">
+     <file source="assets/levels/1/deco/1.png"/>
+     <file source="assets/levels/1/deco/2.png"/>
     </folder>
-
-    <folder name="3">
-      <folder name="planes">
-        <file source="assets/levels/3/planes/1.png"/>
-        <file source="assets/levels/3/planes/2.png"/>
-
-        <file source="assets/levels/3/planes/1.png.msk"/>
-        <file source="assets/levels/3/planes/2.png.msk"/>
-      </folder>
-      <folder name="deco">
-        <file source="assets/levels/3/deco/1.png"/>
-        <!--<file source="assets/levels/1/deco/2.png"/>-->
-      </folder>
-      <file source="assets/levels/3/wall.png"/>
+    <file source="assets/levels/1/wall.png"/>
+   </folder>
+   <folder name="2">
+    <folder name="planes">
+     <file source="assets/levels/2/planes/1.png"/>
+     <file source="assets/levels/2/planes/2.png"/>
+     <file source="assets/levels/2/planes/3.png"/>
+     <file source="assets/levels/2/planes/1.png.msk"/>
+     <file source="assets/levels/2/planes/2.png.msk"/>
+     <file source="assets/levels/2/planes/3.png.msk"/>
     </folder>
-
+    <folder name="deco">
+     <file source="assets/levels/2/deco/1.png"/>
+     <file source="assets/levels/2/deco/2.png"/>
+     <file source="assets/levels/2/deco/3.png"/>
+     <file source="assets/levels/2/deco/4.png"/>
+    </folder>
+    <file source="assets/levels/2/wall.png"/>
+   </folder>
+   <folder name="3">
+    <folder name="planes">
+     <file source="assets/levels/3/planes/1.png"/>
+     <file source="assets/levels/3/planes/2.png"/>
+     <file source="assets/levels/3/planes/1.png.msk"/>
+     <file source="assets/levels/3/planes/2.png.msk"/>
+    </folder>
+    <folder name="deco">
+     <file source="assets/levels/3/deco/1.png"/>
+    </folder>
+    <file source="assets/levels/3/wall.png"/>
+   </folder>
   </folder>
   <folder name="icons">
-    <file source="assets/icons/locked.png"/>
-    <file source="assets/icons/1.png"/>
-    <file source="assets/icons/2.png"/>
-    <file source="assets/icons/3.png"/>
-    <file source="assets/icons/4.png"/>
-    <file source="assets/icons/5.png"/>
-    <file source="assets/icons/6.png"/>
-    <file source="assets/icons/7.png"/>
-    <file source="assets/icons/8.png"/>
+   <file source="assets/icons/locked.png"/>
+   <file source="assets/icons/1.png"/>
+   <file source="assets/icons/2.png"/>
+   <file source="assets/icons/3.png"/>
+   <file source="assets/icons/4.png"/>
+   <file source="assets/icons/5.png"/>
+   <file source="assets/icons/6.png"/>
+   <file source="assets/icons/7.png"/>
+   <file source="assets/icons/8.png"/>
   </folder>
   <file source="assets/blood.png"/>
   <file source="assets/pause.png"/>
@@ -80,6 +72,7 @@
   <file source="assets/logo.png"/>
   <file source="assets/player1.png"/>
   <file source="assets/player2.png"/>
+  <file source="assets/death_bg.png"/>
  </folder>
  <file source="utils.lua"/>
  <file source="math.lua"/>
