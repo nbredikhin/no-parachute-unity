@@ -23,6 +23,19 @@ function SettingsMenuScreen:load()
 
 	local sliderWidth = utils.screenWidth * 0.4
 
+	-- Слайдер "громкость звука"
+	local text = TextField.new(nil, "Sound volume")
+	text:setTextColor(0xFFFFFF)
+	text:setScale(2)
+	text:setPosition(buttonsX, buttonsY - 10)
+	self:addChild(text)
+
+	self.sliders.volume = MenuSlider.new(sliderWidth, 32)
+	self.sliders.volume:setPosition(buttonsX, buttonsY)
+	self:addChild(self.sliders.volume)
+	
+	buttonsY = buttonsY + self.sliders.volume:getHeight() * 3
+
 	-- Слайдер "качество графики"
 	local text = TextField.new(nil, "Graphics quality")
 	text:setTextColor(0xFFFFFF)

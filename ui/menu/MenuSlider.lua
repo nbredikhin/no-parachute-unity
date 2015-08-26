@@ -35,6 +35,7 @@ function MenuSlider:init(width, height)
 	self:addEventListener(Event.ENTER_FRAME, self.update, self)
 
 	self.targetX = self.minPos
+	self:setScale(math.min(1, utils.screenHeight / 450))
 end
 
 function MenuSlider:touchUpdate(e)
