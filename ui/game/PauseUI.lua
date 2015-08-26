@@ -17,12 +17,7 @@ function PauseUI:init()
 	text:setTextColor(0xFFFFFF)
 	text:setPosition(utils.screenWidth / 2 - text:getWidth() / 2, utils.screenHeight / 2 + text:getHeight() / 2)
 	self:addChild(text)
-
-	--[[local backButton = TextField.new(nil, "Back to menu")
-	backButton:setScale(3)
-	backButton:setTextColor(0xFFFFFF)
-	backButton:setPosition(utils.screenWidth / 2 - backButton:getWidth() / 2, text:getY() + text:getHeight() * 1.5)
-	self:addChild(backButton)]]
 end
+
 
 return PauseUI

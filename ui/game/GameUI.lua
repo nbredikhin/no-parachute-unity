@@ -1,5 +1,6 @@
-local DeathUI = require "ui/game/DeathUI"
-local PauseUI = require "ui/game/PauseUI"
+local DeathUI 		= require "ui/game/DeathUI"
+local PauseUI 		= require "ui/game/PauseUI"
+local MenuButton 	= require "ui/menu/MenuButton"
 
 local GameUI = Core.class(Sprite)
 
@@ -25,16 +26,23 @@ function GameUI:init()
 	self.pauseButton:setY(utils.screenHeight - self.pauseButton:getHeight() * 1.25)
 	self.pauseButton:setAlpha(0.5)
 	self:addChild(self.pauseButton)
+
+	self.backButton = MenuButton.new(nil, "Back to menu")
+	self.backButton:setScale(3)
+	self.backButton:setVisible(false)
+	self.backButton:setPosition(utils.screenWidth / 2 - self.backButton:getWidth() / 2, utils.screenHeight * 0.7)
+	self:addChild(self.backButton)
 end
 
 function GameUI:setDeathUIVisible(isVisible)
 	self.deathUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
+	self.backButton:setVisible(isVisible)
 end
 
 function GameUI:setPauseUIVisible(isVisible)
 	self:setDeathUIVisible(false)
-
+	self.backButton:setVisible(isVisible)
 	self.pauseUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 end

@@ -8,8 +8,8 @@ local defaultColorHover 	= 0x7B2AEA
 local maxShake = 30
 
 function MenuButton:init()
-	self.colorNormal = defaultColorNormal
-	self.colorHover = defaultColorHover
+	self.colorNormal = colorNormal or defaultColorNormal
+	self.colorHover = colorHover or defaultColorHover
 
 	self:setTextColor(self.colorNormal)
 	local textSize = math.min(defaultTextSize, math.max(1, math.floor(defaultTextSize * utils.screenHeight / 500)))
@@ -24,7 +24,7 @@ function MenuButton:init()
 end
 
 function MenuButton:onHover(e)
-	if not self.doubleClickFix then
+	if not self.doubleClickFix or not self:isVisible() then
 		return
 	end
 	if not self:hitTestPoint(e.touch.x, e.touch.y) then
@@ -43,7 +43,7 @@ function MenuButton:onHover(e)
 end
 
 function MenuButton:onOut(e)
-	if not self.doubleClickFix then
+	if not self.doubleClickFix or not self:isVisible() then
 		return
 	end
 	if self:getTextColor() == self.colorHover then

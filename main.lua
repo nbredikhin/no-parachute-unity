@@ -6,8 +6,8 @@ local ScreenManager = require "screens/ScreenManager"
 application:configureFrustum(45, 60000)
 
 screenManager = ScreenManager.new()
---local startupScreen = "MainMenuScreen"
-local startupScreen = "SettingsMenuScreen"
+local startupScreen = "MainMenuScreen"
+--local startupScreen = "SettingsMenuScreen"
 --local startupScreen = "LevelSelectScreen"
 --local startupScreen = "GameScreen"
 screenManager:loadScreen(startupScreen)

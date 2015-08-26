@@ -137,6 +137,9 @@ end
 
 function GameScreen:onTouchBegin(e)
 	if not self.player.isAlive then
+		if self.ui.backButton:hitTestPoint(e.x, e.y) then
+			self:back()
+		end
 		self.ui:setDeathUIVisible(false)
 		self.world:respawn()
 	else
@@ -146,6 +149,9 @@ function GameScreen:onTouchBegin(e)
 				self.isPaused = true
 			end
 		else
+			if self.ui.backButton:hitTestPoint(e.x, e.y) then
+				self:back()
+			end
 			self.ui:setPauseUIVisible(false)
 			self.isPaused = false
 		end
