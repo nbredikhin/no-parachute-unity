@@ -8,8 +8,8 @@ function Player:init()
 	self.size = 150
 	self.movementSpeed = 1500
 	self.textures = {}
-	self.textures[1] = Texture.new("assets/player1.png")
-	self.textures[2] = Texture.new("assets/player2.png")
+	self.textures[1] = Assets:getTexture("assets/player1.png")
+	self.textures[2] = Assets:getTexture("assets/player2.png")
 	self.currentFrame = 1
 	self.currentDelay = 0
 	self.animationDelay = 0.07
@@ -22,7 +22,7 @@ function Player:init()
 	self.isAlive = true
 	self.cameraRotation = 0
 
-	self.bloodTexture = Texture.new("assets/blood.png")
+	self.bloodTexture = Assets:getTexture("assets/blood.png")
 	self.bloodParticles = {}
 end
 

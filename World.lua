@@ -28,7 +28,7 @@ function World:init(player, levelID)
 
 	-- Боковые стены
 	self.walls = Sprite.new()
-	local wallTexture = Texture.new("assets/levels/" .. tostring(levelID) .."/wall.png")
+	local wallTexture = Assets:getTexture("assets/levels/" .. tostring(levelID) .."/wall.png")
 	for i = 1, 4 do
 		local wall = PlaneMesh.new(wallTexture, self.size, wallsColors[i])
 		wall:setRotationX(90)
@@ -45,7 +45,7 @@ function World:init(player, levelID)
 	for i = 1, 50 do
 		local path = "assets/levels/" .. tostring(levelID) .."/deco/" .. tostring(i) ..".png"
 		if utils.fileExists(path) then
-			self.decorativeTextures[i] = Texture.new(path)
+			self.decorativeTextures[i] = Assets:getTexture(path)
 		else
 			break
 		end

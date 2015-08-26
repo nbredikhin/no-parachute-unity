@@ -24,13 +24,13 @@ function LevelSelectScreen:load()
 		local iconPath = "assets/icons/" .. tostring(i) .. ".png"
 		local iconSprite = Sprite.new()
 
-		local bitmap = Bitmap.new(Texture.new(iconPath))
+		local bitmap = Bitmap.new(Assets:getTexture(iconPath))
 		iconSprite:addChild(bitmap)
 		bitmap:setAnchorPoint(0.5, 0.5)
 
 		if self:isLevelLocked(i) then
 			bitmap:setColorTransform(0.1, 0.1, 0.1, 1)
-			local lock = Bitmap.new(Texture.new("assets/icons/locked.png"))
+			local lock = Bitmap.new(Assets:getTexture("assets/icons/locked.png"))
 			iconSprite:addChild(lock)
 			lock:setAnchorPoint(0.5, 0.5)
 		end

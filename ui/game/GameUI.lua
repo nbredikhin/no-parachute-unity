@@ -4,7 +4,7 @@ local PauseUI = require "ui/game/PauseUI"
 local GameUI = Core.class(Sprite)
 
 function GameUI:init()
-	self.touchButton = Bitmap.new(Texture.new("assets/button.png"))
+	self.touchButton = Bitmap.new(Assets:getTexture("assets/button.png"))
 	self.touchButton:setAnchorPoint(0.5, 0.5)
 	self.touchButton:setScale(0.3, 0.3)
 	self.touchButton:setAlpha(0.5)
@@ -19,7 +19,7 @@ function GameUI:init()
 	self:addChild(self.pauseUI)
 	self.pauseUI:setVisible(false)
 
-	self.pauseButton = Bitmap.new(Texture.new("assets/pause.png"))
+	self.pauseButton = Bitmap.new(Assets:getTexture("assets/pause.png"))
 	self.pauseButton:setScale(math.min(16, utils.screenHeight / 25))
 	self.pauseButton:setX(utils.screenWidth - self.pauseButton:getWidth() * 1.25)
 	self.pauseButton:setY(utils.screenHeight - self.pauseButton:getHeight() * 1.25)

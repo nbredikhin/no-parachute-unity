@@ -98,6 +98,7 @@
  <file source="Camera.lua"/>
  <file source="World.lua"/>
  <file source="Blood.lua"/>
+ <file source="Assets.lua"/>
  <file source="main.lua"/>
  <folder name="screens">
   <file source="screens/GameScreen.lua"/>

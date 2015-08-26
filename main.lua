@@ -1,5 +1,6 @@
 require "utils"
 require "math"
+Assets = require "Assets"
 local ScreenManager = require "screens/ScreenManager"
 
 application:configureFrustum(45, 60000)

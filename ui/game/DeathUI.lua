@@ -12,7 +12,7 @@ function DeathUI:init()
 	background:endPath()
 	self:addChild(background)
 
-	self.backgroundImage = Bitmap.new(Texture.new("assets/death_bg.png"))
+	self.backgroundImage = Bitmap.new(Assets:getTexture("assets/death_bg.png", true))
 	self.backgroundImage:setScaleX(utils.screenWidth / self.backgroundImage:getWidth())
 	self.backgroundImage:setScaleY(utils.screenHeight / self.backgroundImage:getHeight())
 	self:addChild(self.backgroundImage)

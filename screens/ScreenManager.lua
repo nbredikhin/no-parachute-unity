@@ -48,6 +48,9 @@ function ScreenManager:loadScreen(screen, ...)
 	end
 	application:setBackgroundColor(0xFFFFFF)
 
+	-- Выгрузить ассеты из кэша
+	Assets:clearCache()
+
 	-- Если нового экрана нет, ничего не делать
 	if not screen then
 		return false
