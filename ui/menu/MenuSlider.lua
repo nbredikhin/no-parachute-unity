@@ -49,7 +49,15 @@ function MenuSlider:touchUpdate(e)
 end
 
 function MenuSlider:getValue()
-	return (self.targetX - self.minPos) / (self.maxPos - self.minPos)
+	return math.floor((self.targetX - self.minPos) / (self.maxPos - self.minPos) * 100) / 100
+end
+
+function MenuSlider:setValue(value)
+	local newX = self.maxPos * value
+	newX = math.max(self.minPos, newX)
+	newX = math.min(self.maxPos, newX)
+	self.targetX = newX
+	self.slider:setX(self.targetX)
 end
 
 function MenuSlider:update(e)

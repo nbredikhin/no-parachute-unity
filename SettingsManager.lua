@@ -1,11 +1,20 @@
 require "json"
 
+local PRINT_MESSAGES = false
+
+local print_old = print
+local function print(...)
+	if PRINT_MESSAGES then
+		print_old(...)
+	end
+end
+
 local SettingsManager = {}
 SettingsManager.settingsFilePath = "|D|settings.json"
 SettingsManager.defaultSettings = {
 	sound_volume = 1,
 	graphics_quality = 1,
-	input_sensitivity = 1
+	input_sensitivity = 0.5
 }
 
 function SettingsManager:reset()

@@ -69,23 +69,15 @@ function SettingsMenuScreen:load()
 		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)
 		self:addChild(button)
 	end
+	
+	self.sliders.volume:setValue(SettingsManager.settings.sound_volume)
+	self.sliders.graphics:setValue(SettingsManager.settings.graphics_quality)
+	self.sliders.controls:setValue(SettingsManager.settings.input_sensitivity)
 end
 
 function SettingsMenuScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.back then
-		screenManager:loadScreen(screenManager.screens.MainMenuScreen.new())
-	elseif e:getTarget() == self.buttons.graphics then
-		--[[self.settings.graphics = self.settings.graphics + 1
-		if self.settings.graphics > 3 then
-			self.settings.graphics = 1
-		end
-		self.buttons.graphics:setText("Graphics quality: " .. ({"LOW", "MEDIUM", "HIGH"})[self.settings.graphics])]]
-	elseif e:getTarget() == self.buttons.controls then
-		--[[self.settings.controls = self.settings.controls + 25
-		if self.settings.controls > 100 then
-			self.settings.controls = 25
-		end
-		self.buttons.controls:setText("Controls sensitivity: " .. tostring(self.settings.controls) .. "%")]]
+		self:back()
 	end
 end
 
@@ -95,6 +87,12 @@ end
 
 function SettingsMenuScreen:back()
 	-- Возврат на главный экран
+	
+	SettingsManager.settings.sound_volume = self.sliders.volume:getValue()
+	SettingsManager.settings.graphics_quality = self.sliders.graphics:getValue()
+	SettingsManager.settings.input_sensitivity = self.sliders.controls:getValue()
+	SettingsManager:save()
+
 	screenManager:loadScreen(screenManager.screens.MainMenuScreen.new())
 end
 

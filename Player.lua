@@ -93,7 +93,8 @@ function Player:clearBlood()
 end
 
 function Player:sprayBlood()
-	for i = 1, math.random(20, 30) do
+	local particlesCount = math.floor(math.random(20, 30) * SettingsManager.settings.graphics_quality)
+	for i = 1, particlesCount do
 		local b = Blood.new(self.bloodTexture)
 		b.sx = math.random(0, 30) - 15
 		b.sy = math.random(0, 30) - 15

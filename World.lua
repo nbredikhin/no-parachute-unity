@@ -39,9 +39,10 @@ function World:init(player, levelID)
 	self:addChild(self.walls)
 
 	-- Передние декоративные стены
-	self.decorativePlanesCount = defaultDecorativePlanesCount
+	self.decorativePlanesCount = math.floor(defaultDecorativePlanesCount * SettingsManager.settings.graphics_quality)
 	self.decorativePlanes = {}
 	self.decorativeTextures = {}
+	-- Загрузка текстур
 	for i = 1, 50 do
 		local path = "assets/levels/" .. tostring(levelID) .."/deco/" .. tostring(i) ..".png"
 		if utils.fileExists(path) then
@@ -50,6 +51,7 @@ function World:init(player, levelID)
 			break
 		end
 	end
+	-- Создание стен
 	for i = 1, self.decorativePlanesCount do
 		local d = self.depth / self.decorativePlanesCount
 		local texture = self.decorativeTextures[math.random(1, #self.decorativeTextures)]
