@@ -1,8 +1,10 @@
 require "utils"
 require "math"
-Assets = require "Assets"
+Assets 				= require "Assets"
+SettingsManager 	= require "SettingsManager"
 local ScreenManager = require "screens/ScreenManager"
 
+SettingsManager:load()
 application:configureFrustum(45, 60000)
 
 screenManager = ScreenManager.new()
@@ -18,3 +20,9 @@ local function updateGame(e)
 end
 
 stage:addEventListener(Event.ENTER_FRAME, updateGame)
+
+local function gameExit(e)
+	SettingsManager:save()
+end
+
+stage:addEventListener(Event.APPLICATION_EXIT, gameExit)
