@@ -22,6 +22,8 @@ function DeathUI:init()
 	text:setTextColor(0xFFFFFF)
 	text:setPosition(utils.screenWidth / 2 - text:getWidth() / 2, utils.screenHeight / 2)
 	self:addChild(text)
+
+	self.restartText = text
 end
 
 return DeathUI

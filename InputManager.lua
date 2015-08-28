@@ -31,15 +31,15 @@ end
 function InputManager:touchMove(e)
 	local touch = e.allTouches[1]
 	local x, y = touch.x - self.startX, touch.y - self.startY
+	local sensitivity = (SettingsManager.settings.input_sensitivity + 0.5)
+	x = x * sensitivity
+	y = y * sensitivity
 	local maxLen = self.maxTouchValue
 	local len = math.sqrt((x*x)+(y*y))
 	if len > maxLen then
 		x = x / len * maxLen
 		y = y / len * maxLen
 	end
-
-	x = x * (SettingsManager.settings.input_sensitivity + 0.5)
-	y = y * (SettingsManager.settings.input_sensitivity + 0.5)
 
 	self.valueX = math.clamp(x / self.maxTouchValue, -1, 1)
 	self.valueY = math.clamp(y / self.maxTouchValue, -1, 1)

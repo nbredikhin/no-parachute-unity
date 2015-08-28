@@ -136,28 +136,36 @@ function GameScreen:update(dt)
 end
 
 function GameScreen:onTouchBegin(e)
+	-- Игрок мёртв
 	if not self.player.isAlive then
+		-- Нажатие на кнопку "Back to menu"
 		if self.ui.backButton:hitTestPoint(e.x, e.y) then
 			self:back()
+		-- Нажатие на кнопку "Tap to restart"
+		elseif self.ui.deathUI.restartText:hitTestPoint(e.x, e.y) then
+			self.ui:setDeathUIVisible(false)
+			self.world:respawn()
 		end
-		self.ui:setDeathUIVisible(false)
-		self.world:respawn()
-	else
+	else -- Если игрок жив
+		-- Во время игры
 		if not self.isPaused then 
 			if self.ui.pauseButton:hitTestPoint(e.x, e.y) then
 				self.ui:setPauseUIVisible(true)
 				self.isPaused = true
 			end
-		else
+		else -- Во время паузы
+			-- Нажатие на кнопку "Back to menu"
 			if self.ui.backButton:hitTestPoint(e.x, e.y) then
 				self:back()
+			-- Нажатие на кнопку "Tap to continue"
+			elseif self.ui.pauseUI.continueText:hitTestPoint(e.x, e.y) then
+				self.ui:setPauseUIVisible(false)
+				self.isPaused = false
 			end
-			self.ui:setPauseUIVisible(false)
-			self.isPaused = false
 		end
 	end
 
-	if self.player.isAlive then
+	if self.player.isAlive and not self.isPaused then
 		self.ui.touchButton:setPosition(e.x, e.y)
 		self.ui.touchButton:setVisible(true)
 	else

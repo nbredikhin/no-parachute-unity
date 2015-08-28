@@ -54,6 +54,7 @@ function LevelSelectScreen:load()
 
 	self.iconsContainer:addEventListener(Event.TOUCHES_BEGIN, self.iconsTouchBegin, self)
 	self.iconsContainer:addEventListener(Event.TOUCHES_MOVE, self.iconsTouchMove, self)
+	self.iconsContainer:addEventListener(Event.TOUCHES_END, self.iconsTouchEnd, self)
 
 	self.buttons = {}
 	self.buttons.start = MenuButton.new()
@@ -76,6 +77,9 @@ function LevelSelectScreen:isLevelLocked(levelID)
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
+	self.iconsPrevX = e.touch.x
+	self.iconsPrevY = e.touch.y
+
 	self.iconsStartX = e.touch.x
 	self.iconsStartY = e.touch.y
 end
@@ -85,9 +89,9 @@ function LevelSelectScreen:setSelectedIcon(id)
 	id = math.min(id, 8)
 	if self.currentSelectedIcon then
 		local iconSprite = self.levelsIcons[self.currentSelectedIcon].image
-	self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_INACTIVE
-	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(1, 1 * utils.screenHeight / 360)
-	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(1, 1 * utils.screenHeight / 360)
+		self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_INACTIVE
+		self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(1, 1 * utils.screenHeight / 360)
+		self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(1, 1 * utils.screenHeight / 360)
 	end
 	self.currentSelectedIcon = id
 	local iconSprite = self.levelsIcons[self.currentSelectedIcon].image
@@ -99,17 +103,32 @@ function LevelSelectScreen:setSelectedIcon(id)
 end
 
 function LevelSelectScreen:iconsTouchMove(e)
-	local dragX = e.touch.x - self.iconsStartX
-	local dragY = e.touch.y - self.iconsStartY
+	local dragX = e.touch.x - self.iconsPrevX
+	local dragY = e.touch.y - self.iconsPrevY
 
 	if dragX < -self.ICON_WIDTH then
 		self:setSelectedIcon(self.currentSelectedIcon + 1)
-		self.iconsStartX = e.touch.x
-		self.iconsStartY = e.touch.y
+		self.iconsPrevX = e.touch.x
+		self.iconsPrevY = e.touch.y
 	elseif dragX > self.ICON_WIDTH then
 		self:setSelectedIcon(self.currentSelectedIcon - 1)
-		self.iconsStartX = e.touch.x
-		self.iconsStartY = e.touch.y
+		self.iconsPrevX = e.touch.x
+		self.iconsPrevY = e.touch.y
+	end
+end
+
+function LevelSelectScreen:iconsTouchEnd(e)
+	local dragX = e.touch.x - self.iconsStartX
+	local dragY = e.touch.y - self.iconsStartY
+
+	-- Тап по иконкам
+	if math.abs(dragX) < 10 then
+		-- Номер иконки, по которой был тап
+		local tapIcon = math.floor((e.touch.x - self.iconsContainer:getX()) / (self.ICON_WIDTH + self.ICONS_SPACE) + 1.5)
+		local diff = math.abs(self.currentSelectedIcon - tapIcon)
+		if diff <= 2 then
+			self:setSelectedIcon(tapIcon)
+		end
 	end
 end
 
