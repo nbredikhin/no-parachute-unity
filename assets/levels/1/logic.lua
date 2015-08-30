@@ -6,10 +6,9 @@ local LevelLogicBase = require "LevelLogic"
 local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:initialize()
-	self:setFallingSpeed(self.defaultFallingSpeed * 2)
+	self:setFallingSpeed(self.defaultFallingSpeed)
 
-	self:setCameraType(LevelLogic.CAMERA_ROTATING_CONSTANTLY)
-	self:setCameraSpeed(10)
+	self:setCameraType(LevelLogic.CAMERA_STATIC)
 end
 
 return LevelLogic

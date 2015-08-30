@@ -48,14 +48,38 @@
     <folder name="planes">
      <file source="assets/levels/3/planes/1.png"/>
      <file source="assets/levels/3/planes/2.png"/>
+     <file source="assets/levels/3/planes/3.png"/>
      <file source="assets/levels/3/planes/1.png.msk"/>
      <file source="assets/levels/3/planes/2.png.msk"/>
+     <file source="assets/levels/3/planes/3.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/3/deco/1.png"/>
+     <file source="assets/levels/3/deco/2.png"/>
     </folder>
     <file source="assets/levels/3/wall.png"/>
     <file source="assets/levels/3/logic.lua"/>
+   </folder>
+   <folder name="4">
+    <folder name="planes">
+     <file source="assets/levels/4/planes/1.png"/>
+     <file source="assets/levels/4/planes/2.png"/>
+     <file source="assets/levels/4/planes/3.png"/>
+     <file source="assets/levels/4/planes/4.png"/>
+     <file source="assets/levels/4/planes/5.png"/>
+     <file source="assets/levels/4/planes/1.png.msk"/>
+     <file source="assets/levels/4/planes/2.png.msk"/>
+     <file source="assets/levels/4/planes/3.png.msk"/>
+     <file source="assets/levels/4/planes/4.png.msk"/>
+     <file source="assets/levels/4/planes/5.png.msk"/>
+    </folder>
+    <folder name="deco">
+     <file source="assets/levels/4/deco/1.png"/>
+     <file source="assets/levels/4/deco/2.png"/>
+     <file source="assets/levels/4/deco/3.png"/>
+    </folder>
+    <file source="assets/levels/4/wall.png"/>
+    <file source="assets/levels/4/logic.lua"/>
    </folder>
   </folder>
   <folder name="icons">

@@ -7,7 +7,7 @@ local World = Core.class(Sprite)
 local defaultWorldSize = 3000
 local defaultFallingSpeed = 9000
 local defaultDecorativePlanesCount = 30
-local defaultPlanesCount = 2
+local defaultPlanesCount = 3
 
 local wallsColors = { 0xBBBBBB, 0x999999, 0xBBBBBB, 0xDDDDDD }
 
@@ -51,6 +51,7 @@ function World:init(player, levelID)
 			break
 		end
 	end
+	print("Deco count: " .. #self.decorativeTextures)
 	-- Создание стен
 	for i = 1, self.decorativePlanesCount do
 		local d = self.depth / self.decorativePlanesCount
@@ -120,11 +121,12 @@ function World:update(dt)
 			-- Обновление текстуры
 			plane:setPlaneTexture(self.planeTextures[math.random(1, #self.planeTextures)])
 		end
-		if plane:getZ() > self.depth / 2 - 800 then
+		-- Исчезновение в прозрачность
+		--[[if plane:getZ() > self.depth / 2 - 800 then
 			local alpha = 1 - (plane:getZ() - self.depth / 2) / 800
 			local r, g, b = plane:getColorTransform()
 			plane:setColorTransform(r, g, b, alpha)
-		end
+		end]]
 
 		-- Проверка столкновений
 		if self.player.isAlive then

@@ -6,7 +6,7 @@ LevelLogic.CAMERA_ROTATING_CONSTANTLY = "rotating_constantly"
 function LevelLogic:init(world)
 	self.world = world
 	self.gameTime = 0
-	self.defaultFallingSpeed = 9000
+	self.defaultFallingSpeed = 7500
 
 	-- Camera
 	self.cameraType = LevelLogic.CAMERA_STATIC
