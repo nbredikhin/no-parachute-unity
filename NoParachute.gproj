@@ -24,6 +24,7 @@
      <file source="assets/levels/1/deco/2.png"/>
     </folder>
     <file source="assets/levels/1/wall.png"/>
+    <file source="assets/levels/1/logic.lua"/>
    </folder>
    <folder name="2">
     <folder name="planes">
@@ -41,6 +42,7 @@
      <file source="assets/levels/2/deco/4.png"/>
     </folder>
     <file source="assets/levels/2/wall.png"/>
+    <file source="assets/levels/2/logic.lua"/>
    </folder>
    <folder name="3">
     <folder name="planes">
@@ -53,6 +55,7 @@
      <file source="assets/levels/3/deco/1.png"/>
     </folder>
     <file source="assets/levels/3/wall.png"/>
+    <file source="assets/levels/3/logic.lua"/>
    </folder>
   </folder>
   <folder name="icons">
@@ -99,6 +102,7 @@
  <file source="World.lua"/>
  <file source="Blood.lua"/>
  <file source="Assets.lua"/>
+ <file source="LevelLogic.lua"/>
  <file source="SettingsManager.lua"/>
  <file source="main.lua"/>
  <folder name="screens">

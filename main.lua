@@ -1,7 +1,9 @@
+-- Globals
 require "utils"
 require "math"
 Assets 				= require "Assets"
 SettingsManager 	= require "SettingsManager"
+-- Locals
 local ScreenManager = require "screens/ScreenManager"
 
 SettingsManager:load()

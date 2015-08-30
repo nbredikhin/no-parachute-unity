@@ -4,6 +4,7 @@ local InputManager 		= require "InputManager"
 local Player 			= require "Player"
 local Screen 			= require "screens/Screen"
 local World  			= require "World"
+local LevelLogic 		= require "LevelLogic"
 
 local GameScreen = Core.class(Screen)
 
@@ -58,6 +59,16 @@ function GameScreen:load(levelID)
 
 	-- Пауза
 	self.isPaused = false
+
+	-- Скрипт уровня
+	local scriptPath = "assets/levels/" .. tostring(levelID) .."/logic"
+	local LevelLogicClass = require(scriptPath)
+	if LevelLogicClass then
+		self.levelLogic = LevelLogicClass.new(self.world)
+		self.levelLogic:initialize()
+	else
+		print("Failed to load 'logic.lua' for level " .. tostring(levelID))
+	end
 end
 
 function GameScreen:unload()
@@ -93,9 +104,13 @@ function GameScreen:update(dt)
 
  	-- Вращение камеры
  	if self.player.isAlive then
-	 	local cameraRotation = self.camera:getRotation()
-	 	self.camera:setRotation(cameraRotation + self.worldRotationSpeed * dt)
-	 	self.player.cameraRotation = cameraRotation
+ 		if self.levelLogic.cameraType == LevelLogic.CAMERA_STATIC then
+
+ 		elseif self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_CONSTANTLY then
+		 	local cameraRotation = self.camera:getRotation()
+		 	self.camera:setRotation(cameraRotation + self.levelLogic.cameraSpeed * dt)
+		 	self.player.cameraRotation = cameraRotation
+		end
 	end
 
 	-- Управление игроком
