@@ -157,7 +157,7 @@ function GameScreen:onTouchBegin(e)
 		if self.ui.backButton:hitTestPoint(e.x, e.y) then
 			self:back()
 		-- Нажатие на кнопку "Tap to restart"
-		elseif self.ui.deathUI.restartText:hitTestPoint(e.x, e.y) then
+		elseif self.ui.deathUI.restartButton:hitTestPoint(e.x, e.y) then
 			self.ui:setDeathUIVisible(false)
 			self.world:respawn()
 		end

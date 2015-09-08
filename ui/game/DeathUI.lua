@@ -23,7 +23,10 @@ function DeathUI:init()
 	text:setPosition(utils.screenWidth / 2 - text:getWidth() / 2, utils.screenHeight / 2)
 	self:addChild(text)
 
-	self.restartText = text
+	self.restartButton = Shape.new()
+	self.restartButton:moveTo(0, 0)
+	self.restartButton:lineTo(utils.screenWidth, utils.screenHeight / 2 + text:getHeight() * 2)
+	self.restartButton:endPath()
 end
 
 return DeathUI

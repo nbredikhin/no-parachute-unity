@@ -22,7 +22,7 @@ function LevelLogic:update(deltaTime)
 end
 
 function LevelLogic:setFallingSpeed(speed)
-	self.world.fallingSpeed = speed
+	self.world:setFallingSpeed(speed)
 end
 
 function LevelLogic:setCameraType(cameraType)

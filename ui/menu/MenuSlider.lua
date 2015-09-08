@@ -31,21 +31,43 @@ function MenuSlider:init(width, height)
 	self:addChild(self.slider)
 
 	self:addEventListener(Event.TOUCHES_MOVE, self.touchUpdate, self)
-	self:addEventListener(Event.TOUCHES_BEGIN, self.touchUpdate, self)
+	self:addEventListener(Event.TOUCHES_BEGIN, self.touchBegin, self)
+	self:addEventListener(Event.TOUCHES_END, self.touchEnd, self)
 	self:addEventListener(Event.ENTER_FRAME, self.update, self)
 
 	self.targetX = self.minPos
 	self:setScale(math.min(1, utils.screenHeight / 450))
+
+	self.isTouching = false
 end
 
-function MenuSlider:touchUpdate(e)
-	if not self:hitTestPoint(e.touch.x, e.touch.y) then
-		return
-	end
-	local newX = e.touch.x - self:getX() - self.slider:getWidth() / 2
+function MenuSlider:updatePosition(x, y)
+	local newX = x - self:getX() - self.slider:getWidth() / 2
 	newX = math.max(self.minPos, newX)
 	newX = math.min(self.maxPos, newX)
 	self.targetX = newX
+end
+
+function MenuSlider:touchBegin(e)
+	if not self:hitTestPoint(e.touch.x, e.touch.y) then
+		return
+	end
+	self.isTouching = true
+	self:updatePosition(e.touch.x, e.touch.y)
+end
+
+function MenuSlider:touchUpdate(e)
+	if not self.isTouching then
+		return
+	end
+	self:updatePosition(e.touch.x, e.touch.y)
+end
+
+function MenuSlider:touchEnd(e)
+	if not self.isTouching then
+		return
+	end
+	self.isTouching = false
 end
 
 function MenuSlider:getValue()

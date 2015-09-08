@@ -127,22 +127,30 @@ function LevelSelectScreen:iconsTouchEnd(e)
 		local tapIcon = math.floor((e.touch.x - self.iconsContainer:getX()) / (self.ICON_WIDTH + self.ICONS_SPACE) + 1.5)
 		local diff = math.abs(self.currentSelectedIcon - tapIcon)
 		if diff <= 2 then
-			self:setSelectedIcon(tapIcon)
+			if diff > 0 then
+				self:setSelectedIcon(tapIcon)
+			elseif diff == 0 then
+				self:startSelectedLevel()
+			end
 		end
+	end
+end
+
+function LevelSelectScreen:startSelectedLevel()
+	local levelID = self.currentSelectedIcon
+	if levelID then
+		levelID = math.max(levelID, 1)
+		levelID = math.min(levelID, ICONS_COUNT)
+		if self:isLevelLocked(levelID) then
+			return
+		end
+		screenManager:loadScreen("GameScreen", self.currentSelectedIcon)
 	end
 end
 
 function LevelSelectScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.start then
-		local levelID = self.currentSelectedIcon
-		if levelID then
-			levelID = math.max(levelID, 1)
-			levelID = math.min(levelID, ICONS_COUNT)
-			if self:isLevelLocked(levelID) then
-				return
-			end
-			screenManager:loadScreen("GameScreen", self.currentSelectedIcon)
-		end
+		self:startSelectedLevel()
 	elseif e:getTarget() == self.buttons.back then
 		self:back()
 	end

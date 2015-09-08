@@ -5,7 +5,7 @@ local TexturePNG 	= require "TexturePNG"
 local World = Core.class(Sprite)
 
 local defaultWorldSize = 3000
-local defaultFallingSpeed = 9000
+local DEFAULT_FALLING_SPEED = 9000
 local defaultDecorativePlanesCount = 30
 local defaultPlanesCount = 3
 
@@ -19,7 +19,8 @@ function World:init(player, levelID)
 	self.size = defaultWorldSize
 	self.depth = self.size * 10
 
-	self.fallingSpeed = defaultFallingSpeed
+	self.defaultFallingSpeed = DEFAULT_FALLING_SPEED
+	self.fallingSpeed = self.defaultFallingSpeed
 
 	-- Игрок
 	self.player = player
@@ -51,7 +52,6 @@ function World:init(player, levelID)
 			break
 		end
 	end
-	print("Deco count: " .. #self.decorativeTextures)
 	-- Создание стен
 	for i = 1, self.decorativePlanesCount do
 		local d = self.depth / self.decorativePlanesCount
@@ -106,7 +106,7 @@ function World:respawn()
 	end
 
 	self.player:respawn()
-	self.fallingSpeed = defaultFallingSpeed
+	self.fallingSpeed = self.defaultFallingSpeed
 end
 
 function World:update(dt)
@@ -143,6 +143,11 @@ function World:update(dt)
 			end
 		end
 	end
+end
+
+function World:setFallingSpeed(speed)
+	self.fallingSpeed = speed
+	self.defaultFallingSpeed = speed
 end
 
 return World
