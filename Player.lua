@@ -4,6 +4,10 @@ local Blood 	= require "Blood"
 local Player = Core.class(Sprite)
 Player.WASTED = "playerDead"
 
+local GOD_MODE_DELAY = 5
+local GOD_MODE_ALPHA_DELAY = 0.08
+local GOD_MODE_ALPHA = 0
+
 function Player:init()
 	self.size = 150
 	self.movementSpeed = 1500
@@ -24,6 +28,10 @@ function Player:init()
 
 	self.bloodTexture = Assets:getTexture("assets/blood.png")
 	self.bloodParticles = {}
+
+	self.godModeEnabled = false
+	self.godModeDelay = 0
+	self.godModeAlphaDelay = 0
 end
 
 function Player:updateAnimation()
@@ -56,6 +64,25 @@ function Player:update(dt)
 
 		-- Вращение
 		self:setRotation(self.cameraRotation + self.sx * 30)
+
+		-- God mode
+		if self.godModeEnabled then
+			if self.godModeAlphaDelay > 0 then
+				self.godModeAlphaDelay = self.godModeAlphaDelay - dt
+			else
+				self.godModeAlphaDelay = GOD_MODE_ALPHA_DELAY
+				if self:getAlpha() == GOD_MODE_ALPHA then
+					self:setAlpha(1)
+				else
+					self:setAlpha(GOD_MODE_ALPHA)
+				end
+			end
+			if self.godModeDelay > 0 then
+				self.godModeDelay = self.godModeDelay - dt
+			else
+				self:disableGodMode()
+			end
+		end
 	end
 	if #self.bloodParticles > 0 then
 		for i,p in ipairs(self.bloodParticles) do
@@ -77,12 +104,14 @@ function Player:die()
 	self.isAlive = false
 	self.inputX, self.inputY = 0, 0
 	self:dispatchEvent(Event.new(Player.WASTED))
+	self:disableGodMode()
 end
 
 function Player:respawn()
 	self.isAlive = true
 	self:setPosition(0, 0)
 	self:clearBlood()
+	self:disableGodMode()
 end
 
 function Player:clearBlood()
@@ -90,6 +119,17 @@ function Player:clearBlood()
 		self:removeChild(v)
 	end
 	self.bloodParticles = {}
+end
+
+function Player:startGodMode()
+	self.godModeDelay = GOD_MODE_DELAY
+	self.godModeEnabled = true
+end
+
+function Player:disableGodMode()
+	self.godModeDelay = 0
+	self.godModeEnabled = false
+	self:setAlpha(1)
 end
 
 function Player:sprayBlood()

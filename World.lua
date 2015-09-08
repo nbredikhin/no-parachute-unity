@@ -106,6 +106,7 @@ function World:respawn()
 	end
 
 	self.player:respawn()
+	self.player:startGodMode()
 	self.fallingSpeed = self.defaultFallingSpeed
 end
 
@@ -129,13 +130,9 @@ function World:update(dt)
 		end]]
 
 		-- Проверка столкновений
-		if self.player.isAlive then
+		if self.player.isAlive and not self.player.godModeEnabled then
 			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt  * 2 and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt  * 2 then
-				if 	plane:hitTestPoint(self.player:getX(), self.player:getY() + self.player.size / 2.5) or
-				 	plane:hitTestPoint(self.player:getX() + self.player.size / 3, self.player:getY() + self.player.size / 2.5) or
-					plane:hitTestPoint(self.player:getX() + self.player.size / 3, self.player:getY() - self.player.size / 2.5) or
-					plane:hitTestPoint(self.player:getX() - self.player.size / 3, self.player:getY() - self.player.size / 2.5)
-				then
+				if 	plane:hitTestPoint(self.player:getX(), self.player:getY()) then
 					--plane:setZ(self.player:getZ())
 					self.player:die()
 					self.fallingSpeed = 0
