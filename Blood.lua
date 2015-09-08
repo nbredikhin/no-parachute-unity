@@ -8,12 +8,13 @@ function Blood:init(texture)
 	self:addChild(self.plane)
 	self.sx = 0
 	self.sy = 0
+	self.sz = 0
 	local colorMul = math.random(5, 10) / 10
 	self:setColorTransform(colorMul, colorMul, colorMul, 50)
 end
 
 function Blood:update(deltaTime)
-	self:setPosition(self:getX() + self.sx, self:getY() + self.sy)
+	self:setPosition(self:getX() + self.sx, self:getY() + self.sy, self:getZ() + self.sz)
 	self.sx = self.sx * 0.9
 	self.sy = self.sy * 0.9
 end

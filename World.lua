@@ -132,7 +132,7 @@ function World:update(dt)
 		-- Проверка столкновений
 		if self.player.isAlive and not self.player.godModeEnabled then
 			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt  * 2 and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt  * 2 then
-				if 	plane:hitTestPoint(self.player:getX(), self.player:getY()) then
+				if self.player:hitTestPlane(plane) then
 					--plane:setZ(self.player:getZ())
 					self.player:die()
 					self.fallingSpeed = 0
