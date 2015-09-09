@@ -25,9 +25,15 @@
      <file source="assets/levels/2/planes/1.png"/>
      <file source="assets/levels/2/planes/2.png"/>
      <file source="assets/levels/2/planes/3.png"/>
+     <file source="assets/levels/2/planes/4.png"/>
+     <file source="assets/levels/2/planes/5.png"/>
+     <file source="assets/levels/2/planes/6.png"/>
      <file source="assets/levels/2/planes/1.png.msk"/>
      <file source="assets/levels/2/planes/2.png.msk"/>
      <file source="assets/levels/2/planes/3.png.msk"/>
+     <file source="assets/levels/2/planes/4.png.msk"/>
+     <file source="assets/levels/2/planes/5.png.msk"/>
+     <file source="assets/levels/2/planes/6.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/2/deco/1.png"/>
