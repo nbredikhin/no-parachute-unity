@@ -4,11 +4,11 @@ local Blood 	= require "Blood"
 local Player = Core.class(Sprite)
 Player.WASTED = "playerDead"
 
-local GOD_MODE_DELAY = 5
+local GOD_MODE_DELAY = 3
 local GOD_MODE_ALPHA_DELAY = 0.08
 local GOD_MODE_ALPHA = 0
 
-local MISSING_HAND_SPEED_ADD = 0.6
+local MISSING_HAND_SPEED_ADD = 0.4
 
 function Player:init()
 	self.size = 150
