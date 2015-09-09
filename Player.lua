@@ -8,7 +8,7 @@ local GOD_MODE_DELAY = 5
 local GOD_MODE_ALPHA_DELAY = 0.08
 local GOD_MODE_ALPHA = 0
 
-local MISSING_HAND_SPEED_ADD = 0.4
+local MISSING_HAND_SPEED_ADD = 0.6
 
 function Player:init()
 	self.size = 150
@@ -64,6 +64,8 @@ function Player:hitTestPlane(plane)
 			self:setPartState(point.name, "missing")
 			self:sprayBloodAtPart(point.x * self.size * 2, point.y * self.size * 2)
 			self.missingPartsCount = self.missingPartsCount + 1
+			self.sx = self.sx - point.x * self.size / 80
+			self.sy = self.sy - point.y * self.size / 80
 		end
 	end
 	return false
@@ -234,6 +236,7 @@ function Player:sprayBloodAtPart(x, y)
 		b.sx = math.random(0, 60) - 30
 		b.sy = math.random(0, 60) - 30
 		b.sz = math.random(200, 300)
+		b:setRotation(360 * math.random())
 		table.insert(self.bloodParticles, b)
 		self:addChild(b)
 	end

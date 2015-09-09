@@ -32,12 +32,37 @@ function GameUI:init()
 	self.backButton:setVisible(false)
 	self.backButton:setPosition(utils.screenWidth / 2 - self.backButton:getWidth() / 2, utils.screenHeight - self.backButton:getHeight() * 0.5)
 	self:addChild(self.backButton)
+
+	local progressBarSize = math.min(5, utils.screenHeight * 0.015)
+	self.progressBarBackground = Bitmap.new(Assets:getTexture("assets/bar.png"))
+	self.progressBarBackground:setScaleX(utils.screenWidth)
+	self.progressBarBackground:setScaleY(progressBarSize)
+	self.progressBarBackground:setAlpha(0.5)
+	self.progressBarBackground:setColorTransform(0.2, 0.2, 0.2)
+
+	self.progressBarLine = Bitmap.new(Assets:getTexture("assets/bar.png"))
+	self.progressBarLine:setScaleX(utils.screenWidth / 3)
+	self.progressBarLine:setScaleY(progressBarSize)
+	self.progressBarLine:setAlpha(1)
+	self.progressBarLine:setColorTransform(59/255, 226/255, 103/255, 1)
+
+	self.progressBar = Sprite.new()
+	self.progressBar:addChild(self.progressBarBackground)
+	self.progressBar:addChild(self.progressBarLine)
+	self:addChild(self.progressBar)
+end
+
+function GameUI:setProgress(progress)
+	progress = math.min(1, progress)
+	progress = math.max(0, progress)
+	self.progressBarLine:setScaleX(utils.screenWidth * progress)
 end
 
 function GameUI:setDeathUIVisible(isVisible)
 	self.deathUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 	self.backButton:setVisible(isVisible)
+	self.progressBar:setVisible(not isVisible)
 end
 
 function GameUI:setPauseUIVisible(isVisible)
@@ -45,6 +70,7 @@ function GameUI:setPauseUIVisible(isVisible)
 	self.backButton:setVisible(isVisible)
 	self.pauseUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
+	self.progressBar:setVisible(not isVisible)
 end
 
 function GameUI:update(deltaTime)

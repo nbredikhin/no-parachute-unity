@@ -60,6 +60,9 @@ function GameScreen:load(levelID)
 	-- Пауза
 	self.isPaused = false
 
+	-- Время
+	self.timeAlive = 0 
+
 	-- Скрипт уровня
 	local scriptPath = "assets/levels/" .. tostring(levelID) .."/logic"
 	local LevelLogicClass = require(scriptPath)
@@ -83,6 +86,7 @@ function GameScreen:update(dt)
 	end
 
 	self.ui:update(dt)
+	self.ui:setProgress(self.timeAlive / 120)
 
 	if self.isPaused then
 		return
@@ -147,6 +151,10 @@ function GameScreen:update(dt)
 		local touchAlpha = (self.input.valueX * self.input.valueX + self.input.valueY * self.input.valueY) * 0.5
 		self.ui.touchButton:setAlpha(touchAlpha)
 		self.ui.touchButton:setPosition(touchX, touchY)
+	end
+
+	if self.player.isAlive then
+		self.timeAlive = self.timeAlive + dt
 	end
 end
 

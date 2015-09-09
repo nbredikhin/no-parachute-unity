@@ -105,6 +105,7 @@
   <file source="assets/button.png"/>
   <file source="assets/logo.png"/>
   <file source="assets/death_bg.png"/>
+  <file source="assets/bar.png"/>
  </folder>
  <file source="utils.lua"/>
  <file source="math.lua"/>

@@ -82,6 +82,7 @@ function World:init(player, levelID)
 		self:addChild(plane)
 		self.planes[i] = plane
 	end
+	self.totalDistance = 0
 end
 
 function World:updatePlane(plane, dt)
@@ -140,6 +141,7 @@ function World:update(dt)
 			end
 		end
 	end
+	self.totalDistance = self.totalDistance + self.fallingSpeed * dt
 end
 
 function World:setFallingSpeed(speed)
