@@ -8,8 +8,7 @@ local defaultWorldSize = 3000
 local DEFAULT_FALLING_SPEED = 9000
 local defaultDecorativePlanesCount = 30
 local defaultPlanesCount = 3
-
-local wallsColors = { 0xBBBBBB, 0x999999, 0xBBBBBB, 0xDDDDDD }
+local WALLS_COUNT = 10
 
 function World:init(player, levelID)
 	if not levelID then
@@ -28,16 +27,23 @@ function World:init(player, levelID)
 	self.player:setPosition(0, 0, self.depth/2 - 3600)
 
 	-- Боковые стены
-	self.walls = Sprite.new()
+	self.walls = {}
 	local wallTexture = Assets:getTexture("assets/levels/" .. tostring(levelID) .."/wall.png")
-	for i = 1, 4 do
-		local wall = PlaneMesh.new(wallTexture, self.size, wallsColors[i])
-		wall:setRotationX(90)
-		wall:setRotationY(90 * (i - 1))
-		self.walls:addChild(wall)
+	local currentZ = self.depth/2
+	for i = 1, WALLS_COUNT do
+		local wallContainer = Sprite.new()
+		wallContainer:setZ(currentZ)
+		for i = 1, 4 do
+			local wall = PlaneMesh.new(wallTexture, self.size)
+			wall:setRotationX(90)
+			wall:setRotationY(90 * (i - 1))
+			wall:setZ(self.size / 2)
+			wallContainer:addChild(wall)
+		end
+		self:addChild(wallContainer)
+		table.insert(self.walls, wallContainer)
+		currentZ = currentZ - self.size
 	end
-	self.walls:setScaleZ(self.depth / self.size)
-	self:addChild(self.walls)
 
 	-- Передние декоративные стены
 	self.decorativePlanesCount = math.floor(defaultDecorativePlanesCount * SettingsManager.settings.graphics_quality)
@@ -112,12 +118,21 @@ function World:respawn()
 end
 
 function World:update(dt)
+	-- Движение боковых стен
+	for i, wall in ipairs(self.walls) do
+		self:updatePlane(wall, dt)
+		--local mul = math.clamp((wall:getZ() + self.depth / 2 + self.size * 2) / self.depth, 0, 1)
+		--wall:setColorTransform(mul, mul, mul, 1)
+	end
+
+	-- Движение декораций
 	for i, plane in ipairs(self.decorativePlanes) do
 		if self:updatePlane(plane, dt) then
 			plane:setPlaneTexture(self.decorativeTextures[math.random(1, #self.decorativeTextures)])
 		end
 	end
 
+	-- Обновление передних стен
 	for i, plane in ipairs(self.planes) do
 		if self:updatePlane(plane, dt) then
 			-- Обновление текстуры
