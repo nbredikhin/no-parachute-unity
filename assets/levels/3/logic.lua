@@ -4,6 +4,9 @@ local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:initialize()
 	self:setFallingSpeed(self.defaultFallingSpeed * 1)
+
+	self:setCameraType(LevelLogic.CAMERA_ROTATING_CONSTANTLY)
+	self:setCameraSpeed(5)
 end
 
 return LevelLogic

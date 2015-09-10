@@ -3,6 +3,7 @@ local Blood 	= require "Blood"
 
 local Player = Core.class(Sprite)
 Player.WASTED = "playerDead"
+Player.LOST_PART = "lostPart"
 
 local GOD_MODE_DELAY = 3
 local GOD_MODE_ALPHA_DELAY = 0.08
@@ -16,7 +17,7 @@ function Player:init()
 	self.movementSpeed = 1500
 	self.textures = {}
 	self.textures[1] = Assets:getTexture("assets/player/main1.png")
-	self.textures[2] = Assets:getTexture("assets/player/main1.png")
+	self.textures[2] = Assets:getTexture("assets/player/main2.png")
 	self.currentFrame = 1
 	self.currentDelay = 0
 	self.animationDelay = 0.07
@@ -57,7 +58,7 @@ function Player:hitTestPlane(plane)
 		return true
 	end
 	for i, point in ipairs(self.partsPoints) do
-		local pointX, pointY = math.rotateVector(point.x * self.size * 2, point.y * self.size * 2, self:getRotation())
+		local pointX, pointY = math.rotateVector(point.x * self.size * 2, point.y * self.size * 2, self:getRotation() + self.parts[point.name]:getRotation())
 		local x = self:getX() + pointX
 		local y = self:getY() + pointY
 		if plane:hitTestPoint(x, y) and self:getPartState(point.name) == "ok" then
@@ -66,6 +67,10 @@ function Player:hitTestPlane(plane)
 			self.missingPartsCount = self.missingPartsCount + 1
 			self.sx = self.sx - point.x * self.size / 80
 			self.sy = self.sy - point.y * self.size / 80
+
+			local event = Event.new(Player.LOST_PART)
+			event.texture = self.partsTextures[point.name .. "_ok"]
+			self:dispatchEvent(event)
 		end
 	end
 	return false
@@ -146,7 +151,16 @@ function Player:update(dt)
 		self:setY(self:getY() + moveY)
 
 		-- Вращение
-		self:setRotation(self.cameraRotation + self.sx * 30)
+		local missingLegsRotation = 0
+		if self:getPartState("left_leg") == "missing" or self:getPartState("right_leg") == "missing" then
+			missingLegsRotation = math.sin(self.time * 3) * 3 * self.missingPartsCount
+		end
+		self:setRotation(self.cameraRotation + self.sx * 30 + missingLegsRotation)
+		
+		-- Поворот рук
+		local handsAngle = self.inputX * 10
+		self.parts["left_hand"]:setRotation(handsAngle)
+		self.parts["right_hand"]:setRotation(handsAngle)
 
 		-- God mode
 		if self.godModeEnabled then
@@ -218,11 +232,14 @@ function Player:disableGodMode()
 end
 
 function Player:sprayBloodDeath()
-	local particlesCount = math.floor(math.random(20, 30) * SettingsManager.settings.graphics_quality)
+	local particlesCount = math.floor(35 * SettingsManager.settings.graphics_quality)
 	for i = 1, particlesCount do
 		local b = Blood.new(self.bloodTexture)
-		b.sx = math.random(0, 30) - 15
-		b.sy = math.random(0, 30) - 15
+		local angle = math.random() * math.pi * 2
+		b.sx = math.cos(angle) * math.random(6, 16)
+		b.sy = math.sin(angle) * math.random(6, 16)
+		--b:setRotation(angle / math.pi * 180)
+		b:setScale(math.random() * 0.5 + 0.5)
 		table.insert(self.bloodParticles, b)
 		self:addChild(b)
 	end

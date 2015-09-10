@@ -1,6 +1,7 @@
 local Plane 		= require "Plane"
 local PlaneMesh 	= require "PlaneMesh"
 local TexturePNG 	= require "TexturePNG"
+local Player 		= require "Player"
 
 local World = Core.class(Sprite)
 
@@ -24,6 +25,7 @@ function World:init(player, levelID)
 	-- Игрок
 	self.player = player
 	self:addChild(self.player)
+	self.player:addEventListener(Player.LOST_PART, self.onPlayerLostPart, self)
 	self.player:setPosition(0, 0, self.depth/2 - 3600)
 
 	-- Боковые стены
@@ -89,6 +91,9 @@ function World:init(player, levelID)
 		self.planes[i] = plane
 	end
 	self.totalDistance = 0
+
+	-- Отлетающие части тела
+	self.flyingBodyparts = {}
 end
 
 function World:updatePlane(plane, dt)
@@ -156,12 +161,38 @@ function World:update(dt)
 			end
 		end
 	end
+
+	-- Обновление разлетающихся конечностей
+	for i, part in ipairs(self.flyingBodyparts) do
+		part:setX(part:getX() + part.sx * dt)
+		part:setY(part:getY() + part.sy * dt)
+		part:setZ(part:getZ() + self.fallingSpeed * dt * 2)
+		part:setRotation(part:getRotation() + part.rotationSpeed * dt)
+
+		if part:getZ() > self.depth / 2 then
+			self:removeChild(part)
+			table.remove(self.flyingBodyparts, i)
+		end
+	end
+
 	self.totalDistance = self.totalDistance + self.fallingSpeed * dt
 end
 
 function World:setFallingSpeed(speed)
 	self.fallingSpeed = speed
 	self.defaultFallingSpeed = speed
+end
+
+function World:onPlayerLostPart(e)
+	local part = PlaneMesh.new(e.texture, self.player.size * 2)
+	part:setPosition(self.player:getPosition())
+	self:addChild(part)
+	part.sx = math.random(-100, 100)
+	part.sy = math.random(-100, 100)
+	part.rotationSpeed = math.random(600, 800)
+	part:setColorTransform(self.player:getColorTransform())
+	part:setRotation(self.player:getRotation())
+	table.insert(self.flyingBodyparts, part)
 end
 
 return World
