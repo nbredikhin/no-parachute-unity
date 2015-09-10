@@ -114,6 +114,8 @@
   <file source="assets/logo.png"/>
   <file source="assets/death_bg.png"/>
   <file source="assets/bar.png"/>
+  <file source="assets/heart1.png"/>
+  <file source="assets/heart2.png"/>
  </folder>
  <file source="utils.lua"/>
  <file source="math.lua"/>

@@ -189,7 +189,7 @@ function World:onPlayerLostPart(e)
 	self:addChild(part)
 	part.sx = math.random(-100, 100)
 	part.sy = math.random(-100, 100)
-	part.rotationSpeed = math.random(600, 800)
+	part.rotationSpeed = math.random(-40, 40) * 10
 	part:setColorTransform(self.player:getColorTransform())
 	part:setRotation(self.player:getRotation())
 	table.insert(self.flyingBodyparts, part)

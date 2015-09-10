@@ -152,15 +152,17 @@ function Player:update(dt)
 
 		-- Вращение
 		local missingLegsRotation = 0
+		local missingLegsRotationHands = 0
 		if self:getPartState("left_leg") == "missing" or self:getPartState("right_leg") == "missing" then
 			missingLegsRotation = math.sin(self.time * 3) * 3 * self.missingPartsCount
+			missingLegsRotationHands = math.sin(self.time * 16) * 8
 		end
 		self:setRotation(self.cameraRotation + self.sx * 30 + missingLegsRotation)
 		
 		-- Поворот рук
 		local handsAngle = self.inputX * 10
-		self.parts["left_hand"]:setRotation(handsAngle)
-		self.parts["right_hand"]:setRotation(handsAngle)
+		self.parts["left_hand"]:setRotation(handsAngle + missingLegsRotationHands)
+		self.parts["right_hand"]:setRotation(handsAngle - missingLegsRotationHands)
 
 		-- God mode
 		if self.godModeEnabled then

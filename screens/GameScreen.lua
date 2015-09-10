@@ -63,6 +63,9 @@ function GameScreen:load(levelID)
 	-- Время
 	self.timeAlive = 0 
 
+	-- Жизни
+	self.lifes = 3
+
 	-- Скрипт уровня
 	local scriptPath = "assets/levels/" .. tostring(levelID) .."/logic"
 	local LevelLogicClass = require(scriptPath)
@@ -202,6 +205,11 @@ end
 
 function GameScreen:onPlayerWasted()
 	self.ui:setDeathUIVisible(true)
+	self.lifes = self.lifes - 1
+	if self.lifes <= 0 then
+		self.lifes = 3
+	end
+	self.ui:setLifesCount(self.lifes)
 end
 
 function GameScreen:back()

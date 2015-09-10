@@ -50,6 +50,35 @@ function GameUI:init()
 	self.progressBar:addChild(self.progressBarBackground)
 	self.progressBar:addChild(self.progressBarLine)
 	self:addChild(self.progressBar)
+
+	-- Иконки жизней
+	self.lifesIconsContainer = Sprite.new()
+	self:addChild(self.lifesIconsContainer)
+	self.lifesIcons = {}
+	local heartTexture1 = Assets:getTexture("assets/heart1.png")
+	local heartTexture2 = Assets:getTexture("assets/heart2.png")
+	local heartScale = math.min(5, math.floor(utils.screenHeight / 80)) 
+	for i = 1, 3 do
+		local heart = Sprite.new()
+		local bg = Bitmap.new(heartTexture2)
+		heart:addChild(bg)
+		self.lifesIcons[i] = Bitmap.new(heartTexture1)
+		heart:addChild(self.lifesIcons[i])
+
+		heart:setScale(heartScale)
+		heart:setX((i - 1) * (heart:getWidth() + heartScale))
+		self.lifesIconsContainer:addChild(heart)
+	end
+	self.lifesIconsContainer:setY(self.progressBar:getHeight())
+	--self.lifesIconsContainer:setX(utils.screenWidth / 2 - self.lifesIconsContainer:getWidth() / 2)
+	self.lifesIconsContainer:setX(heartScale)
+	self.lifesIconsContainer:setAlpha(0.7)
+end
+
+function GameUI:setLifesCount(count)
+	for i = 1, 3 do
+		self.lifesIcons[i]:setVisible(i <= count)
+	end
 end
 
 function GameUI:setProgress(progress)
@@ -63,6 +92,7 @@ function GameUI:setDeathUIVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 	self.backButton:setVisible(isVisible)
 	self.progressBar:setVisible(not isVisible)
+	self.lifesIconsContainer:setVisible(not isVisible)
 end
 
 function GameUI:setPauseUIVisible(isVisible)
@@ -71,6 +101,7 @@ function GameUI:setPauseUIVisible(isVisible)
 	self.pauseUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 	self.progressBar:setVisible(not isVisible)
+	self.lifesIconsContainer:setVisible(not isVisible)
 end
 
 function GameUI:update(deltaTime)
