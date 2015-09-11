@@ -2,19 +2,25 @@ local Plane 		= require "Plane"
 local PlaneMesh 	= require "PlaneMesh"
 local TexturePNG 	= require "TexturePNG"
 local Player 		= require "Player"
+local PowerUp 		= require "PowerUp"
 
 local World = Core.class(Sprite)
 
-local defaultWorldSize = 3000
 local DEFAULT_FALLING_SPEED = 9000
+local WALLS_COUNT = 10
+local POWERUP_SPAWN_DELAY_MIN = 5
+local POWERUP_SPAWN_DELAY_MAX = 7
+
+local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30
 local defaultPlanesCount = 3
-local WALLS_COUNT = 10
 
-function World:init(player, levelID)
+function World:init(gameScreen, player, levelID)
 	if not levelID then
 		levelID = 1
 	end
+	self.gameScreen = gameScreen
+
 	-- Размеры мира
 	self.size = defaultWorldSize
 	self.depth = self.size * 10
@@ -96,7 +102,11 @@ function World:init(player, levelID)
 	self.flyingBodyparts = {}
 	self.timeAlive = 0
 
-	self:reset()
+	-- PowerUps
+	self.powerups = {}
+	self.powerupSpawnDelay = 0
+
+	self:reset()	
 end
 
 function World:isFinished()
@@ -132,6 +142,7 @@ function World:reset()
 		self:updatePlane(plane, 0)
 	end
 	self.timeAlive = 0
+	self.powerupSpawnDelay = math.random(POWERUP_SPAWN_DELAY_MIN, POWERUP_SPAWN_DELAY_MAX)
 end
 
 function World:respawn()
@@ -169,7 +180,7 @@ function World:update(dt, totalTime)
 		end
 		-- Проверка столкновений
 		if self.player.isAlive and not self.player.godModeEnabled and not self:isFinished() then
-			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt  * 2 and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt  * 2 then
+			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt then
 				if self.player:hitTestPlane(plane) then
 					--plane:setZ(self.player:getZ())
 					self.player:die()
@@ -197,6 +208,36 @@ function World:update(dt, totalTime)
 		self.player:setAlpha(math.max(0, self.player:getAlpha() - dt * 0.7))
 	end
 
+	-- PowerUps
+	-- Spawn
+	if self.player.isAlive then
+		if self.powerupSpawnDelay <= 0 then
+			self:createPowerup()
+			self.powerupSpawnDelay = math.random(POWERUP_SPAWN_DELAY_MIN, POWERUP_SPAWN_DELAY_MAX)
+		else
+			self.powerupSpawnDelay = self.powerupSpawnDelay - dt
+		end
+	end
+	if not self:isFinished() then 
+		-- Update
+		for i, powerup in ipairs(self.powerups) do
+			powerup:update(dt)
+			powerup:setRotation(self.gameScreen.camera:getRotation())
+			powerup:setZ(powerup:getZ() + self.fallingSpeed * dt)
+
+			if powerup:getZ() > self.depth / 2 then
+				self:removeChild(powerup)
+				table.remove(self.powerups, i)
+			end
+			if powerup:getZ() >= self.player:getZ() - powerup.size and powerup:getZ() <= self.player:getZ() + powerup.size then
+				if powerup:hitTestPoint(self.player:getX(), self.player:getY()) then
+					self:activatePowerup(powerup)
+					self:removeChild(powerup)
+					table.remove(self.powerups, i)
+				end
+			end
+		end
+	end
 	self.totalDistance = self.totalDistance + self.fallingSpeed * dt
 end
 
@@ -215,6 +256,24 @@ function World:onPlayerLostPart(e)
 	part:setColorTransform(self.player:getColorTransform())
 	part:setRotation(self.player:getRotation())
 	table.insert(self.flyingBodyparts, part)
+end
+
+function World:createPowerup()
+	local powerup = PowerUp.new()
+	local x = (math.random(0, self.size) - self.size / 2) * 0.8
+	local y = (math.random(0, self.size) - self.size / 2) * 0.8
+	powerup:setPosition(x ,y, -self.depth / 2)
+	self:addChild(powerup)
+	table.insert(self.powerups, powerup)
+end
+
+function World:activatePowerup(powerup)
+	if powerup.type == 4 then
+		self.player:restoreParts()
+	elseif powerup.type == 3 then
+		self.gameScreen.lifes = math.min(3, self.gameScreen.lifes + 1)
+		self.gameScreen.ui:setLifesCount(self.gameScreen.lifes)
+	end
 end
 
 return World

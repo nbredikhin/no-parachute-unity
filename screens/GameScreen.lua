@@ -32,7 +32,7 @@ function GameScreen:load(levelID)
 	self.player:addEventListener(Player.WASTED, self.onPlayerWasted, self)
 
 	-- Мир
-	self.world = World.new(self.player, self.levelID)
+	self.world = World.new(self, self.player, self.levelID)
 	self:addChild(self.world)
 
 	-- Камера

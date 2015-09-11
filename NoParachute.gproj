@@ -108,6 +108,12 @@
     <file source="assets/player/left_leg_ok.png"/>
     <file source="assets/player/left_leg_missing.png"/>
   </folder>
+  <folder name="powerups">
+    <file source="assets/powerups/speed.png"/>
+    <file source="assets/powerups/size.png"/>
+    <file source="assets/powerups/life.png"/>
+    <file source="assets/powerups/health.png"/>
+  </folder>
   <file source="assets/blood.png"/>
   <file source="assets/pause.png"/>
   <file source="assets/button.png"/>
@@ -144,6 +150,7 @@
  <file source="Assets.lua"/>
  <file source="LevelLogic.lua"/>
  <file source="SettingsManager.lua"/>
+ <file source="PowerUp.lua"/>
  <file source="main.lua"/>
  <folder name="screens">
   <file source="screens/GameScreen.lua"/>
