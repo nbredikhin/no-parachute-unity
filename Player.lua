@@ -222,8 +222,8 @@ function Player:clearBlood()
 	self.bloodParticles = {}
 end
 
-function Player:startGodMode()
-	self.godModeDelay = GOD_MODE_DELAY
+function Player:startGodMode(delay)
+	self.godModeDelay = delay or GOD_MODE_DELAY
 	self.godModeEnabled = true
 end
 

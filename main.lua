@@ -7,7 +7,7 @@ SettingsManager 	= require "SettingsManager"
 local ScreenManager = require "screens/ScreenManager"
 
 SettingsManager:load()
-application:configureFrustum(45, 60000)
+application:configureFrustum(45, 60000, 0)
 
 screenManager = ScreenManager.new()
 local startupScreen = "MainMenuScreen"

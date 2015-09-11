@@ -26,7 +26,7 @@ function World:init(player, levelID)
 	self.player = player
 	self:addChild(self.player)
 	self.player:addEventListener(Player.LOST_PART, self.onPlayerLostPart, self)
-	self.player:setPosition(0, 0, self.depth/2 - 3600)
+	self.player:setPosition(0, 0, self.depth/2 - 4600)
 
 	-- Боковые стены
 	self.walls = {}
@@ -94,21 +94,44 @@ function World:init(player, levelID)
 
 	-- Отлетающие части тела
 	self.flyingBodyparts = {}
+	self.timeAlive = 0
+
+	self:reset()
 end
 
-function World:updatePlane(plane, dt)
+function World:isFinished()
+	if not self.levelLogic then
+		return false
+	end
+	return self.timeAlive >= self.levelLogic.requiredTime
+end
+
+function World:updatePlane(plane, dt, isDecorative)
+	if self:isFinished() then
+		return
+	end
 	local wasMovedToBottom = false
 	plane:setZ(plane:getZ() + self.fallingSpeed * dt)
 
-	if plane:getZ() > self.depth / 2 then
-		plane:setZ(plane:getZ() - self.depth)
-		plane:setRotation(math.random(1, 4) * 90)
-		wasMovedToBottom = true
+	if not self:isFinished() then
+		if plane:getZ() > self.depth / 2 then
+			plane:setZ(plane:getZ() - self.depth)
+			plane:setRotation(math.random(1, 4) * 90)
+			wasMovedToBottom = true
+		end
 	end
 
 	local mul = math.clamp((plane:getZ() + self.depth / 2) / self.depth, 0, 1)
 	plane:setColorTransform(mul, mul, mul, 1)
 	return wasMovedToBottom
+end
+
+function World:reset()
+	for i, plane in ipairs(self.planes) do
+		plane:setPosition(0, 0, -i * self.depth / self.planesCount + 10 - self.depth)
+		self:updatePlane(plane, 0)
+	end
+	self.timeAlive = 0
 end
 
 function World:respawn()
@@ -122,17 +145,18 @@ function World:respawn()
 	self.fallingSpeed = self.defaultFallingSpeed
 end
 
-function World:update(dt)
+function World:update(dt, totalTime)
+	self.timeAlive = totalTime
 	-- Движение боковых стен
 	for i, wall in ipairs(self.walls) do
-		self:updatePlane(wall, dt)
+		self:updatePlane(wall, dt, true)
 		--local mul = math.clamp((wall:getZ() + self.depth / 2 + self.size * 2) / self.depth, 0, 1)
 		--wall:setColorTransform(mul, mul, mul, 1)
 	end
 
 	-- Движение декораций
 	for i, plane in ipairs(self.decorativePlanes) do
-		if self:updatePlane(plane, dt) then
+		if self:updatePlane(plane, dt, true) then
 			plane:setPlaneTexture(self.decorativeTextures[math.random(1, #self.decorativeTextures)])
 		end
 	end
@@ -143,15 +167,8 @@ function World:update(dt)
 			-- Обновление текстуры
 			plane:setPlaneTexture(self.planeTextures[math.random(1, #self.planeTextures)])
 		end
-		-- Исчезновение в прозрачность
-		--[[if plane:getZ() > self.depth / 2 - 800 then
-			local alpha = 1 - (plane:getZ() - self.depth / 2) / 800
-			local r, g, b = plane:getColorTransform()
-			plane:setColorTransform(r, g, b, alpha)
-		end]]
-
 		-- Проверка столкновений
-		if self.player.isAlive and not self.player.godModeEnabled then
+		if self.player.isAlive and not self.player.godModeEnabled and not self:isFinished() then
 			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt  * 2 and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt  * 2 then
 				if self.player:hitTestPlane(plane) then
 					--plane:setZ(self.player:getZ())
@@ -173,6 +190,11 @@ function World:update(dt)
 			self:removeChild(part)
 			table.remove(self.flyingBodyparts, i)
 		end
+	end
+
+	if self:isFinished() then
+		self.player:setZ(self.player:getZ() - self.fallingSpeed * dt)
+		self.player:setAlpha(math.max(0, self.player:getAlpha() - dt * 0.7))
 	end
 
 	self.totalDistance = self.totalDistance + self.fallingSpeed * dt

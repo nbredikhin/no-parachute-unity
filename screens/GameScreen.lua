@@ -37,7 +37,7 @@ function GameScreen:load(levelID)
 
 	-- Камера
 	self.camera = Camera.new(self.world)
-	self.camera:setCenter(self.camera.width / 2, self.camera.height / 2, -self.world.depth / 2)
+	self.camera:setCenter(self.camera.width / 2, self.camera.height / 2, -self.world.depth / 2 + 1000)
 
 	-- Ввод
 	self.input = InputManager.new()
@@ -75,6 +75,8 @@ function GameScreen:load(levelID)
 	else
 		print("Failed to load 'logic.lua' for level " .. tostring(levelID))
 	end
+
+	self.world.levelLogic = self.levelLogic
 end
 
 function GameScreen:unload()
@@ -89,14 +91,14 @@ function GameScreen:update(dt)
 	end
 
 	self.ui:update(dt)
-	self.ui:setProgress(self.timeAlive / 120)
+	self.ui:setProgress(self.timeAlive / self.levelLogic.requiredTime)
 
 	if self.isPaused then
 		return
 	end
 
 	self.player:update(dt)
-	self.world:update(dt)
+	self.world:update(dt, self.timeAlive)
 
 	-- Следование камеры за игроком
 	local cameraRotationRadius = cameraRotationRadiusAlive
@@ -107,7 +109,12 @@ function GameScreen:update(dt)
 	end
 	local rotX = math.cos(os.timer() * cameraRotationSpeed) * cameraRotationRadius
 	local rotY = math.sin(os.timer() * cameraRotationSpeed) * cameraRotationRadius
- 	self.camera:setPosition(self.player:getX() + rotX, self.player:getY() + rotY, -800)
+
+	local cameraFinishedOffset = 0
+	--[[if self.timeAlive > self.levelLogic.requiredTime then
+		cameraFinishedOffset = (self.timeAlive - self.levelLogic.requiredTime) * 2000
+	end]]
+ 	self.camera:setPosition(self.player:getX() + rotX, self.player:getY() + rotY, -800 - cameraFinishedOffset)
 
  	-- Вращение камеры
  	if self.player.isAlive then
@@ -170,7 +177,7 @@ function GameScreen:onTouchBegin(e)
 		-- Нажатие на кнопку "Tap to restart"
 		elseif self.ui.deathUI.restartButton:hitTestPoint(e.x, e.y) then
 			self.ui:setDeathUIVisible(false)
-			self.world:respawn()
+			self:restartButtonTouch()
 		end
 	else -- Если игрок жив
 		-- Во время игры
@@ -203,13 +210,24 @@ function GameScreen:onTouchEnd()
 	self.ui.touchButton:setVisible(false)
 end
 
-function GameScreen:onPlayerWasted()
-	self.ui:setDeathUIVisible(true)
+function GameScreen:restartButtonTouch()
 	self.lifes = self.lifes - 1
 	if self.lifes <= 0 then
-		self.lifes = 3
+		self:restartLevel()
 	end
 	self.ui:setLifesCount(self.lifes)
+
+	self.world:respawn()
+end
+
+function GameScreen:restartLevel()
+	self.timeAlive = 0
+	self.lifes = 3
+	self.world:reset()
+end
+
+function GameScreen:onPlayerWasted()
+	self.ui:setDeathUIVisible(true)
 end
 
 function GameScreen:back()
