@@ -8,8 +8,8 @@ local World = Core.class(Sprite)
 
 local DEFAULT_FALLING_SPEED = 9000
 local WALLS_COUNT = 10
-local POWERUP_SPAWN_DELAY_MIN = 5
-local POWERUP_SPAWN_DELAY_MAX = 7
+local POWERUP_SPAWN_DELAY_MIN = 1
+local POWERUP_SPAWN_DELAY_MAX = 2
 
 local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30
@@ -223,17 +223,22 @@ function World:update(dt, totalTime)
 		for i, powerup in ipairs(self.powerups) do
 			powerup:update(dt)
 			powerup:setRotation(self.gameScreen.camera:getRotation())
+			--if not powerup.isAnimating then
 			powerup:setZ(powerup:getZ() + self.fallingSpeed * dt)
+			--else
+			--	powerup:setZ(self.player:getZ() + powerup.size / 2)
+			--end
 
-			if powerup:getZ() > self.depth / 2 then
+			if powerup:getZ() > self.depth / 2 or powerup.isRemoved then
 				self:removeChild(powerup)
 				table.remove(self.powerups, i)
 			end
 			if powerup:getZ() >= self.player:getZ() - powerup.size and powerup:getZ() <= self.player:getZ() + powerup.size then
 				if powerup:hitTestPoint(self.player:getX(), self.player:getY()) then
 					self:activatePowerup(powerup)
-					self:removeChild(powerup)
-					table.remove(self.powerups, i)
+					powerup:startAnimation()
+					--self:removeChild(powerup)
+					--table.remove(self.powerups, i)
 				end
 			end
 		end
