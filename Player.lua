@@ -11,6 +11,10 @@ local GOD_MODE_ALPHA = 0
 
 local MISSING_HAND_SPEED_ADD = 0.4
 
+local SMALL_DELAY = 15
+local SMALL_SCALE = 0.7
+local SMALL_MUL = 0.98
+
 function Player:init()
 	self.size = 150
 	self.size_scale = 150 / 32
@@ -51,26 +55,32 @@ function Player:init()
 
 	self.missingPartsCount = 0
 	self.time = 0
+
+	self.smallDelay = 0
+	self.isSmall = false
 end
 
 function Player:hitTestPlane(plane)
 	if plane:hitTestPoint(self:getX(), self:getY()) then
 		return true
 	end
-	for i, point in ipairs(self.partsPoints) do
-		local pointX, pointY = math.rotateVector(point.x * self.size * 2, point.y * self.size * 2, self:getRotation() + self.parts[point.name]:getRotation())
-		local x = self:getX() + pointX
-		local y = self:getY() + pointY
-		if plane:hitTestPoint(x, y) and self:getPartState(point.name) == "ok" then
-			self:setPartState(point.name, "missing")
-			self:sprayBloodAtPart(point.x * self.size * 2, point.y * self.size * 2)
-			self.missingPartsCount = self.missingPartsCount + 1
-			self.sx = self.sx - point.x * self.size / 80
-			self.sy = self.sy - point.y * self.size / 80
+	-- Если игрок взял уменьшение, конечности не отрываются
+	if not self.isSmall then
+		for i, point in ipairs(self.partsPoints) do
+			local pointX, pointY = math.rotateVector(point.x * self.size * 2, point.y * self.size * 2, self:getRotation() + self.parts[point.name]:getRotation())
+			local x = self:getX() + pointX
+			local y = self:getY() + pointY
+			if plane:hitTestPoint(x, y) and self:getPartState(point.name) == "ok" then
+				self:setPartState(point.name, "missing")
+				self:sprayBloodAtPart(point.x * self.size * 2, point.y * self.size * 2)
+				self.missingPartsCount = self.missingPartsCount + 1
+				self.sx = self.sx - point.x * self.size / 80
+				self.sy = self.sy - point.y * self.size / 80
 
-			local event = Event.new(Player.LOST_PART)
-			event.texture = self.partsTextures[point.name .. "_ok"]
-			self:dispatchEvent(event)
+				local event = Event.new(Player.LOST_PART)
+				event.texture = self.partsTextures[point.name .. "_ok"]
+				self:dispatchEvent(event)
+			end
 		end
 	end
 	return false
@@ -189,6 +199,20 @@ function Player:update(dt)
 		end
 	end
 	self.time = self.time + dt
+
+	-- Уменьшение 
+	if self.isSmall then
+		if self.smallDelay > 0 then
+			self.smallDelay = self.smallDelay - dt
+			if self.smallDelay < 1 then
+				self:setScale(math.min(1, self:getScale() / SMALL_MUL))
+			else
+				self:setScale(math.max(SMALL_SCALE, self:getScale() * SMALL_MUL))
+			end
+		else
+			self:stopSmall()
+		end
+	end
 end
 
 function Player:setInput(x, y)
@@ -213,6 +237,7 @@ function Player:respawn()
 	self:clearBlood()
 	self:disableGodMode()
 	self:restoreParts()
+	self:stopSmall()
 end
 
 function Player:clearBlood()
@@ -259,6 +284,21 @@ function Player:sprayBloodAtPart(x, y)
 		table.insert(self.bloodParticles, b)
 		self:addChild(b)
 	end
+end
+
+function Player:startSmall()
+	self.smallDelay = SMALL_DELAY
+	if self.isSmall then
+		return
+	end
+	self.isSmall = true
+	self:setScale(1)
+end
+
+function Player:stopSmall()
+	self.isSmall = false
+	self:setScale(1)
+	self.smallDelay = 0
 end
 
 return Player

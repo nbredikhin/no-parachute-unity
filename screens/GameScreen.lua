@@ -164,7 +164,11 @@ function GameScreen:update(dt)
 	end
 
 	if self.player.isAlive then
-		self.timeAlive = self.timeAlive + dt
+		local add = 1
+		if self.world.speedupActive then
+			add = 2
+		end
+		self.timeAlive = self.timeAlive + add * dt
 	end
 end
 

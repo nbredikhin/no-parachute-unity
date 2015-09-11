@@ -10,6 +10,7 @@ local DEFAULT_FALLING_SPEED = 9000
 local WALLS_COUNT = 10
 local POWERUP_SPAWN_DELAY_MIN = 1
 local POWERUP_SPAWN_DELAY_MAX = 2
+local SPEEDUP_DELAY = 5
 
 local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30
@@ -106,6 +107,9 @@ function World:init(gameScreen, player, levelID)
 	self.powerups = {}
 	self.powerupSpawnDelay = 0
 
+	-- Ускорение
+	self.speedupDelay = 0
+
 	self:reset()	
 end
 
@@ -156,13 +160,37 @@ function World:respawn()
 	self.fallingSpeed = self.defaultFallingSpeed
 end
 
+function World:startSpeedup()
+	if self.speedupActive then
+		return
+	end
+	self.speedupDelay = SPEEDUP_DELAY
+	self.speedupActive = true
+	self.oldFallingSpeed = self.fallingSpeed
+	self.fallingSpeed = self.fallingSpeed * 2
+	self.player:startGodMode(self.speedupDelay)
+end
+
+function World:stopSpeedup()
+	self.speedupDelay = 0
+	self.speedupActive = false
+	self.fallingSpeed = self.oldFallingSpeed
+end
+
 function World:update(dt, totalTime)
 	self.timeAlive = totalTime
+
+	if self.speedupActive then
+		if self.speedupDelay > 0 then
+			self.speedupDelay = self.speedupDelay - dt
+		else
+			self:stopSpeedup()
+		end
+	end
+
 	-- Движение боковых стен
 	for i, wall in ipairs(self.walls) do
 		self:updatePlane(wall, dt, true)
-		--local mul = math.clamp((wall:getZ() + self.depth / 2 + self.size * 2) / self.depth, 0, 1)
-		--wall:setColorTransform(mul, mul, mul, 1)
 	end
 
 	-- Движение декораций
@@ -223,17 +251,13 @@ function World:update(dt, totalTime)
 		for i, powerup in ipairs(self.powerups) do
 			powerup:update(dt)
 			powerup:setRotation(self.gameScreen.camera:getRotation())
-			--if not powerup.isAnimating then
 			powerup:setZ(powerup:getZ() + self.fallingSpeed * dt)
-			--else
-			--	powerup:setZ(self.player:getZ() + powerup.size / 2)
-			--end
 
 			if powerup:getZ() > self.depth / 2 or powerup.isRemoved then
 				self:removeChild(powerup)
 				table.remove(self.powerups, i)
 			end
-			if powerup:getZ() >= self.player:getZ() - powerup.size and powerup:getZ() <= self.player:getZ() + powerup.size then
+			if not self.player.godModeEnabled and not powerup.isAnimating and powerup:getZ() >= self.player:getZ() - powerup.size and powerup:getZ() <= self.player:getZ() + powerup.size then
 				if powerup:hitTestPoint(self.player:getX(), self.player:getY()) then
 					self:activatePowerup(powerup)
 					powerup:startAnimation()
@@ -278,6 +302,10 @@ function World:activatePowerup(powerup)
 	elseif powerup.type == 3 then
 		self.gameScreen.lifes = math.min(3, self.gameScreen.lifes + 1)
 		self.gameScreen.ui:setLifesCount(self.gameScreen.lifes)
+	elseif powerup.type == 1 then
+		self:startSpeedup()
+	elseif powerup.type == 2 then
+		self.player:startSmall()
 	end
 end
 
