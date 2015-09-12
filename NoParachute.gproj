@@ -137,6 +137,7 @@
   <folder name="game">
    <file source="ui/game/DeathUI.lua"/>
    <file source="ui/game/PauseUI.lua"/>
+   <file source="ui/game/EndUI.lua"/>
    <file source="ui/game/GameUI.lua"/>
   </folder>
  </folder>

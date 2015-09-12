@@ -6,6 +6,7 @@ local LevelLogicBase = require "LevelLogic"
 local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:initialize()
+	self.requiredTime = 70
 	self:setFallingSpeed(self.defaultFallingSpeed)
 end
 

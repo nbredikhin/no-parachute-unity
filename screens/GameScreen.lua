@@ -169,6 +169,12 @@ function GameScreen:update(dt)
 			add = 2
 		end
 		self.timeAlive = self.timeAlive + add * dt
+
+		if self.timeAlive >= self.levelLogic.requiredTime then
+			if not self.ui.endUI:isVisible() then
+				self.ui:showEndUI()
+			end		
+		end
 	end
 end
 
@@ -207,6 +213,10 @@ function GameScreen:onTouchBegin(e)
 		self.ui.touchButton:setVisible(true)
 	else
 		self.ui.touchButton:setVisible(false)
+	end
+
+	if self.ui.endUI:isVisible() and self.ui.endUI:getAlpha() > 0.5 then
+		screenManager:loadScreen(screenManager.screens.LevelSelectScreen.new())
 	end
 end
 

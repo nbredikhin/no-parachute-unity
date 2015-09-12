@@ -1,5 +1,6 @@
 local DeathUI 		= require "ui/game/DeathUI"
 local PauseUI 		= require "ui/game/PauseUI"
+local EndUI 		= require "ui/game/EndUI"
 local MenuButton 	= require "ui/menu/MenuButton"
 
 local GameUI = Core.class(Sprite)
@@ -73,6 +74,10 @@ function GameUI:init()
 	--self.lifesIconsContainer:setX(utils.screenWidth / 2 - self.lifesIconsContainer:getWidth() / 2)
 	self.lifesIconsContainer:setX(heartScale)
 	self.lifesIconsContainer:setAlpha(0.7)
+
+	self.endUI = EndUI.new()
+	self:addChild(self.endUI)
+	self.endUI:setVisible(false)
 end
 
 function GameUI:setLifesCount(count)
@@ -104,7 +109,17 @@ function GameUI:setPauseUIVisible(isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
 end
 
+function GameUI:showEndUI()
+	self:setDeathUIVisible(false)
+	self.deathUI:setVisible(false)
+	self.endUI:setVisible(true)
+	self.endUI:setAlpha(0)
+end
+
 function GameUI:update(deltaTime)
+	if self.endUI:isVisible() then
+		self.endUI:setAlpha(self.endUI:getAlpha() + deltaTime / 3)
+	end
 end
 
 return GameUI

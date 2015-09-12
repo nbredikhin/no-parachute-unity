@@ -6,6 +6,8 @@ local SettingsMenuScreen 	= require "screens/SettingsMenuScreen"
 
 local ScreenManager = Core.class(Sprite)
 
+local FADE_TIME = 0.5
+
 function ScreenManager:init()
 	self.currentScreen = false
 
@@ -39,7 +41,11 @@ function ScreenManager:onKey(e)
 	end
 end
 
-function ScreenManager:loadScreen(screen, ...)
+function ScreenManager:changeScreen()
+	local screen = self.nextScreen
+	if not screen then
+		return
+	end
 	-- Скрыть текущий экран
 	if self.currentScreen and self.currentScreen:getParent() then
 		self:removeChild(self.currentScreen)
@@ -65,14 +71,32 @@ function ScreenManager:loadScreen(screen, ...)
 	end
 	-- Отобразить новый экран
 	self.currentScreen = screen
-	self.currentScreen:load(...)
+	self.currentScreen:setAlpha(0)
+	self.currentScreen:load(unpack(self.nextScreenArgs))
 	self:addChildAt(self.currentScreen, 1)
+
+	self.nextScreen = nil
 	return true
+end
+
+function ScreenManager:loadScreen(screen, ...)
+	self.nextScreen = screen
+	self.nextScreenArgs = {...}
 end
 
 function ScreenManager:update(deltaTime)
 	if self.currentScreen then
 		self.currentScreen:update(deltaTime)
+		if self.nextScreen then
+			self.currentScreen:setAlpha(self.currentScreen:getAlpha() - deltaTime / FADE_TIME)
+			if self.currentScreen:getAlpha() <= 0 then
+				self:changeScreen()
+			end
+		elseif self.currentScreen:getAlpha() < 1 then
+			self.currentScreen:setAlpha(math.min(1, self.currentScreen:getAlpha() + deltaTime / FADE_TIME))
+		end
+	elseif self.nextScreen then
+		self:changeScreen()
 	end
 	self.framerateCounter:update(deltaTime)
 end
