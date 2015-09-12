@@ -8,8 +8,8 @@ local World = Core.class(Sprite)
 
 local DEFAULT_FALLING_SPEED = 9000
 local WALLS_COUNT = 10
-local POWERUP_SPAWN_DELAY_MIN = 1
-local POWERUP_SPAWN_DELAY_MAX = 2
+local POWERUP_SPAWN_DELAY_MIN = 15
+local POWERUP_SPAWN_DELAY_MAX = 25
 local SPEEDUP_DELAY = 5
 
 local defaultWorldSize = 3000
