@@ -113,6 +113,7 @@
     <file source="assets/powerups/size.png"/>
     <file source="assets/powerups/life.png"/>
     <file source="assets/powerups/health.png"/>
+    <file source="assets/powerups/ring.png"/>
   </folder>
   <file source="assets/blood.png"/>
   <file source="assets/pause.png"/>

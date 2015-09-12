@@ -11,6 +11,7 @@ local WALLS_COUNT = 10
 local POWERUP_SPAWN_DELAY_MIN = 15
 local POWERUP_SPAWN_DELAY_MAX = 25
 local SPEEDUP_DELAY = 5
+local RING_SPAWN_DELAY = 2.5
 
 local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30
@@ -106,7 +107,9 @@ function World:init(gameScreen, player, levelID)
 	-- PowerUps
 	self.powerups = {}
 	self.powerupSpawnDelay = 0
-
+	
+	-- Кольца
+	self.ringSpawnDelay = RING_SPAWN_DELAY
 	-- Ускорение
 	self.speedupDelay = 0
 
@@ -180,6 +183,7 @@ end
 function World:update(dt, totalTime)
 	self.timeAlive = totalTime
 
+	-- Ускорение
 	if self.speedupActive then
 		if self.speedupDelay > 0 then
 			self.speedupDelay = self.speedupDelay - dt
@@ -245,6 +249,13 @@ function World:update(dt, totalTime)
 		else
 			self.powerupSpawnDelay = self.powerupSpawnDelay - dt
 		end
+
+		if self.ringSpawnDelay <= 0 then
+			self:createPowerup(5)
+			self.ringSpawnDelay = RING_SPAWN_DELAY
+		else
+			self.ringSpawnDelay = self.ringSpawnDelay - dt
+		end
 	end
 	if not self:isFinished() then 
 		-- Update
@@ -287,8 +298,8 @@ function World:onPlayerLostPart(e)
 	table.insert(self.flyingBodyparts, part)
 end
 
-function World:createPowerup()
-	local powerup = PowerUp.new()
+function World:createPowerup(type)
+	local powerup = PowerUp.new(type)
 	local x = (math.random(0, self.size) - self.size / 2) * 0.8
 	local y = (math.random(0, self.size) - self.size / 2) * 0.8
 	powerup:setPosition(x ,y, -self.depth / 2)
@@ -306,6 +317,8 @@ function World:activatePowerup(powerup)
 		self:startSpeedup()
 	elseif powerup.type == 2 then
 		self.player:startSmall()
+	elseif powerup.type == 5 then
+		self.gameScreen.timeAlive = self.gameScreen.timeAlive + 5
 	end
 end
 

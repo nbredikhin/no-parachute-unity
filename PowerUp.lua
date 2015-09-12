@@ -6,14 +6,19 @@ local powerUpTypes = {
 	"speed",
 	"size",
 	"life",
-	"health"
+	"health",
+	"ring"
 } 
 
 local ANIMATION_DELAY = 0.5
 
-function PowerUp:init()
+function PowerUp:init(type)
 	self.size = 150
-	self.type = math.random(1, #powerUpTypes)
+	if not type then
+		self.type = math.random(1, #powerUpTypes)
+	else
+		self.type = type
+	end
 	local path = "assets/powerups/" .. powerUpTypes[self.type] .. ".png"
 	self.plane = PlaneMesh.new(Assets:getTexture(path), self.size * 2)
 	self:addChild(self.plane)
