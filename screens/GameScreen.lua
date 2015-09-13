@@ -82,6 +82,8 @@ function GameScreen:load(levelID)
 	self.lifes = 3
 
 	self.levelLogic:initialize()
+
+	stage:addEventListener(Event.APPLICATION_SUSPEND, self.onApplicationSuspend, self)
 end
 
 function GameScreen:unload()
@@ -271,7 +273,19 @@ function GameScreen:onPlayerLostPart()
 end
 
 function GameScreen:back()
-	screenManager:loadScreen(screenManager.screens.MainMenuScreen.new())
+	if not self.isPaused then
+		self:pauseGame()
+	end
+end
+
+function GameScreen:pauseGame()
+	self.ui:setPauseUIVisible(true)
+	self.isPaused = true
+	self.ui.touchButton:setVisible(false)
+end
+
+function GameScreen:onApplicationSuspend()
+	self:pauseGame()
 end
 
 return GameScreen

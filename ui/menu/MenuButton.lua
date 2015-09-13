@@ -12,7 +12,7 @@ function MenuButton:init()
 	self.colorHover = colorHover or defaultColorHover
 
 	self:setTextColor(self.colorNormal)
-	local textSize = math.min(defaultTextSize, math.max(1, math.floor(defaultTextSize * utils.screenHeight / 500)))
+	local textSize = defaultTextSize * utils.scale
 	self:setScale(textSize, textSize)
 
 	self.shake = 0

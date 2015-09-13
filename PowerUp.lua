@@ -56,7 +56,7 @@ end
 function PowerUp:hitTestPoint(x, y)
 	local dx = self:getX() - x
 	local dy = self:getY() - y
-	return dx*dx+dy*dy <= self.size*self.size
+	return dx*dx+dy*dy <= self.size*self.size*3
 end
 
 function PowerUp:startAnimation()

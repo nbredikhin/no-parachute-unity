@@ -21,3 +21,5 @@ function utils.fileExists(path)
 end
 
 utils.screenWidth, utils.screenHeight = utils.getScreenSize()
+
+utils.scale = utils.screenHeight / 480
