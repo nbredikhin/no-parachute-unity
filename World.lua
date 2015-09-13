@@ -15,7 +15,7 @@ local RING_SPAWN_DELAY = 2.5
 
 local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30
-local defaultPlanesCount = 3
+local DEFAULT_PLANES_COUNT = 3
 
 function World:init(gameScreen, player, levelID)
 	if not levelID then
@@ -79,7 +79,7 @@ function World:init(gameScreen, player, levelID)
 	end
 
 	-- Передние стены
-	self.planesCount = defaultPlanesCount
+	self.planesCount = self.gameScreen.levelLogic.planesCount or DEFAULT_PLANES_COUNT
 	self.planes = {}
 	self.planeTextures = {}
 	for i = 1, 50 do
@@ -124,9 +124,6 @@ function World:isFinished()
 end
 
 function World:updatePlane(plane, dt, isDecorative)
-	if self:isFinished() then
-		return
-	end
 	local wasMovedToBottom = false
 	plane:setZ(plane:getZ() + self.fallingSpeed * dt)
 
@@ -236,7 +233,6 @@ function World:update(dt, totalTime)
 	end
 
 	if self:isFinished() then
-		self.player:setZ(self.player:getZ() - self.fallingSpeed * dt)
 		self.player:setAlpha(math.max(0, self.player:getAlpha() - dt * 0.7))
 	end
 
@@ -257,24 +253,22 @@ function World:update(dt, totalTime)
 			self.ringSpawnDelay = self.ringSpawnDelay - dt
 		end
 	end
-	if not self:isFinished() then 
-		-- Update
-		for i, powerup in ipairs(self.powerups) do
-			powerup:update(dt)
-			powerup:setRotation(self.gameScreen.camera:getRotation())
-			powerup:setZ(powerup:getZ() + self.fallingSpeed * dt)
+	-- Update
+	for i, powerup in ipairs(self.powerups) do
+		powerup:update(dt)
+		powerup:setRotation(self.gameScreen.camera:getRotation())
+		powerup:setZ(powerup:getZ() + self.fallingSpeed * dt)
 
-			if powerup:getZ() > self.depth / 2 or powerup.isRemoved then
-				self:removeChild(powerup)
-				table.remove(self.powerups, i)
-			end
-			if not self.player.godModeEnabled and not powerup.isAnimating and powerup:getZ() >= self.player:getZ() - powerup.size and powerup:getZ() <= self.player:getZ() + powerup.size then
-				if powerup:hitTestPoint(self.player:getX(), self.player:getY()) then
-					self:activatePowerup(powerup)
-					powerup:startAnimation()
-					--self:removeChild(powerup)
-					--table.remove(self.powerups, i)
-				end
+		if powerup:getZ() > self.depth / 2 or powerup.isRemoved then
+			self:removeChild(powerup)
+			table.remove(self.powerups, i)
+		end
+		if not self.player.godModeEnabled and not powerup.isAnimating and powerup:getZ() >= self.player:getZ() - powerup.size and powerup:getZ() <= self.player:getZ() + powerup.size then
+			if powerup:hitTestPoint(self.player:getX(), self.player:getY()) then
+				self:activatePowerup(powerup)
+				powerup:startAnimation()
+				--self:removeChild(powerup)
+				--table.remove(self.powerups, i)
 			end
 		end
 	end

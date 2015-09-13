@@ -5,6 +5,10 @@ local MenuButton 	= require "ui/menu/MenuButton"
 
 local GameUI = Core.class(Sprite)
 
+
+local LIFES_BLINKING_TIME = 3
+local LIFES_BLINKING_DELAY = 0.25
+
 function GameUI:init()
 	self.touchButton = Bitmap.new(Assets:getTexture("assets/button.png"))
 	self.touchButton:setAnchorPoint(0.5, 0.5)
@@ -74,6 +78,9 @@ function GameUI:init()
 	--self.lifesIconsContainer:setX(utils.screenWidth / 2 - self.lifesIconsContainer:getWidth() / 2)
 	self.lifesIconsContainer:setX(heartScale)
 	self.lifesIconsContainer:setAlpha(0.7)
+	self.lifesBlinkingTime = 0
+	self.lifesBlinkingDelay = 0
+	self.lifesBlinkingIndex = 0
 
 	self.endUI = EndUI.new()
 	self:addChild(self.endUI)
@@ -82,8 +89,13 @@ end
 
 function GameUI:setLifesCount(count)
 	for i = 1, 3 do
-		self.lifesIcons[i]:setVisible(i <= count)
+		local isVisible = i <= count
+		if isVisible == false and self.lifesIcons[i]:isVisible() ~= isVisible then
+			self.lifesBlinkingIndex = i
+		end
+		self.lifesIcons[i]:setVisible(isVisible)
 	end
+	self.lifesBlinkingTime = LIFES_BLINKING_TIME
 end
 
 function GameUI:setProgress(progress)
@@ -119,6 +131,22 @@ end
 function GameUI:update(deltaTime)
 	if self.endUI:isVisible() then
 		self.endUI:setAlpha(self.endUI:getAlpha() + deltaTime / 3)
+	end
+
+	if self.lifesBlinkingIndex > 0 then
+		if self.lifesBlinkingTime > 0 then
+			self.lifesBlinkingTime = self.lifesBlinkingTime - deltaTime
+
+			if self.lifesBlinkingDelay > 0 then
+				self.lifesBlinkingDelay = self.lifesBlinkingDelay - deltaTime
+			else
+				self.lifesBlinkingDelay = LIFES_BLINKING_DELAY
+				self.lifesIcons[self.lifesBlinkingIndex]:setVisible(not self.lifesIcons[self.lifesBlinkingIndex]:isVisible())
+			end
+		else
+			self.lifesIcons[self.lifesBlinkingIndex]:setVisible(false)
+			self.lifesBlinkingIndex = 0
+		end
 	end
 end
 

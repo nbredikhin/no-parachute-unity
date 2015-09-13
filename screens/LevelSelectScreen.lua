@@ -73,10 +73,13 @@ function LevelSelectScreen:load()
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
-	return levelID > 4
+	return levelID > 5
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
+	if not self.iconsContainer:hitTestPoint(e.touch.x, e.touch.y) then
+		return
+	end
 	self.iconsPrevX = e.touch.x
 	self.iconsPrevY = e.touch.y
 
@@ -103,6 +106,12 @@ function LevelSelectScreen:setSelectedIcon(id)
 end
 
 function LevelSelectScreen:iconsTouchMove(e)
+	if not self.iconsContainer:hitTestPoint(e.touch.x, e.touch.y) then
+		return
+	end
+	if not self.iconsPrevX then
+		return
+	end
 	local dragX = e.touch.x - self.iconsPrevX
 	local dragY = e.touch.y - self.iconsPrevY
 
@@ -118,6 +127,12 @@ function LevelSelectScreen:iconsTouchMove(e)
 end
 
 function LevelSelectScreen:iconsTouchEnd(e)
+	if not self.iconsContainer:hitTestPoint(e.touch.x, e.touch.y) then
+		return
+	end
+	if not self.iconsStartX then
+		return
+	end
 	local dragX = e.touch.x - self.iconsStartX
 	local dragY = e.touch.y - self.iconsStartY
 

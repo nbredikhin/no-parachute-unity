@@ -31,9 +31,20 @@ function GameScreen:load(levelID)
 	self.player = Player.new()
 	self.player:addEventListener(Player.WASTED, self.onPlayerWasted, self)
 
+	-- Скрипт уровня
+	local scriptPath = "assets/levels/" .. tostring(levelID) .."/logic"
+	local LevelLogicClass = require(scriptPath)
+	if LevelLogicClass then
+		self.levelLogic = LevelLogicClass.new()
+	else
+		print("Failed to load 'logic.lua' for level " .. tostring(levelID))
+	end
+	
 	-- Мир
 	self.world = World.new(self, self.player, self.levelID)
 	self:addChild(self.world)
+	self.levelLogic.world = self.world
+	self.world.levelLogic = self.levelLogic
 
 	-- Камера
 	self.camera = Camera.new(self.world)
@@ -66,17 +77,7 @@ function GameScreen:load(levelID)
 	-- Жизни
 	self.lifes = 3
 
-	-- Скрипт уровня
-	local scriptPath = "assets/levels/" .. tostring(levelID) .."/logic"
-	local LevelLogicClass = require(scriptPath)
-	if LevelLogicClass then
-		self.levelLogic = LevelLogicClass.new(self.world)
-		self.levelLogic:initialize()
-	else
-		print("Failed to load 'logic.lua' for level " .. tostring(levelID))
-	end
-
-	self.world.levelLogic = self.levelLogic
+	self.levelLogic:initialize()
 end
 
 function GameScreen:unload()
