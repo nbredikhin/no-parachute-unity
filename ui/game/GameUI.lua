@@ -33,7 +33,7 @@ function GameUI:init()
 	self:addChild(self.pauseButton)
 
 	self.backButton = MenuButton.new(nil, "Exit to menu")
-	self.backButton:setScale(4)
+	self.backButton:setScale(4 * utils.scale)
 	self.backButton:setVisible(false)
 	self.backButton:setPosition(utils.screenWidth / 2 - self.backButton:getWidth() / 2, utils.screenHeight - self.backButton:getHeight() * 0.5)
 	self:addChild(self.backButton)

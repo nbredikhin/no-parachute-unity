@@ -13,7 +13,7 @@ function PauseUI:init()
 	self:addChild(background)
 
 	local text = TextField.new(nil, "Tap to continue")
-	text:setScale(4)
+	text:setScale(4 * utils.scale)
 	text:setTextColor(0xFFFFFF)
 	text:setPosition(utils.screenWidth / 2 - text:getWidth() / 2, utils.screenHeight / 2 + text:getHeight() / 2)
 	self:addChild(text)

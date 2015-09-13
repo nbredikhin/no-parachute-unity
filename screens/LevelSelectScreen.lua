@@ -46,7 +46,7 @@ function LevelSelectScreen:load()
 	self.ICON_WIDTH = self.levelsIcons[1].image:getWidth()
 
 	-- Center icons container
-	self.iconsContainer:setScale(utils.scale)
+	self.iconsContainer:setScale(math.max(utils.scale, 1))
 	self.iconsContainer:setX(utils.screenWidth / 2 - self.ICON_WIDTH / 2)
 	self.iconsContainer:setY(utils.screenHeight / 2 + 10)
 
@@ -103,7 +103,7 @@ function LevelSelectScreen:setSelectedIcon(id)
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(2, 2 * utils.screenHeight / 360)
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(2, 2 * utils.screenHeight / 360)
 
-	self.iconsContainerTargetX = utils.screenWidth / 2 - (self.ICON_WIDTH + self.ICONS_SPACE) * (id - 1)
+	self.iconsContainerTargetX = utils.screenWidth / 2 - (self.ICON_WIDTH + self.ICONS_SPACE) * (id - 1) * self.iconsContainer:getScale()
 end
 
 function LevelSelectScreen:iconsTouchMove(e)

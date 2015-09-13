@@ -207,7 +207,7 @@ function GameScreen:onTouchBegin(e)
 	if not self.player.isAlive then
 		-- Нажатие на кнопку "Back to menu"
 		if self.ui.backButton:hitTestPoint(e.x, e.y) then
-			self:back()
+			screenManager:loadScreen("MainMenuScreen")
 		-- Нажатие на кнопку "Tap to restart"
 		elseif self.ui.deathUI.restartButton:hitTestPoint(e.x, e.y) then
 			self.ui:setDeathUIVisible(false)
@@ -223,7 +223,7 @@ function GameScreen:onTouchBegin(e)
 		else -- Во время паузы
 			-- Нажатие на кнопку "Back to menu"
 			if self.ui.backButton:hitTestPoint(e.x, e.y) then
-				self:back()
+				screenManager:loadScreen("MainMenuScreen")
 			-- Нажатие на кнопку "Tap to continue"
 			elseif self.ui.pauseUI.continueText:hitTestPoint(e.x, e.y) then
 				self.ui:setPauseUIVisible(false)
