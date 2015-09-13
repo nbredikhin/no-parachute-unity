@@ -6,6 +6,8 @@ local Screen 			= require "screens/Screen"
 local World  			= require "World"
 local LevelLogic 		= require "LevelLogic"
 
+local CAMERA_SHAKING_POWER = 100
+
 local GameScreen = Core.class(Screen)
 
 local cameraRotationRadiusAlive = 5
@@ -30,6 +32,7 @@ function GameScreen:load(levelID)
 	-- Игрок
 	self.player = Player.new()
 	self.player:addEventListener(Player.WASTED, self.onPlayerWasted, self)
+	self.player:addEventListener(Player.LOST_PART, self.onPlayerLostPart, self)
 
 	-- Скрипт уровня
 	local scriptPath = "assets/levels/" .. tostring(levelID) .."/logic"
@@ -49,6 +52,7 @@ function GameScreen:load(levelID)
 	-- Камера
 	self.camera = Camera.new(self.world)
 	self.camera:setCenter(self.camera.width / 2, self.camera.height / 2, -self.world.depth / 2 + 1000)
+	self.cameraShakeDelay = 0
 
 	-- Ввод
 	self.input = InputManager.new()
@@ -115,7 +119,14 @@ function GameScreen:update(dt)
 	--[[if self.timeAlive > self.levelLogic.requiredTime then
 		cameraFinishedOffset = (self.timeAlive - self.levelLogic.requiredTime) * 2000
 	end]]
- 	self.camera:setPosition(self.player:getX() + rotX, self.player:getY() + rotY, -800 - cameraFinishedOffset)
+	local shakeX = self.cameraShakeDelay * math.random(-CAMERA_SHAKING_POWER, CAMERA_SHAKING_POWER)
+	local shakeY = self.cameraShakeDelay * math.random(-CAMERA_SHAKING_POWER, CAMERA_SHAKING_POWER)
+	if self.cameraShakeDelay <= 0 then
+		self.cameraShakeDelay = 0
+	else
+		self.cameraShakeDelay = self.cameraShakeDelay - dt
+	end
+ 	self.camera:setPosition(self.player:getX() + rotX + shakeX, self.player:getY() + rotY + shakeY, -800 - cameraFinishedOffset)
 
  	-- Вращение камеры
  	if self.player.isAlive then
@@ -123,6 +134,16 @@ function GameScreen:update(dt)
 
  		elseif self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_CONSTANTLY then
 		 	local cameraRotation = self.camera:getRotation()
+		 	self.camera:setRotation(cameraRotation + self.levelLogic.cameraSpeed * dt)
+		 	self.player.cameraRotation = cameraRotation
+		elseif self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_SIN then
+		 	local cameraRotation = self.camera:getRotation()
+		 	self.camera:setRotation(cameraRotation + self.levelLogic.cameraSpeed * dt * math.sin(self.timeAlive))
+		 	self.player.cameraRotation = cameraRotation
+		elseif self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_PLAYER then
+			local cameraRotation = self.camera:getRotation()
+			self.levelLogic.cameraSpeed = self.levelLogic.cameraSpeed + self.input.valueX * dt * 200
+			self.levelLogic.cameraSpeed = self.levelLogic.cameraSpeed * 0.99
 		 	self.camera:setRotation(cameraRotation + self.levelLogic.cameraSpeed * dt)
 		 	self.player.cameraRotation = cameraRotation
 		end
@@ -243,6 +264,10 @@ end
 
 function GameScreen:onPlayerWasted()
 	self.ui:setDeathUIVisible(true)
+end
+
+function GameScreen:onPlayerLostPart()
+	self.cameraShakeDelay = 0.5
 end
 
 function GameScreen:back()

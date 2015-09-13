@@ -2,6 +2,8 @@ local LevelLogic = Core.class()
 -- Режимы камеры
 LevelLogic.CAMERA_STATIC = "static"
 LevelLogic.CAMERA_ROTATING_CONSTANTLY = "rotating_constantly"
+LevelLogic.CAMERA_ROTATING_SIN = "rotating_sin"
+LevelLogic.CAMERA_ROTATING_PLAYER = "rotating_player"
 
 function LevelLogic:init()
 	self.planesCount = 3

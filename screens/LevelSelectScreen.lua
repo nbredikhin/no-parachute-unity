@@ -73,7 +73,7 @@ function LevelSelectScreen:load()
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
-	return levelID > 5
+	return levelID > 6
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
