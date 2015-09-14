@@ -140,7 +140,7 @@ function GameScreen:update(dt)
 		 	self.player.cameraRotation = cameraRotation
 		elseif self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_SIN then
 		 	local cameraRotation = self.camera:getRotation()
-		 	self.camera:setRotation(cameraRotation + self.levelLogic.cameraSpeed * dt * math.sin(self.timeAlive))
+		 	self.camera:setRotation(cameraRotation + self.levelLogic.cameraSpeed * dt * math.sin(self.world.time))
 		 	self.player.cameraRotation = cameraRotation
 		elseif self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_PLAYER then
 			local cameraRotation = self.camera:getRotation()
