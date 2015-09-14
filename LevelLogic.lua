@@ -10,6 +10,7 @@ function LevelLogic:init()
 	self.requiredTime = 120
 	self.gameTime = 0
 	self.defaultFallingSpeed = 7500
+	self.movingPlanes = {}
 
 	-- Camera
 	self.cameraType = LevelLogic.CAMERA_STATIC

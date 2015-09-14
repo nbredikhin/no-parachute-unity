@@ -1,3 +1,4 @@
+local MovingPlane 	= require "MovingPlane"
 local Plane 		= require "Plane"
 local PlaneMesh 	= require "PlaneMesh"
 local TexturePNG 	= require "TexturePNG"
@@ -21,6 +22,7 @@ function World:init(gameScreen, player, levelID)
 	if not levelID then
 		levelID = 1
 	end
+	self.time = 0
 	self.gameScreen = gameScreen
 
 	-- Размеры мира
@@ -82,19 +84,28 @@ function World:init(gameScreen, player, levelID)
 	self.planesCount = self.gameScreen.levelLogic.planesCount or DEFAULT_PLANES_COUNT
 	self.planes = {}
 	self.planeTextures = {}
+	self.planeDecoTextures = {}
 	for i = 1, 50 do
 		local path = "assets/levels/" .. tostring(levelID) .. "/planes/" .. tostring(i) ..".png"
 		if utils.fileExists(path) then
 			self.planeTextures[i] = TexturePNG.new(path)
+
+			local pathDeco = "assets/levels/" .. tostring(levelID) .. "/planes/" .. tostring(i) .."_deco.png"
+			if utils.fileExists(pathDeco) then
+				self.planeDecoTextures[i] = TexturePNG.new(pathDeco)
+			end
 		else
 			break
 		end
 	end
 	for i = 1, self.planesCount do
-		local texture = self.planeTextures[math.random(1, #self.planeTextures)]
-		local plane = Plane.new(texture, self.size)
+		local planeIndex = math.random(1, #self.planeTextures)
+		local texture = self.planeTextures[planeIndex]
+		local plane = MovingPlane.new(self.size, texture)
+		plane:setMovingPlaneTexture(texture, self.planeDecoTextures[planeIndex])
 		plane:setPosition(0, 0, -i * self.depth / self.planesCount + 10)
 		plane:setRotation(math.random(1, 4) * 90)
+		self:setupPlaneMovement(plane, planeIndex)
 		self:addChild(plane)
 		self.planes[i] = plane
 	end
@@ -122,6 +133,18 @@ function World:isFinished()
 		return false
 	end
 	return self.timeAlive >= self.levelLogic.requiredTime
+end
+
+function World:setupPlaneMovement(plane, type)
+	plane:setRotation(math.random(1, 4) * 90)
+	plane:setX(0)
+	plane:setY(0)
+	local func = self.gameScreen.levelLogic.movingPlanes[type]
+	if func then
+		plane.updateMovement = func
+	else
+		plane.updateMovement = nil
+	end
 end
 
 function World:updatePlane(plane, dt, isDecorative)
@@ -157,6 +180,7 @@ function World:respawn()
 	end
 
 	self.player:respawn()
+	self.player:setPosition(0, 0, self.depth/2 - 4600)
 	self.player:startGodMode()
 	self.fallingSpeed = self.defaultFallingSpeed
 end
@@ -181,6 +205,11 @@ end
 function World:update(dt, totalTime)
 	self.timeAlive = totalTime
 
+	--
+	if not self.player.isAlive then
+		self.player:setZ(self.player:getZ() + self.fallingSpeed * dt)
+		self.fallingSpeed = self.fallingSpeed * 0.997
+	end
 	-- Ускорение
 	if self.speedupActive then
 		if self.speedupDelay > 0 then
@@ -204,17 +233,22 @@ function World:update(dt, totalTime)
 
 	-- Обновление передних стен
 	for i, plane in ipairs(self.planes) do
+		if plane.updateMovement then
+			plane.updateMovement(plane, dt, self.time)
+		end
 		if self:updatePlane(plane, dt) then
 			-- Обновление текстуры
-			plane:setPlaneTexture(self.planeTextures[math.random(1, #self.planeTextures)])
+			local planeIndex = math.random(1, #self.planeTextures)
+			plane:setMovingPlaneTexture(self.planeTextures[planeIndex], self.planeDecoTextures[planeIndex])
+			self:setupPlaneMovement(plane, planeIndex)
 		end
 		-- Проверка столкновений
 		if self.player.isAlive and not self.player.godModeEnabled and not self:isFinished() then
-			if plane:getZ() >= self.player:getZ() - self.fallingSpeed * dt and plane:getZ() <= self.player:getZ() + self.fallingSpeed * dt then
+			local playerZ = self.player:getZ() + self.player.size * 6
+			if plane:getZ() >= playerZ - self.fallingSpeed * dt and plane:getZ() <= playerZ + self.fallingSpeed * dt then
 				if self.player:hitTestPlane(plane) then
-					--plane:setZ(self.player:getZ())
+					plane:setZ(playerZ)
 					self.player:die()
-					self.fallingSpeed = 0
 				end
 			end
 		end
@@ -274,6 +308,7 @@ function World:update(dt, totalTime)
 		end
 	end
 	self.totalDistance = self.totalDistance + self.fallingSpeed * dt
+	self.time = self.time + dt
 end
 
 function World:setFallingSpeed(speed)
@@ -298,8 +333,8 @@ function World:createPowerup(type)
 		return
 	end
 	local powerup = PowerUp.new(type)
-	local x = (math.random(0, self.size) - self.size / 2) * 0.8
-	local y = (math.random(0, self.size) - self.size / 2) * 0.8
+	local x = (math.random(0, self.size) - self.size / 2) * 0.6
+	local y = (math.random(0, self.size) - self.size / 2) * 0.6
 	powerup:setPosition(x ,y, -self.depth / 2)
 	self:addChild(powerup)
 	table.insert(self.powerups, powerup)

@@ -8,6 +8,13 @@ local LevelLogic = Core.class(LevelLogicBase)
 function LevelLogic:init()
 	self.planesCount = 4
 	self.requiredTime = 120
+
+	self.movingPlanes[6] = function(plane, deltaTime, gameTime)
+		plane:setRotation(math.sin(gameTime) / math.pi * 180)
+	end
+	self.movingPlanes[8] = function(plane, deltaTime, gameTime)
+		plane:setRotation(plane:getRotation() + 90 * deltaTime)
+	end
 end
 
 function LevelLogic:initialize()

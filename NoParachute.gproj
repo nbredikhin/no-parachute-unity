@@ -50,10 +50,17 @@
      <file source="assets/levels/3/planes/2.png"/>
      <file source="assets/levels/3/planes/3.png"/>
      <file source="assets/levels/3/planes/4.png"/>
+     <file source="assets/levels/3/planes/5.png"/>
+     <file source="assets/levels/3/planes/6.png"/>
      <file source="assets/levels/3/planes/1.png.msk"/>
      <file source="assets/levels/3/planes/2.png.msk"/>
      <file source="assets/levels/3/planes/3.png.msk"/>
      <file source="assets/levels/3/planes/4.png.msk"/>
+     <file source="assets/levels/3/planes/5.png.msk"/>
+     <file source="assets/levels/3/planes/6.png.msk"/>
+
+     <file source="assets/levels/3/planes/5_deco.png"/>
+     <file source="assets/levels/3/planes/5_deco.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/3/deco/1.png"/>
@@ -97,6 +104,7 @@
      <file source="assets/levels/5/planes/5.png"/>
      <file source="assets/levels/5/planes/6.png"/>
      <file source="assets/levels/5/planes/7.png"/>
+     <file source="assets/levels/5/planes/8.png"/>
      <file source="assets/levels/5/planes/1.png.msk"/>
      <file source="assets/levels/5/planes/2.png.msk"/>
      <file source="assets/levels/5/planes/3.png.msk"/>
@@ -104,6 +112,7 @@
      <file source="assets/levels/5/planes/5.png.msk"/>
      <file source="assets/levels/5/planes/6.png.msk"/>
      <file source="assets/levels/5/planes/7.png.msk"/>
+     <file source="assets/levels/5/planes/8.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/5/deco/1.png"/>
@@ -205,6 +214,7 @@
  <file source="Player.lua"/>
  <file source="PlaneMesh.lua"/>
  <file source="Plane.lua"/>
+ <file source="MovingPlane.lua"/>
  <file source="FramerateCounter.lua"/>
  <file source="Camera.lua"/>
  <file source="World.lua"/>
