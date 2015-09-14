@@ -107,6 +107,7 @@ function World:init(gameScreen, player, levelID)
 	-- PowerUps
 	self.powerups = {}
 	self.powerupSpawnDelay = 0
+	self.powerupsEnabled = true
 	
 	-- Кольца
 	self.ringSpawnDelay = RING_SPAWN_DELAY
@@ -293,6 +294,9 @@ function World:onPlayerLostPart(e)
 end
 
 function World:createPowerup(type)
+	if not self.powerupsEnabled and type ~= 5 then
+		return
+	end
 	local powerup = PowerUp.new(type)
 	local x = (math.random(0, self.size) - self.size / 2) * 0.8
 	local y = (math.random(0, self.size) - self.size / 2) * 0.8

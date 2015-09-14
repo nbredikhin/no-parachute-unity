@@ -269,7 +269,11 @@ function GameScreen:restartLevel()
 end
 
 function GameScreen:onPlayerWasted()
-	self.ui:setDeathUIVisible(true)
+	local isGameOver = false
+	if self.lifes <= 1 then
+		isGameOver = true
+	end
+	self.ui:setDeathUIVisible(true, isGameOver)
 end
 
 function GameScreen:onPlayerLostPart()
@@ -283,7 +287,7 @@ function GameScreen:back()
 end
 
 function GameScreen:pauseGame()
-	if self.world:isFinished() then
+	if self.world:isFinished() or not self.player.isAlive or self.isPaused then
 		return
 	end
 	self.ui:setPauseUIVisible(true)

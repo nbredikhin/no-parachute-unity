@@ -142,6 +142,7 @@
   </folder>
   <folder name="icons">
    <file source="assets/icons/locked.png"/>
+   <file source="assets/icons/frame.png"/>
    <file source="assets/icons/1.png"/>
    <file source="assets/icons/2.png"/>
    <file source="assets/icons/3.png"/>
@@ -175,6 +176,7 @@
   <file source="assets/pause.png"/>
   <file source="assets/button.png"/>
   <file source="assets/logo.png"/>
+  <file source="assets/paused.png"/>
   <file source="assets/level_passed.png"/>
   <file source="assets/level_passed2.png"/>
   <file source="assets/death_bg.png"/>

@@ -28,8 +28,13 @@ function LevelSelectScreen:load()
 		iconSprite:addChild(bitmap)
 		bitmap:setAnchorPoint(0.5, 0.5)
 
+		local frame = Bitmap.new(Assets:getTexture("assets/icons/frame.png"))
+		frame:setAnchorPoint(0.5, 0.5)
+		iconSprite:addChild(frame)
+
 		if self:isLevelLocked(i) then
 			bitmap:setColorTransform(0.1, 0.1, 0.1, 1)
+			frame:setAlpha(0.3)
 			local lock = Bitmap.new(Assets:getTexture("assets/icons/locked.png"), true)
 			iconSprite:addChild(lock)
 			lock:setAnchorPoint(0.5, 0.5)
@@ -113,8 +118,8 @@ function LevelSelectScreen:iconsTouchMove(e)
 	if not self.iconsPrevX then
 		return
 	end
-	local dragX = e.touch.x - self.iconsPrevX
-	local dragY = e.touch.y - self.iconsPrevY
+	local dragX = (e.touch.x - self.iconsPrevX) / utils.scale
+	local dragY = (e.touch.y - self.iconsPrevY) / utils.scale
 
 	if dragX < -self.ICON_WIDTH then
 		self:setSelectedIcon(self.currentSelectedIcon + 1)

@@ -11,6 +11,7 @@ end
 
 function LevelLogic:initialize()
 	self:setFallingSpeed(self.defaultFallingSpeed)
+	self:setPowerupsEnabled(false)
 end
 
 return LevelLogic

@@ -36,4 +36,8 @@ function LevelLogic:setCameraSpeed(speed)
 	self.cameraSpeed = speed
 end
 
+function LevelLogic:setPowerupsEnabled(isEnabled)
+	self.world.powerupsEnabled = isEnabled
+end
+
 return LevelLogic

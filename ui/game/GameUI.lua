@@ -104,12 +104,15 @@ function GameUI:setProgress(progress)
 	self.progressBarLine:setScaleX(utils.screenWidth * progress)
 end
 
-function GameUI:setDeathUIVisible(isVisible)
+function GameUI:setDeathUIVisible(isVisible, ...)
 	self.deathUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 	self.backButton:setVisible(isVisible)
 	self.progressBar:setVisible(not isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
+	if isVisible then
+		self.deathUI:show(...)
+	end
 end
 
 function GameUI:setPauseUIVisible(isVisible)
