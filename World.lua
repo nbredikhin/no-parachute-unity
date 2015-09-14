@@ -127,7 +127,7 @@ function World:updatePlane(plane, dt, isDecorative)
 	local wasMovedToBottom = false
 	plane:setZ(plane:getZ() + self.fallingSpeed * dt)
 
-	if not self:isFinished() then
+	if not self:isFinished() or isDecorative then
 		if plane:getZ() > self.depth / 2 then
 			plane:setZ(plane:getZ() - self.depth)
 			plane:setRotation(math.random(1, 4) * 90)

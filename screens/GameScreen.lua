@@ -152,7 +152,9 @@ function GameScreen:update(dt)
 	end
 
 	-- Управление игроком
-	self.player.inputX, self.player.inputY = self.input.valueX, self.input.valueY
+	if not self.world:isFinished() then
+		self.player.inputX, self.player.inputY = self.input.valueX, self.input.valueY
+	end
 
 	-- Столкновение игрока с боковыми стенами
 	if self.player:getX() > self.world.size / 2 - self.player.size then
@@ -232,14 +234,16 @@ function GameScreen:onTouchBegin(e)
 		end
 	end
 
-	if self.player.isAlive and not self.isPaused then
-		self.ui.touchButton:setPosition(e.x, e.y)
-		self.ui.touchButton:setVisible(true)
-	else
-		self.ui.touchButton:setVisible(false)
+	if not self.world:isFinished() then
+		if self.player.isAlive and not self.isPaused then
+			self.ui.touchButton:setPosition(e.x, e.y)
+			self.ui.touchButton:setVisible(true)
+		else
+			self.ui.touchButton:setVisible(false)
+		end
 	end
 
-	if self.ui.endUI:isVisible() and self.ui.endUI:getAlpha() > 0.5 then
+	if self.ui.endUI:isVisible() and self.ui.endUI:getAlpha() > 0.6 then
 		screenManager:loadScreen(screenManager.screens.LevelSelectScreen.new())
 	end
 end
@@ -279,6 +283,9 @@ function GameScreen:back()
 end
 
 function GameScreen:pauseGame()
+	if self.world:isFinished() then
+		return
+	end
 	self.ui:setPauseUIVisible(true)
 	self.isPaused = true
 	self.ui.touchButton:setVisible(false)

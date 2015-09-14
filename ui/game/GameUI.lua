@@ -12,7 +12,7 @@ local LIFES_BLINKING_DELAY = 0.25
 function GameUI:init()
 	self.touchButton = Bitmap.new(Assets:getTexture("assets/button.png"))
 	self.touchButton:setAnchorPoint(0.5, 0.5)
-	self.touchButton:setScale(0.3, 0.3)
+	self.touchButton:setScale(math.min(0.3 * utils.scale, 0.3))
 	self.touchButton:setAlpha(0.5)
 	self:addChild(self.touchButton)
 	self.touchButton:setVisible(false)
@@ -122,15 +122,17 @@ function GameUI:setPauseUIVisible(isVisible)
 end
 
 function GameUI:showEndUI()
+	self.touchButton:setVisible(false)
 	self:setDeathUIVisible(false)
 	self.deathUI:setVisible(false)
 	self.endUI:setVisible(true)
-	self.endUI:setAlpha(0)
+	self.pauseButton:setVisible(false)
+	self.endUI:reset()
 end
 
 function GameUI:update(deltaTime)
 	if self.endUI:isVisible() then
-		self.endUI:setAlpha(self.endUI:getAlpha() + deltaTime / 3)
+		self.endUI:update(deltaTime)
 	end
 
 	if self.lifesBlinkingIndex > 0 then

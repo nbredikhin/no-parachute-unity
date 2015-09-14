@@ -175,6 +175,8 @@
   <file source="assets/pause.png"/>
   <file source="assets/button.png"/>
   <file source="assets/logo.png"/>
+  <file source="assets/level_passed.png"/>
+  <file source="assets/level_passed2.png"/>
   <file source="assets/death_bg.png"/>
   <file source="assets/bar.png"/>
   <file source="assets/heart1.png"/>
