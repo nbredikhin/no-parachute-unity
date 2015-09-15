@@ -16,11 +16,11 @@ function LevelLogic:init()
 	end
 
 	self.movingPlanes[9] = function(plane, deltaTime, gameTime)
-		plane.basePlane:setRotation(plane:getRotation() - math.random(70, 90) * deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() - 90 * deltaTime)
 	end
 
 	self.movingPlanes[10] = function(plane, deltaTime, gameTime)
-		plane.basePlane:setRotation(plane:getRotation() + math.random(360 * 3) * deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() + 360 * deltaTime)
 	end
 end
 

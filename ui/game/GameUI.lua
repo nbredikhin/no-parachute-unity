@@ -38,7 +38,7 @@ function GameUI:init()
 	self.backButton:setPosition(utils.screenWidth / 2 - self.backButton:getWidth() / 2, utils.screenHeight - self.backButton:getHeight() * 0.5)
 	self:addChild(self.backButton)
 
-	local progressBarSize = math.min(4, utils.screenHeight * 0.012)
+	local progressBarSize = math.min(8, utils.screenHeight * 0.012 * utils.scale)
 	self.progressBarBackground = Bitmap.new(Assets:getTexture("assets/bar.png"))
 	self.progressBarBackground:setScaleX(utils.screenWidth)
 	self.progressBarBackground:setScaleY(progressBarSize)
@@ -62,7 +62,7 @@ function GameUI:init()
 	self.lifesIcons = {}
 	local heartTexture1 = Assets:getTexture("assets/heart1.png")
 	local heartTexture2 = Assets:getTexture("assets/heart2.png")
-	local heartScale = math.min(5, math.floor(utils.screenHeight / 80)) 
+	local heartScale = math.min(12, math.floor(utils.screenHeight / 60) * utils.scale)
 	for i = 1, 3 do
 		local heart = Sprite.new()
 		local bg = Bitmap.new(heartTexture2)
