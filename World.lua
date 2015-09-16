@@ -11,9 +11,10 @@ local World = Core.class(Sprite)
 
 local DEFAULT_FALLING_SPEED = 9000
 local WALLS_COUNT = 10
-local POWERUP_SPAWN_DELAY_MIN = 15
-local POWERUP_SPAWN_DELAY_MAX = 25
-local SPEEDUP_DELAY = 5
+local POWERUP_SPAWN_DELAY_MIN = 0
+local POWERUP_SPAWN_DELAY_MAX = 1
+local SPEEDUP_DELAY = 8
+local SPEEDUP_MUL = 2.5
 local RING_SPAWN_DELAY = 2.5
 
 local defaultWorldSize = 3000
@@ -194,7 +195,7 @@ function World:startSpeedup()
 	self.speedupDelay = SPEEDUP_DELAY
 	self.speedupActive = true
 	self.oldFallingSpeed = self.fallingSpeed
-	self.fallingSpeed = self.fallingSpeed * 2
+	self.fallingSpeed = self.fallingSpeed * SPEEDUP_MUL
 	self.player:startGodMode(self.speedupDelay)
 end
 
@@ -207,15 +208,19 @@ end
 function World:update(dt, totalTime)
 	self.timeAlive = totalTime
 
-	--
+	-- Замедление камеры после смерти
 	if not self.player.isAlive then
 		self.player:setZ(self.player:getZ() + self.fallingSpeed * dt)
 		self.fallingSpeed = self.fallingSpeed * 0.997
 	end
+	
 	-- Ускорение
 	if self.speedupActive then
 		if self.speedupDelay > 0 then
 			self.speedupDelay = self.speedupDelay - dt
+			if self.speedupDelay < 2.3 then
+				self.fallingSpeed = math.max(self.oldFallingSpeed, self.fallingSpeed * 0.99)
+			end
 		else
 			self:stopSpeedup()
 		end

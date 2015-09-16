@@ -10,7 +10,7 @@ local FADE_TIME = 0.5
 
 function ScreenManager:init()
 	self.currentScreen = false
-
+	
 	self.infoText = TextField.new(nil, "No Parachute! development version")
 	self.infoText:setTextColor(0xFFFFFF)
 	self.infoText:setPosition(5, utils.screenHeight - 5)
@@ -19,8 +19,7 @@ function ScreenManager:init()
 	-- Счётчик фпс
 	self.framerateCounter = FramerateCounter.new()
 	self:addChild(self.framerateCounter)
-	self.framerateCounter:setPosition(0, self.infoText:getY() - self.framerateCounter:getHeight() - self.infoText:getHeight() * 1.5)
-
+	
 	self.screens = {
 		GameScreen 			= GameScreen,
 		LevelSelectScreen 	= LevelSelectScreen,

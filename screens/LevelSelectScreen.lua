@@ -79,7 +79,7 @@ function LevelSelectScreen:load()
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
-	return levelID > 6
+	return levelID > 7
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
@@ -145,7 +145,7 @@ function LevelSelectScreen:iconsTouchEnd(e)
 	-- Тап по иконкам
 	if math.abs(dragX) < 10 then
 		-- Номер иконки, по которой был тап
-		local tapIcon = math.floor((e.touch.x - self.iconsContainer:getX()) / (self.ICON_WIDTH + self.ICONS_SPACE) + 1.5)
+		local tapIcon = math.floor((e.touch.x - self.iconsContainer:getX()) / (self.ICON_WIDTH + self.ICONS_SPACE) / utils.scale + 1.5)
 		local diff = math.abs(self.currentSelectedIcon - tapIcon)
 		if diff <= 2 then
 			if diff > 0 then
