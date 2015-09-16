@@ -76,10 +76,14 @@ function ScreenManager:changeScreen()
 	self:addChildAt(self.currentScreen, 1)
 
 	self.nextScreen = nil
+	self.nextScreenArgs = {}
 	return true
 end
 
 function ScreenManager:loadScreen(screen, ...)
+	if self.nextScreen then
+		return
+	end
 	self.nextScreen = screen
 	self.nextScreenArgs = {...}
 end

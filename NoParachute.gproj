@@ -122,38 +122,52 @@
     <file source="assets/levels/5/logic.lua"/>
    </folder>
 
-  <folder name="6">
-    <folder name="planes">
-     <file source="assets/levels/6/planes/1.png"/>
-     <file source="assets/levels/6/planes/1.png.msk"/>
-     <file source="assets/levels/6/planes/2.png"/>
-     <file source="assets/levels/6/planes/2.png.msk"/>
-     <file source="assets/levels/6/planes/3.png"/>
-     <file source="assets/levels/6/planes/3.png.msk"/>
-     <file source="assets/levels/6/planes/4.png"/>
-     <file source="assets/levels/6/planes/4.png.msk"/>
-     <file source="assets/levels/6/planes/5.png"/>
-     <file source="assets/levels/6/planes/5.png.msk"/>
-     <file source="assets/levels/6/planes/6.png"/>
-     <file source="assets/levels/6/planes/6.png.msk"/>
-     <file source="assets/levels/6/planes/7.png"/>
-     <file source="assets/levels/6/planes/7.png.msk"/>
-     <file source="assets/levels/6/planes/8.png"/>
-     <file source="assets/levels/6/planes/8.png.msk"/>
-     <file source="assets/levels/6/planes/8_deco.png"/>
-     <file source="assets/levels/6/planes/8_deco.png.msk"/>
-     <file source="assets/levels/6/planes/9.png"/>
-     <file source="assets/levels/6/planes/9.png.msk"/>
-     <file source="assets/levels/6/planes/10.png"/>
-     <file source="assets/levels/6/planes/10.png.msk"/>
+    <folder name="6">
+      <folder name="planes">
+       <file source="assets/levels/6/planes/1.png"/>
+       <file source="assets/levels/6/planes/1.png.msk"/>
+       <file source="assets/levels/6/planes/2.png"/>
+       <file source="assets/levels/6/planes/2.png.msk"/>
+       <file source="assets/levels/6/planes/3.png"/>
+       <file source="assets/levels/6/planes/3.png.msk"/>
+       <file source="assets/levels/6/planes/4.png"/>
+       <file source="assets/levels/6/planes/4.png.msk"/>
+       <file source="assets/levels/6/planes/5.png"/>
+       <file source="assets/levels/6/planes/5.png.msk"/>
+       <file source="assets/levels/6/planes/6.png"/>
+       <file source="assets/levels/6/planes/6.png.msk"/>
+       <file source="assets/levels/6/planes/7.png"/>
+       <file source="assets/levels/6/planes/7.png.msk"/>
+       <file source="assets/levels/6/planes/8.png"/>
+       <file source="assets/levels/6/planes/8.png.msk"/>
+       <file source="assets/levels/6/planes/8_deco.png"/>
+       <file source="assets/levels/6/planes/8_deco.png.msk"/>
+       <file source="assets/levels/6/planes/9.png"/>
+       <file source="assets/levels/6/planes/9.png.msk"/>
+       <file source="assets/levels/6/planes/10.png"/>
+       <file source="assets/levels/6/planes/10.png.msk"/>
+      </folder>
+      <folder name="deco">
+       <file source="assets/levels/6/deco/1.png"/>
+       <file source="assets/levels/6/deco/2.png"/>
+      </folder>
+      <file source="assets/levels/6/wall.png"/>
+      <file source="assets/levels/6/logic.lua"/>
     </folder>
-    <folder name="deco">
-     <file source="assets/levels/6/deco/1.png"/>
-     <file source="assets/levels/6/deco/2.png"/>
+
+  <folder name="7">
+      <folder name="planes">
+       <file source="assets/levels/7/planes/1.png"/>
+       <file source="assets/levels/7/planes/1.png.msk"/>
+      </folder>
+      <folder name="deco">
+       <file source="assets/levels/7/deco/1.png"/>
+       <file source="assets/levels/7/deco/2.png"/>
+      </folder>
+      <file source="assets/levels/7/wall.png"/>
+      <file source="assets/levels/7/logic.lua"/>
     </folder>
-    <file source="assets/levels/6/wall.png"/>
-    <file source="assets/levels/6/logic.lua"/>
-   </folder>
+
   </folder>
   <folder name="icons">
    <file source="assets/icons/locked.png"/>
