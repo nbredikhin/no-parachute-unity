@@ -62,7 +62,7 @@ function GameUI:init()
 	self.lifesIcons = {}
 	local heartTexture1 = Assets:getTexture("assets/heart1.png")
 	local heartTexture2 = Assets:getTexture("assets/heart2.png")
-	local heartScale = math.min(12, math.floor(utils.screenHeight / 60) * utils.scale)
+	local heartScale = math.min(100, math.floor(utils.screenHeight / 90) * utils.scale)
 	for i = 1, 3 do
 		local heart = Sprite.new()
 		local bg = Bitmap.new(heartTexture2)

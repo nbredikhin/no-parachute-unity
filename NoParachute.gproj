@@ -173,6 +173,14 @@
        <file source="assets/levels/7/planes/6.png.msk"/>
        <file source="assets/levels/7/planes/6_deco.png"/>
        <file source="assets/levels/7/planes/6_deco.png.msk"/>
+       <file source="assets/levels/7/planes/7.png"/>
+       <file source="assets/levels/7/planes/7.png.msk"/>
+       <file source="assets/levels/7/planes/8.png"/>
+       <file source="assets/levels/7/planes/8.png.msk"/>
+       <file source="assets/levels/7/planes/9.png"/>
+       <file source="assets/levels/7/planes/9.png.msk"/>
+       <file source="assets/levels/7/planes/9_deco.png"/>
+       <file source="assets/levels/7/planes/9_deco.png.msk"/>
       </folder>
       <folder name="deco">
        <file source="assets/levels/7/deco/1.png"/>

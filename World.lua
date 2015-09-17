@@ -1,3 +1,4 @@
+v
 local MovingPlane 	= require "MovingPlane"
 local Plane 		= require "Plane"
 local PlaneMesh 	= require "PlaneMesh"
@@ -7,7 +8,7 @@ local PowerUp 		= require "PowerUp"
 
 local World = Core.class(Sprite)
 
---local DEBUG_SPAWN_PLANE = 6
+--local DEBUG_SPAWN_PLANE = 9
 
 local DEFAULT_FALLING_SPEED = 9000
 local WALLS_COUNT = 10
@@ -321,8 +322,6 @@ function World:update(dt, totalTime)
 			if powerup:hitTestPoint(self.player:getX(), self.player:getY()) then
 				self:activatePowerup(powerup)
 				powerup:startAnimation()
-				--self:removeChild(powerup)
-				--table.remove(self.powerups, i)
 			end
 		end
 	end
