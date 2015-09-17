@@ -1,4 +1,3 @@
-v
 local MovingPlane 	= require "MovingPlane"
 local Plane 		= require "Plane"
 local PlaneMesh 	= require "PlaneMesh"

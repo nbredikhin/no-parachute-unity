@@ -5,6 +5,8 @@ local Screen 			= require "screens/Screen"
 
 local LevelSelectScreen = Core.class(Screen)
 
+local DEBUG_ENABLED_LEVELS_COUNT = 8
+
 local ICONS_COUNT = 8
 local ICON_ALPHA_INACTIVE = 0.1
 local ICON_ALPHA_ACTIVE = 1
@@ -79,7 +81,7 @@ function LevelSelectScreen:load()
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
-	return levelID > 7
+	return levelID > DEBUG_ENABLED_LEVELS_COUNT
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
