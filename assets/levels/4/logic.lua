@@ -14,6 +14,8 @@ function LevelLogic:initialize()
 
 	self:setCameraType(LevelLogic.CAMERA_ROTATING_CONSTANTLY)
 	self:setCameraSpeed(-20)
+	
+	self:setBackgroundColor(10, 20, 80)
 end
 
 return LevelLogic

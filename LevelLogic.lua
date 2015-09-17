@@ -25,6 +25,10 @@ function LevelLogic:update(deltaTime)
 	-- to override
 end
 
+function LevelLogic:setBackgroundColor(r, g, b)
+	self.world:setBackgroundColor(r, g, b)
+end
+
 function LevelLogic:setFallingSpeed(speed)
 	self.world:setFallingSpeed(speed)
 end

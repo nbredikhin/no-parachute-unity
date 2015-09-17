@@ -25,6 +25,8 @@ function World:init(gameScreen, player, levelID)
 	if not levelID then
 		levelID = 1
 	end
+	self.backgroundColor = {0, 0, 0}
+
 	self.time = 0
 	self.gameScreen = gameScreen
 
@@ -131,6 +133,11 @@ function World:init(gameScreen, player, levelID)
 	self:reset()	
 end
 
+function World:setBackgroundColor(r, g, b)
+	self.backgroundColor = {r, g, b}
+	application:setBackgroundColor(utils.rgbToHex({r/1.75, g/1.75, b/1.75}))
+end
+
 function World:isFinished()
 	if not self.levelLogic then
 		return false
@@ -163,7 +170,9 @@ function World:updatePlane(plane, dt, isDecorative)
 	end
 
 	local mul = math.clamp((plane:getZ() + self.depth / 2) / self.depth, 0, 1)
-	plane:setColorTransform(mul, mul, mul, 1)
+	local tr, tg, tb = self.backgroundColor[1]/255, self.backgroundColor[2]/255, self.backgroundColor[3]/255
+	local r, g, b = tr + (1 - tr) * mul, tg + (1 - tg) * mul, tb + (1 - tb) * mul
+	plane:setColorTransform(r, g, b, math.min(1, mul*5))
 	return wasMovedToBottom
 end
 

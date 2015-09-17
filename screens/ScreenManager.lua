@@ -19,6 +19,19 @@ function ScreenManager:init()
 	-- Счётчик фпс
 	self.framerateCounter = FramerateCounter.new()
 	self:addChild(self.framerateCounter)
+
+	-- Черный прямоугольник
+	self.blackBackground = Shape.new()
+	self.blackBackground:setFillStyle(Shape.SOLID, 0, 1)
+	self.blackBackground:beginPath()
+	self.blackBackground:moveTo(0, 0)
+	self.blackBackground:lineTo(utils.screenWidth, 0)
+	self.blackBackground:lineTo(utils.screenWidth, utils.screenHeight)
+	self.blackBackground:lineTo(0, utils.screenHeight)
+	self.blackBackground:lineTo(0, 0)
+	self.blackBackground:endPath()
+	self:addChild(self.blackBackground)
+	self.blackBackground:setAlpha(0)
 	
 	self.screens = {
 		GameScreen 			= GameScreen,
@@ -71,7 +84,7 @@ function ScreenManager:changeScreen()
 	end
 	-- Отобразить новый экран
 	self.currentScreen = screen
-	self.currentScreen:setAlpha(0)
+	self.blackBackground:setAlpha(1)
 	self.currentScreen:load(unpack(self.nextScreenArgs))
 	self:addChildAt(self.currentScreen, 1)
 
@@ -84,6 +97,7 @@ function ScreenManager:loadScreen(screen, ...)
 	if self.nextScreen then
 		return
 	end
+	self.blackBackground:setAlpha(0)
 	self.nextScreen = screen
 	self.nextScreenArgs = {...}
 end
@@ -92,12 +106,12 @@ function ScreenManager:update(deltaTime)
 	if self.currentScreen then
 		self.currentScreen:update(deltaTime)
 		if self.nextScreen then
-			self.currentScreen:setAlpha(self.currentScreen:getAlpha() - deltaTime / FADE_TIME)
-			if self.currentScreen:getAlpha() <= 0 then
+			self.blackBackground:setAlpha(self.blackBackground:getAlpha() + deltaTime / FADE_TIME)
+			if self.blackBackground:getAlpha() >= 1 then
 				self:changeScreen()
 			end
-		elseif self.currentScreen:getAlpha() < 1 then
-			self.currentScreen:setAlpha(math.min(1, self.currentScreen:getAlpha() + deltaTime / FADE_TIME))
+		elseif self.blackBackground:getAlpha() > 0 then
+			self.blackBackground:setAlpha(math.min(1, self.blackBackground:getAlpha() - deltaTime / FADE_TIME))
 		end
 	elseif self.nextScreen then
 		self:changeScreen()
