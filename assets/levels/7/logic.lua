@@ -24,12 +24,18 @@ function LevelLogic:init()
 	self.movingPlanes[9] = function(plane, deltaTime, gameTime)
 		plane.basePlane:setRotation(plane:getRotation() + 20 * deltaTime)
 	end
+	self.movingPlanes[10] = function(plane, deltaTime, gameTime)
+		plane.basePlane:setRotation(plane:getRotation() - 80 * deltaTime)
+	end
+	self.movingPlanes[11] = function(plane, deltaTime, gameTime)
+		plane.basePlane:setRotation(plane:getRotation() + 20 * deltaTime)
+	end
 end
 
 function LevelLogic:initialize()
 	self:setCameraType(LevelLogic.CAMERA_ROTATING_PLAYER)
 	self:setCameraSpeed(180)
-	self:setFallingSpeed(self.defaultFallingSpeed * 1.5)
+	self:setFallingSpeed(self.defaultFallingSpeed * 1.6)
 	self:setBackgroundColor(150, 20, 0)
 end
 

@@ -7,9 +7,9 @@ local PowerUp 		= require "PowerUp"
 
 local World = Core.class(Sprite)
 
---local DEBUG_SPAWN_PLANE = 9
+--local DEBUG_SPAWN_PLANE = 11
 
-local DEFAULT_FALLING_SPEED = 9000
+local DEFAULT_FALLING_SPEED = 7500
 local WALLS_COUNT = 10
 local POWERUP_SPAWN_DELAY_MIN = 15
 local POWERUP_SPAWN_DELAY_MAX = 25
@@ -331,6 +331,10 @@ end
 function World:setFallingSpeed(speed)
 	self.fallingSpeed = speed
 	self.defaultFallingSpeed = speed
+
+
+	local mul = speed / DEFAULT_FALLING_SPEED
+	self.player.movementSpeed = self.player.defaultMovementSpeed * mul
 end
 
 function World:onPlayerLostPart(e)
@@ -361,6 +365,9 @@ function World:activatePowerup(powerup)
 	if powerup.type == 4 then
 		self.player:restoreParts()
 	elseif powerup.type == 3 then
+		if self.gameScreen.lifes >= 3 then
+			self.player:restoreParts()
+		end
 		self.gameScreen.lifes = math.min(3, self.gameScreen.lifes + 1)
 		self.gameScreen.ui:setLifesCount(self.gameScreen.lifes)
 	elseif powerup.type == 1 then

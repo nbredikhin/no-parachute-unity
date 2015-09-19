@@ -154,6 +154,9 @@ function GameScreen:update(dt)
 	-- Управление игроком
 	if not self.world:isFinished() then
 		self.player.inputX, self.player.inputY = self.input.valueX, self.input.valueY
+	else
+		self.player.inputX = 0
+		self.player.inputY = 0
 	end
 
 	-- Столкновение игрока с боковыми стенами

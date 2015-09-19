@@ -10,7 +10,7 @@ function LevelLogic:init()
 end
 
 function LevelLogic:initialize()
-	self:setFallingSpeed(self.defaultFallingSpeed * 1)
+	self:setFallingSpeed(self.defaultFallingSpeed * 1.2)
 
 	self:setCameraType(LevelLogic.CAMERA_ROTATING_CONSTANTLY)
 	self:setCameraSpeed(-20)

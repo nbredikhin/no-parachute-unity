@@ -18,7 +18,8 @@ local SMALL_MUL = 0.98
 function Player:init()
 	self.size = 150
 	self.size_scale = 150 / 32
-	self.movementSpeed = 1500
+	self.defaultMovementSpeed = 1500
+	self.movementSpeed = self.defaultMovementSpeed
 	self.textures = {}
 	self.textures[1] = Assets:getTexture("assets/player/main1.png")
 	self.textures[2] = Assets:getTexture("assets/player/main2.png")
