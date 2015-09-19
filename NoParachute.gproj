@@ -218,6 +218,14 @@
      <file source="assets/levels/8/planes/2.png.msk"/>
      <file source="assets/levels/8/planes/3.png"/>
      <file source="assets/levels/8/planes/3.png.msk"/>
+     <file source="assets/levels/8/planes/4.png"/>
+     <file source="assets/levels/8/planes/4.png.msk"/>
+     <file source="assets/levels/8/planes/5.png"/>
+     <file source="assets/levels/8/planes/5.png.msk"/>
+     <file source="assets/levels/8/planes/5_deco.png"/>
+     <file source="assets/levels/8/planes/5_deco.png.msk"/>
+     <file source="assets/levels/8/planes/6.png"/>
+     <file source="assets/levels/8/planes/6.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/8/deco/1.png"/>
