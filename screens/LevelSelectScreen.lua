@@ -68,7 +68,7 @@ function LevelSelectScreen:load(levelID, isPassed)
 	self.iconsContainer:setY(utils.screenHeight / 2 + 10)
 
 	-- Select first icon
-	self:setSelectedIcon(1)
+	self:setSelectedIcon(SavesManager.saves.current_level)
 
 	self.iconsContainer:addEventListener(Event.TOUCHES_BEGIN, self.iconsTouchBegin, self)
 	self.iconsContainer:addEventListener(Event.TOUCHES_MOVE, self.iconsTouchMove, self)

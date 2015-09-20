@@ -5,7 +5,7 @@ local LevelLogicBase = require "LevelLogic"
 local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:init()
-	self.requiredTime = 120
+	self.requiredTime = 150
 	self.planesCount = 3
 
 	self.movingPlanes[8] = function(plane, deltaTime, gameTime)

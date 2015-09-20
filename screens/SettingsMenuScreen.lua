@@ -24,17 +24,37 @@ function SettingsMenuScreen:load()
 	local sliderWidth = utils.screenWidth * 0.4
 
 	-- Слайдер "громкость звука"
-	local text = TextField.new(nil, "Sound volume")
+	local text = TextField.new(nil, "Sounds")
 	text:setTextColor(0xFFFFFF)
 	text:setScale(2)
 	text:setPosition(buttonsX, buttonsY - 10)
 	self:addChild(text)
 
-	self.sliders.volume = MenuSlider.new(sliderWidth, 32)
-	self.sliders.volume:setPosition(buttonsX, buttonsY)
-	self:addChild(self.sliders.volume)
+	self.buttons.sound = MenuButton.new()
+	self.buttons.sound:setText("Yes")
+	if not SettingsManager.settings.sound_enabled then
+		self.buttons.sound:setText("No")
+	end
+	self.buttons.sound:setPosition(buttonsX, buttonsY + 20 * utils.scale + self.buttons.sound:getHeight() / 2)
+	self:addChild(self.buttons.sound)
+
+	-- Слайдер "громкость звука"
+	local vibrationX = math.max(utils.screenWidth / 2 - text:getWidth() * 2, text:getX() + text:getWidth() + 10)
+	local text = TextField.new(nil, "Vibration")
+	text:setTextColor(0xFFFFFF)
+	text:setScale(2)
+	text:setPosition(vibrationX, buttonsY - 10)
+	self:addChild(text)
+
+	self.buttons.vibration = MenuButton.new()
+	self.buttons.vibration:setText("Yes")
+	if not SettingsManager.settings.vibration_enabled then
+		self.buttons.vibration:setText("No")
+	end
+	self.buttons.vibration:setPosition(vibrationX, buttonsY + 20 * utils.scale + self.buttons.vibration:getHeight() / 2)
+	self:addChild(self.buttons.vibration)
 	
-	buttonsY = buttonsY + self.sliders.volume:getHeight() * 3
+	buttonsY = buttonsY + self.buttons.sound:getHeight() * 3
 
 	-- Слайдер "качество графики"
 	local text = TextField.new(nil, "Graphics quality")
@@ -70,14 +90,27 @@ function SettingsMenuScreen:load()
 		self:addChild(button)
 	end
 	
-	self.sliders.volume:setValue(SettingsManager.settings.sound_volume)
 	self.sliders.graphics:setValue(SettingsManager.settings.graphics_quality)
 	self.sliders.controls:setValue(SettingsManager.settings.input_sensitivity)
+end
+
+function SettingsMenuScreen:updateButtonText(b)
+	local text = "Yes"
+	if b:getText() == "Yes" then
+		text = "No"
+	end
+	b:setText(text)
 end
 
 function SettingsMenuScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.back then
 		self:back()
+	elseif e:getTarget() == self.buttons.sound then
+		self:updateButtonText(self.buttons.sound)
+		SettingsManager.settings.sound_enabled = e:getTarget() == "Yes"
+	elseif e:getTarget() == self.buttons.vibration then
+		self:updateButtonText(self.buttons.vibration)
+		SettingsManager.settings.vibration_enabled = e:getTarget() == "Yes"
 	end
 end
 
@@ -87,8 +120,6 @@ end
 
 function SettingsMenuScreen:back()
 	-- Возврат на главный экран
-	
-	SettingsManager.settings.sound_volume = self.sliders.volume:getValue()
 	SettingsManager.settings.graphics_quality = self.sliders.graphics:getValue()
 	SettingsManager.settings.input_sensitivity = self.sliders.controls:getValue()
 	SettingsManager:save()

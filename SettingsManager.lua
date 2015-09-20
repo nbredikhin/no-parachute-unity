@@ -12,7 +12,8 @@ end
 local SettingsManager = {}
 SettingsManager.settingsFilePath = "|D|settings.json"
 SettingsManager.defaultSettings = {
-	sound_volume = 1,
+	sound_enabled = true,
+	vibration_enabled = true,
 	graphics_quality = 1,
 	input_sensitivity = 0.5
 }
@@ -41,7 +42,7 @@ function SettingsManager:load()
 	end
 	print("SettingsManager: settings loaded. Checking...")
 	for k, v in pairs(self.defaultSettings) do
-		if not self.settings[k] then
+		if self.settings[k] == nil then
 			self.settings[k] = v
 			print("SettingsManager: missing '" .. tostring(k) .. "'. Loaded default value: '" .. tostring(v) .. "'")
 		end

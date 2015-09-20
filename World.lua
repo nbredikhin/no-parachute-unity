@@ -216,7 +216,13 @@ function World:stopSpeedup()
 	self.fallingSpeed = self.oldFallingSpeed
 end
 
+--local ptime = 0
 function World:update(dt, totalTime)
+	--[[local ntime = math.floor(self.time)
+	if ptime ~= ntime and not self:isFinished() then
+		print(ntime)
+		ptime = ntime
+	end]]
 	self.timeAlive = totalTime
 
 	-- Замедление камеры после смерти

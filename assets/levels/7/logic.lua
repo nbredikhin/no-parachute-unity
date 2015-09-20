@@ -1,11 +1,11 @@
--- Level 6
+-- Level 7
 
 local LevelLogicBase = require "LevelLogic"
 
 local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:init()
-	self.requiredTime = 120
+	self.requiredTime = 150
 	self.planesCount = 3
 
 	self.movingPlanes[4] = function(plane, deltaTime, gameTime)
@@ -22,13 +22,13 @@ function LevelLogic:init()
 		plane.basePlane:setRotation(plane:getRotation() + 110 * deltaTime)
 	end
 	self.movingPlanes[9] = function(plane, deltaTime, gameTime)
-		plane.basePlane:setRotation(plane:getRotation() + 20 * deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() + 30 * deltaTime)
 	end
 	self.movingPlanes[10] = function(plane, deltaTime, gameTime)
-		plane.basePlane:setRotation(plane:getRotation() - 80 * deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() - 150 * deltaTime)
 	end
 	self.movingPlanes[11] = function(plane, deltaTime, gameTime)
-		plane.basePlane:setRotation(plane:getRotation() + 20 * deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() + 40 * deltaTime)
 	end
 end
 

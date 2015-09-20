@@ -63,7 +63,9 @@ end
 
 function Player:hitTestPlane(plane)
 	if plane:hitTestPoint(self:getX(), self:getY()) then
-		application:vibrate(500)
+		if SettingsManager.settings.vibration_enabled then
+			application:vibrate(500)
+		end
 		return true
 	end
 	-- Если игрок взял уменьшение, конечности не отрываются
@@ -82,7 +84,9 @@ function Player:hitTestPlane(plane)
 				local event = Event.new(Player.LOST_PART)
 				event.texture = self.partsTextures[point.name .. "_ok"]
 				self:dispatchEvent(event)
-				application:vibrate(100)
+				if SettingsManager.settings.vibration_enabled then
+					application:vibrate(100)
+				end
 			end
 		end
 	end
