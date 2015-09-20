@@ -18,9 +18,6 @@ local cameraRotationSpeedDead = 2.5
 
 local defaultWorldRotationSpeed = 32
 
-function GameScreen:init()
-end
-
 function GameScreen:load(levelID)
 	if not levelID then
 		levelID = 1
@@ -247,7 +244,8 @@ function GameScreen:onTouchBegin(e)
 	end
 
 	if self.ui.endUI:isVisible() and self.ui.endUI:getAlpha() > 0.6 then
-		screenManager:loadScreen(screenManager.screens.LevelSelectScreen.new())
+		screenManager:loadScreen(screenManager.screens.LevelSelectScreen.new(), self.levelID, true)
+
 	end
 end
 

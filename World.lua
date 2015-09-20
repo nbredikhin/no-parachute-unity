@@ -15,7 +15,9 @@ local POWERUP_SPAWN_DELAY_MIN = 15
 local POWERUP_SPAWN_DELAY_MAX = 25
 local SPEEDUP_DELAY = 8
 local SPEEDUP_MUL = 2.5
+
 local RING_SPAWN_DELAY = 2.5
+local RING_VALUE = 2.5
 
 local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30
@@ -375,7 +377,7 @@ function World:activatePowerup(powerup)
 	elseif powerup.type == 2 then
 		self.player:startSmall()
 	elseif powerup.type == 5 then
-		self.gameScreen.timeAlive = self.gameScreen.timeAlive + 5
+		self.gameScreen.timeAlive = self.gameScreen.timeAlive + RING_VALUE
 	end
 end
 

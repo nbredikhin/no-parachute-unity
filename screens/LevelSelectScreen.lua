@@ -5,13 +5,18 @@ local Screen 			= require "screens/Screen"
 
 local LevelSelectScreen = Core.class(Screen)
 
-local DEBUG_ENABLED_LEVELS_COUNT = 8
+local DEBUG_ENABLED_LEVELS_COUNT = 4
 
 local ICONS_COUNT = 8
 local ICON_ALPHA_INACTIVE = 0.1
 local ICON_ALPHA_ACTIVE = 1
 
-function LevelSelectScreen:load()
+function LevelSelectScreen:load(levelID, isPassed)
+	if levelID and isPassed then
+		if levelID == SavesManager.saves.current_level then
+			SavesManager.saves.current_level = SavesManager.saves.current_level + 1
+		end
+	end
 	self.background = MenuBackground.new()
 	self:addChild(self.background)
 
@@ -35,11 +40,16 @@ function LevelSelectScreen:load()
 		iconSprite:addChild(frame)
 
 		if self:isLevelLocked(i) then
-			bitmap:setColorTransform(0.1, 0.1, 0.1, 1)
+			bitmap:setColorTransform(0.3, 0.3, 0.3, 1)
 			frame:setAlpha(0.3)
 			local lock = Bitmap.new(Assets:getTexture("assets/icons/locked.png"), true)
 			iconSprite:addChild(lock)
 			lock:setAnchorPoint(0.5, 0.5)
+		elseif self:isLevelPassed(i) then
+			frame:setColorTransform(0.3, 1, 0.3)
+			local passed = Bitmap.new(Assets:getTexture("assets/icons/passed.png"), true)
+			iconSprite:addChild(passed)
+			passed:setAnchorPoint(0.5, 0.5)
 		end
 
 		iconSprite:setAlpha(ICON_ALPHA_INACTIVE)
@@ -81,7 +91,11 @@ function LevelSelectScreen:load()
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
-	return levelID > DEBUG_ENABLED_LEVELS_COUNT
+	return levelID > SavesManager.saves.current_level
+end
+
+function LevelSelectScreen:isLevelPassed(levelID)
+	return levelID < SavesManager.saves.current_level
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
@@ -98,6 +112,9 @@ end
 function LevelSelectScreen:setSelectedIcon(id)
 	id = math.max(id, 1)
 	id = math.min(id, 8)
+	if id > 1 and self:isLevelLocked(id - 1) then
+		return
+	end
 	if self.currentSelectedIcon then
 		local iconSprite = self.levelsIcons[self.currentSelectedIcon].image
 		self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_INACTIVE

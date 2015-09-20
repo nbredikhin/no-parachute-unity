@@ -11,15 +11,6 @@ local FADE_TIME = 0.5
 function ScreenManager:init()
 	self.currentScreen = false
 	
-	self.infoText = TextField.new(nil, "No Parachute! development version")
-	self.infoText:setTextColor(0xFFFFFF)
-	self.infoText:setPosition(5, utils.screenHeight - 5)
-	self:addChild(self.infoText)
-
-	-- Счётчик фпс
-	self.framerateCounter = FramerateCounter.new()
-	self:addChild(self.framerateCounter)
-
 	-- Черный прямоугольник
 	self.blackBackground = Shape.new()
 	self.blackBackground:setFillStyle(Shape.SOLID, 0, 1)
@@ -32,6 +23,16 @@ function ScreenManager:init()
 	self.blackBackground:endPath()
 	self:addChild(self.blackBackground)
 	self.blackBackground:setAlpha(0)
+
+	-- Версия
+	self.infoText = TextField.new(nil, "No Parachute! Beta 0.9.81")
+	self.infoText:setTextColor(0xFFFFFF)
+	self.infoText:setPosition(5, utils.screenHeight - 5)
+	self:addChild(self.infoText)
+
+	-- Счётчик фпс
+	self.framerateCounter = FramerateCounter.new()
+	self:addChild(self.framerateCounter)
 	
 	self.screens = {
 		GameScreen 			= GameScreen,

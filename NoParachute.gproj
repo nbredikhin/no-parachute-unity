@@ -238,6 +238,7 @@
   </folder>
   <folder name="icons">
    <file source="assets/icons/locked.png"/>
+   <file source="assets/icons/passed.png"/>
    <file source="assets/icons/frame.png"/>
    <file source="assets/icons/1.png"/>
    <file source="assets/icons/2.png"/>
@@ -297,6 +298,9 @@
    <file source="ui/game/GameUI.lua"/>
   </folder>
  </folder>
+ <folder name="lib">
+  <file source="lib/sha1.lua"/>
+ </folder>
  <file source="InputManager.lua"/>
  <file source="Player.lua"/>
  <file source="PlaneMesh.lua"/>
@@ -309,6 +313,7 @@
  <file source="Assets.lua"/>
  <file source="LevelLogic.lua"/>
  <file source="SettingsManager.lua"/>
+ <file source="SavesManager.lua"/>
  <file source="PowerUp.lua"/>
  <file source="main.lua"/>
  <folder name="screens">
