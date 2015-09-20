@@ -385,6 +385,13 @@ function World:activatePowerup(powerup)
 	elseif powerup.type == 5 then
 		self.gameScreen.timeAlive = self.gameScreen.timeAlive + RING_VALUE
 	end
+
+	-- Play sound
+	if powerup.type == 5 then
+		self.gameScreen:playSound("ring")
+	else
+		self.gameScreen:playSound("powerup")
+	end
 end
 
 return World

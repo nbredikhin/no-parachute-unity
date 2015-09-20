@@ -38,7 +38,7 @@ function GameUI:init()
 	self.backButton:setPosition(utils.screenWidth / 2 - self.backButton:getWidth() / 2, utils.screenHeight - self.backButton:getHeight() * 0.5)
 	self:addChild(self.backButton)
 
-	local progressBarSize = 5 * utils.scale
+	--[[local progressBarSize = 5 * utils.scale
 	self.progressBarBackground = Bitmap.new(Assets:getTexture("assets/bar.png"))
 	self.progressBarBackground:setScaleX(utils.screenWidth)
 	self.progressBarBackground:setScaleY(progressBarSize)
@@ -54,9 +54,17 @@ function GameUI:init()
 	self.progressBar = Sprite.new()
 	self.progressBar:addChild(self.progressBarBackground)
 	self.progressBar:addChild(self.progressBarLine)
-	self:addChild(self.progressBar)
+	--self:addChild(self.progressBar)]]
 
-	-- Иконки жизней
+	local pixelFont = TTFont.new("assets/fonts/pixel.ttf", 48)
+	self.progressMax = 0
+	self.progressText = TextField.new(pixelFont, "0/0")
+	self.progressText:setScale(1 * utils.scale)
+	self.progressText:setAlpha(0.7)
+	self.progressText:setTextColor(0xFFFFFF)
+	self:addChild(self.progressText)
+
+	-- Иконки 
 	self.lifesIconsContainer = Sprite.new()
 	self:addChild(self.lifesIconsContainer)
 	self.lifesIcons = {}
@@ -74,7 +82,7 @@ function GameUI:init()
 		heart:setX((i - 1) * (heart:getWidth() + heartScale))
 		self.lifesIconsContainer:addChild(heart)
 	end
-	self.lifesIconsContainer:setY(self.progressBar:getHeight())
+	self.lifesIconsContainer:setY(heartScale)--self.progressBar:getHeight())
 	--self.lifesIconsContainer:setX(utils.screenWidth / 2 - self.lifesIconsContainer:getWidth() / 2)
 	self.lifesIconsContainer:setX(heartScale)
 	self.lifesIconsContainer:setAlpha(0.7)
@@ -101,14 +109,17 @@ end
 function GameUI:setProgress(progress)
 	progress = math.min(1, progress)
 	progress = math.max(0, progress)
-	self.progressBarLine:setScaleX(utils.screenWidth * progress)
+	--self.progressBarLine:setScaleX(utils.screenWidth * progress)
+
+	self.progressText:setText(tostring(self.progressMax - math.floor(progress * self.progressMax)))
+	self.progressText:setPosition(utils.screenWidth - self.progressText:getWidth() - 5 * utils.scale, 6 * utils.scale + self.progressText:getHeight())
 end
 
 function GameUI:setDeathUIVisible(isVisible, ...)
 	self.deathUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 	self.backButton:setVisible(isVisible)
-	self.progressBar:setVisible(not isVisible)
+	--self.progressBar:setVisible(not isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
 	if isVisible then
 		self.deathUI:show(...)
@@ -120,7 +131,7 @@ function GameUI:setPauseUIVisible(isVisible)
 	self.backButton:setVisible(isVisible)
 	self.pauseUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
-	self.progressBar:setVisible(not isVisible)
+	--self.progressBar:setVisible(not isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
 end
 

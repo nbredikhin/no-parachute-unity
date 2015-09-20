@@ -68,18 +68,13 @@ function LevelSelectScreen:load(levelID, isPassed)
 	self.iconsContainer:setX(utils.screenWidth / 2 - self.ICON_WIDTH / 2)
 	self.iconsContainer:setY(utils.screenHeight / 2 + 10)
 
-	-- Select first icon
-	self:setSelectedIcon(SavesManager.saves.current_level)
-
 	self.iconsContainer:addEventListener(Event.TOUCHES_BEGIN, self.iconsTouchBegin, self)
 	self.iconsContainer:addEventListener(Event.TOUCHES_MOVE, self.iconsTouchMove, self)
 	self.iconsContainer:addEventListener(Event.TOUCHES_END, self.iconsTouchEnd, self)
 
 	self.buttons = {}
 	self.buttons.start = MenuButton.new()
-	self.buttons.start:setText("Start")
 	self.buttons.start:setScale(self.buttons.start:getScale() * 1.5)
-	self.buttons.start:setPosition(utils.screenWidth / 2 - self.buttons.start:getWidth() / 2, utils.screenHeight - self.buttons.start:getHeight() / 2)
 
 	self.buttons.back = MenuButton.new()
 	self.buttons.back:setText("Back")
@@ -89,6 +84,8 @@ function LevelSelectScreen:load(levelID, isPassed)
 		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)
 		self:addChild(button)
 	end
+
+	self:setSelectedIcon(SavesManager.saves.current_level)
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
@@ -110,6 +107,21 @@ function LevelSelectScreen:iconsTouchBegin(e)
 	self.iconsStartY = e.touch.y
 end
 
+function LevelSelectScreen:updateStartButtonText()
+	local text = "Start"
+	local alpha = 1
+	if self:isLevelPassed(self.currentSelectedIcon) then
+		text = "Start"
+	elseif self:isLevelLocked(self.currentSelectedIcon) then
+		text = "Start"
+		alpha = 0.2
+	end
+
+	self.buttons.start:setText(text)
+	self.buttons.start:setAlpha(alpha)
+	self.buttons.start:setPosition(utils.screenWidth / 2 - self.buttons.start:getWidth() / 2, utils.screenHeight - self.buttons.start:getHeight() / 2)
+end
+
 function LevelSelectScreen:setSelectedIcon(id)
 	id = math.max(id, 1)
 	id = math.min(id, 8)
@@ -129,6 +141,8 @@ function LevelSelectScreen:setSelectedIcon(id)
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(2, 2 * utils.screenHeight / 360)
 
 	self.iconsContainerTargetX = utils.screenWidth / 2 - (self.ICON_WIDTH + self.ICONS_SPACE) * (id - 1) * self.iconsContainer:getScale()
+
+	self:updateStartButtonText()
 end
 
 function LevelSelectScreen:iconsTouchMove(e)

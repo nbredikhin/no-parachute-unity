@@ -6,17 +6,21 @@ local Screen 			= require "screens/Screen"
 local World  			= require "World"
 local LevelLogic 		= require "LevelLogic"
 
-local CAMERA_SHAKING_POWER = 100
-
 local GameScreen = Core.class(Screen)
 
 local cameraRotationRadiusAlive = 5
 local cameraRotationSpeedAlive = 5
-
 local cameraRotationRadiusDead = 5
 local cameraRotationSpeedDead = 2.5
-
+local CAMERA_SHAKING_POWER = 100
 local defaultWorldRotationSpeed = 32
+
+local GAME_SOUNDS_NAMES = {
+	"lost_part",
+	"ring",
+	"fail",
+	"powerup"
+}
 
 function GameScreen:load(levelID)
 	if not levelID then
@@ -63,6 +67,7 @@ function GameScreen:load(levelID)
 
 	-- Интерфейс игры
 	self.ui = GameUI.new()
+	self.ui.progressMax = math.floor(self.levelLogic.requiredTime)
 	self:addChild(self.ui)
 
 	-- Вращение мира
@@ -81,6 +86,11 @@ function GameScreen:load(levelID)
 	self.levelLogic:initialize()
 
 	stage:addEventListener(Event.APPLICATION_SUSPEND, self.onApplicationSuspend, self)
+
+	self.sounds = {}
+	for i,v in ipairs(GAME_SOUNDS_NAMES) do
+		self.sounds[v] = Sound.new("assets/sounds/" .. v .. ".wav")
+	end
 end
 
 function GameScreen:unload()
@@ -275,10 +285,12 @@ function GameScreen:onPlayerWasted()
 		isGameOver = true
 	end
 	self.ui:setDeathUIVisible(true, isGameOver)
+	self:playSound("fail")
 end
 
 function GameScreen:onPlayerLostPart()
 	self.cameraShakeDelay = 0.5
+	self:playSound("lost_part")
 end
 
 function GameScreen:back()
@@ -298,6 +310,12 @@ end
 
 function GameScreen:onApplicationSuspend()
 	self:pauseGame()
+end
+
+function GameScreen:playSound(name)
+	if SettingsManager.settings.sound_enabled and self.sounds[name] then
+		self.sounds[name]:play()
+	end
 end
 
 return GameScreen

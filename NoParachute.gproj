@@ -249,6 +249,15 @@
    <file source="assets/icons/7.png"/>
    <file source="assets/icons/8.png"/>
   </folder>
+  <folder name="fonts">
+   <file source="assets/fonts/pixel.ttf"/>
+  </folder>
+  <folder name="sounds">
+   <file source="assets/sounds/lost_part.wav"/>
+   <file source="assets/sounds/ring.wav"/>
+   <file source="assets/sounds/fail.wav"/>
+   <file source="assets/sounds/powerup.wav"/>
+  </folder>
   <folder name="player">
     <file source="assets/player/main1.png"/>
     <file source="assets/player/main2.png"/>

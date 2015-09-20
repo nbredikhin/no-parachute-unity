@@ -107,10 +107,10 @@ function SettingsMenuScreen:buttonClick(e)
 		self:back()
 	elseif e:getTarget() == self.buttons.sound then
 		self:updateButtonText(self.buttons.sound)
-		SettingsManager.settings.sound_enabled = e:getTarget() == "Yes"
+		SettingsManager.settings.sound_enabled = e:getTarget():getText() == "Yes"
 	elseif e:getTarget() == self.buttons.vibration then
 		self:updateButtonText(self.buttons.vibration)
-		SettingsManager.settings.vibration_enabled = e:getTarget() == "Yes"
+		SettingsManager.settings.vibration_enabled = e:getTarget():getText() == "Yes"
 	end
 end
 
