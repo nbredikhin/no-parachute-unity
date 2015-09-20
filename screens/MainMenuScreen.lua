@@ -43,6 +43,12 @@ function MainMenuScreen:buttonClick(e)
 		screenManager:loadScreen("LevelSelectScreen")
 	elseif e:getTarget() == self.buttons.settings then
 		screenManager:loadScreen(screenManager.screens.SettingsMenuScreen.new())
+	elseif e:getTarget() == self.buttons.credits then
+		SavesManager.saves.current_level = SavesManager.saves.current_level + 1
+		if SavesManager.saves.current_level > 9 then
+			SavesManager.saves.current_level = 1
+		end
+		SavesManager:save()
 	end
 end
 

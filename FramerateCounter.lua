@@ -4,8 +4,9 @@ function FramerateCounter:init()
 	self.text = "FPS: "
 
 	self.textField = TextField.new(nil, self.text .. "0")
+	self.textField:setScale(math.max(1, math.floor(utils.scale)))
 	self.textField:setX(5)
-	self.textField:setY(10)
+	self.textField:setY(self.textField:getHeight() + 5)
 	self.textField:setTextColor(0xFFFFFF)
 	self:addChild(self.textField)
 

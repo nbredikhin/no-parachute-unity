@@ -26,7 +26,7 @@ function GameUI:init()
 	self.pauseUI:setVisible(false)
 
 	self.pauseButton = Bitmap.new(Assets:getTexture("assets/pause.png"))
-	self.pauseButton:setScale(math.min(16, utils.screenHeight / 25))
+	self.pauseButton:setScale(18 * utils.scale)
 	self.pauseButton:setX(utils.screenWidth - self.pauseButton:getWidth() * 1.25)
 	self.pauseButton:setY(utils.screenHeight - self.pauseButton:getHeight() * 1.25)
 	self.pauseButton:setAlpha(0.5)
@@ -38,7 +38,7 @@ function GameUI:init()
 	self.backButton:setPosition(utils.screenWidth / 2 - self.backButton:getWidth() / 2, utils.screenHeight - self.backButton:getHeight() * 0.5)
 	self:addChild(self.backButton)
 
-	local progressBarSize = math.min(8, utils.screenHeight * 0.012 * utils.scale)
+	local progressBarSize = 5 * utils.scale
 	self.progressBarBackground = Bitmap.new(Assets:getTexture("assets/bar.png"))
 	self.progressBarBackground:setScaleX(utils.screenWidth)
 	self.progressBarBackground:setScaleY(progressBarSize)
@@ -62,7 +62,7 @@ function GameUI:init()
 	self.lifesIcons = {}
 	local heartTexture1 = Assets:getTexture("assets/heart1.png")
 	local heartTexture2 = Assets:getTexture("assets/heart2.png")
-	local heartScale = math.min(100, math.floor(utils.screenHeight / 90) * utils.scale)
+	local heartScale = 6 * utils.scale
 	for i = 1, 3 do
 		local heart = Sprite.new()
 		local bg = Bitmap.new(heartTexture2)

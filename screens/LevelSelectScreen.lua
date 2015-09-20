@@ -15,6 +15,7 @@ function LevelSelectScreen:load(levelID, isPassed)
 	if levelID and isPassed then
 		if levelID == SavesManager.saves.current_level then
 			SavesManager.saves.current_level = SavesManager.saves.current_level + 1
+			SavesManager:save()
 		end
 	end
 	self.background = MenuBackground.new()

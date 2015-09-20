@@ -24,12 +24,6 @@ function ScreenManager:init()
 	self:addChild(self.blackBackground)
 	self.blackBackground:setAlpha(0)
 
-	-- Версия
-	self.infoText = TextField.new(nil, "No Parachute! Beta 0.9.86")
-	self.infoText:setTextColor(0xFFFFFF)
-	self.infoText:setPosition(5, utils.screenHeight - 5)
-	self:addChild(self.infoText)
-
 	-- Счётчик фпс
 	self.framerateCounter = FramerateCounter.new()
 	self:addChild(self.framerateCounter)
