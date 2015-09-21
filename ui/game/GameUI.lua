@@ -1,7 +1,8 @@
-local DeathUI 		= require "ui/game/DeathUI"
-local PauseUI 		= require "ui/game/PauseUI"
-local EndUI 		= require "ui/game/EndUI"
-local MenuButton 	= require "ui/menu/MenuButton"
+local DeathUI 			= require "ui/game/DeathUI"
+local PauseUI 			= require "ui/game/PauseUI"
+local EndUI 			= require "ui/game/EndUI"
+local MenuButton 		= require "ui/menu/MenuButton"
+local TextFieldShadow 	= require "ui/TextFieldShadow"
 
 local GameUI = Core.class(Sprite)
 
@@ -38,30 +39,16 @@ function GameUI:init()
 	self.backButton:setPosition(utils.screenWidth / 2 - self.backButton:getWidth() / 2, utils.screenHeight - self.backButton:getHeight() * 0.5)
 	self:addChild(self.backButton)
 
-	--[[local progressBarSize = 5 * utils.scale
-	self.progressBarBackground = Bitmap.new(Assets:getTexture("assets/bar.png"))
-	self.progressBarBackground:setScaleX(utils.screenWidth)
-	self.progressBarBackground:setScaleY(progressBarSize)
-	self.progressBarBackground:setAlpha(0.3)
-	self.progressBarBackground:setColorTransform(0.2, 0.2, 0.2)
-
-	self.progressBarLine = Bitmap.new(Assets:getTexture("assets/bar.png"))
-	self.progressBarLine:setScaleX(utils.screenWidth / 3)
-	self.progressBarLine:setScaleY(progressBarSize)
-	self.progressBarLine:setAlpha(0.7)
-	self.progressBarLine:setColorTransform(59/255, 226/255, 103/255, 1)
-
-	self.progressBar = Sprite.new()
-	self.progressBar:addChild(self.progressBarBackground)
-	self.progressBar:addChild(self.progressBarLine)
-	--self:addChild(self.progressBar)]]
-
 	local pixelFont = TTFont.new("assets/fonts/pixel.ttf", 48)
 	self.progressMax = 0
-	self.progressText = TextField.new(pixelFont, "0/0")
+	self.progressText = TextFieldShadow.new(pixelFont, "0")
 	self.progressText:setScale(1 * utils.scale)
 	self.progressText:setAlpha(0.7)
 	self.progressText:setTextColor(0xFFFFFF)
+	self.progressTextColor = {0.2 * 200, 0.4 * 200, 1 * 200}
+	self.progressTextColorTarget = self.progressTextColor
+	self.progressTextScaleTarget = self.progressText:getScale()
+
 	self:addChild(self.progressText)
 
 	-- Иконки 
@@ -109,17 +96,21 @@ end
 function GameUI:setProgress(progress)
 	progress = math.min(1, progress)
 	progress = math.max(0, progress)
-	--self.progressBarLine:setScaleX(utils.screenWidth * progress)
 
 	self.progressText:setText(tostring(self.progressMax - math.floor(progress * self.progressMax)))
 	self.progressText:setPosition(utils.screenWidth - self.progressText:getWidth() - 5 * utils.scale, 6 * utils.scale + self.progressText:getHeight())
+end
+
+function GameUI:highlightProgress()
+	self.progressTextColor = {255, 230, 0}
+	self.progressText:setScale(self.progressTextScaleTarget * 1.5)
 end
 
 function GameUI:setDeathUIVisible(isVisible, ...)
 	self.deathUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
 	self.backButton:setVisible(isVisible)
-	--self.progressBar:setVisible(not isVisible)
+	self.progressText:setVisible(not isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
 	if isVisible then
 		self.deathUI:show(...)
@@ -131,7 +122,7 @@ function GameUI:setPauseUIVisible(isVisible)
 	self.backButton:setVisible(isVisible)
 	self.pauseUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
-	--self.progressBar:setVisible(not isVisible)
+	self.progressText:setVisible(not isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
 end
 
@@ -145,6 +136,14 @@ function GameUI:showEndUI()
 end
 
 function GameUI:update(deltaTime)
+	if self.progressText:isVisible() then
+		for i=1,3 do
+			self.progressTextColor[i] = math.min(255, self.progressTextColor[i] + (self.progressTextColorTarget[i] - self.progressTextColor[i]) * 0.02)
+		end
+		local currentScale = self.progressText:getScale()
+		self.progressText:setScale(currentScale + (self.progressTextScaleTarget - currentScale) * 0.12)
+		self.progressText:setTextColor(utils.rgbToHex(self.progressTextColor))
+	end
 	if self.endUI:isVisible() then
 		self.endUI:update(deltaTime)
 	end

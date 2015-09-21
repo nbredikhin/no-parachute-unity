@@ -5,7 +5,7 @@ local Screen 			= require "screens/Screen"
 
 local LevelSelectScreen = Core.class(Screen)
 
-local DEBUG_ENABLED_LEVELS_COUNT = 4
+local DEBUG_UNLOCK_ALL_LEVELS = true
 
 local ICONS_COUNT = 8
 local ICON_ALPHA_INACTIVE = 0.1
@@ -72,6 +72,8 @@ function LevelSelectScreen:load(levelID, isPassed)
 	self.iconsContainer:addEventListener(Event.TOUCHES_MOVE, self.iconsTouchMove, self)
 	self.iconsContainer:addEventListener(Event.TOUCHES_END, self.iconsTouchEnd, self)
 
+	self.iconsContainerTargetX = 0
+
 	self.buttons = {}
 	self.buttons.start = MenuButton.new()
 	self.buttons.start:setScale(self.buttons.start:getScale() * 1.5)
@@ -89,10 +91,16 @@ function LevelSelectScreen:load(levelID, isPassed)
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
+	if DEBUG_UNLOCK_ALL_LEVELS then
+		return false
+	end
 	return levelID > SavesManager.saves.current_level
 end
 
 function LevelSelectScreen:isLevelPassed(levelID)
+	if DEBUG_UNLOCK_ALL_LEVELS then
+		return false
+	end
 	return levelID < SavesManager.saves.current_level
 end
 

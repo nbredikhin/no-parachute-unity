@@ -12,8 +12,8 @@ local World = Core.class(Sprite)
 local DEFAULT_FALLING_SPEED = 7500
 local WALLS_COUNT = 10
 local POWERUP_SPAWN_DELAY_MIN = 15
-local POWERUP_SPAWN_DELAY_MAX = 25
-local SPEEDUP_DELAY = 8
+local POWERUP_SPAWN_DELAY_MAX = 20
+local SPEEDUP_DELAY = 10
 local SPEEDUP_MUL = 2.5
 
 local RING_SPAWN_DELAY = 2.5
@@ -235,7 +235,7 @@ function World:update(dt, totalTime)
 	if self.speedupActive then
 		if self.speedupDelay > 0 then
 			self.speedupDelay = self.speedupDelay - dt
-			if self.speedupDelay < 2.3 then
+			if self.speedupDelay < 4 then
 				self.fallingSpeed = math.max(self.oldFallingSpeed, self.fallingSpeed * 0.99)
 			end
 		else
@@ -370,6 +370,10 @@ function World:createPowerup(type)
 end
 
 function World:activatePowerup(powerup)
+	if self:isFinished() then
+		return
+	end
+
 	if powerup.type == 4 then
 		self.player:restoreParts()
 	elseif powerup.type == 3 then
@@ -384,6 +388,7 @@ function World:activatePowerup(powerup)
 		self.player:startSmall()
 	elseif powerup.type == 5 then
 		self.gameScreen.timeAlive = self.gameScreen.timeAlive + RING_VALUE
+		self.gameScreen.ui:highlightProgress()
 	end
 
 	-- Play sound

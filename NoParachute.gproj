@@ -294,6 +294,7 @@
  <file source="math.lua"/>
  <file source="TexturePNG.lua"/>
  <folder name="ui">
+  <file source="ui/TextFieldShadow.lua"/>
   <folder name="menu">
    <file source="ui/menu/MenuBackground.lua"/>
    <file source="ui/menu/MenuButton.lua"/>

@@ -25,6 +25,7 @@ function utils.rgbToHex(rgb)
 
 	for key, value in pairs(rgb) do
 		local hex = ''
+		value = math.floor(value)
 
 		while(value > 0)do
 			local index = math.fmod(value, 16) + 1
