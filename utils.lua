@@ -46,6 +46,13 @@ function utils.rgbToHex(rgb)
 	return hexadecimal
 end
 
+function utils.randomFromTable(t)
+	if #t == 0 then
+		return 1
+	end
+	return t[math.random(1, #t)]
+end
+
 utils.screenWidth, utils.screenHeight = utils.getScreenSize()
 
 utils.scale = utils.screenHeight / 480

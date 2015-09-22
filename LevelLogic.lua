@@ -15,14 +15,29 @@ function LevelLogic:init()
 	-- Camera
 	self.cameraType = LevelLogic.CAMERA_STATIC
 	self.cameraSpeed = 0
+
+	self.enabledPlanes = {}
+	self.currentInterval = 0
+	self.planesIntervals = {}
 end
 
 function LevelLogic:initialize()
 	-- to override
 end
 
+function LevelLogic:updatePlanesIntervals()
+	if self.planesIntervals[self.currentInterval + 1] and
+		self.gameTime > self.planesIntervals[self.currentInterval + 1][1] and
+		self.gameTime < self.planesIntervals[self.currentInterval + 1][2] 
+	then
+		self.enabledPlanes = self.planesIntervals[self.currentInterval + 1][3]
+		self.currentInterval = self.currentInterval + 1
+		print("Switch interval: ", self.currentInterval)
+	end
+end
+
 function LevelLogic:update(deltaTime)
-	-- to override
+	self:updatePlanesIntervals()
 end
 
 function LevelLogic:setBackgroundColor(r, g, b)

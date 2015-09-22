@@ -106,7 +106,7 @@ function World:init(gameScreen, player, levelID)
 		end
 	end
 	for i = 1, self.planesCount do
-		local planeIndex = math.random(1, #self.planeTextures)
+		local planeIndex = self:getNextPlaneID()
 		local texture = self.planeTextures[planeIndex]
 		local plane = MovingPlane.new(self.size, texture)
 		plane:setMovingPlaneTexture(texture, self.planeDecoTextures[planeIndex])
@@ -216,13 +216,15 @@ function World:stopSpeedup()
 	self.fallingSpeed = self.oldFallingSpeed
 end
 
---local ptime = 0
+function World:getNextPlaneID()
+	local enabledPlanes = self.gameScreen.levelLogic.enabledPlanes
+	if #enabledPlanes == 0 then
+		return math.random(1, #self.planeTextures)
+	end
+	return utils.randomFromTable(self.gameScreen.levelLogic.enabledPlanes)
+end
+
 function World:update(dt, totalTime)
-	--[[local ntime = math.floor(self.time)
-	if ptime ~= ntime and not self:isFinished() then
-		print(ntime)
-		ptime = ntime
-	end]]
 	self.timeAlive = totalTime
 
 	-- Замедление камеры после смерти
@@ -262,7 +264,7 @@ function World:update(dt, totalTime)
 		end
 		if self:updatePlane(plane, dt) then
 			-- Обновление текстуры
-			local planeIndex = math.random(1, #self.planeTextures)
+			local planeIndex = self:getNextPlaneID()
 			if DEBUG_SPAWN_PLANE then
 				planeIndex = DEBUG_SPAWN_PLANE
 			end
@@ -332,6 +334,10 @@ function World:update(dt, totalTime)
 			end
 		end
 	end
+
+	self.gameScreen.levelLogic.gameTime = self.timeAlive
+	self.gameScreen.levelLogic:update(dt)
+
 	self.totalDistance = self.totalDistance + self.fallingSpeed * dt
 	self.time = self.time + dt
 end

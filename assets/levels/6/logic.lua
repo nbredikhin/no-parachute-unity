@@ -30,6 +30,17 @@ function LevelLogic:init()
 	self.movingPlanes[15] = function(plane, deltaTime, gameTime)
 		plane.decoPlane:setRotation(plane.decoPlane:getRotation() - 90 * deltaTime)
 	end
+
+	self.planesIntervals = {
+		{0, 1, {1}},
+		{1, 18, {1, 2, 3, 4}},
+		{18, 30, {1, 2, 3, 4, 5, 6, 7}},
+		{30, 50, {2, 3, 4, 5, 6, 7, 8}},
+		{50, 70, {3, 4, 5, 6, 7, 8, 9, 10, 12}},
+		{70, 90, {15, 11, 9, 10}},
+		{90, 120, {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}},
+		{120, self.requiredTime, {15, 11, 9, 10, 14, 6, 8, 10, 10, 9, 11}}
+	}
 end
 
 function LevelLogic:initialize()

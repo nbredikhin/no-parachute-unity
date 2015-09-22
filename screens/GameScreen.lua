@@ -43,7 +43,9 @@ function GameScreen:load(levelID)
 	else
 		print("Failed to load 'logic.lua' for level " .. tostring(levelID))
 	end
-	
+	if #self.levelLogic.planesIntervals > 0 and self.levelLogic.planesIntervals[1][1] == 0 then
+		self.levelLogic.enabledPlanes = self.levelLogic.planesIntervals[1][3]
+	end
 	-- Мир
 	self.world = World.new(self, self.player, self.levelID)
 	self:addChild(self.world)

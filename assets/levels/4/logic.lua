@@ -1,12 +1,11 @@
 -- Level 4
--- Spaceship
 
 local LevelLogicBase = require "LevelLogic"
 
 local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:init()
-	self.requiredTime = 120
+	self.requiredTime = 110
 end
 
 function LevelLogic:initialize()
