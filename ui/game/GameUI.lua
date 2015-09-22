@@ -27,10 +27,11 @@ function GameUI:init()
 	self.pauseUI:setVisible(false)
 
 	self.pauseButton = Bitmap.new(Assets:getTexture("assets/pause.png"))
-	self.pauseButton:setScale(18 * utils.scale)
+	self.pauseButton:setScale(5 * utils.scale)
 	self.pauseButton:setX(utils.screenWidth - self.pauseButton:getWidth() * 1.25)
 	self.pauseButton:setY(utils.screenHeight - self.pauseButton:getHeight() * 1.25)
-	self.pauseButton:setAlpha(0.5)
+	--self.pauseButton:setAlpha(0.5)
+	--self.pauseButton:setColorTransform(0.15, 0.4, 1)
 	self:addChild(self.pauseButton)
 
 	self.backButton = MenuButton.new(nil, "Exit to menu")
@@ -98,7 +99,7 @@ function GameUI:setProgress(progress)
 	progress = math.max(0, progress)
 
 	self.progressText:setText(tostring(self.progressMax - math.floor(progress * self.progressMax)))
-	self.progressText:setPosition(utils.screenWidth - self.progressText:getWidth() - 5 * utils.scale, 6 * utils.scale + self.progressText:getHeight())
+	self.progressText:setPosition(utils.screenWidth - self.progressText:getWidth() - 5 * utils.scale, 2.5 * utils.scale + self.progressText:getHeight())
 end
 
 function GameUI:highlightProgress()

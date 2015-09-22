@@ -235,6 +235,54 @@
     <file source="assets/levels/8/logic.lua"/>
    </folder>
 
+    <folder name="9">
+    <folder name="planes">
+     <file source="assets/levels/9/planes/1.png"/>
+     <file source="assets/levels/9/planes/1.png.msk"/>
+     <file source="assets/levels/9/planes/2.png"/>
+     <file source="assets/levels/9/planes/2.png.msk"/>
+     <file source="assets/levels/9/planes/3.png"/>
+     <file source="assets/levels/9/planes/3.png.msk"/>
+     <file source="assets/levels/9/planes/4.png"/>
+     <file source="assets/levels/9/planes/4.png.msk"/>
+     <file source="assets/levels/9/planes/5.png"/>
+     <file source="assets/levels/9/planes/5.png.msk"/>
+    </folder>
+    <folder name="deco">
+     <file source="assets/levels/9/deco/1.png"/>
+     <file source="assets/levels/9/deco/2.png"/>
+    </folder>
+    <file source="assets/levels/9/wall.png"/>
+    <file source="assets/levels/9/logic.lua"/>
+   </folder>
+
+    <folder name="10">
+    <folder name="planes">
+     <file source="assets/levels/10/planes/1.png"/>
+     <file source="assets/levels/10/planes/1.png.msk"/>
+    </folder>
+    <folder name="deco">
+     <file source="assets/levels/10/deco/1.png"/>
+     <file source="assets/levels/10/deco/2.png"/>
+    </folder>
+    <file source="assets/levels/10/wall.png"/>
+    <file source="assets/levels/10/logic.lua"/>
+   </folder>
+
+    <folder name="11">
+    <folder name="planes">
+     <file source="assets/levels/11/planes/1.png"/>
+     <file source="assets/levels/11/planes/1.png.msk"/>
+
+    </folder>
+    <folder name="deco">
+     <file source="assets/levels/11/deco/1.png"/>
+     <file source="assets/levels/11/deco/2.png"/>
+    </folder>
+    <file source="assets/levels/11/wall.png"/>
+    <file source="assets/levels/11/logic.lua"/>
+   </folder>
+
   </folder>
   <folder name="icons">
    <file source="assets/icons/locked.png"/>
@@ -248,6 +296,9 @@
    <file source="assets/icons/6.png"/>
    <file source="assets/icons/7.png"/>
    <file source="assets/icons/8.png"/>
+   <file source="assets/icons/9.png"/>
+   <file source="assets/icons/10.png"/>
+   <file source="assets/icons/11.png"/>
   </folder>
   <folder name="fonts">
    <file source="assets/fonts/pixel.ttf"/>

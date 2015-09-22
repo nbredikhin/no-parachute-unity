@@ -62,6 +62,11 @@ local function processFolder(folder_path)
 	return true
 end
 
+local function processLevel(root_path, index)
+	print("Processing level " .. tostring(index))
+	processFolder(root_path .. "/" .. tostring(index) .. "/planes")
+end
+
 local function processAllLevels(root_path, count)
 	for i = 1, count do
 		print("Processing level " .. tostring(i))
@@ -78,6 +83,14 @@ if args[2] and args[3] and args[2] == "--levels" then
 		return
 	end
 	processAllLevels(working_path, count)
+	return
+elseif args[2] and args[3] and args[2] == "--level" then
+	local index = tonumber(args[3])
+	if not index then
+		print("Error: Bad level index")
+		return
+	end
+	processLevel(working_path, index)
 	return
 end
 

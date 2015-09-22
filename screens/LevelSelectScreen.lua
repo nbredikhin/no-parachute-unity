@@ -7,7 +7,7 @@ local LevelSelectScreen = Core.class(Screen)
 
 local DEBUG_UNLOCK_ALL_LEVELS = true
 
-local ICONS_COUNT = 8
+local ICONS_COUNT = 11
 local ICON_ALPHA_INACTIVE = 0.1
 local ICON_ALPHA_ACTIVE = 1
 
@@ -132,7 +132,7 @@ end
 
 function LevelSelectScreen:setSelectedIcon(id)
 	id = math.max(id, 1)
-	id = math.min(id, 8)
+	id = math.min(id, ICONS_COUNT)
 	if id > 1 and self:isLevelLocked(id - 1) then
 		return
 	end
