@@ -17,7 +17,7 @@ local SPEEDUP_DELAY = 10
 local SPEEDUP_MUL = 2.5
 
 local RING_SPAWN_DELAY = 2.5
-local RING_VALUE = 2.5
+local RING_VALUE = 5
 
 local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30
@@ -182,6 +182,14 @@ function World:reset()
 	for i, plane in ipairs(self.planes) do
 		plane:setPosition(0, 0, -i * self.depth / self.planesCount + 10 - self.depth)
 		self:updatePlane(plane, 0)
+		-- Обновление текстуры
+		local planeIndex = self:getNextPlaneID()
+		if DEBUG_SPAWN_PLANE then
+			planeIndex = DEBUG_SPAWN_PLANE
+		end
+		plane:setMovingPlaneTexture(self.planeTextures[planeIndex], self.planeDecoTextures[planeIndex])
+		self:setupPlaneMovement(plane, planeIndex)
+
 	end
 	self.timeAlive = 0
 	self.powerupSpawnDelay = math.random(POWERUP_SPAWN_DELAY_MIN, POWERUP_SPAWN_DELAY_MAX)

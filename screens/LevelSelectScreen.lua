@@ -189,7 +189,7 @@ function LevelSelectScreen:iconsTouchEnd(e)
 		-- Номер иконки, по которой был тап
 		local tapIcon = math.floor((e.touch.x - self.iconsContainer:getX()) / (self.ICON_WIDTH + self.ICONS_SPACE) / utils.scale + 1.5)
 		local diff = math.abs(self.currentSelectedIcon - tapIcon)
-		if diff <= 2 then
+		if diff <= 4 then
 			if diff > 0 then
 				self:setSelectedIcon(tapIcon)
 			elseif diff == 0 then

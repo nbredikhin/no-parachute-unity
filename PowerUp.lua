@@ -36,9 +36,9 @@ function PowerUp:update(dt)
 		if self.animationDelay > 0 then
 			self.animationDelay = self.animationDelay - dt
 			self:setAlpha(self.animationDelay / ANIMATION_DELAY)
-			self:setScale(self:getScale() * 1.05)
+			self:setScale(self:getScale() * 1.07)
 			local brightness =  self.animationDelay / ANIMATION_DELAY
-			self:setColorTransform(1, 1, 1, brightness)
+			self:setColorTransform(brightness, brightness, brightness, 1)
 		else
 			self.isRemoved = true
 		end

@@ -204,7 +204,7 @@ function GameScreen:update(dt)
 	if self.player.isAlive then
 		local add = 1
 		if self.world.speedupActive then
-			add = 2
+			add = 4
 		end
 		self.timeAlive = self.timeAlive + add * dt
 
@@ -278,6 +278,10 @@ end
 function GameScreen:restartLevel()
 	self.timeAlive = 0
 	self.lifes = 3
+	if #self.levelLogic.planesIntervals > 0 and self.levelLogic.planesIntervals[1][1] == 0 then
+		self.levelLogic.enabledPlanes = self.levelLogic.planesIntervals[1][3]
+	end
+	self.levelLogic.currentInterval = 0
 	self.world:reset()
 end
 
