@@ -331,6 +331,7 @@
   </folder>
   <file source="assets/blood.png"/>
   <file source="assets/pause.png"/>
+  <file source="assets/restart.png"/>
   <file source="assets/button.png"/>
   <file source="assets/logo.png"/>
   <file source="assets/paused.png"/>

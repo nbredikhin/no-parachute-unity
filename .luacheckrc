@@ -1,0 +1,2 @@
+global = false
+ignore = {"self"}

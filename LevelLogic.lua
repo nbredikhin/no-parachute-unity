@@ -36,7 +36,7 @@ function LevelLogic:updatePlanesIntervals()
 	end
 end
 
-function LevelLogic:update(deltaTime)
+function LevelLogic:update()
 	self:updatePlanesIntervals()
 end
 

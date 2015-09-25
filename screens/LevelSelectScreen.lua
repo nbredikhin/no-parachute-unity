@@ -105,7 +105,7 @@ function LevelSelectScreen:isLevelPassed(levelID)
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
-	if not self.iconsContainer:hitTestPoint(e.touch.x, e.touch.y) then
+	if self.buttons.start:hitTestPoint(e.touch.x, e.touch.y) then
 		return
 	end
 	self.iconsPrevX = e.touch.x
@@ -154,14 +154,10 @@ function LevelSelectScreen:setSelectedIcon(id)
 end
 
 function LevelSelectScreen:iconsTouchMove(e)
-	if not self.iconsContainer:hitTestPoint(e.touch.x, e.touch.y) then
-		return
-	end
 	if not self.iconsPrevX then
 		return
 	end
 	local dragX = (e.touch.x - self.iconsPrevX) / utils.scale
-	local dragY = (e.touch.y - self.iconsPrevY) / utils.scale
 
 	if dragX < -self.ICON_WIDTH then
 		self:setSelectedIcon(self.currentSelectedIcon + 1)
@@ -182,7 +178,6 @@ function LevelSelectScreen:iconsTouchEnd(e)
 		return
 	end
 	local dragX = e.touch.x - self.iconsStartX
-	local dragY = e.touch.y - self.iconsStartY
 
 	-- Тап по иконкам
 	if math.abs(dragX) < 10 then

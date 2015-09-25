@@ -13,7 +13,7 @@ function Blood:init(texture)
 	self:setColorTransform(colorMul, colorMul, colorMul, 50)
 end
 
-function Blood:update(deltaTime)
+function Blood:update()
 	self:setPosition(self:getX() + self.sx, self:getY() + self.sy, self:getZ() + self.sz)
 	self.sx = self.sx * 0.9
 	self.sy = self.sy * 0.9

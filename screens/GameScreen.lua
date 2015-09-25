@@ -90,7 +90,7 @@ function GameScreen:load(levelID)
 	stage:addEventListener(Event.APPLICATION_SUSPEND, self.onApplicationSuspend, self)
 
 	self.sounds = {}
-	for i,v in ipairs(GAME_SOUNDS_NAMES) do
+	for _,v in ipairs(GAME_SOUNDS_NAMES) do
 		self.sounds[v] = Sound.new("assets/sounds/" .. v .. ".wav")
 	end
 end
@@ -141,9 +141,7 @@ function GameScreen:update(dt)
 
  	-- Вращение камеры
  	if self.player.isAlive then
- 		if self.levelLogic.cameraType == LevelLogic.CAMERA_STATIC then
-
- 		elseif self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_CONSTANTLY then
+ 		if self.levelLogic.cameraType == LevelLogic.CAMERA_ROTATING_CONSTANTLY then
 		 	local cameraRotation = self.camera:getRotation()
 		 	self.camera:setRotation(cameraRotation + self.levelLogic.cameraSpeed * dt)
 		 	self.player.cameraRotation = cameraRotation
@@ -224,7 +222,6 @@ function GameScreen:onTouchBegin(e)
 			screenManager:loadScreen("MainMenuScreen")
 		-- Нажатие на кнопку "Tap to restart"
 		elseif self.ui.deathUI.restartButton:hitTestPoint(e.x, e.y) then
-			self.ui:setDeathUIVisible(false)
 			self:restartButtonTouch()
 		end
 	else -- Если игрок жив
@@ -246,6 +243,10 @@ function GameScreen:onTouchBegin(e)
 		end
 	end
 
+	if self.ui.restartButton:isVisible() and self.ui.restartButton:hitTestPoint(e.x, e.y) then
+		self:restartButtonTouch(true)
+	end
+
 	if not self.world:isFinished() then
 		if self.player.isAlive and not self.isPaused then
 			self.ui.touchButton:setPosition(e.x, e.y)
@@ -265,11 +266,13 @@ function GameScreen:onTouchEnd()
 	self.ui.touchButton:setVisible(false)
 end
 
-function GameScreen:restartButtonTouch()
+function GameScreen:restartButtonTouch(isReset)
 	self.lifes = self.lifes - 1
-	if self.lifes <= 0 then
-		self:restartLevel()
+	if self.lifes <= 0 or isReset then
+		screenManager:loadScreen("GameScreen", self.levelID)
+		return
 	end
+	self.ui:setDeathUIVisible(false)
 	self.ui:setLifesCount(self.lifes)
 
 	self.world:respawn()

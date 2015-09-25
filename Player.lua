@@ -70,7 +70,7 @@ function Player:hitTestPlane(plane)
 	end
 	-- Если игрок взял уменьшение, конечности не отрываются
 	if not self.isSmall then
-		for i, point in ipairs(self.partsPoints) do
+		for _, point in ipairs(self.partsPoints) do
 			local pointX, pointY = math.rotateVector(point.x * self.size * 2, point.y * self.size * 2, self:getRotation() + self.parts[point.name]:getRotation())
 			local x = self:getX() + pointX
 			local y = self:getY() + pointY
@@ -94,7 +94,7 @@ function Player:hitTestPlane(plane)
 end
 
 function Player:restoreParts()
-	for name, part in pairs(self.parts) do
+	for name, _ in pairs(self.parts) do
 		self:setPartState(name, "ok")
 	end
 	self.missingPartsCount = 0
@@ -201,7 +201,7 @@ function Player:update(dt)
 		end
 	end
 	if #self.bloodParticles > 0 then
-		for i,p in ipairs(self.bloodParticles) do
+		for _,p in ipairs(self.bloodParticles) do
 			p:update(dt)
 		end
 	end
@@ -224,7 +224,7 @@ end
 
 function Player:setInput(x, y)
 	if self.isAlive then
-		self.inputX, self.inputY = x, getY()
+		self.inputX, self.inputY = x, y
 	end
 end
 
@@ -248,7 +248,7 @@ function Player:respawn()
 end
 
 function Player:clearBlood()
-	for i,v in ipairs(self.bloodParticles) do
+	for _,v in ipairs(self.bloodParticles) do
 		self:removeChild(v)
 	end
 	self.bloodParticles = {}
@@ -267,7 +267,7 @@ end
 
 function Player:sprayBloodDeath()
 	local particlesCount = math.floor(35 * SettingsManager.settings.graphics_quality)
-	for i = 1, particlesCount do
+	for _ = 1, particlesCount do
 		local b = Blood.new(self.bloodTexture)
 		local angle = math.random() * math.pi * 2
 		b.sx = math.cos(angle) * math.random(6, 16)
@@ -281,7 +281,7 @@ end
 
 function Player:sprayBloodAtPart(x, y)
 	local particlesCount = math.floor(math.random(5, 10) * SettingsManager.settings.graphics_quality)
-	for i = 1, particlesCount do
+	for _ = 1, particlesCount do
 		local b = Blood.new(self.bloodTexture)
 		b:setPosition(x, y)
 		b.sx = math.random(0, 60) - 30

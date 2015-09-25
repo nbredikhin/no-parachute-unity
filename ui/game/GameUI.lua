@@ -28,11 +28,16 @@ function GameUI:init()
 
 	self.pauseButton = Bitmap.new(Assets:getTexture("assets/pause.png"))
 	self.pauseButton:setScale(5 * utils.scale)
-	self.pauseButton:setX(utils.screenWidth - self.pauseButton:getWidth() * 1.25)
-	self.pauseButton:setY(utils.screenHeight - self.pauseButton:getHeight() * 1.25)
-	--self.pauseButton:setAlpha(0.5)
-	--self.pauseButton:setColorTransform(0.15, 0.4, 1)
+	self.pauseButton:setX(utils.screenWidth - self.pauseButton:getWidth() * 1.2)
+	self.pauseButton:setY(utils.screenHeight - self.pauseButton:getHeight() * 1.2)
 	self:addChild(self.pauseButton)
+
+	self.restartButton = Bitmap.new(Assets:getTexture("assets/restart.png"))
+	self.restartButton:setScale(50 / 190 * utils.scale)
+	self.restartButton:setX(self.restartButton:getWidth() * 0.2) -- left screen side
+	--self.restartButton:setX(self.pauseButton:getX() - self.restartButton:getWidth() * 1.2) -- stick to pause button
+	self.restartButton:setY(utils.screenHeight - self.restartButton:getHeight() * 1.2)
+	self:addChild(self.restartButton)
 
 	self.backButton = MenuButton.new(nil, "Exit to menu")
 	self.backButton:setScale(4 * utils.scale)
@@ -110,6 +115,7 @@ end
 function GameUI:setDeathUIVisible(isVisible, ...)
 	self.deathUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
+	self.restartButton:setVisible(not isVisible)
 	self.backButton:setVisible(isVisible)
 	self.progressText:setVisible(not isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
@@ -123,6 +129,7 @@ function GameUI:setPauseUIVisible(isVisible)
 	self.backButton:setVisible(isVisible)
 	self.pauseUI:setVisible(isVisible)
 	self.pauseButton:setVisible(not isVisible)
+	self.restartButton:setVisible(not isVisible)
 	self.progressText:setVisible(not isVisible)
 	self.lifesIconsContainer:setVisible(not isVisible)
 end
@@ -133,6 +140,7 @@ function GameUI:showEndUI()
 	self.deathUI:setVisible(false)
 	self.endUI:setVisible(true)
 	self.pauseButton:setVisible(false)
+	self.restartButton:setVisible(false)
 	self.endUI:reset()
 end
 

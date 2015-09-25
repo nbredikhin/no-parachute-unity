@@ -1,5 +1,4 @@
 local MovingPlane 	= require "MovingPlane"
-local Plane 		= require "Plane"
 local PlaneMesh 	= require "PlaneMesh"
 local TexturePNG 	= require "TexturePNG"
 local Player 		= require "Player"
@@ -49,13 +48,13 @@ function World:init(gameScreen, player, levelID)
 	self.walls = {}
 	local wallTexture = Assets:getTexture("assets/levels/" .. tostring(levelID) .."/wall.png")
 	local currentZ = self.depth/2
-	for i = 1, WALLS_COUNT do
+	for _ = 1, WALLS_COUNT do
 		local wallContainer = Sprite.new()
 		wallContainer:setZ(currentZ)
-		for i = 1, 4 do
+		for j = 1, 4 do
 			local wall = PlaneMesh.new(wallTexture, self.size)
 			wall:setRotationX(90)
-			wall:setRotationY(90 * (i - 1))
+			wall:setRotationY(90 * (j - 1))
 			wall:setZ(self.size / 2)
 			wallContainer:addChild(wall)
 		end
@@ -196,7 +195,7 @@ function World:reset()
 end
 
 function World:respawn()
-	for i, plane in ipairs(self.planes) do
+	for _, plane in ipairs(self.planes) do
 		plane:setZ(plane:getZ() + 3200)
 		self:updatePlane(plane, 0)
 	end
@@ -254,19 +253,19 @@ function World:update(dt, totalTime)
 	end
 
 	-- Движение боковых стен
-	for i, wall in ipairs(self.walls) do
+	for _, wall in ipairs(self.walls) do
 		self:updatePlane(wall, dt, true)
 	end
 
 	-- Движение декораций
-	for i, plane in ipairs(self.decorativePlanes) do
+	for _, plane in ipairs(self.decorativePlanes) do
 		if self:updatePlane(plane, dt, true) then
 			plane:setPlaneTexture(self.decorativeTextures[math.random(1, #self.decorativeTextures)])
 		end
 	end
 
 	-- Обновление передних стен
-	for i, plane in ipairs(self.planes) do
+	for _, plane in ipairs(self.planes) do
 		if plane.updateMovement then
 			plane.updateMovement(plane, dt, self.time)
 		end
