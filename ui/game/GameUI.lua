@@ -33,10 +33,10 @@ function GameUI:init()
 	self:addChild(self.pauseButton)
 
 	self.restartButton = Bitmap.new(Assets:getTexture("assets/restart.png"))
-	self.restartButton:setScale(50 / 190 * utils.scale)
-	self.restartButton:setX(self.restartButton:getWidth() * 0.2) -- left screen side
+	self.restartButton:setScale(50 / 190 * utils.scale * 1.15)
+	self.restartButton:setX(self.restartButton:getWidth() * 0.15) -- left screen side
 	--self.restartButton:setX(self.pauseButton:getX() - self.restartButton:getWidth() * 1.2) -- stick to pause button
-	self.restartButton:setY(utils.screenHeight - self.restartButton:getHeight() * 1.2)
+	self.restartButton:setY(utils.screenHeight - self.restartButton:getHeight() * 1.15)
 	self:addChild(self.restartButton)
 
 	self.backButton = MenuButton.new(nil, "Exit to menu")

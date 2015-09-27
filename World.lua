@@ -6,7 +6,7 @@ local PowerUp 		= require "PowerUp"
 
 local World = Core.class(Sprite)
 
---local DEBUG_SPAWN_PLANE = 11
+--local DEBUG_SPAWN_PLANE = 8
 
 local DEFAULT_FALLING_SPEED = 7500
 local WALLS_COUNT = 10
@@ -224,6 +224,9 @@ function World:stopSpeedup()
 end
 
 function World:getNextPlaneID()
+	if DEBUG_SPAWN_PLANE then
+		return math.min(DEBUG_SPAWN_PLANE, #self.planeTextures)
+	end
 	local enabledPlanes = self.gameScreen.levelLogic.enabledPlanes
 	if #enabledPlanes == 0 then
 		return math.random(1, #self.planeTextures)

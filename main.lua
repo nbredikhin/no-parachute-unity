@@ -25,7 +25,7 @@ end
 
 stage:addEventListener(Event.ENTER_FRAME, updateGame)
 
-local function gameExit(e)
+local function gameExit()
 	SettingsManager:save()
 	SavesManager:save()
 end

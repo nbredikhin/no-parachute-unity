@@ -37,10 +37,10 @@ function MenuBackground:init()
 	-- Логотип игры
 	local logoTexture = Assets:getTexture("assets/logo.png", true)
 	self.logo = Bitmap.new(logoTexture)
-	local logoScale = utils.scale * 5
+	local logoScale = utils.scale * 6
 	self.logo:setScale(logoScale, logoScale)
 	self:addChild(self.logo)
-	self.logoY = logoScale * 6.5
+	self.logoY = 0
 	self.logo:setPosition(utils.screenWidth / 2 - self.logo:getWidth() / 2, self.logoY)
 end
 

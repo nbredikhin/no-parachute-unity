@@ -32,7 +32,6 @@ function LevelLogic:updatePlanesIntervals()
 	then
 		self.enabledPlanes = self.planesIntervals[self.currentInterval + 1][3]
 		self.currentInterval = self.currentInterval + 1
-		print("Switch interval: ", self.currentInterval)
 	end
 end
 

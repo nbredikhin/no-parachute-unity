@@ -239,6 +239,8 @@
     <folder name="planes">
      <file source="assets/levels/9/planes/1.png"/>
      <file source="assets/levels/9/planes/1.png.msk"/>
+     <file source="assets/levels/9/planes/1_deco.png"/>
+     <file source="assets/levels/9/planes/1_deco.png.msk"/>
      <file source="assets/levels/9/planes/2.png"/>
      <file source="assets/levels/9/planes/2.png.msk"/>
      <file source="assets/levels/9/planes/3.png"/>
@@ -247,6 +249,16 @@
      <file source="assets/levels/9/planes/4.png.msk"/>
      <file source="assets/levels/9/planes/5.png"/>
      <file source="assets/levels/9/planes/5.png.msk"/>
+     <file source="assets/levels/9/planes/6.png"/>
+     <file source="assets/levels/9/planes/6.png.msk"/>
+     <file source="assets/levels/9/planes/6_deco.png"/>
+     <file source="assets/levels/9/planes/6_deco.png.msk"/>
+     <file source="assets/levels/9/planes/7.png"/>
+     <file source="assets/levels/9/planes/7.png.msk"/>
+     <file source="assets/levels/9/planes/7_deco.png"/>
+     <file source="assets/levels/9/planes/7_deco.png.msk"/>
+     <file source="assets/levels/9/planes/8.png"/>
+     <file source="assets/levels/9/planes/8.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/9/deco/1.png"/>

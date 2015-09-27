@@ -88,6 +88,10 @@ function LevelSelectScreen:load(levelID, isPassed)
 	end
 
 	self:setSelectedIcon(SavesManager.saves.current_level)
+
+	self.isStarting = false
+
+	self:addEventListener(Event.KEY_DOWN, self.keyDown, self)
 end
 
 function LevelSelectScreen:isLevelLocked(levelID)
@@ -105,6 +109,9 @@ function LevelSelectScreen:isLevelPassed(levelID)
 end
 
 function LevelSelectScreen:iconsTouchBegin(e)
+	if self.isStarting then
+		return
+	end
 	if self.buttons.start:hitTestPoint(e.touch.x, e.touch.y) then
 		return
 	end
@@ -131,19 +138,20 @@ function LevelSelectScreen:updateStartButtonText()
 end
 
 function LevelSelectScreen:setSelectedIcon(id)
+	if self.isStarting then
+		return
+	end
 	id = math.max(id, 1)
 	id = math.min(id, ICONS_COUNT)
 	if id > 1 and self:isLevelLocked(id - 1) then
 		return
 	end
 	if self.currentSelectedIcon then
-		local iconSprite = self.levelsIcons[self.currentSelectedIcon].image
 		self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_INACTIVE
 		self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(1, 1 * utils.screenHeight / 360)
 		self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(1, 1 * utils.screenHeight / 360)
 	end
 	self.currentSelectedIcon = id
-	local iconSprite = self.levelsIcons[self.currentSelectedIcon].image
 	self.levelsIcons[self.currentSelectedIcon].interpolate.alpha = ICON_ALPHA_ACTIVE
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleX = math.min(2, 2 * utils.screenHeight / 360)
 	self.levelsIcons[self.currentSelectedIcon].interpolate.scaleY = math.min(2, 2 * utils.screenHeight / 360)
@@ -154,6 +162,9 @@ function LevelSelectScreen:setSelectedIcon(id)
 end
 
 function LevelSelectScreen:iconsTouchMove(e)
+	if self.isStarting then
+		return
+	end
 	if not self.iconsPrevX then
 		return
 	end
@@ -171,6 +182,12 @@ function LevelSelectScreen:iconsTouchMove(e)
 end
 
 function LevelSelectScreen:iconsTouchEnd(e)
+	if self.isStarting then
+		return
+	end
+	if self.buttons.start:hitTestPoint(e.touch.x, e.touch.y) then
+		return
+	end
 	if not self.iconsContainer:hitTestPoint(e.touch.x, e.touch.y) then
 		return
 	end
@@ -195,6 +212,9 @@ function LevelSelectScreen:iconsTouchEnd(e)
 end
 
 function LevelSelectScreen:startSelectedLevel()
+	if self.isStarting then
+		return
+	end
 	local levelID = self.currentSelectedIcon
 	if levelID then
 		levelID = math.max(levelID, 1)
@@ -209,6 +229,7 @@ end
 function LevelSelectScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.start then
 		self:startSelectedLevel()
+		self.isStarting  = true
 	elseif e:getTarget() == self.buttons.back then
 		self:back()
 	end
@@ -217,7 +238,7 @@ end
 function LevelSelectScreen:update(dt)
 	self.background:update(dt)
 	self.iconsContainer:setX(self.iconsContainer:getX() + (self.iconsContainerTargetX - self.iconsContainer:getX()) * 0.2)
-	for i, icon in ipairs(self.levelsIcons) do
+	for _, icon in ipairs(self.levelsIcons) do
 		local iconSprite = icon.image
 		for property, targetValue in pairs(icon.interpolate) do
 			local currentValue = iconSprite:get(property)
@@ -230,5 +251,14 @@ function LevelSelectScreen:back()
 	screenManager:loadScreen("MainMenuScreen")
 end
 
+function LevelSelectScreen:keyDown(e)
+	if e.keyCode == KeyCode.LEFT then
+		self:setSelectedIcon(self.currentSelectedIcon - 1)
+	elseif e.keyCode == KeyCode.RIGHT then
+		self:setSelectedIcon(self.currentSelectedIcon + 1)
+	elseif e.KeyCode == KeyCode.ENTER or e.keyCode == KeyCode.SPACE then
+		self:startSelectedLevel()
+	end
+end
 
 return LevelSelectScreen

@@ -45,7 +45,7 @@ function InputManager:touchMove(e)
 	self.valueY = math.clamp(y / self.maxTouchValue, -1, 1)
 end
 
-function InputManager:touchEnd(e)
+function InputManager:touchEnd()
 	self.valueX = 0
 	self.valueY = 0
 
@@ -80,7 +80,6 @@ function InputManager:keyUp(e)
 	if e.keyCode == KeyCode.DOWN and self.valueY > 0 then
 		self.valueY = 0
 	end
-
 end
 
 return InputManager

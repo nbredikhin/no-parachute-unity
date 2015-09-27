@@ -126,10 +126,6 @@ function GameScreen:update(dt)
 	local rotX = math.cos(os.timer() * cameraRotationSpeed) * cameraRotationRadius
 	local rotY = math.sin(os.timer() * cameraRotationSpeed) * cameraRotationRadius
 
-	local cameraFinishedOffset = 0
-	--[[if self.timeAlive > self.levelLogic.requiredTime then
-		cameraFinishedOffset = (self.timeAlive - self.levelLogic.requiredTime) * 2000
-	end]]
 	local shakeX = self.cameraShakeDelay * math.random(-CAMERA_SHAKING_POWER, CAMERA_SHAKING_POWER)
 	local shakeY = self.cameraShakeDelay * math.random(-CAMERA_SHAKING_POWER, CAMERA_SHAKING_POWER)
 	if self.cameraShakeDelay <= 0 then
@@ -137,7 +133,7 @@ function GameScreen:update(dt)
 	else
 		self.cameraShakeDelay = self.cameraShakeDelay - dt
 	end
- 	self.camera:setPosition(self.player:getX() + rotX + shakeX, self.player:getY() + rotY + shakeY, -800 - cameraFinishedOffset)
+ 	self.camera:setPosition(self.player:getX() + rotX + shakeX, self.player:getY() + rotY + shakeY, -800)
 
  	-- Вращение камеры
  	if self.player.isAlive then
@@ -202,7 +198,7 @@ function GameScreen:update(dt)
 	if self.player.isAlive then
 		local add = 1
 		if self.world.speedupActive then
-			add = 4
+			add = 3
 		end
 		self.timeAlive = self.timeAlive + add * dt
 
