@@ -8,26 +8,26 @@ function LevelLogic:init()
 	self.requiredTime = 150
 	self.planesCount = 3
 
-	self.movingPlanes[8] = function(plane, deltaTime, gameTime)
+	self.movingPlanes[8] = function(plane, _, gameTime)
 		local progress = math.cos(gameTime * 5) + 1
 		plane:setRotation(0)
 		plane:setX(-progress * plane.size / 8)
 		plane.decoPlane:setX(progress * plane.size / 8)
 	end
 
-	self.movingPlanes[9] = function(plane, deltaTime, gameTime)
+	self.movingPlanes[9] = function(plane, deltaTime)
 		plane.basePlane:setRotation(plane:getRotation() - 90 * deltaTime)
 	end
 
-	self.movingPlanes[10] = function(plane, deltaTime, gameTime)
+	self.movingPlanes[10] = function(plane, deltaTime)
 		plane.basePlane:setRotation(plane:getRotation() + 360 * deltaTime)
 	end
 
-	self.movingPlanes[11] = function(plane, deltaTime, gameTime)
+	self.movingPlanes[11] = function(plane, deltaTime)
 		plane.basePlane:setRotation(plane:getRotation() + 90 * deltaTime)
 	end
 
-	self.movingPlanes[15] = function(plane, deltaTime, gameTime)
+	self.movingPlanes[15] = function(plane, deltaTime)
 		plane.decoPlane:setRotation(plane.decoPlane:getRotation() - 90 * deltaTime)
 	end
 

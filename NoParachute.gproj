@@ -280,10 +280,17 @@
      <file source="assets/levels/10/planes/4.png.msk"/>
      <file source="assets/levels/10/planes/5.png"/>
      <file source="assets/levels/10/planes/5.png.msk"/>
+     <file source="assets/levels/10/planes/6.png"/>
+     <file source="assets/levels/10/planes/6.png.msk"/>
+     <file source="assets/levels/10/planes/7.png"/>
+     <file source="assets/levels/10/planes/7.png.msk"/>
+     <file source="assets/levels/10/planes/8.png"/>
+     <file source="assets/levels/10/planes/8.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/10/deco/1.png"/>
      <file source="assets/levels/10/deco/2.png"/>
+     <file source="assets/levels/10/deco/3.png"/>
     </folder>
     <file source="assets/levels/10/wall.png"/>
     <file source="assets/levels/10/logic.lua"/>
