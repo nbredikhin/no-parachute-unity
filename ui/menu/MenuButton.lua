@@ -1,5 +1,6 @@
 local MenuButton = Core.class(TextField)
 MenuButton.CLICK = "menuButtonClick"
+MenuButton.DOWN = "MenuButtonDown"
 
 local defaultTextSize 		= 5
 local defaultColorNormal 	= 0xFFFFFF
@@ -40,6 +41,7 @@ function MenuButton:onHover(e)
 	self.shake = maxShake
 	self:setTextColor(self.colorHover)
 	self.isHovered = true
+	self:dispatchEvent(Event.new(MenuButton.DOWN))
 end
 
 function MenuButton:onOut(e)

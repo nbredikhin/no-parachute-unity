@@ -6,48 +6,47 @@ local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:init()
 	self.requiredTime = 150
-	self.planesCount = 2
+	self.planesCount = 3
 
-	self.movingPlanes[1] = function(plane, deltaTime)
-		if not plane.direction then
-			plane.direction = 1
-			if math.random(1, 2) == 2 then
-				plane.direction = -1
-			end
-		end
-		plane.decoPlane:setRotation(plane.decoPlane:getRotation() + 90 * deltaTime * plane.direction)
-	end
-
-	self.movingPlanes[6] = function(plane, deltaTime)
+	self.movingPlanes[8] = function(plane, _, gameTime)
+		local progress = math.cos(gameTime * 5) + 1
 		plane:setRotation(0)
-		plane.decoPlane:setY(plane.decoPlane:getY() - 500 * deltaTime)
+		plane:setX(-progress * plane.size / 8)
+		plane.decoPlane:setX(progress * plane.size / 8)
 	end
 
-	self.movingPlanes[7] = function(plane, deltaTime)
-		plane:setRotation(0)
-		if plane.decoPlane:getY() == 0 then
-			plane.decoPlane:setY(math.random(-1000, 1000))
-		end
-		plane.decoPlane:setY(plane.decoPlane:getY() - 400 * deltaTime)
+	self.movingPlanes[9] = function(plane, deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() - 90 * deltaTime)
 	end
 
-	self.movingPlanes[8] = function(plane, deltaTime)
-		if not plane.direction then
-			plane.direction = 1
-			if math.random(1, 2) == 2 then
-				plane.direction = -1
-			end
-		end
-		plane.basePlane:setRotation(plane:getRotation() + 90 * deltaTime * plane.direction)
+	self.movingPlanes[10] = function(plane, deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() + 360 * deltaTime)
 	end
+
+	self.movingPlanes[11] = function(plane, deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() + 90 * deltaTime)
+	end
+
+	self.movingPlanes[15] = function(plane, deltaTime)
+		plane.decoPlane:setRotation(plane.decoPlane:getRotation() - 90 * deltaTime)
+	end
+
+	self.planesIntervals = {
+		{0, 1, {1}},
+		{1, 18, {1, 2, 3, 4}},
+		{18, 30, {1, 2, 3, 4, 5, 6, 7}},
+		{30, 50, {2, 3, 4, 5, 6, 7, 8}},
+		{50, 70, {3, 4, 5, 6, 7, 8, 9, 10, 12}},
+		{70, 90, {15, 11, 9, 10}},
+		{90, 120, {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}},
+		{120, self.requiredTime, {15, 11, 9, 10, 14, 6, 8, 10, 10, 9, 11}}
+	}
 end
 
 function LevelLogic:initialize()
-	self:setFallingSpeed(self.defaultFallingSpeed * 1.45)
-	self:setBackgroundColor(61, 33, 33)
-
-	self:setCameraType(LevelLogic.CAMERA_ROTATING_CONSTANTLY)
-	self:setCameraSpeed(-50)
+	self:setCameraType(LevelLogic.CAMERA_ROTATING_SIN)
+	self:setCameraSpeed(90)
+	self:setFallingSpeed(self.defaultFallingSpeed * 1.4)
 end
 
 return LevelLogic

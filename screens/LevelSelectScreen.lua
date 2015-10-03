@@ -83,7 +83,7 @@ function LevelSelectScreen:load(levelID, isPassed)
 	self.buttons.back:setPosition(utils.screenWidth - self.buttons.back:getWidth() - self.buttons.back:getHeight() / 2, utils.screenHeight - self.buttons.back:getHeight() / 2)
 
 	for _, button in pairs(self.buttons) do
-		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)
+		button:addEventListener(MenuButton.DOWN, self.buttonClick, self)
 		self:addChild(button)
 	end
 

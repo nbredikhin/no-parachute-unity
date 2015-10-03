@@ -6,7 +6,7 @@ local LevelLogic = Core.class(LevelLogicBase)
 
 function LevelLogic:init()
 	self.requiredTime = 150
-	self.planesCount = 3
+	self.planesCount = 2
 
 	self.movingPlanes[1] = function(plane, deltaTime)
 		plane.basePlane:setRotation(plane:getRotation() - 110 * deltaTime)
@@ -30,7 +30,7 @@ function LevelLogic:init()
 end
 
 function LevelLogic:initialize()
-	self:setFallingSpeed(self.defaultFallingSpeed * 1.6)
+	self:setFallingSpeed(self.defaultFallingSpeed * 1.7)
 
 	self:setCameraType(LevelLogic.CAMERA_ROTATING_CONSTANTLY)
 	self:setCameraSpeed(-90)
