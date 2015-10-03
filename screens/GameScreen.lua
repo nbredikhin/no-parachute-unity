@@ -26,6 +26,9 @@ function GameScreen:load(levelID)
 	if not levelID then
 		levelID = 1
 	end
+	if levelID == 11 then
+		self.isEndless = true
+	end
 	self.levelID = levelID
 
 	application:setBackgroundColor(0)
@@ -107,7 +110,11 @@ function GameScreen:update(dt)
 	end
 
 	self.ui:update(dt)
-	self.ui:setProgress(self.timeAlive / self.levelLogic.requiredTime)
+	if not self.isEndless then
+		self.ui:setProgress(self.timeAlive / self.levelLogic.requiredTime)
+	else
+		self.ui:setProgress(1 - self.timeAlive / self.levelLogic.requiredTime)
+	end
 
 	if self.isPaused then
 		return
@@ -202,7 +209,7 @@ function GameScreen:update(dt)
 		end
 		self.timeAlive = self.timeAlive + add * dt
 
-		if self.timeAlive >= self.levelLogic.requiredTime then
+		if not self.isEndless and self.timeAlive >= self.levelLogic.requiredTime then
 			if not self.ui.endUI:isVisible() then
 				self.ui:showEndUI()
 			end		
