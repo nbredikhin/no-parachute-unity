@@ -19,6 +19,15 @@ function LevelLogic:init()
 	self.movingPlanes[8] = function(plane, deltaTime)
 		plane.basePlane:setRotation(plane:getRotation() - 180 * deltaTime)
 	end
+
+	self.movingPlanes[9] = function(plane, deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() - 90 * deltaTime)
+	end
+
+	self.movingPlanes[10] = function(plane, deltaTime)
+		plane.basePlane:setRotation(plane:getRotation() - 180 * deltaTime)
+		plane.decoPlane:setRotation(plane.decoPlane:getRotation() + 180 * deltaTime)
+	end
 end
 
 function LevelLogic:initialize()

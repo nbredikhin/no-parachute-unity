@@ -288,6 +288,12 @@
      <file source="assets/levels/10/planes/7.png.msk"/>
      <file source="assets/levels/10/planes/8.png"/>
      <file source="assets/levels/10/planes/8.png.msk"/>
+     <file source="assets/levels/10/planes/9.png"/>
+     <file source="assets/levels/10/planes/9.png.msk"/>
+     <file source="assets/levels/10/planes/10.png"/>
+     <file source="assets/levels/10/planes/10.png.msk"/>
+     <file source="assets/levels/10/planes/10_deco.png"/>
+     <file source="assets/levels/10/planes/10_deco.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/10/deco/1.png"/>
@@ -302,7 +308,34 @@
     <folder name="planes">
      <file source="assets/levels/11/planes/1.png"/>
      <file source="assets/levels/11/planes/1.png.msk"/>
-
+     <file source="assets/levels/11/planes/2.png"/>
+     <file source="assets/levels/11/planes/2.png.msk"/>
+     <file source="assets/levels/11/planes/3.png"/>
+     <file source="assets/levels/11/planes/3.png.msk"/>
+     <file source="assets/levels/11/planes/4.png"/>
+     <file source="assets/levels/11/planes/4.png.msk"/>
+     <file source="assets/levels/11/planes/5.png"/>
+     <file source="assets/levels/11/planes/5.png.msk"/>
+     <file source="assets/levels/11/planes/6.png"/>
+     <file source="assets/levels/11/planes/6.png.msk"/>
+     <file source="assets/levels/11/planes/7.png"/>
+     <file source="assets/levels/11/planes/7.png.msk"/>
+     <file source="assets/levels/11/planes/8.png"/>
+     <file source="assets/levels/11/planes/8.png.msk"/>
+     <file source="assets/levels/11/planes/9.png"/>
+     <file source="assets/levels/11/planes/9.png.msk"/>
+     <file source="assets/levels/11/planes/10.png"/>
+     <file source="assets/levels/11/planes/10.png.msk"/>
+     <file source="assets/levels/11/planes/11.png"/>
+     <file source="assets/levels/11/planes/11.png.msk"/>
+     <file source="assets/levels/11/planes/11_deco.png"/>
+     <file source="assets/levels/11/planes/11_deco.png.msk"/>
+     <file source="assets/levels/11/planes/12.png"/>
+     <file source="assets/levels/11/planes/12.png.msk"/>
+     <file source="assets/levels/11/planes/12_deco.png"/>
+     <file source="assets/levels/11/planes/12_deco.png.msk"/>
+     <file source="assets/levels/11/planes/13.png"/>
+     <file source="assets/levels/11/planes/13.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/11/deco/1.png"/>
