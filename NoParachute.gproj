@@ -76,6 +76,7 @@
      <file source="assets/levels/4/planes/5.png"/>
      <file source="assets/levels/4/planes/6.png"/>
      <file source="assets/levels/4/planes/7.png"/>
+     <file source="assets/levels/4/planes/8.png"/>
      <file source="assets/levels/4/planes/1.png.msk"/>
      <file source="assets/levels/4/planes/2.png.msk"/>
      <file source="assets/levels/4/planes/3.png.msk"/>
@@ -83,6 +84,7 @@
      <file source="assets/levels/4/planes/5.png.msk"/>
      <file source="assets/levels/4/planes/6.png.msk"/>
      <file source="assets/levels/4/planes/7.png.msk"/>
+     <file source="assets/levels/4/planes/8.png.msk"/>
     </folder>
     <folder name="deco">
      <file source="assets/levels/4/deco/1.png"/>

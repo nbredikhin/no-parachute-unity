@@ -1,11 +1,8 @@
 local MenuBackground 	= require "ui/menu/MenuBackground"
 local MenuButton		= require "ui/menu/MenuButton"
-local MenuSlider		= require "ui/menu/MenuSlider"
 local Screen 			= require "screens/Screen"
 
 local LevelSelectScreen = Core.class(Screen)
-
-local DEBUG_UNLOCK_ALL_LEVELS = true
 
 local ICONS_COUNT = 11
 local ICON_ALPHA_INACTIVE = 0.1

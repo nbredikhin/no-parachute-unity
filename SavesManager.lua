@@ -1,5 +1,3 @@
-local RESET_SAVES = false
-
 require "json"
 local arcfour = require "lib/sha1"
 
@@ -30,7 +28,7 @@ function SavesManager:reset()
 end
 
 function SavesManager:load()
-	if not RESET_SAVES then
+	if not DEBUG_RESET_SAVES then
 		print("SavesManager: loading saves...")
 		local settingsFile = io.open(self.savesFilePath, "r")
 		if not settingsFile then
@@ -52,7 +50,7 @@ function SavesManager:load()
 			end
 		end
 	else
-		print_old("RESET_SAVES")
+		print_old("DEBUG_RESET_SAVES")
 		self:reset()
 	end
 	print("SavesManager: done loading saves")

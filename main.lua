@@ -1,3 +1,8 @@
+DEBUG_UNLOCK_ALL_LEVELS = false
+DEBUG_RESET_SAVES 		= false 
+DEBUG_SPAWN_PLANE 		= nil 		-- Спавн стен с определенным ID
+DEBUG_START_LEVEL		= nil 		-- Пропуск меню и запуск определенного уровня
+
 -- Globals
 require "utils"
 require "math"
@@ -16,7 +21,11 @@ local startupScreen = "MainMenuScreen"
 --local startupScreen = "SettingsMenuScreen"
 --local startupScreen = "LevelSelectScreen"
 --local startupScreen = "GameScreen"
-screenManager:loadScreen(startupScreen)
+if not DEBUG_START_LEVEL then
+	screenManager:loadScreen(startupScreen)
+else
+	screenManager:loadScreen("GameScreen", DEBUG_START_LEVEL)
+end
 stage:addChild(screenManager)
 
 local function updateGame(e)

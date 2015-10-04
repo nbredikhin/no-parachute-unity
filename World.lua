@@ -6,7 +6,7 @@ local PowerUp 		= require "PowerUp"
 
 local World = Core.class(Sprite)
 
---local DEBUG_SPAWN_PLANE = 8
+--local 
 
 local DEFAULT_FALLING_SPEED = 7500
 local WALLS_COUNT = 10
