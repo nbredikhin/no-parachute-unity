@@ -22,10 +22,10 @@ function MainMenuScreen:load()
 	self.buttons.settings:setText("Settings")
 	self.buttons.settings:setPosition(buttonsX, buttonsY)
 
-	buttonsY = buttonsY + self.buttons.start:getHeight() * 2
+	--[[buttonsY = buttonsY + self.buttons.start:getHeight() * 2
 	self.buttons.credits = MenuButton.new()
 	self.buttons.credits:setText("Credits")
-	self.buttons.credits:setPosition(buttonsX, buttonsY)
+	self.buttons.credits:setPosition(buttonsX, buttonsY)]]
 	
 
 	for _, button in pairs(self.buttons) do

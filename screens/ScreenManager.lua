@@ -25,9 +25,11 @@ function ScreenManager:init()
 	self.blackBackground:setAlpha(0)
 
 	-- Счётчик фпс
-	self.framerateCounter = FramerateCounter.new()
-	self:addChild(self.framerateCounter)
-	
+	if DEBUG_SHOW_FPS then
+		self.framerateCounter = FramerateCounter.new()
+		self:addChild(self.framerateCounter)
+	end
+
 	self.screens = {
 		GameScreen 			= GameScreen,
 		LevelSelectScreen 	= LevelSelectScreen,
@@ -111,7 +113,10 @@ function ScreenManager:update(deltaTime)
 	elseif self.nextScreen then
 		self:changeScreen()
 	end
-	self.framerateCounter:update(deltaTime)
+
+	if DEBUG_SHOW_FPS then
+		self.framerateCounter:update(deltaTime)
+	end
 end
 
 function ScreenManager:getCurrentScreen()

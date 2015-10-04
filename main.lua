@@ -1,7 +1,9 @@
-DEBUG_UNLOCK_ALL_LEVELS = false
+DEBUG_SHOW_FPS 			= false
+DEBUG_UNLOCK_ALL_LEVELS = true
 DEBUG_RESET_SAVES 		= false 
 DEBUG_SPAWN_PLANE 		= nil 		-- Спавн стен с определенным ID
 DEBUG_START_LEVEL		= nil 		-- Пропуск меню и запуск определенного уровня
+DEBUG_START_TIME 		= nil
 
 -- Globals
 require "utils"

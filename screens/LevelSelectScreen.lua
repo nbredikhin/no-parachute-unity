@@ -4,7 +4,7 @@ local Screen 			= require "screens/Screen"
 
 local LevelSelectScreen = Core.class(Screen)
 
-local ICONS_COUNT = 11
+local ICONS_COUNT = 10
 local ICON_ALPHA_INACTIVE = 0.1
 local ICON_ALPHA_ACTIVE = 1
 
@@ -84,7 +84,11 @@ function LevelSelectScreen:load(levelID, isPassed)
 		self:addChild(button)
 	end
 
-	self:setSelectedIcon(SavesManager.saves.current_level)
+	if not DEBUG_UNLOCK_ALL_LEVELS then
+		self:setSelectedIcon(SavesManager.saves.current_level)
+	else
+		self:setSelectedIcon(1)
+	end
 
 	self.isStarting = false
 
