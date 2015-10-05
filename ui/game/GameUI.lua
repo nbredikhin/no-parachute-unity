@@ -13,7 +13,7 @@ local LIFES_BLINKING_DELAY = 0.25
 function GameUI:init()
 	self.touchButton = Bitmap.new(Assets:getTexture("assets/button.png"))
 	self.touchButton:setAnchorPoint(0.5, 0.5)
-	self.touchButton:setScale(math.min(0.3 * utils.scale, 0.3))
+	self.touchButton:setScale(2 * utils.scale)
 	self.touchButton:setAlpha(0.5)
 	self:addChild(self.touchButton)
 	self.touchButton:setVisible(false)

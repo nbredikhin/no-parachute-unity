@@ -1,5 +1,5 @@
 <project>
- <properties scaleMode="0" autorotation="0" win_org="DunnoGames" mouseTouchOrder="0" android_template="1" windowWidth="0" logicalWidth="768" encryptAssets="1" assetsOnly="0" packageName="com.wherry.noparachute" iosDevice="0" mouseToTouch="1" win_domain="NoDomain.No" orientation="1" logicalHeight="1024" osx_org="GiderosMobile" encryptCode="1" retinaDisplay="0" architecture="1" windowHeight="0" fps="60" touchToMouse="1" osx_domain="giderosmobile.com">
+ <properties encryptCode="1" logicalWidth="768" win_domain="NoDomain.No" retinaDisplay="0" assetsOnly="0" architecture="4" win_org="DunnoGames" osx_org="GiderosMobile" osx_domain="giderosmobile.com" orientation="1" touchToMouse="1" logicalHeight="1024" iosDevice="0" autorotation="0" mouseTouchOrder="0" mouseToTouch="1" windowWidth="0" android_template="1" windowHeight="0" fps="60" scaleMode="0" encryptAssets="1" packageName="com.wherry.noparachute">
   <imageScales/>
  </properties>
  <folder name="assets">
@@ -56,7 +56,6 @@
      <file source="assets/levels/3/planes/3.png.msk"/>
      <file source="assets/levels/3/planes/4.png.msk"/>
      <file source="assets/levels/3/planes/5.png.msk"/>
-
      <file source="assets/levels/3/planes/5_deco.png"/>
      <file source="assets/levels/3/planes/5_deco.png.msk"/>
     </folder>
@@ -94,8 +93,7 @@
     <file source="assets/levels/4/wall.png"/>
     <file source="assets/levels/4/logic.lua"/>
    </folder>
-
-<folder name="5">
+   <folder name="5">
     <folder name="planes">
      <file source="assets/levels/5/planes/1.png"/>
      <file source="assets/levels/5/planes/2.png"/>
@@ -123,8 +121,7 @@
     <file source="assets/levels/5/wall.png"/>
     <file source="assets/levels/5/logic.lua"/>
    </folder>
-
-    <folder name="6">
+   <folder name="6">
     <folder name="planes">
      <file source="assets/levels/6/planes/1.png"/>
      <file source="assets/levels/6/planes/1.png.msk"/>
@@ -156,49 +153,47 @@
     <file source="assets/levels/6/wall.png"/>
     <file source="assets/levels/6/logic.lua"/>
    </folder>
-
-  <folder name="7">
-      <folder name="planes">
-       <file source="assets/levels/7/planes/1.png"/>
-       <file source="assets/levels/7/planes/1.png.msk"/>
-       <file source="assets/levels/7/planes/2.png"/>
-       <file source="assets/levels/7/planes/2.png.msk"/>
-       <file source="assets/levels/7/planes/3.png"/>
-       <file source="assets/levels/7/planes/3.png.msk"/>
-       <file source="assets/levels/7/planes/4.png"/>
-       <file source="assets/levels/7/planes/4.png.msk"/>
-       <file source="assets/levels/7/planes/4_deco.png"/>
-       <file source="assets/levels/7/planes/4_deco.png.msk"/>
-       <file source="assets/levels/7/planes/5.png"/>
-       <file source="assets/levels/7/planes/5.png.msk"/>
-       <file source="assets/levels/7/planes/6.png"/>
-       <file source="assets/levels/7/planes/6.png.msk"/>
-       <file source="assets/levels/7/planes/6_deco.png"/>
-       <file source="assets/levels/7/planes/6_deco.png.msk"/>
-       <file source="assets/levels/7/planes/7.png"/>
-       <file source="assets/levels/7/planes/7.png.msk"/>
-       <file source="assets/levels/7/planes/8.png"/>
-       <file source="assets/levels/7/planes/8.png.msk"/>
-       <file source="assets/levels/7/planes/9.png"/>
-       <file source="assets/levels/7/planes/9.png.msk"/>
-       <file source="assets/levels/7/planes/9_deco.png"/>
-       <file source="assets/levels/7/planes/9_deco.png.msk"/>
-       <file source="assets/levels/7/planes/10.png"/>
-       <file source="assets/levels/7/planes/10.png.msk"/>
-       <file source="assets/levels/7/planes/10_deco.png"/>
-       <file source="assets/levels/7/planes/10_deco.png.msk"/>
-       <file source="assets/levels/7/planes/11.png"/>
-       <file source="assets/levels/7/planes/11.png.msk"/>
-      </folder>
-      <folder name="deco">
-       <file source="assets/levels/7/deco/1.png"/>
-       <file source="assets/levels/7/deco/2.png"/>
-      </folder>
-      <file source="assets/levels/7/wall.png"/>
-      <file source="assets/levels/7/logic.lua"/>
+   <folder name="7">
+    <folder name="planes">
+     <file source="assets/levels/7/planes/1.png"/>
+     <file source="assets/levels/7/planes/1.png.msk"/>
+     <file source="assets/levels/7/planes/2.png"/>
+     <file source="assets/levels/7/planes/2.png.msk"/>
+     <file source="assets/levels/7/planes/3.png"/>
+     <file source="assets/levels/7/planes/3.png.msk"/>
+     <file source="assets/levels/7/planes/4.png"/>
+     <file source="assets/levels/7/planes/4.png.msk"/>
+     <file source="assets/levels/7/planes/4_deco.png"/>
+     <file source="assets/levels/7/planes/4_deco.png.msk"/>
+     <file source="assets/levels/7/planes/5.png"/>
+     <file source="assets/levels/7/planes/5.png.msk"/>
+     <file source="assets/levels/7/planes/6.png"/>
+     <file source="assets/levels/7/planes/6.png.msk"/>
+     <file source="assets/levels/7/planes/6_deco.png"/>
+     <file source="assets/levels/7/planes/6_deco.png.msk"/>
+     <file source="assets/levels/7/planes/7.png"/>
+     <file source="assets/levels/7/planes/7.png.msk"/>
+     <file source="assets/levels/7/planes/8.png"/>
+     <file source="assets/levels/7/planes/8.png.msk"/>
+     <file source="assets/levels/7/planes/9.png"/>
+     <file source="assets/levels/7/planes/9.png.msk"/>
+     <file source="assets/levels/7/planes/9_deco.png"/>
+     <file source="assets/levels/7/planes/9_deco.png.msk"/>
+     <file source="assets/levels/7/planes/10.png"/>
+     <file source="assets/levels/7/planes/10.png.msk"/>
+     <file source="assets/levels/7/planes/10_deco.png"/>
+     <file source="assets/levels/7/planes/10_deco.png.msk"/>
+     <file source="assets/levels/7/planes/11.png"/>
+     <file source="assets/levels/7/planes/11.png.msk"/>
     </folder>
-
-    <folder name="8">
+    <folder name="deco">
+     <file source="assets/levels/7/deco/1.png"/>
+     <file source="assets/levels/7/deco/2.png"/>
+    </folder>
+    <file source="assets/levels/7/wall.png"/>
+    <file source="assets/levels/7/logic.lua"/>
+   </folder>
+   <folder name="8">
     <folder name="planes">
      <file source="assets/levels/8/planes/1.png"/>
      <file source="assets/levels/8/planes/1.png.msk"/>
@@ -222,89 +217,53 @@
     <file source="assets/levels/8/wall.png"/>
     <file source="assets/levels/8/logic.lua"/>
    </folder>
-
-    <folder name="9">
-      <folder name="planes">
-       <file source="assets/levels/9/planes/1.png"/>
-       <file source="assets/levels/9/planes/1.png.msk"/>
-       <file source="assets/levels/9/planes/2.png"/>
-       <file source="assets/levels/9/planes/2.png.msk"/>
-       <file source="assets/levels/9/planes/3.png"/>
-       <file source="assets/levels/9/planes/3.png.msk"/>
-       <file source="assets/levels/9/planes/4.png"/>
-       <file source="assets/levels/9/planes/4.png.msk"/>
-       <file source="assets/levels/9/planes/5.png"/>
-       <file source="assets/levels/9/planes/5.png.msk"/>
-       <file source="assets/levels/9/planes/6.png"/>
-       <file source="assets/levels/9/planes/6.png.msk"/>
-       <file source="assets/levels/9/planes/7.png"/>
-       <file source="assets/levels/9/planes/7.png.msk"/>
-       <file source="assets/levels/9/planes/8.png"/>
-       <file source="assets/levels/9/planes/8.png.msk"/>
-       <file source="assets/levels/9/planes/8_deco.png"/>
-       <file source="assets/levels/9/planes/8_deco.png.msk"/>
-       <file source="assets/levels/9/planes/9.png"/>
-       <file source="assets/levels/9/planes/9.png.msk"/>
-       <file source="assets/levels/9/planes/10.png"/>
-       <file source="assets/levels/9/planes/10.png.msk"/>
-       <file source="assets/levels/9/planes/11.png"/>
-       <file source="assets/levels/9/planes/11.png.msk"/>
-       <file source="assets/levels/9/planes/11_deco.png"/>
-       <file source="assets/levels/9/planes/11_deco.png.msk"/>
-       <file source="assets/levels/9/planes/12.png"/>
-       <file source="assets/levels/9/planes/12.png.msk"/>
-       <file source="assets/levels/9/planes/13.png"/>
-       <file source="assets/levels/9/planes/13.png.msk"/>
-       <file source="assets/levels/9/planes/14.png"/>
-       <file source="assets/levels/9/planes/14.png.msk"/>
-       <file source="assets/levels/9/planes/15.png"/>
-       <file source="assets/levels/9/planes/15.png.msk"/>
-       <file source="assets/levels/9/planes/15_deco.png"/>
-       <file source="assets/levels/9/planes/15_deco.png.msk"/>
-      </folder>
-      <folder name="deco">
-       <file source="assets/levels/9/deco/1.png"/>
-       <file source="assets/levels/9/deco/2.png"/>
-      </folder>
-      <file source="assets/levels/9/wall.png"/>
-      <file source="assets/levels/9/logic.lua"/>
-    </folder>
-
-    <!--<folder name="10">
+   <folder name="9">
     <folder name="planes">
-     <file source="assets/levels/10/planes/1.png"/>
-     <file source="assets/levels/10/planes/1.png.msk"/>
-     <file source="assets/levels/10/planes/2.png"/>
-     <file source="assets/levels/10/planes/2.png.msk"/>
-     <file source="assets/levels/10/planes/3.png"/>
-     <file source="assets/levels/10/planes/3.png.msk"/>
-     <file source="assets/levels/10/planes/4.png"/>
-     <file source="assets/levels/10/planes/4.png.msk"/>
-     <file source="assets/levels/10/planes/5.png"/>
-     <file source="assets/levels/10/planes/5.png.msk"/>
-     <file source="assets/levels/10/planes/6.png"/>
-     <file source="assets/levels/10/planes/6.png.msk"/>
-     <file source="assets/levels/10/planes/7.png"/>
-     <file source="assets/levels/10/planes/7.png.msk"/>
-     <file source="assets/levels/10/planes/8.png"/>
-     <file source="assets/levels/10/planes/8.png.msk"/>
-     <file source="assets/levels/10/planes/9.png"/>
-     <file source="assets/levels/10/planes/9.png.msk"/>
-     <file source="assets/levels/10/planes/10.png"/>
-     <file source="assets/levels/10/planes/10.png.msk"/>
-     <file source="assets/levels/10/planes/10_deco.png"/>
-     <file source="assets/levels/10/planes/10_deco.png.msk"/>
+     <file source="assets/levels/9/planes/1.png"/>
+     <file source="assets/levels/9/planes/1.png.msk"/>
+     <file source="assets/levels/9/planes/2.png"/>
+     <file source="assets/levels/9/planes/2.png.msk"/>
+     <file source="assets/levels/9/planes/3.png"/>
+     <file source="assets/levels/9/planes/3.png.msk"/>
+     <file source="assets/levels/9/planes/4.png"/>
+     <file source="assets/levels/9/planes/4.png.msk"/>
+     <file source="assets/levels/9/planes/5.png"/>
+     <file source="assets/levels/9/planes/5.png.msk"/>
+     <file source="assets/levels/9/planes/6.png"/>
+     <file source="assets/levels/9/planes/6.png.msk"/>
+     <file source="assets/levels/9/planes/7.png"/>
+     <file source="assets/levels/9/planes/7.png.msk"/>
+     <file source="assets/levels/9/planes/8.png"/>
+     <file source="assets/levels/9/planes/8.png.msk"/>
+     <file source="assets/levels/9/planes/8_deco.png"/>
+     <file source="assets/levels/9/planes/8_deco.png.msk"/>
+     <file source="assets/levels/9/planes/9.png"/>
+     <file source="assets/levels/9/planes/9.png.msk"/>
+     <file source="assets/levels/9/planes/10.png"/>
+     <file source="assets/levels/9/planes/10.png.msk"/>
+     <file source="assets/levels/9/planes/11.png"/>
+     <file source="assets/levels/9/planes/11.png.msk"/>
+     <file source="assets/levels/9/planes/11_deco.png"/>
+     <file source="assets/levels/9/planes/11_deco.png.msk"/>
+     <file source="assets/levels/9/planes/12.png"/>
+     <file source="assets/levels/9/planes/12.png.msk"/>
+     <file source="assets/levels/9/planes/13.png"/>
+     <file source="assets/levels/9/planes/13.png.msk"/>
+     <file source="assets/levels/9/planes/14.png"/>
+     <file source="assets/levels/9/planes/14.png.msk"/>
+     <file source="assets/levels/9/planes/15.png"/>
+     <file source="assets/levels/9/planes/15.png.msk"/>
+     <file source="assets/levels/9/planes/15_deco.png"/>
+     <file source="assets/levels/9/planes/15_deco.png.msk"/>
     </folder>
     <folder name="deco">
-     <file source="assets/levels/10/deco/1.png"/>
-     <file source="assets/levels/10/deco/2.png"/>
-     <file source="assets/levels/10/deco/3.png"/>
+     <file source="assets/levels/9/deco/1.png"/>
+     <file source="assets/levels/9/deco/2.png"/>
     </folder>
-    <file source="assets/levels/10/wall.png"/>
-    <file source="assets/levels/10/logic.lua"/>
-   </folder>-->
-
-    <folder name="10">
+    <file source="assets/levels/9/wall.png"/>
+    <file source="assets/levels/9/logic.lua"/>
+   </folder>
+   <folder name="10">
     <folder name="planes">
      <file source="assets/levels/10/planes/1.png"/>
      <file source="assets/levels/10/planes/1.png.msk"/>
@@ -362,7 +321,6 @@
     <file source="assets/levels/10/wall.png"/>
     <file source="assets/levels/10/logic.lua"/>
    </folder>
-
   </folder>
   <folder name="icons">
    <file source="assets/icons/locked.png"/>
@@ -390,24 +348,23 @@
    <file source="assets/sounds/powerup.wav"/>
   </folder>
   <folder name="player">
-    <file source="assets/player/main1.png"/>
-    <file source="assets/player/main2.png"/>
-    <file source="assets/player/right_hand_ok.png"/>
-    <file source="assets/player/right_hand_missing.png"/>
-    <file source="assets/player/left_hand_ok.png"/>
-    <file source="assets/player/left_hand_missing.png"/>
-
-    <file source="assets/player/right_leg_ok.png"/>
-    <file source="assets/player/right_leg_missing.png"/>
-    <file source="assets/player/left_leg_ok.png"/>
-    <file source="assets/player/left_leg_missing.png"/>
+   <file source="assets/player/main1.png"/>
+   <file source="assets/player/main2.png"/>
+   <file source="assets/player/right_hand_ok.png"/>
+   <file source="assets/player/right_hand_missing.png"/>
+   <file source="assets/player/left_hand_ok.png"/>
+   <file source="assets/player/left_hand_missing.png"/>
+   <file source="assets/player/right_leg_ok.png"/>
+   <file source="assets/player/right_leg_missing.png"/>
+   <file source="assets/player/left_leg_ok.png"/>
+   <file source="assets/player/left_leg_missing.png"/>
   </folder>
   <folder name="powerups">
-    <file source="assets/powerups/speed.png"/>
-    <file source="assets/powerups/size.png"/>
-    <file source="assets/powerups/life.png"/>
-    <file source="assets/powerups/health.png"/>
-    <file source="assets/powerups/ring.png"/>
+   <file source="assets/powerups/speed.png"/>
+   <file source="assets/powerups/size.png"/>
+   <file source="assets/powerups/life.png"/>
+   <file source="assets/powerups/health.png"/>
+   <file source="assets/powerups/ring.png"/>
   </folder>
   <file source="assets/blood.png"/>
   <file source="assets/pause.png"/>
@@ -463,6 +420,7 @@
   <file source="screens/LevelSelectScreen.lua"/>
   <file source="screens/MainMenuScreen.lua"/>
   <file source="screens/SettingsMenuScreen.lua"/>
+  <file source="screens/AboutScreen.lua"/>
   <file source="screens/Screen.lua"/>
   <file source="screens/ScreenManager.lua"/>
  </folder>

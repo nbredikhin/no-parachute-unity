@@ -16,7 +16,7 @@ local SPEEDUP_DELAY = 10
 local SPEEDUP_MUL = 2.5
 
 local RING_SPAWN_DELAY = 2.5
-local RING_VALUE = 5
+local RING_VALUE = 3
 
 local defaultWorldSize = 3000
 local defaultDecorativePlanesCount = 30

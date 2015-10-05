@@ -22,10 +22,10 @@ function MainMenuScreen:load()
 	self.buttons.settings:setText("Settings")
 	self.buttons.settings:setPosition(buttonsX, buttonsY)
 
-	--[[buttonsY = buttonsY + self.buttons.start:getHeight() * 2
+	buttonsY = buttonsY + self.buttons.start:getHeight() * 2
 	self.buttons.credits = MenuButton.new()
 	self.buttons.credits:setText("Credits")
-	self.buttons.credits:setPosition(buttonsX, buttonsY)]]
+	self.buttons.credits:setPosition(buttonsX, buttonsY)
 	
 
 	for _, button in pairs(self.buttons) do
@@ -42,13 +42,9 @@ function MainMenuScreen:buttonClick(e)
 	if e:getTarget() == self.buttons.start then
 		screenManager:loadScreen("LevelSelectScreen")
 	elseif e:getTarget() == self.buttons.settings then
-		screenManager:loadScreen(screenManager.screens.SettingsMenuScreen.new())
+		screenManager:loadScreen("SettingsMenuScreen")
 	elseif e:getTarget() == self.buttons.credits then
-		SavesManager.saves.current_level = SavesManager.saves.current_level + 1
-		if SavesManager.saves.current_level > 9 then
-			SavesManager.saves.current_level = 1
-		end
-		SavesManager:save()
+		screenManager:loadScreen("AboutScreen")
 	end
 end
 

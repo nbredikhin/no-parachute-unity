@@ -3,6 +3,7 @@ local GameScreen 			= require "screens/GameScreen"
 local LevelSelectScreen 	= require "screens/LevelSelectScreen"
 local MainMenuScreen 		= require "screens/MainMenuScreen"
 local SettingsMenuScreen 	= require "screens/SettingsMenuScreen"
+local AboutScreen 			= require "screens/AboutScreen"
 
 local ScreenManager = Core.class(Sprite)
 
@@ -34,7 +35,8 @@ function ScreenManager:init()
 		GameScreen 			= GameScreen,
 		LevelSelectScreen 	= LevelSelectScreen,
 		MainMenuScreen 		= MainMenuScreen,
-		SettingsMenuScreen 	= SettingsMenuScreen
+		SettingsMenuScreen 	= SettingsMenuScreen,
+		AboutScreen			= AboutScreen
 	}
 
 	-- Возврат назад
