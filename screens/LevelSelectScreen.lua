@@ -13,6 +13,12 @@ function LevelSelectScreen:load(levelID, isPassed)
 		if levelID == SavesManager.saves.current_level then
 			SavesManager.saves.current_level = SavesManager.saves.current_level + 1
 			SavesManager:save()
+			if levelID == 2 then
+				if ANDROID_GIFTIZ or DEBUG_GIFTIZ_TEST then
+					giftiz:missionComplete()
+				end
+				print("Giftiz mission complete")
+			end
 		end
 	end
 	self.background = MenuBackground.new()
@@ -91,6 +97,13 @@ function LevelSelectScreen:load(levelID, isPassed)
 	end
 
 	self.isStarting = false
+	
+	if ANDROID_GIFTIZ or DEBUG_GIFTIZ_TEST then
+		local giftizButton = GiftizButton.new("assets/giftiz")
+		self:addChild(giftizButton)
+		giftizButton:setScale(utils.scale * 0.7)
+		giftizButton:setPosition(utils.screenWidth - giftizButton:getWidth(), 0)
+	end
 
 	self:addEventListener(Event.KEY_DOWN, self.keyDown, self)
 end

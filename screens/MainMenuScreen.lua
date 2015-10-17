@@ -27,7 +27,13 @@ function MainMenuScreen:load()
 	self.buttons.credits:setText("Credits")
 	self.buttons.credits:setPosition(buttonsX, buttonsY)
 	
-
+	if ANDROID_GIFTIZ or DEBUG_GIFTIZ_TEST then
+		local giftizButton = GiftizButton.new("assets/giftiz")
+		self:addChild(giftizButton)
+		giftizButton:setScale(utils.scale * 0.7)
+		giftizButton:setPosition(utils.screenWidth - giftizButton:getWidth(), 0)
+	end
+	
 	for _, button in pairs(self.buttons) do
 		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)
 		self:addChild(button)

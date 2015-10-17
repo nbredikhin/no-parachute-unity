@@ -99,6 +99,7 @@ function GameScreen:load(levelID)
 end
 
 function GameScreen:unload()
+	backgroundMusic:setPaused(not SettingsManager.settings.sound_enabled)
 	self.input:removeEventListener(InputManager.TOUCH_BEGIN, self.onTouchBegin, self)
 	self.input:removeEventListener(InputManager.TOUCH_END, self.onTouchEnd, self)
 end
@@ -233,6 +234,7 @@ function GameScreen:onTouchBegin(e)
 			if self.ui.pauseButton:hitTestPoint(e.x, e.y) then
 				self.ui:setPauseUIVisible(true)
 				self.isPaused = true
+				backgroundMusic:setPaused(true)
 			end
 		else -- Во время паузы
 			-- Нажатие на кнопку "Back to menu"
@@ -242,6 +244,7 @@ function GameScreen:onTouchBegin(e)
 			elseif self.ui.pauseUI.continueText:hitTestPoint(e.x, e.y) then
 				self.ui:setPauseUIVisible(false)
 				self.isPaused = false
+				backgroundMusic:setPaused(not SettingsManager.settings.sound_enabled and false)
 			end
 		end
 	end
@@ -315,6 +318,7 @@ function GameScreen:pauseGame()
 	if self.world:isFinished() or not self.player.isAlive or self.isPaused then
 		return
 	end
+	backgroundMusic:setPaused(true)
 	self.ui:setPauseUIVisible(true)
 	self.isPaused = true
 	self.ui.touchButton:setVisible(false)

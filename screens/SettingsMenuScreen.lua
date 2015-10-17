@@ -108,6 +108,7 @@ function SettingsMenuScreen:buttonClick(e)
 	elseif e:getTarget() == self.buttons.sound then
 		self:updateButtonText(self.buttons.sound)
 		SettingsManager.settings.sound_enabled = e:getTarget():getText() == "Yes"
+		backgroundMusic:setPaused(not SettingsManager.settings.sound_enabled)
 	elseif e:getTarget() == self.buttons.vibration then
 		self:updateButtonText(self.buttons.vibration)
 		SettingsManager.settings.vibration_enabled = e:getTarget():getText() == "Yes"
@@ -123,7 +124,9 @@ function SettingsMenuScreen:back()
 	SettingsManager.settings.graphics_quality = self.sliders.graphics:getValue()
 	SettingsManager.settings.input_sensitivity = self.sliders.controls:getValue()
 	SettingsManager:save()
-
+	
+	backgroundMusic:setPaused(not SettingsManager.settings.sound_enabled)
+	
 	screenManager:loadScreen(screenManager.screens.MainMenuScreen.new())
 end
 
