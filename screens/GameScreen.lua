@@ -279,6 +279,9 @@ function GameScreen:restartButtonTouch(isReset)
 		return
 	end
 	self.ui:setDeathUIVisible(false)
+	if ANDROID_ADS then
+		admob:hideAd("banner")
+	end
 	self.ui:setLifesCount(self.lifes)
 
 	self.world:respawn()
@@ -300,6 +303,10 @@ function GameScreen:onPlayerWasted()
 		isGameOver = true
 	end
 	self.ui:setDeathUIVisible(true, isGameOver)
+	if ANDROID_ADS then
+		admob:showAd("banner")
+		admob:setAlignment("center", "top")
+	end
 	self:playSound("fail")
 end
 

@@ -38,10 +38,14 @@ function MainMenuScreen:load()
 		button:addEventListener(MenuButton.CLICK, self.buttonClick, self)
 		self:addChild(button)
 	end
+	
+	if ANDROID_ADS then
+		admob:showAd("banner")
+		admob:setAlignment("right", "bottom")
+	end
 end
 
 function MainMenuScreen:unload()
-
 end
 
 function MainMenuScreen:buttonClick(e)

@@ -1,10 +1,11 @@
 platformName = application:getDeviceInfo()
 if string.find(string.lower(platformName), "android") then
 	ANDROID_GIFTIZ = true
+	ANDROID_ADS = true
 end
 DEBUG_GIFTIZ_TEST		= false
 DEBUG_SHOW_FPS 			= false
-DEBUG_UNLOCK_ALL_LEVELS = true
+DEBUG_UNLOCK_ALL_LEVELS = false
 DEBUG_RESET_SAVES 		= false 
 DEBUG_SPAWN_PLANE 		= nil 		-- Спавн стен с определенным ID
 DEBUG_START_LEVEL		= nil 		-- Пропуск меню и запуск определенного уровня
@@ -36,6 +37,15 @@ else
 	end	
 end
 require "lib/GiftizButton"
+
+if ANDROID_ADS then
+	admobAdID = "ca-app-pub-7665690647709622/5869063193"
+	require "ads"
+	admob = Ads.new("admob")
+	admob:setKey(admobAdID)
+	admob:loadAd("banner")
+	admob:setAlignment("right", "bottom")
+end
 
 Assets 				= require "Assets"
 SettingsManager 	= require "SettingsManager"
