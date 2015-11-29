@@ -34,6 +34,7 @@ public class JoystickInput : MonoBehaviour
     private void JoystickEnd(Touch touch)
     {
         isTouching = false;
+        input = Vector2.zero;
     }
 
 	void Update()
