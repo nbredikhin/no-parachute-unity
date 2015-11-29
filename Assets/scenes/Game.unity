@@ -85,6 +85,52 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &92463791
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: .707106829
+      objectReference: {fileID: 0}
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: .707106709
+      objectReference: {fileID: 0}
+    - target: {fileID: 440114, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 113992, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &571393021
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +144,7 @@ GameObject:
   - 124: {fileID: 571393023}
   - 81: {fileID: 571393022}
   - 114: {fileID: 571393027}
+  - 114: {fileID: 571393028}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -144,7 +191,7 @@ Camera:
     height: 1
   near clip plane: .00999999978
   far clip plane: 1000
-  field of view: 60
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -192,3 +239,16 @@ MonoBehaviour:
   DecorativePlanesCount: 30
   GameSpeed: 10
   Level: 1
+--- !u!114 &571393028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 571393021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0cf3caf0e97439d8556c280e1549b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useTouchInput: 0
+  maxJoystickDistance: 70
