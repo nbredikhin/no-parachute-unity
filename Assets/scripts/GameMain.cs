@@ -25,8 +25,56 @@ public class GameMain: MonoBehaviour
 	{
         Application.targetFrameRate = 60;
 
+		ChangeLevel(1);
+	}
+
+	void Update () 
+	{
+		if (level <= 0)
+			return;
+		
+		foreach (var currentBox in pipeWalls) 
+		{
+			currentBox.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed);
+			if (currentBox.transform.position.y >= pipeSize)
+			{
+				currentBox.transform.Translate(Vector3.down * pipeCount * pipeSize);
+			}
+		}
+		foreach (var currentDecoPlane in decorativePlanes) 
+		{
+			currentDecoPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
+			if (currentDecoPlane.transform.position.y >= 0)
+			{
+				currentDecoPlane.transform.Translate(Vector3.down * (pipeCount - 1) * pipeSize, Space.World);
+				int rotationMul = Random.Range(0, 3);
+				currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
+			}
+		}
+	}
+	
+	public void ChangeLevel(int newLevel)
+	{
+		// Номер уровня выступает индикатором для Update
+		// Положительный номер уровня говорит о том, что нужно выгрузить игру
+		if (level > 0)
+		{
+			 level = 0;
+			 fallingSpeed = 0;
+			 // Удаление контейнеров
+			 pipeWalls = null;
+			 decorativePlanes = null;
+			 
+		}
+		
+		level = newLevel;
+		
+		// TODO: Загрузка JSON уровня
+		fallingSpeed = 10;
+		
+		
         // Боковые стены
-        // Загрузка текстур
+        // Загрузка текстур 
         Texture bufferTexture = Resources.Load<Texture> ("levels/" + level.ToString() + "/wall");
 		for (int i = 0; i < 4; ++i)
 		{
@@ -62,28 +110,6 @@ public class GameMain: MonoBehaviour
 			decorativePlane.GetComponent<MeshRenderer>().material.mainTexture = decorativeTextures[textureIndex];
 			decorativePlane.transform.Rotate(0, 0, Random.Range(0, 4) * 90);
 			decorativePlanes[i] = decorativePlane;
-		}
-	}
-
-	void Update () 
-	{
-		foreach (var currentBox in pipeWalls) 
-		{
-			currentBox.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed);
-			if (currentBox.transform.position.y >= pipeSize)
-			{
-				currentBox.transform.Translate(Vector3.down * pipeCount * pipeSize);
-			}
-		}
-		foreach (var currentDecoPlane in decorativePlanes) 
-		{
-			currentDecoPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
-			if (currentDecoPlane.transform.position.y >= 0)
-			{
-				currentDecoPlane.transform.Translate(Vector3.down * (pipeCount - 1) * pipeSize, Space.World);
-				int rotationMul = Random.Range(0, 3);
-				currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
-			}
 		}
 	}
 }

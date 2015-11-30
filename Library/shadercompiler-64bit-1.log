@@ -2,30 +2,10 @@ Base path: /Volumes/OSXdata 1/Applications/Unity/Unity.app/Contents
 Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-1916661760
 Cmd: getPlatforms
 Cmd: compileSnippet
-  api=0 type=0 insize=1001 outsize=554 kw= ok=1
+  api=0 type=0 insize=1001 outsize=954 kw=FOG_EXP2 pd= ok=1
 Cmd: compileSnippet
-  api=0 type=1 insize=1001 outsize=6 kw= ok=1
+  api=0 type=1 insize=1001 outsize=6 kw=FOG_EXP2 pd= ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=959 outsize=407 kw= ok=1
+  api=0 type=0 insize=13030 outsize=6315 kw=UNITY_COLORSPACE_GAMMA _SUNDISK_SIMPLE pd= ok=1
 Cmd: compileSnippet
-  api=0 type=1 insize=959 outsize=6 kw= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=751 outsize=1893 kw=SHADOWS_DEPTH ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=751 outsize=6 kw=SHADOWS_DEPTH ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=982 outsize=9902 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=982 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=938 outsize=5705 kw=DIRECTIONAL SHADOWS_OFF ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=938 outsize=6 kw=DIRECTIONAL SHADOWS_OFF ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=9591 outsize=6498 kw=UNITY_COLORSPACE_GAMMA ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=9591 outsize=6 kw=UNITY_COLORSPACE_GAMMA ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=1001 outsize=954 kw=FOG_EXP2 ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=1001 outsize=6 kw=FOG_EXP2 ok=1
+  api=0 type=1 insize=13030 outsize=6 kw=UNITY_COLORSPACE_GAMMA _SUNDISK_SIMPLE pd= ok=1
