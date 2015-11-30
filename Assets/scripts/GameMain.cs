@@ -3,10 +3,18 @@ using System.Collections;
 
 using System.Collections.Generic;
 
+public struct PlaneObject
+{
+		
+} 
+
 public class GameMain: MonoBehaviour 
 {
 	public GameObject pipeWallPrefab;
 	public GameObject decorativePlanePrefab;
+	public GameObject planePrefab;
+
+	private List<PlaneProperties []> planeProperties;
 
 	public int pipeSize  = 10;
 	public int pipeCount = 10;
@@ -24,8 +32,8 @@ public class GameMain: MonoBehaviour
 	void Start () 
 	{
         Application.targetFrameRate = 60;
-
-		ChangeLevel(1);
+		// Тестовая инициализация
+		ChangeLevel(3);
 	}
 
 	void Update () 
@@ -51,8 +59,16 @@ public class GameMain: MonoBehaviour
 				currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
 			}
 		}
+		foreach (var currentPlane in planes)
+		{
+			currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
+			if (currentPlane.transform.position.y >= 0)
+			{
+				currentPlane.transform.Translate(Vector3.down * (pipeCount - 1) * pipeSize, Space.World);
+			}
+		}
 	}
-	
+
 	public void ChangeLevel(int newLevel)
 	{
 		// Номер уровня выступает индикатором для Update
@@ -70,8 +86,32 @@ public class GameMain: MonoBehaviour
 		level = newLevel;
 		
 		// TODO: Загрузка JSON уровня
+		// Тестовый уровень - 3
 		fallingSpeed = 10;
-		
+		planeProperties = new List<PlaneProperties []>();
+		for (int i = 1; i <= 5; ++i)
+		{
+			int size = 1;
+			if (i == 5)
+				size = 2;
+				
+			PlaneProperties [] props = new PlaneProperties[size];
+			for (int j = 1; j <= size; ++j)
+			{
+				var prop = new PlaneProperties();
+				string texturePath = "levels/" + level.ToString() + "/planes/" + i.ToString();
+				if (i == 5)
+				{
+					if (j == 1)
+						prop.RotationSpeed = 30;
+					else 
+						texturePath += "_deco";
+				}
+				prop.TexturePath = texturePath;
+				props[j - 1] = prop;
+			} 	
+			planeProperties.Add(props);
+		}
 		
         // Боковые стены
         // Загрузка текстур 
@@ -79,7 +119,6 @@ public class GameMain: MonoBehaviour
 		for (int i = 0; i < 4; ++i)
 		{
 			var childRenderer = pipeWallPrefab.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>();
-			Debug.Log(childRenderer);
 			childRenderer.sharedMaterial.mainTexture = bufferTexture;
 		}
         // Создание стен
@@ -110,6 +149,15 @@ public class GameMain: MonoBehaviour
 			decorativePlane.GetComponent<MeshRenderer>().material.mainTexture = decorativeTextures[textureIndex];
 			decorativePlane.transform.Rotate(0, 0, Random.Range(0, 4) * 90);
 			decorativePlanes[i] = decorativePlane;
+		}
+		
+		// Тестовое создание плоскостей
+		planes = new GameObject[10];
+		for (int i = 0; i < 10; ++i)
+		{
+			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * i * 10, planePrefab.transform.rotation);
+			obj.GetComponent<PlaneBehaviour>().Setup(planeProperties[i % 5]);
+			planes[i] = obj;
 		}
 	}
 }

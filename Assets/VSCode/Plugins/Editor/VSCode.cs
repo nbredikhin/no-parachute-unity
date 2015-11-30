@@ -1,10 +1,10 @@
-???/*
+﻿/*
  * Unity VSCode Support
  *
  * Seamless support for Microsoft Visual Studio Code in Unity
  *
  * Version:
- *   2.3
+ *   2.2
  *
  * Authors:
  *   Matthew Davey <matthew.davey@dotbunny.com>
@@ -23,12 +23,12 @@ namespace dotBunny.Unity
     {
         /// <summary>
         /// Current Version Number
-        /// </summary>
-        public const float Version = 2.3f;
+        /// </summary
+        public const float Version = 2.2f;
 
         /// <summary>
         /// Current Version Code
-        /// </summary>
+        /// </summary
         public const string VersionCode = "-RELEASE";
 
         #region Properties
@@ -304,7 +304,6 @@ namespace dotBunny.Unity
             proc.StartInfo.Arguments = args;
             proc.StartInfo.UseShellExecute = false;
 #endif
-            proc.StartInfo.CreateNoWindow = true;
             proc.StartInfo.RedirectStandardOutput = true;
             proc.Start();
         }
@@ -715,14 +714,11 @@ namespace dotBunny.Unity
             if (content.Length == 0)
                 return "";
 
-// Note: it causes OmniSharp faults on Windows, such as "not seeing UnityEngine.UI". 3.5 target works fine
-#if !UNITY_EDITOR_WIN
             // Make sure our reference framework is 2.0, still the base for Unity
             if (content.IndexOf("<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>") != -1)
             {
                 content = Regex.Replace(content, "<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>", "<TargetFrameworkVersion>v2.0</TargetFrameworkVersion>");
             }
-#endif
 
             string targetPath = "";// "<TargetPath>Temp" + Path.DirectorySeparatorChar + "bin" + Path.DirectorySeparatorChar + "Debug" + Path.DirectorySeparatorChar + "</TargetPath>"; //OutputPath
             string langVersion = "<LangVersion>default</LangVersion>";
@@ -813,7 +809,7 @@ namespace dotBunny.Unity
         static void UpdateLaunchFile(int port)
         {
             // Write out proper formatted JSON (hence no more SimpleJSON here)
-            string fileContent = "{\n\t\"version\":\"0.2.0\",\n\t\"configurations\":[ \n\t\t{\n\t\t\t\"name\":\"Unity\",\n\t\t\t\"type\":\"mono\",\n\t\t\t\"request\":\"attach\",\n\t\t\t\"address\":\"localhost\",\n\t\t\t\"port\":" + port + "\n\t\t}\n\t]\n}";
+            string fileContent = "{\n\t\"version\":\"0.1.0\",\n\t\"configurations\":[ \n\t\t{\n\t\t\t\"name\":\"Unity\",\n\t\t\t\"type\":\"mono\",\n\t\t\t\"address\":\"localhost\",\n\t\t\t\"port\":" + port + "\n\t\t}\n\t]\n}";
             File.WriteAllText(VSCode.LaunchPath, fileContent);
         }
 
