@@ -234,6 +234,7 @@ MonoBehaviour:
   pipeWallPrefab: {fileID: 129276, guid: ff8d7269e678a4d42852f3c6271d0a9d, type: 2}
   decorativePlanePrefab: {fileID: 151304, guid: 64684a9011a2e4a32ad3f4284ed01c0c,
     type: 2}
+  planePrefab: {fileID: 125562, guid: 4bce9dd90f12141438f5a9d5703de343, type: 2}
   pipeSize: 10
   pipeCount: 10
   maxDecorativeTextures: 50
