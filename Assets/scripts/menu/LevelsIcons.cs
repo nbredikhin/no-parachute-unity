@@ -20,8 +20,15 @@ public class LevelsIcons : MonoBehaviour
     public Sprite passedSprite;
     public Sprite lockedSprite;
 
+    private RectTransform rectTransform;
     private GameObject[] icons;
     private int selectedIcon;
+
+    // Анимация
+    public float slidingAnimationSpeed = 10f;
+    public float sizeAnimationSpeed = 20f;
+    private Vector3 targetScale;
+    private Vector2 targetPosition;
 
     // Номер выбранного уровня
     public int SeletedLevel
@@ -34,6 +41,7 @@ public class LevelsIcons : MonoBehaviour
 
     void Start ()
     {
+        rectTransform = GetComponent<RectTransform>();
         icons = new GameObject[iconsCount];
         for (int i = 0; i < iconsCount; i++)
         {
@@ -88,15 +96,22 @@ public class LevelsIcons : MonoBehaviour
     {
         icons[selectedIcon].transform.localScale = Vector2.one;
         selectedIcon = index;
-        icons[selectedIcon].transform.localScale *= selectedIconScale;
+        targetScale = icons[selectedIcon].transform.localScale * selectedIconScale;
 
-        var rectTransform = GetComponent<RectTransform>();
         var iconRectTransform = icons[selectedIcon].GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = -iconRectTransform.anchoredPosition;
+        targetPosition = -iconRectTransform.anchoredPosition;
+
+        var button = icons[selectedIcon].GetComponent<Button>();
+        button.Select();
     }
 
     void Update ()
     {
-	
-	}
+        // Плавное изменение размера
+        var scale = icons[selectedIcon].transform.localScale;
+        scale += (targetScale - scale) * sizeAnimationSpeed * Time.deltaTime;
+        icons[selectedIcon].transform.localScale = scale;
+        // Плавное изменение позиции
+        rectTransform.anchoredPosition += (targetPosition - rectTransform.anchoredPosition) * slidingAnimationSpeed * Time.deltaTime;
+    }
 }
