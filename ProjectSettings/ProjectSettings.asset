@@ -329,11 +329,11 @@ PlayerSettings:
   metroPackageLogo180: 
   metroPackageLogo240: 
   metroPackageVersion: 
-  metroCertificatePath: 
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: BringDat Games
+  metroCertificateIssuer: BringDat Games
+  metroCertificateNotAfter: 0046bfbdb94ad201
   metroApplicationDescription: NoParachute2
   metroStoreTileLogo80: 
   metroStoreTileLogo: 
