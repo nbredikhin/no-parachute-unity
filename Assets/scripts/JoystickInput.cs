@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class JoystickInput : MonoBehaviour
 {
     public static Vector2 input;
-    public bool useTouchInput = false;
+    // Максимальное смещение джойстика относительно места нажатия
     public float maxJoystickDistance = 70f;
+    // Ввод с различных источников
+    public bool enableTouchInput = true;
+    public bool enableMouseInput = true;
+    public bool enableKeyboardInput = true;
+    // Отображение джойстика на экране
+    public Image joystickImage;
 
     private bool isTouching;
     private int fingerId;
@@ -13,54 +20,78 @@ public class JoystickInput : MonoBehaviour
 
 	void Start ()
     {
-        useTouchInput |= Input.touchSupported;
-	}
+        joystickImage.enabled = false;
+    }
 
-    private void JoystickMove(Touch touch)
+    private void JoystickMove(Vector2 position)
     {
-        var delta = touch.position - startTouchPosition;
-        // TODO: Чувствительность
+        var delta = position - startTouchPosition;
+        // TODO: Чувствительность из настроек
         delta = Vector2.ClampMagnitude(delta, maxJoystickDistance);
         input = delta / maxJoystickDistance;
+
+        joystickImage.rectTransform.position = startTouchPosition + delta;
+        joystickImage.color = new Color(1f, 1f, 1f, delta.magnitude / maxJoystickDistance);
     }
 
-    private void JoystickBegin(Touch touch)
+    private void JoystickBegin(Vector2 position)
     {
-        startTouchPosition = touch.position;
-        fingerId = touch.fingerId;
+        startTouchPosition = position;
         isTouching = true;
+        joystickImage.enabled = true;
+        joystickImage.color = new Color(1f, 1f, 1f, 0f);
     }
 
-    private void JoystickEnd(Touch touch)
+    private void JoystickEnd(Vector2 position)
     {
         isTouching = false;
         input = Vector2.zero;
+        joystickImage.enabled = false;
     }
 
 	void Update()
     {
-	    if (useTouchInput)
+        // Ввод с клавиатуры 
+        if (enableKeyboardInput)
+        {
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
+        }
+        // Тач
+        if (enableTouchInput && Input.touchSupported)
         {
             foreach (var touch in Input.touches)
             {
                 if (isTouching && touch.phase == TouchPhase.Moved && touch.fingerId == fingerId)
                 {
-                    JoystickMove(touch);
+                    JoystickMove(touch.position);
                 }
                 else if (isTouching && touch.phase == TouchPhase.Ended && touch.fingerId == fingerId)
                 {
-                    JoystickEnd(touch);
+                    JoystickEnd(touch.position);
                 }
                 else if (touch.phase == TouchPhase.Began)
                 {
-                    JoystickBegin(touch);
+                    fingerId = touch.fingerId;
+                    JoystickBegin(touch.position);
                 }
             }
         }
-        else
+        // Мышь
+        if (enableMouseInput)
         {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
+            if (isTouching && Input.GetMouseButton(0))
+            {
+                JoystickMove(Input.mousePosition);
+            }
+            else if (isTouching && Input.GetMouseButtonUp(0))
+            {
+                JoystickEnd(Input.mousePosition);
+            }
+            else if (!isTouching && Input.GetMouseButtonDown(0))
+            {
+                JoystickBegin(Input.mousePosition);
+            }
         }
 	}
 
