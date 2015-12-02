@@ -4,50 +4,25 @@ using System.Collections;
 
 public class MenuBackground : MonoBehaviour
 {
-    public GameObject rectPrefab;
-    public int rectsCount = 100;
-    public float brightness = 0.5f;
-
-    private float canvasWidth;
-    private float canvasHeight;
-
-    private Image[] rects;
+    private Image image;
+    private Texture2D texture;
 
     void Start()
     {
-        var rectTransform = transform.parent.GetComponent<RectTransform>();
-        canvasWidth = rectTransform.rect.width;
-        canvasHeight = rectTransform.rect.height;
-
-        rects = new Image[rectsCount];
-        float rectWidth = canvasWidth / rectsCount;
-        for (int i = 0; i < rectsCount; i++)
-        {
-            rects[i] = CreateRect(i * rectWidth, 0, rectWidth, canvasHeight);
-        }
-    }
-
-    Image CreateRect(float x, float y, float width, float height)
-    {
-        var rect = Instantiate(rectPrefab);
-        rect.transform.SetParent(transform, false);
-
-        var rectTransform = rect.GetComponent<RectTransform>();
-        rectTransform.offsetMin = new Vector2(x, y - height);
-        rectTransform.offsetMax = new Vector2(x + width, canvasHeight - height);
-          
-        return rect.GetComponent<Image>();
+        image = GetComponent<Image>();
+        texture = new Texture2D(100, 1);
+        texture.filterMode = FilterMode.Point;
+        image.sprite = Sprite.Create(texture, new Rect(0, 0, 100, 1), Vector2.zero);
     }
 
     void Update()
     {
-        for (int i = 0; i < rectsCount; i++)
+        for (int i = 0; i < 100; i++)
         {
-            float mul = (float)i / (float)rectsCount * brightness;
-            float r = Random.value * mul;
-            float g = Random.value * mul;
-            float b = Random.value * mul;
-            rects[i].color = new Color(r, g, b);
+            var mul = (float)i / 100f * 0.2f;
+            texture.SetPixel(i, 0, new Color(Random.value * mul, Random.value * mul, Random.value * mul));
         }
+        texture.Apply();
     }
+
 }
