@@ -163,6 +163,11 @@ Prefab:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 113992, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 446146, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -444,7 +449,6 @@ MonoBehaviour:
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
   fallingSpeed: 10
-  level: 1
 --- !u!114 &571393028
 MonoBehaviour:
   m_ObjectHideFlags: 0

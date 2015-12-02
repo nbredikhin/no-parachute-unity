@@ -10,15 +10,14 @@ public class PlaneBehaviour : MonoBehaviour
 		
 	}
 	
-	public void Setup(PlaneProperties [] layerProps)
+	public void Setup(List<PlaneProperties> layerProps)
 	{
 		layers = new Dictionary<GameObject, PlaneProperties>();
 		foreach (var currentLayerProps in layerProps)
 		{
 			var newObject = Instantiate<GameObject>(LayerPrefab);
 			newObject.GetComponent<MeshRenderer>().material.mainTexture = currentLayerProps.MainTexture;
-			newObject.transform.SetParent(gameObject.transform);
-			newObject.transform.localPosition = Vector3.zero;
+			newObject.transform.SetParent(gameObject.transform, false);
 			layers.Add(newObject, currentLayerProps);
 			
 			// TODO: Сделать привязку скриптов
