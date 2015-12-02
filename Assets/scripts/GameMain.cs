@@ -64,7 +64,7 @@ public class GameMain: MonoBehaviour
 			currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
 			if (currentPlane.transform.position.y >= 0)
 			{
-				currentPlane.transform.Translate(Vector3.down * (pipeCount - 1) * pipeSize, Space.World);
+				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
 			}
 		}
 	}
@@ -153,7 +153,7 @@ public class GameMain: MonoBehaviour
 		
 		// Тестовое создание плоскостей
 		planes = new GameObject[10];
-		for (int i = 0; i < 10; ++i)
+		for (int i = 0; i < 0; ++i)
 		{
 			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * i * 10, planePrefab.transform.rotation);
 			obj.GetComponent<PlaneBehaviour>().Setup(planeProperties[i % 5]);
