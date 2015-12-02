@@ -17,6 +17,9 @@ public class MenuButtonsHandlers : MonoBehaviour
     {
         var levelsIcons = GameObject.Find("levels_icons").GetComponent<LevelsIcons>();
         Debug.LogFormat("Selected level: {0}", levelsIcons.SeletedLevel);
+        
+        SharedData.levelNo = levelsIcons.SeletedLevel;
+        
         Application.LoadLevel("Game");
     }
 }

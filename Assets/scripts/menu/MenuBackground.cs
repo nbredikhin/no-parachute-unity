@@ -9,6 +9,7 @@ public class MenuBackground : MonoBehaviour
 
     void Start()
     {
+                Application.targetFrameRate = 60;
         image = GetComponent<Image>();
         texture = new Texture2D(100, 1);
         texture.filterMode = FilterMode.Point;

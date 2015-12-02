@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
+public class SharedData
+{
+	public static int levelNo = 1;
+}
+
 public class GameMain: MonoBehaviour 
 {
 	public GameObject pipeWallPrefab;
@@ -25,14 +30,15 @@ public class GameMain: MonoBehaviour
 	private GameObject[] planes;
 
 	public Level level;
+	
 
 	void Start () 
 	{
-        Application.targetFrameRate = 60;
+		Application.targetFrameRate = 60;
 		if (level == null)
 			level = new Level();
 		// Тестовая инициализация
-		ChangeLevel(3);
+		ChangeLevel(SharedData.levelNo);
 	}
 
 	void Update () 
@@ -140,7 +146,7 @@ public class GameMain: MonoBehaviour
 		for (int i = 0; i < 10; ++i)
 		{
 			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * i * 10, planePrefab.transform.rotation);
-			obj.GetComponent<PlaneBehaviour>().Setup(level.Planes[i % 5]);
+			obj.GetComponent<PlaneBehaviour>().Setup(level.Planes[i % level.Planes.Count]);
 			planes[i] = obj;
 		}
 	}
