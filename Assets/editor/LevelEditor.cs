@@ -92,7 +92,10 @@ public class LevelEditor : EditorWindow
 				{
 					for (int j = 0; j < indexer; ++j)
 					{	
-						levelSetup.Planes[i][j].TexturePath = (i + 1).ToString();
+						if (levelSetup.Planes[i][j].TexturePath == "")
+						{
+							levelSetup.Planes[i][j].TexturePath = (i + 1).ToString();
+						}
 						levelSetup.Planes[i][j].TexturePath = EditorGUILayout.TextField("Имя текстуры", levelSetup.Planes[i][j].TexturePath);
 						levelSetup.Planes[i][j].MovementSpeed = EditorGUILayout.Vector3Field("Скорость движения", levelSetup.Planes[i][j].MovementSpeed);
 						levelSetup.Planes[i][j].RotationSpeed = (float)EditorGUILayout.DoubleField("Скорость вращения", levelSetup.Planes[i][j].RotationSpeed);

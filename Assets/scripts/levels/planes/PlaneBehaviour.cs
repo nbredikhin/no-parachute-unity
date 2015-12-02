@@ -10,7 +10,7 @@ public class PlaneBehaviour : MonoBehaviour
 		
 	}
 	
-	public void Setup(PlaneProperties [] layerProps)
+	public void Setup(List<PlaneProperties> layerProps)
 	{
 		layers = new Dictionary<GameObject, PlaneProperties>();
 		foreach (var currentLayerProps in layerProps)
