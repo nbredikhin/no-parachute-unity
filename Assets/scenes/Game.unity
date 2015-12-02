@@ -256,10 +256,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0cf3caf0e97439d8556c280e1549b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxJoystickDistance: 70
   enableTouchInput: 1
   enableMouseInput: 1
   enableKeyboardInput: 1
-  maxJoystickDistance: 70
   joystickImage: {fileID: 1980448521}
 --- !u!114 &571393029
 MonoBehaviour:
@@ -688,7 +688,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -430, y: 215}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1980448521
