@@ -13,10 +13,7 @@ public class Level
 	
 	public bool LoadLevel(TextAsset file)
 	{
-		
-		
-		
-		return true;
+		return LoadLevel(file.text);
 	}
 	
 	public bool LoadLevel(string level_str)
@@ -142,12 +139,5 @@ public class Level
 				Debug.LogError("Wrong property name!");
 			break;
 		}
-	}
-	
-	public string SerializeLevel()
-	{
-		string res = "";
-		
-		return res;
 	}
 }
