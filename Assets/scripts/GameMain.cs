@@ -91,8 +91,10 @@ public class GameMain: MonoBehaviour
 #region TEST
 		var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
 		string jsonString = levelFile.text;
+		level = new Level();
+		level.LoadLevel(jsonString);
 		
-		level = JsonConvert.DeserializeObject<Level>(jsonString);
+		// level = JsonConvert.DeserializeObject<Level>(jsonString);
 		
 		foreach(var currentPlane in level.Planes)
 		{
