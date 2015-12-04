@@ -101,6 +101,7 @@ public class GameMain: MonoBehaviour
 			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
                 bool isHit = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
+				// Debug.Log(isHit);
                 if (isHit)
                 {
                     OnPlayerHitPlane();
@@ -174,7 +175,7 @@ public class GameMain: MonoBehaviour
         float distance = pipeCount * pipeSize / decorativePlanesCount;
 		for (int i = 0; i < decorativePlanesCount; ++i) 
 		{
-			var decorativePlane = (GameObject)Instantiate(decorativePlanePrefab, Vector3.down * i * distance, decorativePlanePrefab.transform.rotation);
+			var decorativePlane = (GameObject)Instantiate(decorativePlanePrefab,  Vector3.down * i * distance, decorativePlanePrefab.transform.rotation);
 			int textureIndex = Random.Range(0, decorativeTextures.Count);
 			decorativePlane.GetComponent<MeshRenderer>().material.mainTexture = decorativeTextures[textureIndex];
 			decorativePlane.transform.Rotate(0, 0, Random.Range(0, 4) * 90);
@@ -185,9 +186,9 @@ public class GameMain: MonoBehaviour
 		planes = new GameObject[10];
 		for (int i = 0; i < 10; ++i)
 		{
-			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * i * 10, planePrefab.transform.rotation);
+			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * (i * 10 + pipeSize * pipeCount / 2), planePrefab.transform.rotation);
 			obj.GetComponent<PlaneBehaviour>().Setup(level.Planes[i % level.Planes.Count]);
-            int rotationMul = 0;// Random.Range(0, 3);
+            int rotationMul =  Random.Range(0, 3);
 			obj.transform.Rotate(0, rotationMul * 90, 0);
 			planes[i] = obj;
 		}

@@ -33,22 +33,13 @@ public class PlaneBehaviour : MonoBehaviour
 			
 			var texture = layerProperties.MainTexture as Texture2D;
 			
-			var x = point.x;
-			var y = point.z;
+			var x = point.x - layerGameObject.transform.position.x;
+			var y = point.z - layerGameObject.transform.position.z;
 			
-			x -= layerGameObject.transform.position.x;
-			y -= layerGameObject.transform.position.z;
+			var r = Utils.RotateVector2(new Vector2(x, y), layerGameObject.transform.eulerAngles.y);
 			
-			var sin = Mathf.Sin(layerGameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
-			var cos = Mathf.Cos(layerGameObject.transform.eulerAngles.y * Mathf.Deg2Rad);
-			
-			x = x * cos - y * sin;
-			y = x * sin - y * cos;
-			
-			x = Mathf.Floor((x + layerGameObject.transform.localScale.x / 2) / layerGameObject.transform.localScale.x * texture.width);
-			y = Mathf.Floor((1 - (y + layerGameObject.transform.localScale.y / 2) / layerGameObject.transform.localScale.y) * texture.height);
-			
-			// Debug.Log(x + " " + y);
+			x = Mathf.Floor((r.x + layerGameObject.transform.localScale.x / 2) / layerGameObject.transform.localScale.x * texture.width);
+			y = Mathf.Floor((r.y + layerGameObject.transform.localScale.y / 2) / layerGameObject.transform.localScale.y * texture.height);
 			
 			if (texture.GetPixel((int)x, (int)y).a > 0)
 				return true;
