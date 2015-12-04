@@ -32,6 +32,7 @@ public class GameMain: MonoBehaviour
 	public Level level;
 
     private bool isPaused;
+	private GameObject player;
 	public bool IsPaused
     {
         get
@@ -79,6 +80,14 @@ public class GameMain: MonoBehaviour
 			{
 				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
 			}
+			
+			var planeZ = currentPlane.transform.position.y;
+			var playerZ = player.transform.position.y;
+			
+			if (Mathf.Abs(planeZ - playerZ) <= level.FallingSpeed * Time.deltaTime)
+			{
+				Debug.Log(currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position));
+			}
 		}
 
         // Вращение камеры
@@ -102,8 +111,10 @@ public class GameMain: MonoBehaviour
 #region TEST
 		var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
 		string jsonString = levelFile.text;
+		level = new Level();
+		level.LoadLevel(jsonString);
 		
-		level = JsonConvert.DeserializeObject<Level>(jsonString);
+		// level = JsonConvert.DeserializeObject<Level>(jsonString);
 		
 		foreach(var currentPlane in level.Planes)
 		{
@@ -158,8 +169,12 @@ public class GameMain: MonoBehaviour
 		{
 			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * i * 10, planePrefab.transform.rotation);
 			obj.GetComponent<PlaneBehaviour>().Setup(level.Planes[i % level.Planes.Count]);
+			int rotationMul = Random.Range(0, 3);
+			obj.transform.Rotate(0, rotationMul * 90, 0);
 			planes[i] = obj;
 		}
+		
+		player = GameObject.Find("Player");
 	}
 
     // Пауза
