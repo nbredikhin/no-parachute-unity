@@ -40,6 +40,7 @@ public class GameUI : MonoBehaviour {
 
     public void BackToMenuButtonClick()
     {
+        Time.timeScale = 1;
         Application.LoadLevel("LevelsMenu");
     }
 }
