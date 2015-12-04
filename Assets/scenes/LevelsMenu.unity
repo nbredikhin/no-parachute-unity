@@ -502,6 +502,54 @@ Prefab:
       propertyPath: m_Pivot.y
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: selectedFrameColor.r
+      value: .482352942
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: selectedFrameColor.g
+      value: .164705887
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: selectedFrameColor.b
+      value: .917647064
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: selectedFrameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: normalFrameColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: normalFrameColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: normalFrameColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: normalFrameColor.a
+      value: .483999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: lockedFrameColor.r
+      value: .713235259
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: lockedFrameColor.g
+      value: .713235259
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: lockedFrameColor.b
+      value: .713235259
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481100, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
+      propertyPath: lockedFrameColor.a
+      value: .291000009
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74a62ca3c0ea9304288915c52acbcaab, type: 2}
   m_IsPrefabParent: 0
