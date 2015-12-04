@@ -3,10 +3,12 @@ using System.Collections;
 
 using System.Collections.Generic;
 
-public struct PlaneObject
+using Newtonsoft.Json;
+
+public class SharedData
 {
-		
-} 
+	public static int levelNo = 1;
+}
 
 public class GameMain: MonoBehaviour 
 {
@@ -27,23 +29,34 @@ public class GameMain: MonoBehaviour
 	private GameObject[] decorativePlanes;
 	private GameObject[] planes;
 
-	public int level = 1;
+	public Level level;
+
+    private bool isPaused;
+	public bool IsPaused
+    {
+        get
+        {
+            return isPaused;
+        }
+    }
 
 	void Start () 
 	{
-        Application.targetFrameRate = 60;
+		Application.targetFrameRate = 60;
+		if (level == null)
+			level = new Level();
 		// Тестовая инициализация
-		ChangeLevel(3);
+		ChangeLevel(SharedData.levelNo);
 	}
 
 	void Update () 
 	{
-		if (level <= 0)
+		if (level.Number <= 0)
 			return;
 		
 		foreach (var currentBox in pipeWalls) 
 		{
-			currentBox.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed);
+			currentBox.transform.Translate(Vector3.up * Time.deltaTime * level.FallingSpeed);
 			if (currentBox.transform.position.y >= pipeSize)
 			{
 				currentBox.transform.Translate(Vector3.down * pipeCount * pipeSize);
@@ -51,7 +64,7 @@ public class GameMain: MonoBehaviour
 		}
 		foreach (var currentDecoPlane in decorativePlanes) 
 		{
-			currentDecoPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
+			currentDecoPlane.transform.Translate(Vector3.up * Time.deltaTime * level.FallingSpeed, Space.World);
 			if (currentDecoPlane.transform.position.y >= 0)
 			{
 				currentDecoPlane.transform.Translate(Vector3.down * (pipeCount - 1) * pipeSize, Space.World);
@@ -61,61 +74,49 @@ public class GameMain: MonoBehaviour
 		}
 		foreach (var currentPlane in planes)
 		{
-			currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
+			currentPlane.transform.Translate(Vector3.up * Time.deltaTime * level.FallingSpeed, Space.World);
 			if (currentPlane.transform.position.y >= 0)
 			{
-				currentPlane.transform.Translate(Vector3.down * (pipeCount - 1) * pipeSize, Space.World);
+				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
 			}
 		}
+
+        // Вращение камеры
+        Camera.main.transform.Rotate(0f, 0f, level.CameraRotationSpeed * Time.deltaTime);
 	}
 
 	public void ChangeLevel(int newLevel)
 	{
 		// Номер уровня выступает индикатором для Update
 		// Положительный номер уровня говорит о том, что нужно выгрузить игру
-		if (level > 0)
+		if (level.Number > 0)
 		{
-			 level = 0;
-			 fallingSpeed = 0;
+			 level.Number = 0;
+			 level.FallingSpeed = 0;
 			 // Удаление контейнеров
 			 pipeWalls = null;
 			 decorativePlanes = null;
 			 
 		}
 		
-		level = newLevel;
+#region TEST
+		var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
+		string jsonString = levelFile.text;
 		
-		// TODO: Загрузка JSON уровня
-		// Тестовый уровень - 3
-		fallingSpeed = 10;
-		planeProperties = new List<PlaneProperties []>();
-		for (int i = 1; i <= 5; ++i)
+		level = JsonConvert.DeserializeObject<Level>(jsonString);
+		
+		foreach(var currentPlane in level.Planes)
 		{
-			int size = 1;
-			if (i == 5)
-				size = 2;
-				
-			PlaneProperties [] props = new PlaneProperties[size];
-			for (int j = 1; j <= size; ++j)
+			foreach(var currentLayer in currentPlane)
 			{
-				var prop = new PlaneProperties();
-				string texturePath = "levels/" + level.ToString() + "/planes/" + i.ToString();
-				if (i == 5)
-				{
-					if (j == 1)
-						prop.RotationSpeed = 30;
-					else 
-						texturePath += "_deco";
-				}
-				prop.TexturePath = texturePath;
-				props[j - 1] = prop;
-			} 	
-			planeProperties.Add(props);
+				currentLayer.TexturePath = "levels/" + level.Number.ToString() + "/planes/" + currentLayer.TexturePath;
+			}
 		}
+#endregion
 		
         // Боковые стены
         // Загрузка текстур 
-        Texture bufferTexture = Resources.Load<Texture> ("levels/" + level.ToString() + "/wall");
+        Texture bufferTexture = Resources.Load<Texture> ("levels/" + level.Number.ToString() + "/wall");
 		for (int i = 0; i < 4; ++i)
 		{
 			var childRenderer = pipeWallPrefab.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>();
@@ -134,7 +135,7 @@ public class GameMain: MonoBehaviour
 		List<Texture> decorativeTextures = new List<Texture> ();
 		for (int i = 0; i < maxDecorativeTextures; ++i)
 		{
-			bufferTexture = Resources.Load<Texture> ("levels/" + level.ToString() + "/deco/" + (decorativeTextures.Count + 1));
+			bufferTexture = Resources.Load<Texture> ("levels/" + level.Number.ToString() + "/deco/" + (decorativeTextures.Count + 1));
 			if (bufferTexture == null)
 				break;
 			decorativeTextures.Add(bufferTexture);
@@ -156,8 +157,15 @@ public class GameMain: MonoBehaviour
 		for (int i = 0; i < 10; ++i)
 		{
 			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * i * 10, planePrefab.transform.rotation);
-			obj.GetComponent<PlaneBehaviour>().Setup(planeProperties[i % 5]);
+			obj.GetComponent<PlaneBehaviour>().Setup(level.Planes[i % level.Planes.Count]);
 			planes[i] = obj;
 		}
 	}
+
+    // Пауза
+    public void SetGamePaused(bool isPaused)
+    {
+        Time.timeScale = isPaused ? 0f : 1f;
+        this.isPaused = isPaused;
+    }
 }

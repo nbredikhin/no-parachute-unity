@@ -1,0 +1,43 @@
+{
+  "Number": 1,
+  "Planes": [
+    [
+      {
+        "RotationSpeed": 0.0,
+        "TexturePath": "1",
+        "SpeedX": 0.0,
+        "SpeedY": 0.0,
+        "SpeedZ": 0.0
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 0.0,
+        "TexturePath": "2",
+        "SpeedX": 0.0,
+        "SpeedY": 0.0,
+        "SpeedZ": 0.0
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 0.0,
+        "TexturePath": "3",
+        "SpeedX": 0.0,
+        "SpeedY": 0.0,
+        "SpeedZ": 0.0
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 0.0,
+        "TexturePath": "4",
+        "SpeedX": 0.0,
+        "SpeedY": 0.0,
+        "SpeedZ": 0.0
+      }
+    ]
+  ],
+  "CameraRotationSpeed": 0.0,
+  "FallingSpeed": 10.0
+}
