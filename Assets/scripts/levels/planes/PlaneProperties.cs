@@ -15,9 +15,9 @@ public class PlaneProperties
 		}
 	 }
 	 public float RotationSpeed;
-	 public float SpeedX {get {return MovementSpeed.x;}}
-	 public float SpeedY {get {return MovementSpeed.y;}}
-	 public float SpeedZ {get {return MovementSpeed.z;}}
+	 public float SpeedX {get {return MovementSpeed.x;} set {MovementSpeed = new Vector3(value, SpeedY, SpeedZ);}}
+	 public float SpeedY {get {return MovementSpeed.y;} set {MovementSpeed = new Vector3(SpeedX, value, SpeedZ);}}
+	 public float SpeedZ {get {return MovementSpeed.z;} set {MovementSpeed = new Vector3(SpeedX, SpeedY, value);}}
 	 public Vector3 MovementSpeed;
 	 
 	 public Texture MainTexture { get; private set; }
