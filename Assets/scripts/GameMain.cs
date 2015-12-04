@@ -168,4 +168,11 @@ public class GameMain: MonoBehaviour
         Time.timeScale = isPaused ? 0f : 1f;
         this.isPaused = isPaused;
     }
+    
+    // При выходе из игры
+    void OnDestroy()
+    {
+        // Восстановление timeScale
+        Time.timeScale = 1f;
+    }
 }

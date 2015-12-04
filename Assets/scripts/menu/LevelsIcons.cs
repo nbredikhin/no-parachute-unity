@@ -16,10 +16,14 @@ public class LevelsIcons : MonoBehaviour
     public float selectedIconScale = 1.4f;
     public float maxDragDelta = 100f;
     public GameObject iconPrefab;
-
+    // Иконки и состояния
     public Sprite[] iconsSprites;
     public Sprite passedSprite;
     public Sprite lockedSprite;
+    // Цвет рамки
+    public Color normalFrameColor;
+    public Color selectedFrameColor;
+    public Color lockedFrameColor;
 
     private RectTransform rectTransform;
     private GameObject[] icons;
@@ -88,6 +92,10 @@ public class LevelsIcons : MonoBehaviour
         var button = icon.GetComponent<Button>();
         button.onClick.AddListener(() => { ButtonClick(index); });
 
+        // Рамка
+        var frameImage = icon.GetComponent<Image>();
+        frameImage.color = normalFrameColor;
+
         // Иконка
         var iconImage = icon.transform.FindChild("icon").GetComponent<Image>();
         iconImage.sprite = iconsSprites[index];
@@ -99,6 +107,7 @@ public class LevelsIcons : MonoBehaviour
             case IconState.Locked:
                 stateImage.sprite = lockedSprite;
                 button.interactable = false;
+                frameImage.color = lockedFrameColor;
                 break;
             case IconState.Passed:
                 stateImage.sprite = passedSprite;
@@ -124,15 +133,23 @@ public class LevelsIcons : MonoBehaviour
             return;
         }
 
+        // Сброс предыдущей выделенной иконки
         icons[selectedIcon].transform.localScale = Vector2.one;
-        selectedIcon = index;
-        targetScale = icons[selectedIcon].transform.localScale * selectedIconScale;
+        var image = icons[selectedIcon].GetComponent<Image>();
+        image.color = normalFrameColor;
 
+        selectedIcon = index;
+        // Позиция
         var iconRectTransform = icons[selectedIcon].GetComponent<RectTransform>();
         targetPosition = -iconRectTransform.anchoredPosition;
-
+        // Выделение 
         var button = icons[selectedIcon].GetComponent<Button>();
         button.Select();
+        // Цвет рамки
+        image = icons[selectedIcon].GetComponent<Image>();
+        image.color = selectedFrameColor;
+        // Размер
+        targetScale = Vector2.one * selectedIconScale;
     }
 
     void DragBegin(Vector2 position)

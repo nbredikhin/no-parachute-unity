@@ -4,12 +4,14 @@ using System.Collections;
 public class GameUI : MonoBehaviour {
     public GameObject gameScreen;
     public GameObject pauseScreen;
+    public GameObject deathScreen;
 
     private GameObject currentScreen;
 
 	void Start () {
         gameScreen.SetActive(false);
         pauseScreen.SetActive(false);
+        deathScreen.SetActive(false);
 
         ShowScreen(gameScreen);
     }
@@ -36,6 +38,16 @@ public class GameUI : MonoBehaviour {
         // Выход из паузы
         GameObject.Find("Main Camera").GetComponent<GameMain>().SetGamePaused(false);
         ShowScreen(gameScreen);
+    }
+
+    public void TryAgainButtonClick()
+    {
+        RestartButtonClick();
+    }
+
+    public void RestartButtonClick()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     public void BackToMenuButtonClick()
