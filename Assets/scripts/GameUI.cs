@@ -26,11 +26,15 @@ public class GameUI : MonoBehaviour {
 
     public void PauseButtonClick()
     {
+        // Пауза
         ShowScreen(pauseScreen);
+        GameObject.Find("Main Camera").GetComponent<GameMain>().SetGamePaused(true);
     }
 
     public void ContinueButtonClick()
     {
+        // Выход из паузы
+        GameObject.Find("Main Camera").GetComponent<GameMain>().SetGamePaused(false);
         ShowScreen(gameScreen);
     }
 
