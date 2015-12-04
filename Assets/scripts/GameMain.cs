@@ -30,7 +30,15 @@ public class GameMain: MonoBehaviour
 	private GameObject[] planes;
 
 	public Level level;
-	
+
+    private bool isPaused;
+	public bool IsPaused
+    {
+        get
+        {
+            return isPaused;
+        }
+    }
 
 	void Start () 
 	{
@@ -72,6 +80,9 @@ public class GameMain: MonoBehaviour
 				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
 			}
 		}
+
+        // Вращение камеры
+        Camera.main.transform.Rotate(0f, 0f, level.CameraRotationSpeed * Time.deltaTime);
 	}
 
 	public void ChangeLevel(int newLevel)
@@ -150,4 +161,11 @@ public class GameMain: MonoBehaviour
 			planes[i] = obj;
 		}
 	}
+
+    // Пауза
+    public void SetGamePaused(bool isPaused)
+    {
+        Time.timeScale = isPaused ? 0f : 1f;
+        this.isPaused = isPaused;
+    }
 }
