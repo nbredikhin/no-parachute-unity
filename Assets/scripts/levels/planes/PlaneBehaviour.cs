@@ -24,7 +24,7 @@ public class PlaneBehaviour : MonoBehaviour
 		}
 	}
 	
-	public bool HitTestPoint(Vector3 point)
+	public GameObject HitTestPoint(Vector3 point)
 	{
 		foreach (var currentLayerPair in layers)
 		{
@@ -42,9 +42,9 @@ public class PlaneBehaviour : MonoBehaviour
 			y = Mathf.Floor((r.y + layerGameObject.transform.localScale.y / 2) / layerGameObject.transform.localScale.y * texture.height);
 			
 			if (texture.GetPixel((int)x, (int)y).a > 0)
-				return true;
+				return layerGameObject;
 		}
-		return false;	
+		return null;	
 	}
 	
 	void Update () 

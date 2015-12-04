@@ -100,11 +100,11 @@ public class GameMain: MonoBehaviour
 			
 			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
-                bool isHit = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
+                var collidedLayer = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
 				// Debug.Log(isHit);
-                if (isHit)
+                if (collidedLayer != null)
                 {
-                    OnPlayerHitPlane();
+                    OnPlayerHitPlane(collidedLayer);
                 }
 			}
 		}
@@ -212,7 +212,7 @@ public class GameMain: MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    void OnPlayerHitPlane()
+    void OnPlayerHitPlane(GameObject collidedLayer)
     {
         if (isDead)
         {
@@ -220,6 +220,7 @@ public class GameMain: MonoBehaviour
         }
         isDead = true;
         fallingSpeed = 0f;
+		player.transform.SetParent(collidedLayer.transform, true);
         gameUI.ShowScreen(gameUI.deathScreen);
     }
 
