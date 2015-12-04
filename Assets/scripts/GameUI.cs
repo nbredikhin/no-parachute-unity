@@ -7,8 +7,10 @@ public class GameUI : MonoBehaviour {
     public GameObject deathScreen;
 
     private GameObject currentScreen;
+    private GameMain gameMain;
 
 	void Start () {
+        gameMain = GameObject.Find("Main Camera").GetComponent<GameMain>();
         gameScreen.SetActive(false);
         pauseScreen.SetActive(false);
         deathScreen.SetActive(false);
@@ -16,7 +18,7 @@ public class GameUI : MonoBehaviour {
         ShowScreen(gameScreen);
     }
 
-    void ShowScreen(GameObject screen)
+    public void ShowScreen(GameObject screen)
     {
         if (currentScreen)
         {
@@ -30,13 +32,13 @@ public class GameUI : MonoBehaviour {
     {
         // Пауза
         ShowScreen(pauseScreen);
-        GameObject.Find("Main Camera").GetComponent<GameMain>().SetGamePaused(true);
+        gameMain.SetGamePaused(true);
     }
 
     public void ContinueButtonClick()
     {
         // Выход из паузы
-        GameObject.Find("Main Camera").GetComponent<GameMain>().SetGamePaused(false);
+        gameMain.SetGamePaused(false);
         ShowScreen(gameScreen);
     }
 

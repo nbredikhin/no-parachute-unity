@@ -21,8 +21,7 @@ public class PlayerController : MonoBehaviour
 
 	void Update ()
     {
-        // Необходимо для избежания изменения поворота рук во время паузы
-        if (gameMain.IsPaused)
+        if (gameMain.IsPaused || gameMain.IsDead)
         {
             return;
         }

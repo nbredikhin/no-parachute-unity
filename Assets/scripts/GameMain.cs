@@ -23,7 +23,12 @@ public class GameMain: MonoBehaviour
 
 	public int maxDecorativeTextures = 50;
 	public int decorativePlanesCount = 30;
-	public int fallingSpeed = 10;
+
+    private GameObject player;
+    private GameUI gameUI;
+
+    private float fallingSpeed;
+    private bool isDead;
 
 	private GameObject[] pipeWalls;
 	private GameObject[] decorativePlanes;
@@ -32,7 +37,6 @@ public class GameMain: MonoBehaviour
 	public Level level;
 
     private bool isPaused;
-	private GameObject player;
 	public bool IsPaused
     {
         get
@@ -41,13 +45,23 @@ public class GameMain: MonoBehaviour
         }
     }
 
-	void Start () 
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+    }
+
+    void Start () 
 	{
 		Application.targetFrameRate = 60;
 		if (level == null)
 			level = new Level();
-		// Тестовая инициализация
-		ChangeLevel(SharedData.levelNo);
+
+        gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
+        // Тестовая инициализация
+        ChangeLevel(SharedData.levelNo);
 	}
 
 	void Update () 
@@ -57,7 +71,7 @@ public class GameMain: MonoBehaviour
 		
 		foreach (var currentBox in pipeWalls) 
 		{
-			currentBox.transform.Translate(Vector3.up * Time.deltaTime * level.FallingSpeed);
+			currentBox.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed);
 			if (currentBox.transform.position.y >= pipeSize)
 			{
 				currentBox.transform.Translate(Vector3.down * pipeCount * pipeSize);
@@ -65,17 +79,17 @@ public class GameMain: MonoBehaviour
 		}
 		foreach (var currentDecoPlane in decorativePlanes) 
 		{
-			currentDecoPlane.transform.Translate(Vector3.up * Time.deltaTime * level.FallingSpeed, Space.World);
+			currentDecoPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
 			if (currentDecoPlane.transform.position.y >= 0)
 			{
 				currentDecoPlane.transform.Translate(Vector3.down * (pipeCount - 1) * pipeSize, Space.World);
-				int rotationMul = Random.Range(0, 3);
+                int rotationMul = Random.Range(0, 3);
 				currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
 			}
 		}
 		foreach (var currentPlane in planes)
 		{
-			currentPlane.transform.Translate(Vector3.up * Time.deltaTime * level.FallingSpeed, Space.World);
+			currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
 			if (currentPlane.transform.position.y >= 0)
 			{
 				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
@@ -84,9 +98,13 @@ public class GameMain: MonoBehaviour
 			var planeZ = currentPlane.transform.position.y;
 			var playerZ = player.transform.position.y;
 			
-			if (Mathf.Abs(planeZ - playerZ) <= level.FallingSpeed * Time.deltaTime)
+			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
-				Debug.Log(currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position));
+                bool isHit = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
+                if (isHit)
+                {
+                    OnPlayerHitPlane();
+                }
 			}
 		}
 
@@ -169,13 +187,15 @@ public class GameMain: MonoBehaviour
 		{
 			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * i * 10, planePrefab.transform.rotation);
 			obj.GetComponent<PlaneBehaviour>().Setup(level.Planes[i % level.Planes.Count]);
-			int rotationMul = Random.Range(0, 3);
+            int rotationMul = 0;// Random.Range(0, 3);
 			obj.transform.Rotate(0, rotationMul * 90, 0);
 			planes[i] = obj;
 		}
 		
 		player = GameObject.Find("Player");
-	}
+        fallingSpeed = level.FallingSpeed;
+
+    }
 
     // Пауза
     public void SetGamePaused(bool isPaused)
@@ -189,5 +209,28 @@ public class GameMain: MonoBehaviour
     {
         // Восстановление timeScale
         Time.timeScale = 1f;
+    }
+
+    void OnPlayerHitPlane()
+    {
+        if (isDead)
+        {
+            return;
+        }
+        isDead = true;
+        fallingSpeed = 0f;
+        gameUI.ShowScreen(gameUI.deathScreen);
+    }
+
+    // Разумереть
+    public void Undie()
+    {
+        if (!isDead)
+        {
+            return;
+        }
+        fallingSpeed = level.FallingSpeed;
+        isDead = false;
+        gameUI.ShowScreen(gameUI.gameScreen);
     }
 }

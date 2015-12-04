@@ -124,7 +124,6 @@ public class Level
 				len2 = Planes[len].Count - 1;
 				
 				Planes[len][len2].TexturePath = val.ToString();
-				Debug.Log(Planes[len][len2].TexturePath);
 			break;
 			case "RotationSpeed":
 				len = Planes.Count - 1;

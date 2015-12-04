@@ -9,6 +9,13 @@ public class PlayerAnimation : MonoBehaviour {
     private float frameDelay = 0f;
     private int currentFrame = 0;
 
+    private GameMain gameMain;
+
+    void Start()
+    {
+        gameMain = Camera.main.GetComponent<GameMain>();
+    }
+
     void NextFrame()
     {
         currentFrame++;
@@ -22,6 +29,10 @@ public class PlayerAnimation : MonoBehaviour {
 
 	void Update ()
     {
+        if (gameMain.IsDead)
+        {
+            return;
+        }
         frameDelay -= Time.deltaTime;
         if (frameDelay <= 0)
         {

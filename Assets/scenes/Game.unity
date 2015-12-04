@@ -520,7 +520,6 @@ MonoBehaviour:
   pipeCount: 10
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
-  fallingSpeed: 10
 --- !u!114 &571393028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1440,7 +1439,7 @@ GameObject:
   - 222: {fileID: 1710519643}
   - 114: {fileID: 1710519642}
   m_Layer: 5
-  m_Name: continue
+  m_Name: try_again
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1504,7 +1503,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1145883281}
-        m_MethodName: 
+        m_MethodName: TryAgainButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1610,7 +1609,7 @@ GameObject:
   - 222: {fileID: 1903885179}
   - 114: {fileID: 1903885178}
   m_Layer: 5
-  m_Name: paused_text
+  m_Name: dead_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
