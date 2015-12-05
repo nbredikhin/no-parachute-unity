@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: 20073484e6fd24ae7ad11725b3859c25
-timeCreated: 1448811318
+timeCreated: 1449349664
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pipeWallPrefab: {fileID: 129276, guid: ff8d7269e678a4d42852f3c6271d0a9d, type: 2}
+  - decorativePlanePrefab: {fileID: 151304, guid: 64684a9011a2e4a32ad3f4284ed01c0c,
+      type: 2}
+  - planePrefab: {fileID: 123930, guid: 951298b6370f3438db9ea38feae605b0, type: 2}
+  - powerupPrefab: {fileID: 167192, guid: 0cbe9a43fd7b34b00a9cf9a984af6e35, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

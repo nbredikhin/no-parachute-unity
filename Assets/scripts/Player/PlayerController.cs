@@ -6,11 +6,24 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
     public float maxAngle = 30f;
     public float maxHandsAngle = 10f;
+
     private Vector2 velocity;
     private GameMain gameMain;
-	public Dictionary <string, PlayerLimb> limbs;
+	
+    public Dictionary <string, PlayerLimb> limbs;
 	public string[] limbsNames = {"left_hand", "right_hand", "left_leg", "right_leg"};
+
     private int missingLimbsCount = 0;
+
+    public AudioClip[] Sounds;
+
+    public bool GodMode = false;
+    private float blinkingDelay = 100;
+    private float blinkingTimer = 0;
+    private bool visible = true;
+
+    public float SpeedUpDuration = 5;
+
 	void Start () 
     {
         gameMain = Camera.main.GetComponent<GameMain>();
@@ -29,9 +42,27 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        if (GodMode)
+        {
+            if (blinkingTimer >= blinkingDelay)
+            {
+                blinkingTimer = 0;
+                ToggleVisibility();
+            } 
+            else
+            {
+                blinkingTimer += Time.deltaTime * 1000;
+            }
+        } 
+        else
+        {
+            if (!visible)
+                ToggleVisibility();
+        }
+
         // Замедление при потере конечностей
         float missingLimbsMul = 1f - missingLimbsCount / 4f;
-        Debug.Log(missingLimbsMul);
         
         // Скорость
         velocity = Vector2.Lerp(velocity, JoystickInput.input * missingLimbsMul, 10f * Time.deltaTime);
@@ -66,9 +97,29 @@ public class PlayerController : MonoBehaviour
         var bodyAngle = -maxAngle * velocity.x - cameraAngle + missingLegsRotationBodyAdd;
         transform.rotation = Quaternion.Euler(90f, 0f, bodyAngle);
     }
-    
+
+    public void OnPowerUpTaken(PowerUp.PowerUpType type)
+    {
+        Debug.Log(type);
+        switch (type)
+        {
+            case PowerUp.PowerUpType.Ring:
+                break;
+            case PowerUp.PowerUpType.HealthKit:
+                RestoreAllLimbs();
+                break;
+            case PowerUp.PowerUpType.SpeedUp:
+                gameMain.ChangeFallingSpeed(20, 5);
+                GodMode = true;
+                break;
+        }
+    }
+
     public GameObject HitTestPlane(GameObject plane)
     {
+        if (GodMode)
+            return null;
+
         var planeBehaviour = plane.GetComponent<PlaneBehaviour>();
         var hitPlane = planeBehaviour.HitTestPoint(transform.position);
         if (hitPlane != null)
@@ -79,7 +130,12 @@ public class PlayerController : MonoBehaviour
         {
             if (planeBehaviour.HitTestPoint(GetLimbPosition(name)) && limbs[name].State)
             {
-                limbs[name].SetState(false);   
+                limbs[name].SetState(false); 
+
+                var audioSource = gameObject.GetComponent<AudioSource>();
+                audioSource.clip = Sounds[1];
+                audioSource.Play();
+
                 missingLimbsCount++;
             }
         }
@@ -101,4 +157,13 @@ public class PlayerController : MonoBehaviour
         var limbOffset = limbs[name].collisionOffset;   
 		return transform.TransformPoint(limbOffset.x, limbOffset.y, 0f);
 	}
+
+    private void ToggleVisibility()
+    {
+        var childrenRenderers = gameObject.transform.GetComponentsInChildren<MeshRenderer>();
+        foreach (var renderer in childrenRenderers)
+        {
+            visible = renderer.enabled = !renderer.enabled;
+        }
+    }
 }

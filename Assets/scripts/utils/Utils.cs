@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class Utils {
+public static class Utils 
+{
     public static Vector2 RotateVector2(Vector2 vector, float angle)
     {
         var radians = angle * Mathf.Deg2Rad;
