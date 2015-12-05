@@ -94,7 +94,7 @@ public class GameMain: MonoBehaviour
 			{
 				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
 				int rotationMul = Random.Range(0, 3);
-				currentPlane.transform.Rotate(0, 0, rotationMul * 90);
+				currentPlane.transform.Rotate(0, rotationMul * 90, 0);
 			}
 			
 			var planeZ = currentPlane.transform.position.y;
