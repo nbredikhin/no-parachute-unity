@@ -107,7 +107,7 @@ public class GameMain: MonoBehaviour
 			
 			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
-                var collidedLayer = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
+                var collidedLayer = player.GetComponent<PlayerController>().HitTestPlane(currentPlane);
 				
                 if (collidedLayer != null)
                 {
