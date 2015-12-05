@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 	void Start () 
     {
         gameMain = Camera.main.GetComponent<GameMain>();
-                
+                        
         limbs = new Dictionary <string, PlayerLimb>();
 		foreach (var name in limbsNames)
 		{
