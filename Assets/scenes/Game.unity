@@ -175,29 +175,13 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -.00999999978
       objectReference: {fileID: 0}
+    - target: {fileID: 11480112, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: GodMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &92463792 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 113992, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
-  m_PrefabInternal: {fileID: 92463791}
---- !u!114 &92463793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 92463792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3986929c50f87493e9f2c0d57431a85f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  limbsNames:
-  - left_hand
-  - right_hand
-  - left_leg
-  - right_leg
 --- !u!1 &108285293
 GameObject:
   m_ObjectHideFlags: 0

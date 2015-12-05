@@ -99,22 +99,8 @@ public class GameMain: MonoBehaviour
                 var newPlane = SpawnRandomPlane(currentPlane.transform.position);
                 DestroyObject(currentPlane);
 
-<<<<<<< HEAD
                 planes [i] = newPlane;
             }
-
-
-            // TODO: переименовать
-            var planeZ = currentPlane.transform.position.y;
-            var playerZ = player.transform.position.y;
-            
-            if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
-            {
-                var collidedLayer = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
-                
-=======
-                planes[i] = newPlane;
-			}
 			
 			var planeZ = currentPlane.transform.position.y;
 			var playerZ = player.transform.position.y;
@@ -122,8 +108,7 @@ public class GameMain: MonoBehaviour
 			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
                 var collidedLayer = player.GetComponent<PlayerController>().HitTestPlane(currentPlane);
-				
->>>>>>> master
+			
                 if (collidedLayer != null)
                 {
                     OnPlayerHitPlane(collidedLayer);
@@ -151,7 +136,12 @@ public class GameMain: MonoBehaviour
                 var diff = new Vector2(player.transform.position.x - currentPU.transform.position.x, player.transform.position.z - currentPU.transform.position.z);
                 if (diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)
                 {
-                    currentPU.SendMessage("OnPickUp");
+                    var powerUpScript = currentPU.GetComponent<PowerUp>();
+                    powerUpScript.OnPickUp();
+
+                    var playerScript = player.GetComponent<PlayerController>();
+                    playerScript.OnPowerUpTaken(powerUpScript.Type);
+
                     Destroy(currentPU, 4);
                 }
             }
@@ -217,6 +207,7 @@ public class GameMain: MonoBehaviour
                 break;
             decorativeTextures.Add(bufferTexture);
         }
+
         // Создание стен
         decorativePlanes = new GameObject[decorativePlanesCount];
         float distance = (float)pipeCount * pipeSize / decorativePlanesCount + 0.01f;
@@ -290,11 +281,16 @@ public class GameMain: MonoBehaviour
         // Пока так
         player.transform.Translate(Vector3.up * 0.01f);
         player.transform.SetParent(collidedLayer.transform, true);
+
+        var playerSound = player.GetComponent<AudioSource>();
+        playerSound.clip = player.GetComponent<PlayerController>().Sounds[0];
+        playerSound.Play();
+
         gameUI.ShowScreen(gameUI.deathScreen);
     }
 
     // Разумереть
-    public void Undie()
+    public void Respawn()
     {
         if (!isDead)
         {

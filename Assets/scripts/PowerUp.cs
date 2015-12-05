@@ -27,6 +27,7 @@ public class PowerUp : MonoBehaviour
     
     public void Setup(PowerUpType type)
     {
+        Type = type;
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = Textures [(int)type];
         int index = (type == PowerUpType.Ring) ? 0 : 1;
         gameObject.GetComponent<AudioSource>().clip = Sounds [index];
