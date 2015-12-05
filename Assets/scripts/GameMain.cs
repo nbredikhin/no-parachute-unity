@@ -99,6 +99,7 @@ public class GameMain: MonoBehaviour
                 var newPlane = SpawnRandomPlane(currentPlane.transform.position);
                 DestroyObject(currentPlane);
 
+<<<<<<< HEAD
                 planes [i] = newPlane;
             }
 
@@ -111,6 +112,18 @@ public class GameMain: MonoBehaviour
             {
                 var collidedLayer = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
                 
+=======
+                planes[i] = newPlane;
+			}
+			
+			var planeZ = currentPlane.transform.position.y;
+			var playerZ = player.transform.position.y;
+			
+			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
+			{
+                var collidedLayer = player.GetComponent<PlayerController>().HitTestPlane(currentPlane);
+				
+>>>>>>> master
                 if (collidedLayer != null)
                 {
                     OnPlayerHitPlane(collidedLayer);
