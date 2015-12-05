@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
@@ -23,6 +22,8 @@ public class GameMain: MonoBehaviour
 
 	public int maxDecorativeTextures = 50;
 	public int decorativePlanesCount = 30;
+
+    public int planesCount = 11;
 
     private GameObject player;
     private GameUI gameUI;
@@ -87,14 +88,18 @@ public class GameMain: MonoBehaviour
 				currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
 			}
 		}
-		foreach (var currentPlane in planes)
+        for (int i = 0; i < planes.Length; ++i)
 		{
+            var currentPlane = planes[i];
+
 			currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
 			if (currentPlane.transform.position.y >= 0)
 			{
-				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
-				int rotationMul = Random.Range(0, 3);
-				currentPlane.transform.Rotate(0, rotationMul * 90, 0);
+                currentPlane.transform.Translate(Vector3.down * (pipeCount) * pipeSize, Space.World);
+                var newPlane = SpawnRandomPlane(currentPlane.transform.position);
+                DestroyObject(currentPlane);
+
+                planes[i] = newPlane;
 			}
 			
 			var planeZ = currentPlane.transform.position.y;
@@ -129,22 +134,18 @@ public class GameMain: MonoBehaviour
 			 
 		}
 		
-#region TEST
 		var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
 		string jsonString = levelFile.text;
 		level = new Level();
 		level.LoadLevel(jsonString);
 		
-		// level = JsonConvert.DeserializeObject<Level>(jsonString);
-		
-		foreach(var currentPlane in level.Planes)
-		{
-			foreach(var currentLayer in currentPlane)
-			{
-				currentLayer.TexturePath = "levels/" + level.Number.ToString() + "/planes/" + currentLayer.TexturePath;
-			}
-		}
-#endregion
+		foreach (var currentPlane in level.Planes)
+        {
+            foreach (var currentLayer in currentPlane)
+            {
+                currentLayer.TexturePath = "levels/" + level.Number.ToString() + "/planes/" + currentLayer.TexturePath;
+            }
+        }
 		
         // Боковые стены
         // Загрузка текстур 
@@ -174,7 +175,7 @@ public class GameMain: MonoBehaviour
 		}
         // Создание стен
         decorativePlanes = new GameObject[decorativePlanesCount];
-        float distance = pipeCount * pipeSize / decorativePlanesCount;
+        float distance = (float)pipeCount * pipeSize / decorativePlanesCount + 0.01f;
 		for (int i = 0; i < decorativePlanesCount; ++i) 
 		{
 			var decorativePlane = (GameObject)Instantiate(decorativePlanePrefab,  Vector3.down * i * distance, decorativePlanePrefab.transform.rotation);
@@ -185,19 +186,27 @@ public class GameMain: MonoBehaviour
 		}
 		
 		// Тестовое создание плоскостей
-		planes = new GameObject[10];
-		for (int i = 0; i < 10; ++i)
+		planes = new GameObject[planesCount];
+		for (int i = 0; i < planesCount; ++i)
 		{
-			var obj = (GameObject)Instantiate(planePrefab, Vector3.down * (i * 10 + pipeSize * pipeCount / 2), planePrefab.transform.rotation);
-			obj.GetComponent<PlaneBehaviour>().Setup(level.Planes[i % level.Planes.Count]);
-            int rotationMul =  Random.Range(0, 3);
-			obj.transform.Rotate(0, rotationMul * 90, 0);
-			planes[i] = obj;
+            planes[i] = SpawnRandomPlane(Vector3.down * pipeSize * pipeCount * ((float)i / planesCount  + 0.5f));
 		}
 		
 		player = GameObject.Find("Player");
         fallingSpeed = level.FallingSpeed;
 
+    }
+
+    private GameObject SpawnRandomPlane(Vector3 position)
+    {
+        int planeNo = Random.Range(0, level.Planes.Count);
+        var newPlane = (GameObject)Instantiate(planePrefab, position, planePrefab.transform.rotation);
+        newPlane.GetComponent<PlaneBehaviour>().Setup(level.Planes[planeNo]);
+
+        int rotationMul = Random.Range(0, 3);
+        newPlane.transform.Rotate(0, rotationMul * 90, 0);
+
+        return newPlane;
     }
 
     // Пауза
