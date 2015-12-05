@@ -93,6 +93,8 @@ public class GameMain: MonoBehaviour
 			if (currentPlane.transform.position.y >= 0)
 			{
 				currentPlane.transform.Translate(Vector3.down * (pipeCount - 0) * pipeSize, Space.World);
+				int rotationMul = Random.Range(0, 3);
+				currentPlane.transform.Rotate(0, 0, rotationMul * 90);
 			}
 			
 			var planeZ = currentPlane.transform.position.y;
@@ -101,7 +103,7 @@ public class GameMain: MonoBehaviour
 			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
                 var collidedLayer = currentPlane.GetComponent<PlaneBehaviour>().HitTestPoint(player.transform.position);
-				// Debug.Log(isHit);
+				
                 if (collidedLayer != null)
                 {
                     OnPlayerHitPlane(collidedLayer);
@@ -220,6 +222,8 @@ public class GameMain: MonoBehaviour
         }
         isDead = true;
         fallingSpeed = 0f;
+		// Пока так
+		player.transform.Translate(Vector3.up * 0.01f);
 		player.transform.SetParent(collidedLayer.transform, true);
         gameUI.ShowScreen(gameUI.deathScreen);
     }
