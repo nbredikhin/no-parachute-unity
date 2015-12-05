@@ -172,9 +172,33 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 446146, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -.00999999978
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &92463792 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 113992, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+  m_PrefabInternal: {fileID: 92463791}
+--- !u!114 &92463793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 92463792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3986929c50f87493e9f2c0d57431a85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limbsNames:
+  - left_hand
+  - right_hand
+  - left_leg
+  - right_leg
 --- !u!1 &108285293
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +665,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 865315609}
+--- !u!1 &928565085 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 110834, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+  m_PrefabInternal: {fileID: 92463791}
+--- !u!114 &928565090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 928565085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 99cdf9b901d014cd4bf468c7bdc3ab3f, type: 3}
+  textureMissing: {fileID: 2800000, guid: 78dbfbf39337647aba446b12425947c6, type: 3}
+  collisionOffset: {x: -.400000006, y: .400000006}
 --- !u!1 &1088423573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,6 +1292,24 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &1328005472 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 116268, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+  m_PrefabInternal: {fileID: 92463791}
+--- !u!114 &1328005477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1328005472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 877a91bd331f34634be966ebdf5f66ad, type: 3}
+  textureMissing: {fileID: 2800000, guid: 2ad408a7172284a448ba94cee469a65e, type: 3}
+  collisionOffset: {x: .400000006, y: .400000006}
 --- !u!1 &1588537697
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,6 +1725,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1903885176}
+--- !u!1 &1958958241 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 152246, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+  m_PrefabInternal: {fileID: 92463791}
+--- !u!114 &1958958246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1958958241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 67f81ad004dd541569bc5779a2765454, type: 3}
+  textureMissing: {fileID: 2800000, guid: d490c2f62df0e4bf087f6a7e8e7eaa28, type: 3}
+  collisionOffset: {x: .150000006, y: -.400000006}
 --- !u!1 &1976372331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,6 +1930,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1980448519}
+--- !u!1 &2002195362 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 158894, guid: 95573cbae1b614537a0a51c25d0090f6, type: 2}
+  m_PrefabInternal: {fileID: 92463791}
+--- !u!114 &2002195363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2002195362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 85f3b8c6920d542628457cd1ecea4927, type: 3}
+  textureMissing: {fileID: 2800000, guid: 2b505f85244df47d3be6fa8bdf5a220f, type: 3}
+  collisionOffset: {x: -.150000006, y: -.400000006}
 --- !u!1 &2018462400
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,14 +9,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 velocity;
 
-    [SerializeField] GameObject leftHand;
-    [SerializeField] GameObject rightHand;
-
     private GameMain gameMain;
-
+    private PlayerLimbs playerLimbs;
 	void Start () 
     {
         gameMain = Camera.main.GetComponent<GameMain>();
+        playerLimbs = GetComponent<PlayerLimbs>();
     }
 
 	void Update ()
@@ -44,11 +42,26 @@ public class PlayerController : MonoBehaviour
         
         // Конечности
         // Поворот рук
-        if (leftHand && rightHand)
+        float handsAngle = -JoystickInput.input.x * maxHandsAngle;
+        playerLimbs.limbs["left_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle);
+        playerLimbs.limbs["right_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle);
+    }
+    
+    public GameObject HitTestPlane(GameObject plane)
+    {
+        var planeBehaviour = plane.GetComponent<PlaneBehaviour>();
+        var hitPlane = planeBehaviour.HitTestPoint(transform.position);
+        if (hitPlane != null)
         {
-            float handsAngle = -JoystickInput.input.x * maxHandsAngle;
-            leftHand.transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle);
-            rightHand.transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle);
+            return hitPlane;
         }
+        foreach (var name in playerLimbs.limbsNames)
+        {
+            if (planeBehaviour.HitTestPoint(playerLimbs.GetLimbPosition(name)))
+            {
+                playerLimbs.limbs[name].SetState(false);   
+            }
+        }
+        return null;
     }
 }
