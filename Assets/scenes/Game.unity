@@ -544,6 +544,7 @@ MonoBehaviour:
   pipeCount: 10
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
+  planesCount: 9
 --- !u!114 &571393028
 MonoBehaviour:
   m_ObjectHideFlags: 0
