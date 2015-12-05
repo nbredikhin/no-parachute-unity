@@ -24,6 +24,7 @@ public class GameMain: MonoBehaviour
     private GameUI gameUI;
     // Локальная скорость падения
     private float fallingSpeed;
+    private float adjustedFallingSpeed;
 
     private bool isDead;
     private bool isPaused;
@@ -37,11 +38,14 @@ public class GameMain: MonoBehaviour
     public Level level;
 
     // Таймер для спавна бонусов
-    public float SpawnInterval = 3; // Test
+    public float SpawnInterval = 10; // Test
     private float spawnTimer = 0;
 
     public bool IsPaused { get { return isPaused; } }
     public bool IsDead { get { return isDead; } }
+
+    private float speedUpTimer = 0;
+    private float prepareTime = 2;
 
     void Start()
     {
@@ -61,9 +65,29 @@ public class GameMain: MonoBehaviour
 
         spawnTimer += Time.deltaTime;
 
+        if (speedUpTimer >= 0)
+        {
+            speedUpTimer -= Time.deltaTime;
+            if (speedUpTimer <= 0)
+            {
+                player.GetComponent<PlayerController>().GodMode = false;
+                fallingSpeed = level.FallingSpeed;
+                adjustedFallingSpeed = level.FallingSpeed;
+            }
+            else 
+            {
+                if (speedUpTimer <= prepareTime)
+                {
+                    fallingSpeed -= (adjustedFallingSpeed - level.FallingSpeed) / prepareTime * Time.deltaTime;
+                }
+            }
+        } 
+
         if (spawnTimer >= SpawnInterval)
         {
-            SpawnPowerUp(PowerUp.PowerUpType.HealthKit);
+            int type = Random.Range(1, 4);
+
+            SpawnPowerUp((PowerUp.PowerUpType)type);
             spawnTimer = 0;
         }
 
@@ -122,7 +146,7 @@ public class GameMain: MonoBehaviour
             currentPU.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
             if (currentPU.transform.position.y >= 0)
             {
-                DestroyObject(currentPU);
+                Destroy(currentPU);
                 powerups[i] = null;
 
                 powerups.RemoveAt(i--);
@@ -141,8 +165,6 @@ public class GameMain: MonoBehaviour
 
                     var playerScript = player.GetComponent<PlayerController>();
                     playerScript.OnPowerUpTaken(powerUpScript.Type);
-
-                    Destroy(currentPU, 4);
                 }
             }
         }
@@ -287,6 +309,14 @@ public class GameMain: MonoBehaviour
         playerSound.Play();
 
         gameUI.ShowScreen(gameUI.deathScreen);
+    }
+
+    public void ChangeFallingSpeed(float newSpeed, float time = 0)
+    {
+        adjustedFallingSpeed = newSpeed;
+        fallingSpeed = adjustedFallingSpeed;
+
+        speedUpTimer = time;
     }
 
     // Разумереть

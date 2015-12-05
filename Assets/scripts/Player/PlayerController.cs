@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private float blinkingTimer = 0;
     private bool visible = true;
 
+    public float SpeedUpDuration = 5;
+
 	void Start () 
     {
         gameMain = Camera.main.GetComponent<GameMain>();
@@ -106,7 +108,10 @@ public class PlayerController : MonoBehaviour
             case PowerUp.PowerUpType.HealthKit:
                 RestoreAllLimbs();
                 break;
-             
+            case PowerUp.PowerUpType.SpeedUp:
+                gameMain.ChangeFallingSpeed(20, 5);
+                GodMode = true;
+                break;
         }
     }
 
