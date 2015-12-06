@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: .0299999993
+  m_FogDensity: .0340000018
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: .211999997, g: .226999998, b: .259000003, a: 1}
@@ -771,10 +771,10 @@ MonoBehaviour:
   planePrefab: {fileID: 125562, guid: 4bce9dd90f12141438f5a9d5703de343, type: 2}
   powerupPrefab: {fileID: 167192, guid: 0cbe9a43fd7b34b00a9cf9a984af6e35, type: 2}
   pipeSize: 10
-  pipeCount: 10
+  pipeCount: 6
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
-  planesCount: 9
+  planesCount: 5
   SpawnInterval: 3
 --- !u!114 &571393028
 MonoBehaviour:
