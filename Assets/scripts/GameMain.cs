@@ -295,12 +295,14 @@ public class GameMain: MonoBehaviour
         isDead = true;
         fallingSpeed = 0f;
         // Пока так
-        player.transform.Translate(Vector3.up * 0.01f);
+        player.transform.position = new Vector3(player.transform.position.x, collidedLayer.transform.position.y + 0.02f, player.transform.position.z);
         player.transform.SetParent(collidedLayer.transform, true);
 
         var playerSound = player.GetComponent<AudioSource>();
         playerSound.clip = player.GetComponent<PlayerController>().Sounds[0];
         playerSound.Play();
+
+        player.GetComponent<PlayerController>().Die();
 
         gameUI.ShowScreen(gameUI.deathScreen);
     }
@@ -323,5 +325,6 @@ public class GameMain: MonoBehaviour
         fallingSpeed = level.FallingSpeed;
         isDead = false;
         gameUI.ShowScreen(gameUI.gameScreen);
+        player.GetComponent<PlayerController>().Respawn();
     }
 }

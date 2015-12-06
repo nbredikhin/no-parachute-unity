@@ -3,30 +3,38 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
+	// Общие параметры игрока
     public float movementSpeed = 5f;
     public float maxAngle = 30f;
     public float maxHandsAngle = 10f;
-
     public float missingHandsSpeedAdd = 0.4f;
+    public float SpeedUpDuration = 5;
+    public float detachedLimbsRotationSpeed = 500f;
+    public bool GodMode = false;
+	public AudioClip[] Sounds;
 
     private Vector2 velocity;
     private GameMain gameMain;
 	
-    public Dictionary <string, PlayerLimb> limbs;
-	public string[] limbsNames = {"left_hand", "right_hand", "left_leg", "right_leg"};
-
-    private int missingLimbsCount = 0;
-
-    public AudioClip[] Sounds;
-
-    public bool GodMode = false;
+	// Конечности
+	public string[] limbsNames = {
+		"left_hand", 
+		"right_hand", 
+		"left_leg", 
+		"right_leg"
+	};
+	public 	Dictionary <string, PlayerLimb> limbs;
+	private int missingLimbsCount = 0;
+	private List<PlayerLimb> detachedLimbs = new List<PlayerLimb>();
+    
+    // Мигание при бессмертии
     private float blinkingDelay = 100;
     private float blinkingTimer = 0;
-    private bool visible = true;
+    private bool isVisible = true;
 
-    public float SpeedUpDuration = 5;
-    private List<PlayerLimb> detachedLimbs = new List<PlayerLimb>();
-    public float detachedLimbsRotationSpeed = 500f;
+    // Кровь
+    public GameObject limbBlood;
+    private ParticleSystem deathBloodParticles;
 
 	void Start () 
     {
@@ -38,6 +46,8 @@ public class PlayerController : MonoBehaviour
 			limbs[name] = transform.Find(name).GetComponent<PlayerLimb>();
 		}
 		RestoreAllLimbs();
+
+		deathBloodParticles = transform.Find("death_blood").GetComponent<ParticleSystem>();
     }
 
 	void Update ()
@@ -62,7 +72,7 @@ public class PlayerController : MonoBehaviour
         } 
         else
         {
-            if (!visible)
+            if (!isVisible)
                 ToggleVisibility();
         }
 
@@ -131,7 +141,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnPowerUpTaken(PowerUp.PowerUpType type)
     {
-        Debug.Log(type);
         switch (type)
         {
             case PowerUp.PowerUpType.Ring:
@@ -162,13 +171,17 @@ public class PlayerController : MonoBehaviour
             if (planeBehaviour.HitTestPoint(GetLimbPosition(name)) && limbs[name].State)
             {
                 limbs[name].SetState(false); 
+                // Отлетающая конечность
                 CreateDetachedLimb(limbs[name]);
+                missingLimbsCount++;
 
+                // Кровь
+                Instantiate(limbBlood, transform.position + new Vector3(limbs[name].collisionOffset.x, 0f, limbs[name].collisionOffset.y), transform.rotation);
+
+				// Звук при потере конечности
                 var audioSource = gameObject.GetComponent<AudioSource>();
                 audioSource.clip = Sounds[1];
                 audioSource.Play();
-
-                missingLimbsCount++;
             }
         }
         return null;
@@ -203,7 +216,17 @@ public class PlayerController : MonoBehaviour
         var childrenRenderers = gameObject.transform.GetComponentsInChildren<MeshRenderer>();
         foreach (var renderer in childrenRenderers)
         {
-            visible = renderer.enabled = !renderer.enabled;
+            isVisible = renderer.enabled = !renderer.enabled;
         }
+    }
+
+    public void Die()
+    {
+    	deathBloodParticles.Play();
+    }
+
+    public void Respawn()
+    {
+    	deathBloodParticles.Stop();
     }
 }
