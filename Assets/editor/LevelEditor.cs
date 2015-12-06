@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEditor.AnimatedValues;
 using UnityEditor;
 
-using Newtonsoft.Json;
-
 public class LevelEditor : EditorWindow 
 {    
 	private Level levelSetup;

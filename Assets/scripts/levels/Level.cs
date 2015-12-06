@@ -77,7 +77,7 @@ public class Level
 			}
 		}
 		
-		result = json.ToString();
+		result = json.ToString("\t");
 		return result;
 	}
 }
