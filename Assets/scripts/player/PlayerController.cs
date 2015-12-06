@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public float maxAngle = 30f;
     public float maxHandsAngle = 10f;
 
+    public float missingHandsSpeedAdd = 0.4f;
+
     private Vector2 velocity;
     private GameMain gameMain;
 	
@@ -45,6 +47,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // Мигание игрока при включенном Godmode
         if (GodMode)
         {
             if (blinkingTimer >= blinkingDelay)
@@ -65,9 +68,21 @@ public class PlayerController : MonoBehaviour
 
         // Замедление при потере конечностей
         float missingLimbsMul = 1f - missingLimbsCount / 4f;
-        
+
+        // Отклонение игрока в сторону при потере одной руки
+        Vector2 missingHandsVelocityAdd = Vector2.zero;
+        if (!limbs["left_hand"].State)
+        {
+            missingHandsVelocityAdd.x -= 1f;
+        }
+        if (!limbs["right_hand"].State)
+        {
+            missingHandsVelocityAdd.x += 1f;
+        }   
+        missingHandsVelocityAdd.x *= missingHandsSpeedAdd * Mathf.Sin(Time.time * Random.value * 2f) / 2f + missingHandsSpeedAdd / 2f;
+
         // Скорость
-        velocity = Vector2.Lerp(velocity, JoystickInput.input * missingLimbsMul, 10f * Time.deltaTime);
+        velocity = Vector2.Lerp(velocity, JoystickInput.input * missingLimbsMul + missingHandsVelocityAdd, 10f * Time.deltaTime);
 
         // Обновление позиции
         float cameraAngle = Camera.main.transform.eulerAngles.y;
