@@ -144,6 +144,8 @@ public class GameMain: MonoBehaviour
         {
             var currentPU = powerups[i];
             currentPU.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
+            currentPU.transform.rotation = Camera.main.transform.rotation;
+            
             if (currentPU.transform.position.y >= 0)
             {
                 Destroy(currentPU);
