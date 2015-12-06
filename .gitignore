@@ -41,6 +41,9 @@ obj/
 ehthumbs.db
 Thumbs.db
 
+# Build Files
+Build
+
 Library/shadercompiler-64bit-1.log
 Library/shadercompiler-32bit-1.log
 *.sublime-project
