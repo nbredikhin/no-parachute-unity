@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-
-using Newtonsoft.Json;
 
 public class GameMain: MonoBehaviour
 {
@@ -193,15 +190,9 @@ public class GameMain: MonoBehaviour
         }
         // Загрузка уровня 
         var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
-        string jsonString = levelFile.text;
-        level.LoadLevel(jsonString);
-        foreach (var currentPlane in level.Planes)
-        {
-            foreach (var currentLayer in currentPlane)
-            {
-                currentLayer.TexturePath = "levels/" + level.Number.ToString() + "/planes/" + currentLayer.TexturePath;
-            }
-        }
+        level.LoadLevel(levelFile);
+        var str = level.SerializeLevel();
+        Debug.Log(str);
 
         powerups = new List<GameObject>();
 
