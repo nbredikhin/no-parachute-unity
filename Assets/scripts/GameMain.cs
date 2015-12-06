@@ -21,6 +21,7 @@ public class GameMain: MonoBehaviour
     private GameUI gameUI;
     // Локальная скорость падения
     private float fallingSpeed;
+    public float FallingSpeed { get {return fallingSpeed; }}
     private float adjustedFallingSpeed;
 
     private bool isDead;

@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3338482}
   - 64: {fileID: 6431702}
   - 23: {fileID: 2326718}
+  - 114: {fileID: 11433344}
   m_Layer: 0
   m_Name: left_hand
   m_TagString: Untagged
@@ -29,6 +30,7 @@ GameObject:
   - 114: {fileID: 11480112}
   - 114: {fileID: 11415762}
   - 82: {fileID: 8246606}
+  - 114: {fileID: 11402216}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -47,6 +49,7 @@ GameObject:
   - 33: {fileID: 3354834}
   - 64: {fileID: 6465828}
   - 23: {fileID: 2388626}
+  - 114: {fileID: 11449676}
   m_Layer: 0
   m_Name: right_hand
   m_TagString: Untagged
@@ -65,6 +68,7 @@ GameObject:
   - 33: {fileID: 3327714}
   - 64: {fileID: 6496566}
   - 23: {fileID: 2303510}
+  - 114: {fileID: 11416372}
   m_Layer: 0
   m_Name: right_leg
   m_TagString: Untagged
@@ -83,6 +87,7 @@ GameObject:
   - 33: {fileID: 3369504}
   - 64: {fileID: 6447038}
   - 23: {fileID: 2368762}
+  - 114: {fileID: 11431454}
   m_Layer: 0
   m_Name: left_leg
   m_TagString: Untagged
@@ -139,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113992}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: -9, z: 0}
+  m_LocalPosition: {x: 0, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 446146}
@@ -156,7 +161,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -.00999999978}
   m_LocalScale: {x: 1, y: 1, z: .99000001}
   m_Children: []
   m_Father: {fileID: 440114}
@@ -203,7 +208,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -227,7 +234,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -251,7 +260,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -275,7 +286,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -299,7 +312,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -470,6 +485,17 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &11402216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11415762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -486,6 +512,66 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 95684d26f4dac4a44ab8728cd98fc90a, type: 3}
   - {fileID: 2800000, guid: 2ad91a05a2cc14f69a3a8c36c7fe0180, type: 3}
   maxFrameDelay: .0700000003
+--- !u!114 &11416372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 67f81ad004dd541569bc5779a2765454, type: 3}
+  textureMissing: {fileID: 2800000, guid: d490c2f62df0e4bf087f6a7e8e7eaa28, type: 3}
+  collisionOffset: {x: .150000006, y: -.400000006}
+  detachedRotationSpeedMul: 0
+--- !u!114 &11431454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 85f3b8c6920d542628457cd1ecea4927, type: 3}
+  textureMissing: {fileID: 2800000, guid: 2b505f85244df47d3be6fa8bdf5a220f, type: 3}
+  collisionOffset: {x: -.150000006, y: -.400000006}
+  detachedRotationSpeedMul: 0
+--- !u!114 &11433344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 99cdf9b901d014cd4bf468c7bdc3ab3f, type: 3}
+  textureMissing: {fileID: 2800000, guid: 78dbfbf39337647aba446b12425947c6, type: 3}
+  collisionOffset: {x: -.400000006, y: .400000006}
+  detachedRotationSpeedMul: 0
+--- !u!114 &11449676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureOk: {fileID: 2800000, guid: 877a91bd331f34634be966ebdf5f66ad, type: 3}
+  textureMissing: {fileID: 2800000, guid: 2ad408a7172284a448ba94cee469a65e, type: 3}
+  collisionOffset: {x: .400000006, y: .400000006}
+  detachedRotationSpeedMul: 0
 --- !u!114 &11480112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -509,6 +595,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d4833493a931440e89cbada862dd4cce, type: 3}
   - {fileID: 8300000, guid: 52cebddb95745449d97b996e9de221cd, type: 3}
   GodMode: 0
+  SpeedUpDuration: 5
+  detachedLimbsRotationSpeed: 700
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

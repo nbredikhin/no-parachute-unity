@@ -10,6 +10,10 @@ public class PlayerLimb : MonoBehaviour
 	private MeshRenderer meshRenderer;
 	private bool state = false;
 	public bool State { get { return state; }}
+	
+	// Движение оторванной конечности
+	public float detachedRotationSpeedMul;
+	public Vector3 detachedVelocity;
 	void Start()
 	{
 		meshRenderer = GetComponent<MeshRenderer>();

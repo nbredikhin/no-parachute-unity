@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private bool visible = true;
 
     public float SpeedUpDuration = 5;
+    private List<PlayerLimb> detachedLimbs = new List<PlayerLimb>();
+    public float detachedLimbsRotationSpeed = 500f;
 
 	void Start () 
     {
@@ -96,6 +98,20 @@ public class PlayerController : MonoBehaviour
         // Вращение туловища
         var bodyAngle = -maxAngle * velocity.x - cameraAngle + missingLegsRotationBodyAdd;
         transform.rotation = Quaternion.Euler(90f, 0f, bodyAngle);
+        
+        // Движение оторванных конечностей
+        for (int i = 0; i < detachedLimbs.Count; i++)
+        {
+            var limb = detachedLimbs[i];
+            limb.transform.Rotate(0f, 0f, detachedLimbsRotationSpeed * Time.deltaTime * limb.detachedRotationSpeedMul);
+            limb.transform.Translate(Vector3.up * gameMain.FallingSpeed * Time.deltaTime * 2f + limb.detachedVelocity * Time.deltaTime, Space.World);
+            if (limb.transform.position.y > 0)
+            {
+                Destroy(limb.gameObject);
+                detachedLimbs.RemoveAt(i);
+                i--;
+            }
+        }
     }
 
     public void OnPowerUpTaken(PowerUp.PowerUpType type)
@@ -131,6 +147,7 @@ public class PlayerController : MonoBehaviour
             if (planeBehaviour.HitTestPoint(GetLimbPosition(name)) && limbs[name].State)
             {
                 limbs[name].SetState(false); 
+                CreateDetachedLimb(limbs[name]);
 
                 var audioSource = gameObject.GetComponent<AudioSource>();
                 audioSource.clip = Sounds[1];
@@ -140,6 +157,14 @@ public class PlayerController : MonoBehaviour
             }
         }
         return null;
+    }
+    
+    public void CreateDetachedLimb(PlayerLimb limb)
+    {
+        var limbClone = (PlayerLimb)Instantiate(limb, limb.transform.position, limb.transform.rotation);
+        limbClone.detachedRotationSpeedMul = (Random.Range(80f, 150f) - 100f) / 4f;
+        limbClone.detachedVelocity = new Vector3(limbClone.collisionOffset.x, 0f, limbClone.collisionOffset.y) * Random.Range(4f, 7f);
+        detachedLimbs.Add(limbClone);
     }
     
     // Восстановить все части тела
