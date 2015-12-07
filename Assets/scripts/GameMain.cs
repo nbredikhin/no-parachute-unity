@@ -193,7 +193,6 @@ public class GameMain: MonoBehaviour
         var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
         level.LoadLevel(levelFile);
         var str = level.SerializeLevel();
-        Debug.Log(str);
 
         powerups = new List<GameObject>();
 

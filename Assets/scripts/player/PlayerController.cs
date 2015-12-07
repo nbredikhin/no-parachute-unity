@@ -28,13 +28,22 @@ public class PlayerController : MonoBehaviour
 	private List<PlayerLimb> detachedLimbs = new List<PlayerLimb>();
     
     // Мигание при бессмертии
-    private float blinkingDelay = 100;
+    private float blinkingDelay = 100; // в миллисекундах 
     private float blinkingTimer = 0;
     private bool isVisible = true;
+
+    public float godModeTimeoutMax = 3f;
+    private bool godModeDisableAfterTimeout = false;
+    private float godModeTimeout;
 
     // Кровь
     public GameObject limbBlood;
     private ParticleSystem deathBloodParticles;
+
+    // Жизни
+    public int maxLivesCount = 3;
+    public int lives;
+    public LivesHearts livesHearts;
 
 	void Start () 
     {
@@ -48,6 +57,7 @@ public class PlayerController : MonoBehaviour
 		RestoreAllLimbs();
 
 		deathBloodParticles = transform.Find("death_blood").GetComponent<ParticleSystem>();
+		lives = maxLivesCount;
     }
 
 	void Update ()
@@ -60,6 +70,15 @@ public class PlayerController : MonoBehaviour
         // Мигание игрока при включенном Godmode
         if (GodMode)
         {
+        	if (godModeTimeout > 0 && godModeDisableAfterTimeout)
+        	{
+        		godModeTimeout -= Time.deltaTime;
+        		if (godModeTimeout <= 0)
+        		{
+        			godModeDisableAfterTimeout = false;
+        			GodMode = false;
+        		}
+        	}
             if (blinkingTimer >= blinkingDelay)
             {
                 blinkingTimer = 0;
@@ -164,6 +183,15 @@ public class PlayerController : MonoBehaviour
         var hitPlane = planeBehaviour.HitTestPoint(transform.position);
         if (hitPlane != null)
         {
+        	if (lives > 0)
+        	{
+        		lives--;
+        		GodMode = true;
+        		godModeDisableAfterTimeout = true;
+        		godModeTimeout = godModeTimeoutMax;
+        		livesHearts.SetLivesCount(lives);
+        		return null;
+        	}
             return hitPlane;
         }
         foreach (var name in limbsNames)
@@ -228,5 +256,6 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
     	deathBloodParticles.Stop();
+    	lives = maxLivesCount;
     }
 }
