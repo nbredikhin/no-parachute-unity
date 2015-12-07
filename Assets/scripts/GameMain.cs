@@ -81,7 +81,7 @@ public class GameMain: MonoBehaviour
             }
         } 
 
-        if (spawnTimer >= SpawnInterval)
+        if (spawnTimer >= SpawnInterval && !isDead)
         {
             int type = Random.Range(1, 4);
 

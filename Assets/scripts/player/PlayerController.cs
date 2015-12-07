@@ -171,6 +171,15 @@ public class PlayerController : MonoBehaviour
                 gameMain.ChangeFallingSpeed(20, 5);
                 GodMode = true;
                 break;
+            case PowerUp.PowerUpType.ExtraLife:
+                lives++;
+                if (lives > maxLivesCount)
+                {
+                    RestoreAllLimbs();
+                    lives = maxLivesCount;
+                }
+                livesHearts.SetLivesCount(lives);
+                break;
         }
     }
 
@@ -189,7 +198,14 @@ public class PlayerController : MonoBehaviour
         		GodMode = true;
         		godModeDisableAfterTimeout = true;
         		godModeTimeout = godModeTimeoutMax;
+                // Иначе какой смысл в жизнях?
+                RestoreAllLimbs();
         		livesHearts.SetLivesCount(lives);
+                
+                var audioSource = gameObject.GetComponent<AudioSource>();
+                audioSource.clip = Sounds[0];
+                audioSource.Play();
+                
         		return null;
         	}
             return hitPlane;
