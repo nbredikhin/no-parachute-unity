@@ -183,13 +183,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public GameObject HitTestPlane(GameObject plane)
+    public GameObject HitTestPlane(PlaneBehaviour plane)
     {
         if (GodMode)
             return null;
 
-        var planeBehaviour = plane.GetComponent<PlaneBehaviour>();
-        var hitPlane = planeBehaviour.HitTestPoint(transform.position);
+        var hitPlane = plane.HitTestPoint(transform.position);
         if (hitPlane != null)
         {
         	if (lives > 0)
@@ -206,7 +205,7 @@ public class PlayerController : MonoBehaviour
                 audioSource.clip = Sounds[0];
                 audioSource.Play();
                  
-                planeBehaviour.Visible = false;
+                plane.Visible = false;
                 
         		return null;
         	}
@@ -214,7 +213,7 @@ public class PlayerController : MonoBehaviour
         }
         foreach (var name in limbsNames)
         {
-            if (planeBehaviour.HitTestPoint(GetLimbPosition(name)) && limbs[name].State)
+            if (plane.HitTestPoint(GetLimbPosition(name)) && limbs[name].State)
             {
                 limbs[name].SetState(false); 
                 // Отлетающая конечность

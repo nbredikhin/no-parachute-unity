@@ -15,8 +15,8 @@ public class GameMain: MonoBehaviour
     public int maxDecorativeTextures = 50;
     public int decorativePlanesCount = 30;
     public int planesCount = 11;
-
-    private GameObject player;
+    
+    private PlayerController player;
 
     private GameUI gameUI;
     // Локальная скорость падения
@@ -30,8 +30,8 @@ public class GameMain: MonoBehaviour
     // Контейнеры игровых объектов
     private GameObject[] pipeWalls;
     private GameObject[] decorativePlanes;
-    private GameObject[] planes;
-    private List<GameObject> powerups;
+    private PlaneBehaviour[] planes;
+    private List<PowerUp> powerups;
 
     public Level level;
 
@@ -68,7 +68,7 @@ public class GameMain: MonoBehaviour
             speedUpTimer -= Time.deltaTime;
             if (speedUpTimer <= 0)
             {
-                player.GetComponent<PlayerController>().GodMode = false;
+                player.GodMode = false;
                 fallingSpeed = level.FallingSpeed;
                 adjustedFallingSpeed = level.FallingSpeed;
             }
@@ -120,11 +120,11 @@ public class GameMain: MonoBehaviour
                 currentPlane.transform.Translate(Vector3.down * (pipeCount) * pipeSize, Space.World);
                 var newPlane = SpawnRandomPlane(currentPlane.transform.position);
                 
-                currentPlane.GetComponent<PlaneBehaviour>().Visible = true;
+                currentPlane.Visible = true;
                 
                 DestroyObject(currentPlane);
 
-                planes [i] = newPlane;
+                planes[i] = newPlane;
             }
 			
 			var planeZ = currentPlane.transform.position.y;
@@ -132,7 +132,7 @@ public class GameMain: MonoBehaviour
 			
 			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
-                var collidedLayer = player.GetComponent<PlayerController>().HitTestPlane(currentPlane);
+                var collidedLayer = player.HitTestPlane(currentPlane);
 			    
                 if (collidedLayer != null)
                 {
@@ -163,11 +163,9 @@ public class GameMain: MonoBehaviour
                 var diff = new Vector2(player.transform.position.x - currentPU.transform.position.x, player.transform.position.z - currentPU.transform.position.z);
                 if (diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)
                 {
-                    var powerUpScript = currentPU.GetComponent<PowerUp>();
-                    powerUpScript.OnPickUp();
+                    currentPU.OnPickUp();
 
-                    var playerScript = player.GetComponent<PlayerController>();
-                    playerScript.OnPowerUpTaken(powerUpScript.Type);
+                    player.OnPowerUpTaken(currentPU.Type);
                 }
             }
         }
@@ -195,9 +193,9 @@ public class GameMain: MonoBehaviour
         // Загрузка уровня 
         var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
         level.LoadLevel(levelFile);
-        var str = level.SerializeLevel();
+        //var str = level.SerializeLevel();
 
-        powerups = new List<GameObject>();
+        powerups = new List<PowerUp>();
 
         // Боковые стены
         // Загрузка текстур 
@@ -239,26 +237,27 @@ public class GameMain: MonoBehaviour
         }
         
         // Тестовое создание плоскостей
-        planes = new GameObject[planesCount];
+        planes = new PlaneBehaviour[planesCount];
         for (int i = 0; i < planesCount; ++i)
         {
             planes [i] = SpawnRandomPlane(Vector3.down * pipeSize * pipeCount * ((float)i / planesCount + 0.5f));
         }
         
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
         fallingSpeed = level.FallingSpeed;
     }
 
-    private GameObject SpawnRandomPlane(Vector3 position)
+    private PlaneBehaviour SpawnRandomPlane(Vector3 position)
     {
         int planeNo = Random.Range(0, level.Planes.Count);
-        var newPlane = (GameObject)Instantiate(planePrefab, position, planePrefab.transform.rotation);
-        newPlane.GetComponent<PlaneBehaviour>().Setup(level.Planes [planeNo]);
+        var planeGameObject = (GameObject)Instantiate(planePrefab, position, planePrefab.transform.rotation);
+        var plane = planeGameObject.GetComponent<PlaneBehaviour>();
+        plane.Setup(level.Planes [planeNo]);
 
         int rotationMul = Random.Range(0, 3);
-        newPlane.transform.Rotate(0, rotationMul * 90, 0);
+        planeGameObject.transform.Rotate(0, rotationMul * 90, 0);
 
-        return newPlane;
+        return plane;
     }
 
     private void SpawnPowerUp(PowerUp.PowerUpType type)
@@ -268,10 +267,11 @@ public class GameMain: MonoBehaviour
         var randomX = Random.Range(-pipeSize / 2 + scaleX, pipeSize / 2 - scaleX);
         var randomZ = Random.Range(-pipeSize / 2 + scaleY, pipeSize / 2 - scaleY);
 
-        var newPowerUp = (GameObject)Instantiate(powerupPrefab, (new Vector3(randomX, -pipeCount * pipeSize, randomZ)), powerupPrefab.transform.rotation);
-        newPowerUp.GetComponent<PowerUp>().Setup(type);
+        var powerupGameObject = (GameObject)Instantiate(powerupPrefab, (new Vector3(randomX, -pipeCount * pipeSize, randomZ)), powerupPrefab.transform.rotation);
+        var powerup = powerupGameObject.GetComponent<PowerUp>();
+        powerup.Setup(type);
            
-        powerups.Add(newPowerUp);
+        powerups.Add(powerup);
     }
 
     // Пауза
@@ -301,10 +301,10 @@ public class GameMain: MonoBehaviour
         player.transform.SetParent(collidedLayer.transform, true);
 
         var playerSound = player.GetComponent<AudioSource>();
-        playerSound.clip = player.GetComponent<PlayerController>().Sounds[0];
+        playerSound.clip = player.Sounds[0];
         playerSound.Play();
         
-        player.GetComponent<PlayerController>().Die();
+        player.Die();
 
         gameUI.ShowScreen(gameUI.deathScreen);
     }
@@ -327,6 +327,6 @@ public class GameMain: MonoBehaviour
         fallingSpeed = level.FallingSpeed;
         isDead = false;
         gameUI.ShowScreen(gameUI.gameScreen);
-        player.GetComponent<PlayerController>().Respawn();
+        player.Respawn();
     }
 }

@@ -51,8 +51,6 @@ public class Level
 		string result = "{}";
 		
 		var json = JSON.Parse(result);
-		
-		var test = json["Number"].AsInt = Number;
 		json["FallingSpeed"].AsFloat = FallingSpeed;
 		json["CameraRotationSpeed"].AsFloat = CameraRotationSpeed;
 		
