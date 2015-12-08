@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEditor.AnimatedValues;
 using UnityEditor;
-
-using Newtonsoft.Json;
 
 public class LevelEditor : EditorWindow 
 {    
@@ -108,7 +105,7 @@ public class LevelEditor : EditorWindow
 		EditorGUILayout.EndScrollView();
 		if (GUILayout.Button("Сохранить"))
 		{
-			string s = JsonConvert.SerializeObject(levelSetup, Formatting.Indented);
+			string s = levelSetup.SerializeLevel();
 			Debug.Log(s);
 			File.WriteAllText("Assets/resources/levels/" + levelSetup.Number + "/level.json", s);
 		}

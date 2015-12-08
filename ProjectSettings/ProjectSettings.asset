@@ -85,8 +85,8 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.BDG.NoParachute
-  bundleVersion: 1.0
+  bundleIdentifier: com.bdg.NoParachute
+  bundleVersion: 0.5
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -101,7 +101,7 @@ PlayerSettings:
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  iPhoneBuildNumber: 0
+  iPhoneBuildNumber: 1
   ForceInternetPermission: 0
   ForceSDCardPermission: 0
   CreateWallpaper: 0
@@ -115,6 +115,7 @@ PlayerSettings:
   iPhoneTargetOSVersion: 22
   uIPrerenderedIcon: 1
   uIRequiresPersistentWiFi: 0
+  uIRequiresFullScreen: 1
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
@@ -163,8 +164,10 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: 4b13a39378fca4eb2baef316d6307ba6, type: 3}
-      m_Size: 0
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 4b13a39378fca4eb2baef316d6307ba6, type: 3}
+      m_Width: 0
+      m_Height: 0
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   webPlayerTemplate: APPLICATION:Default
@@ -258,6 +261,10 @@ PlayerSettings:
   ps4pnGameCustomData: 1
   playerPrefsSupport: 0
   ps4ReprojectionSupport: 0
+  ps4UseAudio3dBackend: 0
+  ps4Audio3dVirtualSpeakerCount: 14
+  ps4attribCpuUsage: 0
+  ps4SocialScreenEnabled: 0
   ps4attribUserManagement: 0
   ps4attribMoveSupport: 0
   ps4attrib3DSupport: 0
@@ -326,7 +333,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: BringDat Games
   metroCertificateIssuer: BringDat Games
-  metroCertificateNotAfter: 0046bfbdb94ad201
+  metroCertificateNotAfter: 008cf9ca224fd201
   metroApplicationDescription: NoParachute2
   metroStoreTileLogo80: 
   metroStoreTileLogo: 

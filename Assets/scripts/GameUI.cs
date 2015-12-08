@@ -1,60 +1,65 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class GameUI : MonoBehaviour {
-    public GameObject gameScreen;
-    public GameObject pauseScreen;
-    public GameObject deathScreen;
+	public GameObject gameScreen;
+	public GameObject pauseScreen;
+	public GameObject deathScreen;
+	public GameObject passedScreen;
 
-    private GameObject currentScreen;
-    private GameMain gameMain;
+	private GameObject currentScreen;
+	private GameMain gameMain;
 
 	void Start () {
-        gameMain = GameObject.Find("Main Camera").GetComponent<GameMain>();
-        gameScreen.SetActive(false);
-        pauseScreen.SetActive(false);
-        deathScreen.SetActive(false);
+		gameMain = GameObject.Find("Main Camera").GetComponent<GameMain>();
 
-        ShowScreen(gameScreen);
-    }
+		ShowScreen(deathScreen);
+		ShowScreen(passedScreen);	
 
-    public void ShowScreen(GameObject screen)
-    {
-        if (currentScreen)
-        {
-            currentScreen.SetActive(false);
-        }
-        currentScreen = screen;
-        currentScreen.SetActive(true);
-    }
+		gameScreen.SetActive(false);
+		pauseScreen.SetActive(false);
+		deathScreen.SetActive(false);
+		passedScreen.SetActive(false);
 
-    public void PauseButtonClick()
-    {
-        // Пауза
-        ShowScreen(pauseScreen);
-        gameMain.SetGamePaused(true);
-    }
+		ShowScreen(gameScreen);
+	}
 
-    public void ContinueButtonClick()
-    {
-        // Выход из паузы
-        gameMain.SetGamePaused(false);
-        ShowScreen(gameScreen);
-    }
+	public void ShowScreen(GameObject screen)
+	{
+		if (currentScreen)
+		{
+			currentScreen.SetActive(false);
+		}
+		currentScreen = screen;
+		currentScreen.SetActive(true);
+	}
 
-    public void TryAgainButtonClick()
-    {
-        RestartButtonClick();
-    }
+	public void PauseButtonClick()
+	{
+		// Пауза
+		ShowScreen(pauseScreen);
+		gameMain.SetGamePaused(true);
+	}
 
-    public void RestartButtonClick()
-    {
-        Application.LoadLevel(Application.loadedLevel);
-    }
+	public void ContinueButtonClick()
+	{
+		// Выход из паузы
+		gameMain.SetGamePaused(false);
+		ShowScreen(gameScreen);
+	}
 
-    public void BackToMenuButtonClick()
-    {
-        Time.timeScale = 1;
-        Application.LoadLevel("LevelsMenu");
-    }
+	public void TryAgainButtonClick()
+	{
+		RestartButtonClick();
+	}
+
+	public void RestartButtonClick()
+	{
+		Application.LoadLevel(Application.loadedLevel);
+	}
+
+	public void BackToMenuButtonClick()
+	{
+		Time.timeScale = 1;
+		Application.LoadLevel("LevelsMenu");
+	}
 }
