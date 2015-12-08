@@ -5,6 +5,24 @@ public class PlaneBehaviour : MonoBehaviour
 {
 	public Dictionary<GameObject, PlaneProperties> layers; 
 	public GameObject LayerPrefab;
+	public bool Visible
+	{
+		get 
+		{
+			var childRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+			bool res = true;
+			foreach (var renderer in childRenderers)
+				res &= renderer.enabled;
+			return res;
+		}
+		set 
+		{
+			var childRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+			foreach (var renderer in childRenderers)
+				renderer.enabled = value;
+		}
+	}
+	
 	void Start () 
 	{
 		

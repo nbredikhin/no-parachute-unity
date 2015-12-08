@@ -119,6 +119,9 @@ public class GameMain: MonoBehaviour
             {
                 currentPlane.transform.Translate(Vector3.down * (pipeCount) * pipeSize, Space.World);
                 var newPlane = SpawnRandomPlane(currentPlane.transform.position);
+                
+                currentPlane.GetComponent<PlaneBehaviour>().Visible = true;
+                
                 DestroyObject(currentPlane);
 
                 planes [i] = newPlane;
@@ -130,7 +133,7 @@ public class GameMain: MonoBehaviour
 			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
                 var collidedLayer = player.GetComponent<PlayerController>().HitTestPlane(currentPlane);
-			
+			    
                 if (collidedLayer != null)
                 {
                     OnPlayerHitPlane(collidedLayer);
@@ -300,7 +303,7 @@ public class GameMain: MonoBehaviour
         var playerSound = player.GetComponent<AudioSource>();
         playerSound.clip = player.GetComponent<PlayerController>().Sounds[0];
         playerSound.Play();
-
+        
         player.GetComponent<PlayerController>().Die();
 
         gameUI.ShowScreen(gameUI.deathScreen);

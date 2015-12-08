@@ -205,6 +205,8 @@ public class PlayerController : MonoBehaviour
                 var audioSource = gameObject.GetComponent<AudioSource>();
                 audioSource.clip = Sounds[0];
                 audioSource.Play();
+                 
+                planeBehaviour.Visible = false;
                 
         		return null;
         	}
