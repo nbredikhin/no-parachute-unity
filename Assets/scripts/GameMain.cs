@@ -44,6 +44,13 @@ public class GameMain: MonoBehaviour
 
     private float speedUpTimer = 0;
     private float prepareTime = 2;
+    
+    // Продолжительность уровня в секундах
+    public float levelDuration = 10f;
+    // Время, на протяжении которого, запущен уровень
+    private float levelRunningTime = 0f;
+    // Завершен ли уровень: isLevelFinished = levelRunningTime >= levelDuration;
+    private bool isLevelFinished = false;
 
     void Start()
     {
@@ -130,7 +137,7 @@ public class GameMain: MonoBehaviour
 			var planeZ = currentPlane.transform.position.y;
 			var playerZ = player.transform.position.y;
 			
-			if (Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
+			if (!isLevelFinished && Mathf.Abs(planeZ - playerZ) <= fallingSpeed * Time.deltaTime)
 			{
                 var collidedLayer = player.HitTestPlane(currentPlane);
 			    
@@ -161,7 +168,7 @@ public class GameMain: MonoBehaviour
             if (Mathf.Abs(powerUpZ - playerZ) <= fallingSpeed * Time.deltaTime)
             {
                 var diff = new Vector2(player.transform.position.x - currentPU.transform.position.x, player.transform.position.z - currentPU.transform.position.z);
-                if (diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)
+                if (!isLevelFinished && diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)
                 {
                     currentPU.OnPickUp();
 
@@ -171,6 +178,14 @@ public class GameMain: MonoBehaviour
         }
         // Вращение камеры
         Camera.main.transform.Rotate(0f, 0f, level.CameraRotationSpeed * Time.deltaTime);
+        
+        levelRunningTime += Time.deltaTime;
+        if (levelRunningTime >= levelDuration && !isLevelFinished)
+        {
+            isLevelFinished = true;
+            gameUI.ShowScreen(gameUI.passedScreen);
+            JoystickInput.isEnabled = false;
+        }
     }
 
     public void ChangeLevel(int newLevel)
@@ -245,6 +260,9 @@ public class GameMain: MonoBehaviour
         
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         fallingSpeed = level.FallingSpeed;
+        levelRunningTime = 0f;
+        isLevelFinished = false;
+        JoystickInput.isEnabled = true;
     }
 
     private PlaneBehaviour SpawnRandomPlane(Vector3 position)
