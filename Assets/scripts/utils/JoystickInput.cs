@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class JoystickInput : MonoBehaviour
 {
     public static Vector2 input;
+    public static bool isEnabled = true;
     // Максимальное смещение джойстика относительно места нажатия
     public float maxJoystickDistance = 70f;
     // Ввод с различных источников
@@ -51,6 +52,11 @@ public class JoystickInput : MonoBehaviour
 
 	void Update()
     {
+        if (!isEnabled)
+        {
+            input = Vector2.zero;
+            return;
+        }
         // Ввод с клавиатуры 
         if (enableKeyboardInput)
         {

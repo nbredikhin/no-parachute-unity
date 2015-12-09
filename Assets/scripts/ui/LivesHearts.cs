@@ -14,6 +14,10 @@ public class LivesHearts : MonoBehaviour
 	{
 		var heartIcon = transform.Find("heart" + index.ToString());
 		var imgs = heartIcon.GetComponentsInChildren<Image>();
+		if (imgs.Length == 0)
+		{
+			return;
+		}
 		if (state)
 		{
 			imgs[1].enabled = true;

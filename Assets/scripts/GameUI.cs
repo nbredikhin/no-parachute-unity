@@ -12,9 +12,6 @@ public class GameUI : MonoBehaviour {
 	void Start () {
 		gameMain = GameObject.Find("Main Camera").GetComponent<GameMain>();
 
-		ShowScreen(deathScreen);
-		ShowScreen(passedScreen);	
-
 		gameScreen.SetActive(false);
 		pauseScreen.SetActive(false);
 		deathScreen.SetActive(false);
