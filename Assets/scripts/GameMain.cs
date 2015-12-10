@@ -179,13 +179,18 @@ public class GameMain: MonoBehaviour
         // Вращение камеры
         Camera.main.transform.Rotate(0f, 0f, level.CameraRotationSpeed * Time.deltaTime);
         
-        levelRunningTime += Time.deltaTime;
-        if (levelRunningTime >= levelDuration && !isLevelFinished)
+        if (!isDead && !isPaused)
         {
-            isLevelFinished = true;
-            gameUI.ShowScreen(gameUI.passedScreen);
-            JoystickInput.isEnabled = false;
+            levelRunningTime += Time.deltaTime;
+                       
+            if (levelRunningTime >= levelDuration && !isLevelFinished)
+            {
+                isLevelFinished = true;
+                gameUI.ShowScreen(gameUI.passedScreen);
+                JoystickInput.isEnabled = false;
+            }
         }
+ 
     }
 
     public void ChangeLevel(int newLevel)
