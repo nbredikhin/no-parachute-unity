@@ -128,8 +128,7 @@ public class GameMain: MonoBehaviour
                 var newPlane = SpawnRandomPlane(currentPlane.transform.position);
                 
                 currentPlane.Visible = true;
-                
-                DestroyObject(currentPlane);
+                Destroy(currentPlane);
 
                 planes[i] = newPlane;
             }
