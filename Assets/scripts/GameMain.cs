@@ -68,8 +68,6 @@ public class GameMain: MonoBehaviour
         if (level.Number <= 0)
             return;
 
-        spawnTimer += Time.deltaTime;
-
         if (speedUpTimer >= 0)
         {
             speedUpTimer -= Time.deltaTime;
@@ -88,7 +86,9 @@ public class GameMain: MonoBehaviour
             }
         } 
 
-        if (spawnTimer >= SpawnInterval && !isDead)
+        spawnTimer += Time.deltaTime;
+
+        if (false && (spawnTimer >= SpawnInterval && !isDead)) // Debug
         {
             int type = Random.Range(1, 4);
 

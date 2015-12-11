@@ -590,7 +590,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 483562208}
   - 33: {fileID: 483562211}
-  - 64: {fileID: 483562210}
   - 23: {fileID: 483562209}
   m_Layer: 0
   m_Name: main
@@ -638,19 +637,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &483562210
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6417348, guid: 95573cbae1b614537a0a51c25d0090f6,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 483562207}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &483562211
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -767,7 +753,7 @@ MonoBehaviour:
   pipeSize: 10
   pipeCount: 6
   maxDecorativeTextures: 50
-  decorativePlanesCount: 30
+  decorativePlanesCount: 15
   planesCount: 5
   SpawnInterval: 3
   levelDuration: 30
@@ -1126,7 +1112,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 928565086}
   - 33: {fileID: 928565089}
-  - 64: {fileID: 928565088}
   - 23: {fileID: 928565087}
   - 114: {fileID: 928565090}
   m_Layer: 0
@@ -1175,19 +1160,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &928565088
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6431702, guid: 95573cbae1b614537a0a51c25d0090f6,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 928565085}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &928565089
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1988,7 +1960,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1328005473}
   - 33: {fileID: 1328005476}
-  - 64: {fileID: 1328005475}
   - 23: {fileID: 1328005474}
   - 114: {fileID: 1328005477}
   m_Layer: 0
@@ -2037,19 +2008,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &1328005475
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6465828, guid: 95573cbae1b614537a0a51c25d0090f6,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1328005472}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1328005476
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3728,7 +3686,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1958958242}
   - 33: {fileID: 1958958245}
-  - 64: {fileID: 1958958244}
   - 23: {fileID: 1958958243}
   - 114: {fileID: 1958958246}
   m_Layer: 0
@@ -3777,19 +3734,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &1958958244
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6496566, guid: 95573cbae1b614537a0a51c25d0090f6,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1958958241}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1958958245
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4104,7 +4048,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2002195367}
   - 33: {fileID: 2002195366}
-  - 64: {fileID: 2002195365}
   - 23: {fileID: 2002195364}
   - 114: {fileID: 2002195363}
   m_Layer: 0
@@ -4158,19 +4101,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &2002195365
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6447038, guid: 95573cbae1b614537a0a51c25d0090f6,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2002195362}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &2002195366
 MeshFilter:
   m_ObjectHideFlags: 0
