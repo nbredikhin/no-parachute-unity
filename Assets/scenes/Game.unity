@@ -263,7 +263,7 @@ MonoBehaviour:
   missingHandsSpeedAdd: .400000006
   SpeedUpDuration: 5
   detachedLimbsRotationSpeed: 100
-  GodMode: 0
+  GodMode: 1
   Sounds:
   - {fileID: 8300000, guid: d4833493a931440e89cbada862dd4cce, type: 3}
   - {fileID: 8300000, guid: 52cebddb95745449d97b996e9de221cd, type: 3}
@@ -272,7 +272,7 @@ MonoBehaviour:
   - right_hand
   - left_leg
   - right_leg
-  godModeTimeoutMax: 3
+  godModeTimeoutMax: 1000
   limbBlood: {fileID: 101578, guid: 1f7407c61eccf4544a7f013282cf16d3, type: 2}
   maxLivesCount: 3
   lives: 0
@@ -1557,6 +1557,18 @@ Prefab:
     - target: {fileID: 22422500, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
       propertyPath: m_Pivot.y
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 185990, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443014, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
+      propertyPath: updateTime
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11443014, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
+      propertyPath: UpdateColors
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
