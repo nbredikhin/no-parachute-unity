@@ -127,8 +127,7 @@ public class GameMain: MonoBehaviour
                 currentPlane.transform.Translate(Vector3.down * (pipeCount) * pipeSize, Space.World);
                 var newPlane = SpawnRandomPlane(currentPlane.transform.position);
                 
-                currentPlane.Visible = true;
-                Destroy(currentPlane);
+                Destroy(currentPlane.gameObject);
 
                 planes[i] = newPlane;
             }

@@ -138,7 +138,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113992}
-  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -156,8 +156,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 174016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -.00999999978}
-  m_LocalScale: {x: 1, y: 1, z: .99000001}
+  m_LocalPosition: {x: 0, y: 0, z: -0.01}
+  m_LocalScale: {x: 1, y: 1, z: 0.99}
   m_Children: []
   m_Father: {fileID: 440114}
   m_RootOrder: 0
@@ -206,7 +206,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -232,7 +232,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -258,7 +258,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -284,7 +284,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -310,7 +310,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -390,6 +390,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -400,6 +401,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -410,6 +412,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -420,6 +423,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &11402216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -446,7 +450,7 @@ MonoBehaviour:
   frames:
   - {fileID: 2800000, guid: 95684d26f4dac4a44ab8728cd98fc90a, type: 3}
   - {fileID: 2800000, guid: 2ad91a05a2cc14f69a3a8c36c7fe0180, type: 3}
-  maxFrameDelay: .0700000003
+  maxFrameDelay: 0.07
 --- !u!114 &11416372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -460,7 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textureOk: {fileID: 2800000, guid: 67f81ad004dd541569bc5779a2765454, type: 3}
   textureMissing: {fileID: 2800000, guid: d490c2f62df0e4bf087f6a7e8e7eaa28, type: 3}
-  collisionOffset: {x: .150000006, y: -.400000006}
+  collisionOffset: {x: 0.15, y: -0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &11431454
@@ -476,7 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textureOk: {fileID: 2800000, guid: 85f3b8c6920d542628457cd1ecea4927, type: 3}
   textureMissing: {fileID: 2800000, guid: 2b505f85244df47d3be6fa8bdf5a220f, type: 3}
-  collisionOffset: {x: -.150000006, y: -.400000006}
+  collisionOffset: {x: -0.15, y: -0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &11433344
@@ -492,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textureOk: {fileID: 2800000, guid: 99cdf9b901d014cd4bf468c7bdc3ab3f, type: 3}
   textureMissing: {fileID: 2800000, guid: 78dbfbf39337647aba446b12425947c6, type: 3}
-  collisionOffset: {x: -.400000006, y: .400000006}
+  collisionOffset: {x: -0.4, y: 0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &11449676
@@ -508,7 +512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textureOk: {fileID: 2800000, guid: 877a91bd331f34634be966ebdf5f66ad, type: 3}
   textureMissing: {fileID: 2800000, guid: 2ad408a7172284a448ba94cee469a65e, type: 3}
-  collisionOffset: {x: .400000006, y: .400000006}
+  collisionOffset: {x: 0.4, y: 0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &11480112
@@ -525,7 +529,7 @@ MonoBehaviour:
   movementSpeed: 5
   maxAngle: 30
   maxHandsAngle: 10
-  missingHandsSpeedAdd: .400000006
+  missingHandsSpeedAdd: 0.4
   SpeedUpDuration: 5
   detachedLimbsRotationSpeed: 700
   GodMode: 0
@@ -579,6 +583,14 @@ Prefab:
       objectReference: {fileID: 8300000, guid: 52cebddb95745449d97b996e9de221cd, type: 3}
     - target: {fileID: 0}
       propertyPath: GodMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
