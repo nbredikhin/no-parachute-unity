@@ -5,6 +5,7 @@ public class PlaneBehaviour : MonoBehaviour
 {
 	public Dictionary<GameObject, PlaneProperties> layers; 
 	public GameObject LayerPrefab;
+	public Texture2D holeMask;
 	public bool Visible
 	{
 		get 
@@ -41,6 +42,42 @@ public class PlaneBehaviour : MonoBehaviour
 			// TODO: Сделать привязку скриптов
 		}
 	}
+	
+    public void CreateHole(Vector3 position)
+    {
+        foreach (var currentLayerPair in layers)
+        {
+			var layerGameObject = currentLayerPair.Key;
+			var meshRenderer = currentLayerPair.Key.GetComponent<MeshRenderer>();
+			var texture = (Texture2D)meshRenderer.material.mainTexture;
+			
+            var x = position.x - layerGameObject.transform.position.x;
+			var y = position.z - layerGameObject.transform.position.z;
+			var r = Utils.RotateVector2(new Vector2(x, y), layerGameObject.transform.eulerAngles.y);
+			
+			x = Mathf.Floor((r.x + layerGameObject.transform.localScale.x / 2) / layerGameObject.transform.localScale.x * texture.width);
+			y = Mathf.Floor((r.y + layerGameObject.transform.localScale.y / 2) / layerGameObject.transform.localScale.y * texture.height);
+			
+			// Создание новой текстуры, чтобы текстура не изменялась глобально
+			var newTexture = (Texture2D) GameObject.Instantiate(texture);
+			var color = new Color(0, 0, 0, 0);
+			for (int cx = 0; cx < holeMask.width; cx++)
+			{
+				for (int cy = 0; cy < holeMask.height; cy++)
+				{
+					if (holeMask.GetPixel(cx, cy).a == 0)
+					{
+						int textureX = cx - holeMask.width / 2 + (int) x;
+						int textureY = cy - holeMask.height / 2 + (int) y;
+						newTexture.SetPixel(textureX, textureY, color);
+					}
+				}
+			}
+			
+            newTexture.Apply(false, false);
+			meshRenderer.material.mainTexture = newTexture;
+        }
+    }
 	
 	public GameObject HitTestPoint(Vector3 point)
 	{
