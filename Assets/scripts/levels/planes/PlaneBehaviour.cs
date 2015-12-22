@@ -70,6 +70,7 @@ public class PlaneBehaviour : MonoBehaviour
 						int textureX = cx - holeMask.width / 2 + (int) x;
 						int textureY = cy - holeMask.height / 2 + (int) y;
 						newTexture.SetPixel(textureX, textureY, color);
+                        
 					}
 				}
 			}

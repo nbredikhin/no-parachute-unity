@@ -183,8 +183,6 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    
-
 
     public GameObject HitTestPlane(PlaneBehaviour plane)
     {
