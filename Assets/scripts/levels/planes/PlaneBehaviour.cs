@@ -37,9 +37,11 @@ public class PlaneBehaviour : MonoBehaviour
 			var newObject = Instantiate<GameObject>(LayerPrefab);
 			newObject.GetComponent<MeshRenderer>().material.mainTexture = currentLayerProps.MainTexture;
 			newObject.transform.SetParent(gameObject.transform, false);
+            
+            // TODO: добавить расширенную поддержку скриптов
+            newObject.AddComponent(System.Type.GetType(currentLayerProps.MovementScriptName));
+            
 			layers.Add(newObject, currentLayerProps);
-			
-			// TODO: Сделать привязку скриптов
 		}
 	}
 	

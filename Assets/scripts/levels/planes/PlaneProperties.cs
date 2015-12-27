@@ -14,12 +14,13 @@ public class PlaneProperties
 			texturePath = value;
 		}
 	 }
-	 public float RotationSpeed;
-	 public float SpeedX {get {return MovementSpeed.x;} set {MovementSpeed = new Vector3(value, SpeedY, SpeedZ);}}
-	 public float SpeedY {get {return MovementSpeed.y;} set {MovementSpeed = new Vector3(SpeedX, value, SpeedZ);}}
-	 public float SpeedZ {get {return MovementSpeed.z;} set {MovementSpeed = new Vector3(SpeedX, SpeedY, value);}}
-	 public Vector3 MovementSpeed;
 	 
+     public float RotationSpeed;
+     public Vector3 MovementSpeed;
+	 public Vector3 SpawnMinimum, SpawnMaximum;
+     
+     public string MovementScriptName;
+     
 	 public Texture MainTexture { get; private set; }
 	 
 	 private string texturePath;

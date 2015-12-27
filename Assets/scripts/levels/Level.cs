@@ -29,23 +29,66 @@ public class Level
 			Planes.Add(new List<PlaneProperties>());
 			var propsArray = planesArray[i];
 			
+            int textures_count = 0;
 			for (int j = 0; j < propsArray.Count; ++j)
 			{
 				var currentProp = new PlaneProperties();
-				
-				currentProp.RotationSpeed = propsArray[j]["RotationSpeed"].AsFloat;
-				currentProp.TexturePath = "levels/" + Number.ToString() + "/planes/" + propsArray[j]["TexturePath"];
-				currentProp.SpeedX = propsArray[j]["SpeedX"].AsFloat;
-				currentProp.SpeedY = propsArray[j]["SpeedY"].AsFloat;
-				currentProp.SpeedZ = propsArray[j]["SpeedZ"].AsFloat;
-				
+                currentProp.TexturePath = "levels/" + Number.ToString() + "/planes/";
+                // Если номер текстуры не указан
+				if (propsArray[j]["TexturePath"] == null)
+                {
+                    currentProp.TexturePath += (++textures_count).ToString();
+                }
+                else 
+                {
+                    currentProp.TexturePath += propsArray[j]["TexturePath"];
+                    if (!propsArray[j]["TexturePath"].ToString().Contains("deco"))
+                    {
+                        textures_count++;
+                    }
+                }
+                // Параметры спавна
+                if (propsArray[j]["SpawnRange"] == null)
+                {
+                    currentProp.SpawnMinimum = new Vector3();
+                    currentProp.SpawnMaximum = new Vector3();
+                }
+                else 
+                {
+                    var spawnRangeArray = propsArray[j]["SpawnRange"].AsArray;
+                    currentProp.SpawnMinimum = new Vector3(spawnRangeArray[0].AsFloat, spawnRangeArray[2].AsFloat, 
+                                                           spawnRangeArray[4].AsFloat);
+                    currentProp.SpawnMinimum = new Vector3(spawnRangeArray[1].AsFloat, spawnRangeArray[3].AsFloat, 
+                                                           spawnRangeArray[5].AsFloat);
+                }
+                // Скрипт движения
+                if (propsArray[j]["MovementScriptName"] == null)
+                    currentProp.MovementScriptName = "DefaultPlaneMovement";
+                else 
+                    currentProp.MovementScriptName = propsArray[j]["MovementScriptName"];
+                // Параметры скрипта движения
+                if (propsArray[j]["MovementSpeed"] == null)
+                {
+                    currentProp.MovementSpeed = new Vector3();
+                }
+                else 
+                {
+                    var movementSpeedArray = propsArray[j]["MovementSpeed"].AsArray;
+                    currentProp.MovementSpeed = new Vector3(movementSpeedArray[0].AsFloat, movementSpeedArray[1].AsFloat, 
+                                                           movementSpeedArray[2].AsFloat);
+                }
+                if (propsArray[j]["RotationSpeed"] == null)
+                    currentProp.RotationSpeed = 0.0f;
+                else 
+                    currentProp.RotationSpeed = propsArray[j]["RotationSpeed"].AsFloat;
+                    
 				Planes[i].Add(currentProp);
 			}
 		}
-		
 		return true;
 	}
 	
+    // Not working yet
 	public string SerializeLevel()
 	{
 		string result = "{}";
@@ -62,9 +105,9 @@ public class Level
 			for (int j = 0; j < Planes[i].Count; ++j)
 			{
 				json["Planes"][i][j]["RotationSpeed"].AsFloat = Planes[i][j].RotationSpeed;
-				json["Planes"][i][j]["SpeedX"].AsFloat = Planes[i][j].SpeedX;
-				json["Planes"][i][j]["SpeedY"].AsFloat = Planes[i][j].SpeedY;
-				json["Planes"][i][j]["SpeedZ"].AsFloat = Planes[i][j].SpeedZ;
+				// json["Planes"][i][j]["SpeedX"].AsFloat = Planes[i][j].SpeedX;
+				// json["Planes"][i][j]["SpeedY"].AsFloat = Planes[i][j].SpeedY;
+				// json["Planes"][i][j]["SpeedZ"].AsFloat = Planes[i][j].SpeedZ;
 				
 				string texturePath = Planes[i][j].TexturePath;
 				// Не храним полный путь до текстуры
