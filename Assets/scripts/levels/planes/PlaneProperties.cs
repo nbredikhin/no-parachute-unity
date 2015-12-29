@@ -20,17 +20,8 @@ public class PlaneProperties
 	 public Vector3 SpawnMinimum, SpawnMaximum;
      
      public string MovementScriptName;
+     public BaseMovement MovementScript;
      
 	 public Texture MainTexture { get; private set; }
-	 
 	 private string texturePath;
-	 
-	 public bool ShouldSerializeMainTexture()
-	 {
-		 return false;
-	 }
-	 public bool ShouldSerializeMovementSpeed()
-	 {
-		 return false;
-	 }
 }

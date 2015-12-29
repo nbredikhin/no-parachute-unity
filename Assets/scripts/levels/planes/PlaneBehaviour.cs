@@ -38,13 +38,29 @@ public class PlaneBehaviour : MonoBehaviour
 			newObject.GetComponent<MeshRenderer>().material.mainTexture = currentLayerProps.MainTexture;
 			newObject.transform.SetParent(gameObject.transform, false);
             
-            // TODO: добавить расширенную поддержку скриптов
             newObject.AddComponent(System.Type.GetType(currentLayerProps.MovementScriptName));
+            currentLayerProps.MovementScript = newObject.GetComponent<BaseMovement>();
+            currentLayerProps.MovementScript.Setup(currentLayerProps.MovementSpeed, currentLayerProps.RotationSpeed);
             
 			layers.Add(newObject, currentLayerProps);
 		}
+        Respawn();
 	}
 	
+    public void Respawn()
+    {
+        foreach (var currentLayerPair in layers)
+        {
+            var layerProperties = currentLayerPair.Value;
+            var layerGameObject = currentLayerPair.Key;
+            
+            float randomPosX = Random.Range(layerProperties.SpawnMinimum.x, layerProperties.SpawnMaximum.x);
+            float randomPosY = Random.Range(layerProperties.SpawnMinimum.y, layerProperties.SpawnMaximum.y);
+            
+            layerGameObject.transform.localPosition = new Vector3(randomPosX, randomPosY, 0);
+        }
+    }
+    
     public void CreateHole(Vector3 position)
     {
         foreach (var currentLayerPair in layers)
@@ -107,14 +123,5 @@ public class PlaneBehaviour : MonoBehaviour
 	
 	void Update () 
 	{
-		if (layers == null)
-			return;
-		foreach (var currentLayer in layers)
-		{
-			var layerGameObject = currentLayer.Key;
-			var layerProperties = currentLayer.Value;
-			
-			layerGameObject.transform.Rotate(0, 0, layerProperties.RotationSpeed * Time.deltaTime);
-		}
 	}
 }

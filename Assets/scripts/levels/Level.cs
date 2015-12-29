@@ -23,13 +23,13 @@ public class Level
 		
 		Planes = new List< List<PlaneProperties> >();
 		var planesArray = parsedJson["Planes"].AsArray;
+        int textures_count = 0;
 		
-		for (int i = 0; i < planesArray.Count; ++i)
+        for (int i = 0; i < planesArray.Count; ++i)
 		{
 			Planes.Add(new List<PlaneProperties>());
-			var propsArray = planesArray[i];
-			
-            int textures_count = 0;
+			var propsArray = planesArray[i].AsArray;
+		  
 			for (int j = 0; j < propsArray.Count; ++j)
 			{
 				var currentProp = new PlaneProperties();
@@ -38,6 +38,7 @@ public class Level
 				if (propsArray[j]["TexturePath"] == null)
                 {
                     currentProp.TexturePath += (++textures_count).ToString();
+                    Debug.Log(currentProp.TexturePath);
                 }
                 else 
                 {
@@ -50,8 +51,8 @@ public class Level
                 // Параметры спавна
                 if (propsArray[j]["SpawnRange"] == null)
                 {
-                    currentProp.SpawnMinimum = new Vector3();
-                    currentProp.SpawnMaximum = new Vector3();
+                    currentProp.SpawnMinimum = Vector3.zero;
+                    currentProp.SpawnMaximum = Vector3.zero;
                 }
                 else 
                 {
@@ -63,13 +64,13 @@ public class Level
                 }
                 // Скрипт движения
                 if (propsArray[j]["MovementScriptName"] == null)
-                    currentProp.MovementScriptName = "DefaultPlaneMovement";
+                    currentProp.MovementScriptName = "Idle";
                 else 
                     currentProp.MovementScriptName = propsArray[j]["MovementScriptName"];
                 // Параметры скрипта движения
                 if (propsArray[j]["MovementSpeed"] == null)
                 {
-                    currentProp.MovementSpeed = new Vector3();
+                    currentProp.MovementSpeed = Vector3.zero;
                 }
                 else 
                 {

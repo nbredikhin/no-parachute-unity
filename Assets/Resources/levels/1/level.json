@@ -5,38 +5,18 @@
 	   "Planes" : [ 
 	      [ 
 	         { 
-	            "RotationSpeed" : "0", 
-	            "SpeedX" : "0", 
-	            "SpeedY" : "0", 
-	            "SpeedZ" : "0", 
-	            "TexturePath" : "1"
 	         }
 	      ], 
 	      [ 
 	         { 
-	            "RotationSpeed" : "0", 
-	            "SpeedX" : "0", 
-	            "SpeedY" : "0", 
-	            "SpeedZ" : "0", 
-	            "TexturePath" : "2"
 	         }
 	      ], 
 	      [ 
-	         { 
-	            "RotationSpeed" : "0", 
-	            "SpeedX" : "0", 
-	            "SpeedY" : "0", 
-	            "SpeedZ" : "0", 
-	            "TexturePath" : "3"
+	         {  
 	         }
 	      ], 
 	      [ 
-	         { 
-	            "RotationSpeed" : "0", 
-	            "SpeedX" : "0", 
-	            "SpeedY" : "0", 
-	            "SpeedZ" : "0", 
-	            "TexturePath" : "4"
+	         {  
 	         }
 	      ]
 	   ]

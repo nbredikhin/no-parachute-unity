@@ -130,6 +130,7 @@ public class GameMain: MonoBehaviour
                 Destroy(currentPlane.gameObject);
 
                 planes[i] = newPlane;
+                
             }
 			
 			var planeZ = currentPlane.transform.position.y;
@@ -145,7 +146,7 @@ public class GameMain: MonoBehaviour
                 }
             }
         }
-        // Обраотка бонусов
+        // Обработка бонусов
         for (int  i = 0; i < powerups.Count; ++i)
         {
             var currentPU = powerups[i];
@@ -274,7 +275,7 @@ public class GameMain: MonoBehaviour
         var planeGameObject = (GameObject)Instantiate(planePrefab, position, planePrefab.transform.rotation);
         var plane = planeGameObject.GetComponent<PlaneBehaviour>();
         plane.Setup(level.Planes [planeNo]);
-
+        
         int rotationMul = Random.Range(0, 3);
         planeGameObject.transform.Rotate(0, rotationMul * 90, 0);
 
@@ -291,7 +292,7 @@ public class GameMain: MonoBehaviour
         var powerupGameObject = (GameObject)Instantiate(powerupPrefab, (new Vector3(randomX, -pipeCount * pipeSize, randomZ)), powerupPrefab.transform.rotation);
         var powerup = powerupGameObject.GetComponent<PowerUp>();
         powerup.Setup(type);
-           
+        
         powerups.Add(powerup);
     }
 
