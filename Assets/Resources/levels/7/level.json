@@ -71,6 +71,7 @@
       }
     ]
   ],
-  "CameraRotationSpeed": 10.0,
+  "CameraRotationScriptName": "FollowingPlayerRotation",
+  "CameraRotationSpeed": 4.0,
   "FallingSpeed": 10
 }

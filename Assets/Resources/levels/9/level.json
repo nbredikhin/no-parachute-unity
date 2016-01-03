@@ -83,6 +83,7 @@
       }
     ]
   ],
-  "CameraRotationSpeed": 10.0,
+  "CameraRotationScriptName": "SineCameraRotation",
+  "CameraRotationSpeed": 90.0,
   "FallingSpeed": 12
 }

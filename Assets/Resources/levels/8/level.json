@@ -43,6 +43,6 @@
       }
     ]
   ],
-  "CameraRotationSpeed": 10.0,
+  "CameraRotationSpeed": 60.0,
   "FallingSpeed": 12.5
 }
