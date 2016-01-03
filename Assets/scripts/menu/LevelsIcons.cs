@@ -69,7 +69,7 @@ public class LevelsIcons : MonoBehaviour
 
     bool isLevelLocked(int index)
     {
-        return index >= 8;
+        return false;
     }
 
     bool isLevelPassed(int index)

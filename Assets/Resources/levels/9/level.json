@@ -1,0 +1,88 @@
+{
+  "Number": 9,
+  "Planes": [
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "MovementSpeed": [-0.002, 0, 0],
+        "MovementScriptName": "DoorMoving"
+      },
+      {
+        "TexturePath": "8_deco",
+        "MovementSpeed": [0.002, 0, 0],
+        "MovementScriptName": "DoorMoving"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -90.0,
+        "MovementScriptName": "UniformRotation"
+      }
+    ],
+    [
+      {
+         "RotationSpeed": 360.0,
+         "MovementScriptName": "UniformRotation"
+      }
+    ],
+    [
+      {
+         "RotationSpeed": 90.0,
+         "MovementScriptName": "UniformRotation"
+      },
+      {
+          "TexturePath": "11_deco"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      },
+      {
+         "RotationSpeed": -90.0,
+         "MovementScriptName": "UniformRotation",
+          "TexturePath": "15_deco"
+      }
+    ]
+  ],
+  "CameraRotationSpeed": 10.0,
+  "FallingSpeed": 12
+}

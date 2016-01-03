@@ -4,25 +4,25 @@
     [
       {
         "RotationSpeed": -110.0,
-        "MovementScriptName": "UniformRotation"
+        "MovementScriptName": "RotationRandomDirection"
       }
     ],
     [
       {
         "RotationSpeed": 65.0,
-        "MovementScriptName": "UniformRotation"
+        "MovementScriptName": "RotationRandomDirection"
       }
     ],
     [
       {
         "RotationSpeed": 20.0,
-        "MovementScriptName": "UniformRotation"
+        "MovementScriptName": "RotationRandomDirection"
       }
     ],
     [
       {
         "RotationSpeed": -180.0,
-        "MovementScriptName": "UniformRotation"
+        "MovementScriptName": "RotationRandomDirection"
       }
     ],
     [
@@ -39,10 +39,10 @@
     [
       {
         "RotationSpeed": -90.0,
-        "MovementScriptName": "UniformRotation"
+        "MovementScriptName": "RotationRandomDirection"
       }
     ]
   ],
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 14
+  "FallingSpeed": 12.5
 }
