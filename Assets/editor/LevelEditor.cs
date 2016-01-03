@@ -105,9 +105,9 @@ public class LevelEditor : EditorWindow
 		EditorGUILayout.EndScrollView();
 		if (GUILayout.Button("Сохранить"))
 		{
-			string s = levelSetup.SerializeLevel();
-			Debug.Log(s);
-			File.WriteAllText("Assets/resources/levels/" + levelSetup.Number + "/level.json", s);
+			// string s = levelSetup.SerializeLevel();
+			// Debug.Log(s);
+			// File.WriteAllText("Assets/resources/levels/" + levelSetup.Number + "/level.json", s);
 		}
 	}
 }

@@ -9,6 +9,7 @@ public class Level
 	public int Number;
 	public List< List<PlaneProperties> > Planes;
 	public float CameraRotationSpeed;
+    public string CameraRotationScript;
 	public float FallingSpeed;
 	
 	public bool LoadLevel(TextAsset file)
@@ -18,7 +19,17 @@ public class Level
 		var parsedJson = JSON.Parse(jsonStr);
 		
 		Number = parsedJson["Number"].AsInt;
-		CameraRotationSpeed = parsedJson["CameraRotationSpeed"].AsFloat;
+        // Скрипт вращения камеры
+        if (parsedJson["CameraRotationScriptName"] == null)
+            CameraRotationScript = "UniformCameraRotation";
+        else 
+            CameraRotationScript = parsedJson["CameraRotationScriptName"];
+        // Параметры скрипта вращения камеры
+		if (parsedJson["CameraRotationSpeed"] == null)
+            CameraRotationSpeed = 0f;
+        else 
+            CameraRotationSpeed = parsedJson["CameraRotationSpeed"].AsFloat;
+                
 		FallingSpeed = parsedJson["FallingSpeed"].AsFloat;
 		
 		Planes = new List< List<PlaneProperties> >();
@@ -87,39 +98,5 @@ public class Level
 			}
 		}
 		return true;
-	}
-	
-    // Not working yet
-	public string SerializeLevel()
-	{
-		string result = "{}";
-		
-		var json = JSON.Parse(result);
-		json["FallingSpeed"].AsFloat = FallingSpeed;
-		json["CameraRotationSpeed"].AsFloat = CameraRotationSpeed;
-		
-		json["Planes"] = new JSONArray();
-		
-		for (int i = 0; i < Planes.Count; ++i)
-		{
-			json["Planes"][-1] = new JSONArray();
-			for (int j = 0; j < Planes[i].Count; ++j)
-			{
-				json["Planes"][i][j]["RotationSpeed"].AsFloat = Planes[i][j].RotationSpeed;
-				// json["Planes"][i][j]["SpeedX"].AsFloat = Planes[i][j].SpeedX;
-				// json["Planes"][i][j]["SpeedY"].AsFloat = Planes[i][j].SpeedY;
-				// json["Planes"][i][j]["SpeedZ"].AsFloat = Planes[i][j].SpeedZ;
-				
-				string texturePath = Planes[i][j].TexturePath;
-				// Не храним полный путь до текстуры
-				string prefix = "levels/" + Number.ToString() + "/planes/";
-				if (texturePath.Contains(prefix))
-					texturePath = texturePath.Substring(prefix.Length);
-				json["Planes"][i][j]["TexturePath"] = texturePath;
-			}
-		}
-		
-		result = json.ToString("\t");
-		return result;
 	}
 }

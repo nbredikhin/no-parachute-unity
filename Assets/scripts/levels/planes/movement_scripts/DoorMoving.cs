@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DoorMoving : BaseMovement {
+public class DoorMoving : BaseMovement 
+{
 	void Update () 
     {
         transform.Translate(MovementSpeed);

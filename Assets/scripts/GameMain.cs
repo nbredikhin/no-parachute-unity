@@ -176,7 +176,7 @@ public class GameMain: MonoBehaviour
             }
         }
         // Вращение камеры
-        Camera.main.transform.Rotate(0f, 0f, level.CameraRotationSpeed * Time.deltaTime);
+        // Camera.main.transform.Rotate(0f, 0f, level.CameraRotationSpeed * Time.deltaTime);
         
         if (!isDead && !isPaused)
         {
@@ -202,6 +202,7 @@ public class GameMain: MonoBehaviour
             level.FallingSpeed = 0;
             level.CameraRotationSpeed = 0;
             level.Planes = null;
+            level.CameraRotationScript = "UniformRotation";
             // Удаление контейнеров
             pipeWalls = null;
             decorativePlanes = null;
@@ -212,8 +213,10 @@ public class GameMain: MonoBehaviour
         // Загрузка уровня 
         var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
         level.LoadLevel(levelFile);
-        //var str = level.SerializeLevel();
-
+        Camera.main.gameObject.AddComponent(System.Type.GetType(level.CameraRotationScript));
+        var movementScript = Camera.main.gameObject.GetComponent<BaseCameraRotationScript>();
+        movementScript.Setup(level.CameraRotationSpeed);
+        
         powerups = new List<PowerUp>();
 
         // Боковые стены

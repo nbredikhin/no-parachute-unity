@@ -120,10 +120,10 @@ public class PlaneBehaviour : MonoBehaviour
 			var y = point.z - layerGameObject.transform.position.z;
 			
 			var r = Utils.RotateVector2(new Vector2(x, y), layerGameObject.transform.eulerAngles.y);
-			
+           
 			x = Mathf.Floor((r.x + layerGameObject.transform.localScale.x / 2) / layerGameObject.transform.localScale.x * texture.width);
 			y = Mathf.Floor((r.y + layerGameObject.transform.localScale.y / 2) / layerGameObject.transform.localScale.y * texture.height);
-			
+            
 			if (texture.GetPixel((int)x, (int)y).a > 0)
 				return layerGameObject;
 		}
