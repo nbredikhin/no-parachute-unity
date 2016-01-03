@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     // Кровь
     public GameObject limbBlood;
     private ParticleSystem deathBloodParticles;
-    private ParticleSystem hitBloodParticles;
+    private ParticleSystem hitParticles;
     // Жизни
     public int maxLivesCount = 3;
     public int lives;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 		RestoreAllLimbs();
 
 		deathBloodParticles = transform.Find("death_blood").GetComponent<ParticleSystem>();
-        hitBloodParticles = transform.Find("hit_particles").GetComponent<ParticleSystem>();
+        hitParticles = transform.Find("hit_particles").GetComponent<ParticleSystem>();
 		lives = maxLivesCount;
     }
 
@@ -207,8 +207,9 @@ public class PlayerController : MonoBehaviour
                 audioSource.Play();
                  
                 //plane.Visible = false;
-                plane.CreateHole(transform.position);
-                hitBloodParticles.Play();
+                var particlesColor = plane.CreateHole(transform.position);
+                hitParticles.startColor = particlesColor * 2f;
+                hitParticles.Play();
         		return null;
         	}
             return hitPlane;
@@ -270,13 +271,13 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
     	deathBloodParticles.Play();
-        hitBloodParticles.Stop();
+        hitParticles.Stop();
     }
 
     public void Respawn()
     {
     	deathBloodParticles.Stop();
-        hitBloodParticles.Stop();
+        hitParticles.Stop();
     	lives = maxLivesCount;
     }
 }

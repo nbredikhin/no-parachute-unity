@@ -1,0 +1,76 @@
+{
+  "Number": 7,
+  "Planes": [
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 10.0,
+        "MovementScriptName": "UniformRotation"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -10.0,
+        "MovementScriptName": "UniformRotation"
+      },
+      {
+        "TexturePath": "6_deco",
+        "RotationSpeed": 10.0,
+        "MovementScriptName": "UniformRotation"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 180.0,
+        "MovementScriptName": "UniformRotation"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 110.0,
+        "MovementScriptName": "UniformRotation"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 30.0,
+        "MovementScriptName": "UniformRotation"
+      },
+      {
+          "TexturePath": "9_deco"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -150.0,
+        "MovementScriptName": "UniformRotation"
+      },
+      {
+          "TexturePath": "10_deco"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 40.0,
+        "MovementScriptName": "UniformRotation"
+      }
+    ]
+  ],
+  "CameraRotationSpeed": 10.0,
+  "FallingSpeed": 10
+}

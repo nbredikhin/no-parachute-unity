@@ -1,0 +1,43 @@
+{
+  "Number": 5,
+  "Planes": [
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 1.0,
+        "MovementScriptName": "SineRotation"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 40.0,
+        "MovementScriptName": "UniformRotation"
+      }
+    ]
+  ],
+  "CameraRotationSpeed": 10.0,
+  "FallingSpeed": 10.0
+}

@@ -61,8 +61,10 @@ public class PlaneBehaviour : MonoBehaviour
         }
     }
     
-    public void CreateHole(Vector3 position)
+    public Color CreateHole(Vector3 position)
     {
+        Color layerColor = Color.red;
+        
         foreach (var currentLayerPair in layers)
         {
 			var layerGameObject = currentLayerPair.Key;
@@ -87,6 +89,11 @@ public class PlaneBehaviour : MonoBehaviour
 					{
 						int textureX = cx - holeMask.width / 2 + (int) x;
 						int textureY = cy - holeMask.height / 2 + (int) y;
+                        var pixelColor = newTexture.GetPixel(textureX, textureY);
+                        if (pixelColor.a > 0 && layerColor == Color.red)
+                        {
+                            layerColor = pixelColor;
+                        }
 						newTexture.SetPixel(textureX, textureY, color);
                         
 					}
@@ -96,6 +103,8 @@ public class PlaneBehaviour : MonoBehaviour
             newTexture.Apply(false, false);
 			meshRenderer.material.mainTexture = newTexture;
         }
+        
+        return layerColor;
     }
 	
 	public GameObject HitTestPoint(Vector3 point)

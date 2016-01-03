@@ -1,0 +1,56 @@
+{
+  "Number": 6,
+  "Planes": [
+    [
+      {
+      },
+      {
+        "RotationSpeed": 50.0,
+        "MovementScriptName": "UniformRotation",
+        "TexturePath": "1_deco"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      },
+      {
+        "MovementSpeed": [0.01, 0, 0],
+        "MovementScriptName": "DoorMoving",
+        "TexturePath": "6_deco"
+      }
+    ],
+    [
+      {
+      },
+      {
+        "MovementSpeed": [0, 0.01, 0],
+        "MovementScriptName": "DoorMoving",
+        "TexturePath": "7_deco"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -70.0,
+        "MovementScriptName": "UniformRotation",
+      }
+    ]
+  ],
+  "CameraRotationSpeed": 10.0,
+  "FallingSpeed": 8.5
+}
