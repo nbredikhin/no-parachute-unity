@@ -47,9 +47,17 @@ public class LevelsIcons : MonoBehaviour
     private Vector2 startDragPosition;
     private bool isDragging;
     private int fingerId;
+    
+    private int currentUnlockedLevel; 
 
     void Start ()
     {
+        currentUnlockedLevel = PlayerPrefs.GetInt("CurrentLevel", 1) - 1;
+        if (Cheats.UNLOCK_ALL_LEVELS)
+        {
+            currentUnlockedLevel = iconsCount;
+        }
+        
         rectTransform = GetComponent<RectTransform>();
         icons = new GameObject[iconsCount];
         for (int i = 0; i < iconsCount; i++)
@@ -63,18 +71,18 @@ public class LevelsIcons : MonoBehaviour
             icons[i] = CreateIcon(i, state);
         }
 
-        selectedIcon = 1;
-        SetSelectedIcon(0);
+        selectedIcon = -1;
+        SetSelectedIcon(currentUnlockedLevel);
     }
 
     bool isLevelLocked(int index)
     {
-        return false;
+        return index > currentUnlockedLevel;
     }
 
     bool isLevelPassed(int index)
     {
-        return index <= 1;
+        return index < currentUnlockedLevel;
     }
 
     GameObject CreateIcon(int index, IconState state = IconState.Normal)
@@ -132,10 +140,14 @@ public class LevelsIcons : MonoBehaviour
             return;
         }
 
+        Image image;
         // Сброс предыдущей выделенной иконки
-        icons[selectedIcon].transform.localScale = Vector2.one;
-        var image = icons[selectedIcon].GetComponent<Image>();
-        image.color = normalFrameColor;
+        if (selectedIcon >= 0)
+        {
+            icons[selectedIcon].transform.localScale = Vector2.one;
+            image = icons[selectedIcon].GetComponent<Image>();
+            image.color = normalFrameColor;
+        }
 
         selectedIcon = index;
         // Позиция

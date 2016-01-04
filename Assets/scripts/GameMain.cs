@@ -187,6 +187,10 @@ public class GameMain: MonoBehaviour
                 isLevelFinished = true;
                 gameUI.ShowScreen(gameUI.passedScreen);
                 JoystickInput.isEnabled = false;
+                
+                // Сохранение прогресса
+                var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+                PlayerPrefs.SetInt("CurrentLevel", Mathf.Max(level.Number + 1, currentLevel));
             }
         }
  
