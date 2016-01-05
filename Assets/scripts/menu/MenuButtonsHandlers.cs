@@ -9,7 +9,7 @@ public class MenuButtonsHandlers : MonoBehaviour
 
     public void Settings()
     {
-
+        Application.LoadLevel("SettingsMenu");
     }
 
     public void StartLevel()
