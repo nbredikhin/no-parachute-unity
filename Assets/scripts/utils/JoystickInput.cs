@@ -20,15 +20,16 @@ public class JoystickInput : MonoBehaviour
 
 	void Start ()
     {
+        maxJoystickDistance /= GameSettings.inputSensitivity;
         joystickImage.enabled = false;
     }
 
     private void JoystickMove(Vector2 position)
     {
         var delta = position - startTouchPosition;
-        // TODO: Чувствительность из настроек
         delta = Vector2.ClampMagnitude(delta, maxJoystickDistance);
         input = delta / maxJoystickDistance;
+        //input *= GameSettings.inputSensitivity;
 
         joystickImage.rectTransform.position = startTouchPosition + delta;
         joystickImage.color = new Color(1f, 1f, 1f, delta.magnitude / maxJoystickDistance);

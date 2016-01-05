@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButtonsHandlers : MonoBehaviour
 {
     public void StartGame()
     {
-        Application.LoadLevel("LevelsMenu");
+        SceneManager.LoadScene("LevelsMenu");
     }
 
     public void Settings()
     {
-        Application.LoadLevel("SettingsMenu");
+        SceneManager.LoadScene("SettingsMenu");
+    }
+    
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void StartLevel()
@@ -18,6 +24,6 @@ public class MenuButtonsHandlers : MonoBehaviour
         
         SharedData.levelNo = levelsIcons.SeletedLevel;
         
-        Application.LoadLevel("Game");
+        SceneManager.LoadScene("Game");
     }
 }

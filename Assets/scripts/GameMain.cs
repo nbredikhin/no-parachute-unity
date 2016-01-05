@@ -54,6 +54,10 @@ public class GameMain: MonoBehaviour
 
     void Start()
     {
+        GameSettings.LoadSettings();
+        
+        decorativePlanesCount = (int)((float)decorativePlanesCount * Mathf.Clamp(GameSettings.graphicsQuality / 2f, 0f, 1f));
+        
         Application.targetFrameRate = 60;
         if (level == null)
             level = new Level();
@@ -332,6 +336,8 @@ public class GameMain: MonoBehaviour
         var playerSound = player.GetComponent<AudioSource>();
         playerSound.clip = player.Sounds[0];
         playerSound.Play();
+        if (GameSettings.isVibrationEnabled)
+            Handheld.Vibrate();
         
         player.Die();
 

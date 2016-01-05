@@ -230,6 +230,9 @@ public class PlayerController : MonoBehaviour
                 var audioSource = gameObject.GetComponent<AudioSource>();
                 audioSource.clip = Sounds[1];
                 audioSource.Play();
+                
+                if (GameSettings.isVibrationEnabled)
+                    Handheld.Vibrate();
             }
         }
         return null;

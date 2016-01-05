@@ -17,49 +17,51 @@ public class GameSettings : MonoBehaviour
     
 	void Start () 
     {
-	   soundButton.AddState("enabled", "Sound: enabled");
-       soundButton.AddState("disabled", "Sound: disabled");
-       
-       vibrationButton.AddState("enabled", "Vibration: enabled");
-       vibrationButton.AddState("disabled", "Vibration: disabled");
-       
-       qualityButton.AddState("low", "Quality: low");
-       qualityButton.AddState("medium", "Quality: medium");
-       qualityButton.AddState("high", "Quality: high");
-       
-       LoadSettings();
-	}
-    
-    private void LoadSettings()
-    {
-        // Звук и вибрация
-        soundButton.SetState(PlayerPrefs.GetInt("settings_sound", 1) == 1 ? "enabled" : "disabled");
-        vibrationButton.SetState(PlayerPrefs.GetInt("settings_vibration", 1) == 1 ? "enabled" : "disabled");
+        soundButton.AddState("enabled", "Sound: enabled");
+        soundButton.AddState("disabled", "Sound: disabled");
+
+        vibrationButton.AddState("enabled", "Vibration: enabled");
+        vibrationButton.AddState("disabled", "Vibration: disabled");
+
+        qualityButton.AddState("low", "Quality: low");
+        qualityButton.AddState("medium", "Quality: medium");
+        qualityButton.AddState("high", "Quality: high");
+
+        // Загрузка настроек
+        LoadSettings();
         
+        // Звук и вибрация
+        soundButton.SetState(isSoundEnabled ? "enabled" : "disabled");
+        vibrationButton.SetState(isVibrationEnabled ? "enabled" : "disabled");
+
         // Качество графики
-        var quality = PlayerPrefs.GetInt("settings_quality", 2);
-        switch (quality)
+        switch (graphicsQuality)
         {
-            case 0:
-                qualityButton.SetState("low");
-                break;
-            case 1:
-                qualityButton.SetState("medium");
-                break;
-            case 2:
-                qualityButton.SetState("high");
-                break;
-            default:
-                qualityButton.SetState("high");
-                break;
+        case 0:
+            qualityButton.SetState("low");
+            break;
+        case 1:
+            qualityButton.SetState("medium");
+            break;
+        case 2:
+            qualityButton.SetState("high");
+            break;
+        default:
+            qualityButton.SetState("high");
+            break;
         }
         // Чувствительность
-        sensitivitySlider.value = PlayerPrefs.GetFloat("settings_sensitivity", 1);
+        sensitivitySlider.value = inputSensitivity;
+	}
+    
+    public static void LoadSettings()
+    {
+        isSoundEnabled = PlayerPrefs.GetInt("settings_sound", 1) == 1;
+        isVibrationEnabled = PlayerPrefs.GetInt("settings_vibration", 1) == 1;
+        graphicsQuality = PlayerPrefs.GetInt("settings_quality", 2);
+        inputSensitivity = PlayerPrefs.GetFloat("settings_sensitivity", 1);
         
-        isSoundEnabled = soundButton.GetCurrentState() == "enabled";
-        isVibrationEnabled = vibrationButton.GetCurrentState() == "enabled";
-        graphicsQuality = quality;
-        inputSensitivity = sensitivitySlider.value;
+        AudioListener.volume = isSoundEnabled ? 1 : 0;
     }
     
     private void SaveSettings()
@@ -92,6 +94,8 @@ public class GameSettings : MonoBehaviour
         isVibrationEnabled = vibrationState == "enabled";
         graphicsQuality = quality;
         inputSensitivity = sensitivitySlider.value;
+        
+        AudioListener.volume = isSoundEnabled ? 1 : 0;
     }
     
     public void BackButtonClick()
