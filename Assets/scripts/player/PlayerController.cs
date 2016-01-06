@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour
         var hitPlane = plane.HitTestPoint(transform.position);
         if (hitPlane != null)
         {
-        	if (lives > 0)
+        	if (lives > 1)
         	{
         		lives--;
         		GodMode = true;
