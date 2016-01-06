@@ -11,10 +11,9 @@ public class GameMain: MonoBehaviour
 
     // Общие парметры игры
     public int pipeSize = 10;
-    public int pipeCount = 10;
+    public int pipeCount = 6;
     public int maxDecorativeTextures = 50;
     public int decorativePlanesCount = 30;
-    public int planesCount = 11;
     
     private PlayerController player;
 
@@ -45,8 +44,6 @@ public class GameMain: MonoBehaviour
     private float speedUpTimer = 0;
     private float prepareTime = 2;
     
-    // Продолжительность уровня в секундах
-    public float levelDuration = 10f;
     // Время, на протяжении которого, запущен уровень
     private float levelRunningTime = 0f;
     // Завершен ли уровень: isLevelFinished = levelRunningTime >= levelDuration;
@@ -179,14 +176,12 @@ public class GameMain: MonoBehaviour
                 }
             }
         }
-        // Вращение камеры
-        // Camera.main.transform.Rotate(0f, 0f, level.CameraRotationSpeed * Time.deltaTime);
         
         if (!isDead && !isPaused)
         {
             levelRunningTime += Time.deltaTime;
                        
-            if (levelRunningTime >= levelDuration && !isLevelFinished)
+            if (levelRunningTime >= level.LevelDuration && !isLevelFinished)
             {
                 isLevelFinished = true;
                 gameUI.ShowScreen(gameUI.passedScreen);
@@ -211,6 +206,8 @@ public class GameMain: MonoBehaviour
             level.CameraRotationSpeed = 0;
             level.Planes = null;
             level.CameraRotationScript = "UniformRotation";
+            level.LevelDuration = 0;
+            level.PlanesCount = 0;
             // Удаление контейнеров
             pipeWalls = null;
             decorativePlanes = null;
@@ -267,10 +264,10 @@ public class GameMain: MonoBehaviour
         }
         
         // Тестовое создание плоскостей
-        planes = new PlaneBehaviour[planesCount];
-        for (int i = 0; i < planesCount; ++i)
+        planes = new PlaneBehaviour[level.PlanesCount];
+        for (int i = 0; i < level.PlanesCount; ++i)
         {
-            planes [i] = SpawnRandomPlane(Vector3.down * pipeSize * pipeCount * ((float)i / planesCount + 0.5f));
+            planes [i] = SpawnRandomPlane(Vector3.down * pipeSize * pipeCount * ((float)i / level.PlanesCount + 0.5f));
         }
         
         player = GameObject.Find("Player").GetComponent<PlayerController>();

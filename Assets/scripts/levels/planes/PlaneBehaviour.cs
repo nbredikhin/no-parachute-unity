@@ -124,6 +124,9 @@ public class PlaneBehaviour : MonoBehaviour
 			x = Mathf.Floor((r.x + layerGameObject.transform.localScale.x / 2) / layerGameObject.transform.localScale.x * texture.width);
 			y = Mathf.Floor((r.y + layerGameObject.transform.localScale.y / 2) / layerGameObject.transform.localScale.y * texture.height);
             
+            if (x < 0 || x > texture.width || y < 0 || y > texture.height)
+                continue;
+            
 			if (texture.GetPixel((int)x, (int)y).a > 0)
 				return layerGameObject;
 		}

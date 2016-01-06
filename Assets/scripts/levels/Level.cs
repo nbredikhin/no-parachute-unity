@@ -7,6 +7,8 @@ using SimpleJSON;
 public class Level
 {
 	public int Number;
+    public int PlanesCount;
+    public int LevelDuration;
 	public List< List<PlaneProperties> > Planes;
 	public float CameraRotationSpeed;
     public string CameraRotationScript;
@@ -17,7 +19,7 @@ public class Level
 		string jsonStr = file.text;
 		
 		var parsedJson = JSON.Parse(jsonStr);
-		
+        
 		Number = parsedJson["Number"].AsInt;
         // Скрипт вращения камеры
         if (parsedJson["CameraRotationScriptName"] == null)
@@ -29,7 +31,19 @@ public class Level
             CameraRotationSpeed = 0f;
         else 
             CameraRotationSpeed = parsedJson["CameraRotationSpeed"].AsFloat;
-                
+        
+        // Количество плоскостей
+        if (parsedJson["PlanesCount"] == null)
+            PlanesCount = 6;
+        else
+            PlanesCount = parsedJson["PlanesCount"].AsInt;
+        
+        // Длительность уровня
+        if (parsedJson["LevelDuration"] == null)
+            LevelDuration = 30;
+        else
+            LevelDuration = parsedJson["LevelDuration"].AsInt; 
+            
 		FallingSpeed = parsedJson["FallingSpeed"].AsFloat;
 		
 		Planes = new List< List<PlaneProperties> >();
