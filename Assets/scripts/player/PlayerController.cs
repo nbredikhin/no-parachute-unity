@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
+    // Камерa
+    public float shakeCameraHitLimb = 0.2f;
+    public float shakeCameraHitBody = 1f;
 	// Общие параметры игрока
     public float movementSpeed = 5f;
     public float maxAngle = 30f;
@@ -210,6 +213,8 @@ public class PlayerController : MonoBehaviour
                 var particlesColor = plane.CreateHole(transform.position);
                 hitParticles.startColor = particlesColor * 2f;
                 hitParticles.Play();
+                
+                Camera.main.SendMessage("ShakeCamera", shakeCameraHitBody);
         		return null;
         	}
             return hitPlane;
@@ -233,6 +238,8 @@ public class PlayerController : MonoBehaviour
                 
                 if (GameSettings.isVibrationEnabled)
                     Handheld.Vibrate();
+                    
+                Camera.main.SendMessage("ShakeCamera", shakeCameraHitLimb);
             }
         }
         return null;

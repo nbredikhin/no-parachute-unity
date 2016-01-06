@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class GameMain: MonoBehaviour
 {
+    // Камера
+    public float shakeCameraDeath = 1.3f;
     // Префабы
     public GameObject pipeWallPrefab;
     public GameObject decorativePlanePrefab;
@@ -342,6 +344,7 @@ public class GameMain: MonoBehaviour
             Handheld.Vibrate();
         
         player.Die();
+        Camera.main.SendMessage("ShakeCamera", shakeCameraDeath);
 
         gameUI.ShowScreen(gameUI.deathScreen);
     }
