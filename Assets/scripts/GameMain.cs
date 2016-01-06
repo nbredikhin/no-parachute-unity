@@ -18,7 +18,7 @@ public class GameMain: MonoBehaviour
     public int decorativePlanesCount = 30;
     
     private PlayerController player;
-
+    
     private GameUI gameUI;
     // Локальная скорость падения
     private float fallingSpeed;
@@ -48,6 +48,8 @@ public class GameMain: MonoBehaviour
     
     // Время, на протяжении которого, запущен уровень
     private float levelRunningTime = 0f;
+    // Время, за которое до конца уровня перестают спавнится плоскости
+    public int timeBeforeSpawnEnd = 10;
     // Завершен ли уровень: isLevelFinished = levelRunningTime >= levelDuration;
     private bool isLevelFinished = false;
 
@@ -91,7 +93,7 @@ public class GameMain: MonoBehaviour
 
         spawnTimer += Time.deltaTime;
 
-        if (false && (spawnTimer >= SpawnInterval && !isDead)) // Debug
+        if ((spawnTimer >= SpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)) // Debug
         {
             int type = Random.Range(1, 4);
 
@@ -122,18 +124,21 @@ public class GameMain: MonoBehaviour
         // Обработка основных плоскостей
         for (int i = 0; i < planes.Length; ++i)
         {
-            var currentPlane = planes [i];
-
+            var currentPlane = planes[i];
+            if (currentPlane == null)
+                continue;
+                
             currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
             if (currentPlane.transform.position.y >= 0)
             {
-                currentPlane.transform.Translate(Vector3.down * (pipeCount) * pipeSize, Space.World);
-                var newPlane = SpawnRandomPlane(currentPlane.transform.position);
-                
-                Destroy(currentPlane.gameObject);
-
-                planes[i] = newPlane;
-                
+                if (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)
+                {
+                    currentPlane.transform.Translate(Vector3.down * (pipeCount) * pipeSize, Space.World);
+                    var newPlane = SpawnRandomPlane(currentPlane.transform.position);
+                    
+                    planes[i] = newPlane;
+                }
+                Destroy(currentPlane.gameObject);                
             }
 			
 			var planeZ = currentPlane.transform.position.y;
@@ -225,7 +230,7 @@ public class GameMain: MonoBehaviour
         movementScript.Setup(level.CameraRotationSpeed);
         
         powerups = new List<PowerUp>();
-
+        timeBeforeSpawnEnd = level.PlanesCount;
         // Боковые стены
         // Загрузка текстур 
         Texture bufferTexture = Resources.Load<Texture>("levels/" + level.Number.ToString() + "/wall");

@@ -2304,6 +2304,7 @@ MonoBehaviour:
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
   SpawnInterval: 3
+  timeBeforeSpawnEnd: 10
 --- !u!114 &571393028
 MonoBehaviour:
   m_ObjectHideFlags: 0
