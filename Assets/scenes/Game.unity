@@ -99,7 +99,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1998753
 RectTransform:
   m_ObjectHideFlags: 0
@@ -262,6 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79411d0469b5b4a518f9e2c40fb06b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeCameraHitLimb: 0.3
+  shakeCameraHitBody: 1
   movementSpeed: 5
   maxAngle: 30
   maxHandsAngle: 10
@@ -2291,6 +2293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20073484e6fd24ae7ad11725b3859c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeCameraDeath: 1.3
   pipeWallPrefab: {fileID: 129276, guid: ff8d7269e678a4d42852f3c6271d0a9d, type: 2}
   decorativePlanePrefab: {fileID: 151304, guid: 64684a9011a2e4a32ad3f4284ed01c0c,
     type: 2}
@@ -2299,10 +2302,8 @@ MonoBehaviour:
   pipeSize: 10
   pipeCount: 6
   maxDecorativeTextures: 50
-  decorativePlanesCount: 15
-  planesCount: 5
+  decorativePlanesCount: 30
   SpawnInterval: 3
-  levelDuration: 30
 --- !u!114 &571393028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2331,6 +2332,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  gameMain: {fileID: 571393027}
+  shakePower: 0.5
+  shakeTime: 1
 --- !u!1 &721349061
 GameObject:
   m_ObjectHideFlags: 0
@@ -6379,7 +6383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2039759288
 RectTransform:
   m_ObjectHideFlags: 0

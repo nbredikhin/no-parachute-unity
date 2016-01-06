@@ -17,6 +17,11 @@ public class MenuButtonsHandlers : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+    
+    public void CreditsMenu()
+    {
+        SceneManager.LoadScene("CreditsMenu");
+    }
 
     public void StartLevel()
     {
