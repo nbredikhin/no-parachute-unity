@@ -274,10 +274,11 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleVisibility()
     {
+        isVisible = !isVisible;
         var childrenRenderers = gameObject.transform.GetComponentsInChildren<MeshRenderer>();
         foreach (var renderer in childrenRenderers)
         {
-            isVisible = renderer.enabled = !renderer.enabled;
+            renderer.enabled = isVisible;
         }
     }
 
@@ -285,6 +286,11 @@ public class PlayerController : MonoBehaviour
     {
     	deathBloodParticles.Play();
         hitParticles.Stop();
+        
+        if (!isVisible)
+        {
+            ToggleVisibility();
+        }
     }
 
     public void Respawn()
