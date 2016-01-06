@@ -2299,10 +2299,9 @@ MonoBehaviour:
   pipeSize: 10
   pipeCount: 6
   maxDecorativeTextures: 50
-  decorativePlanesCount: 15
-  planesCount: 5
+  decorativePlanesCount: 30
   SpawnInterval: 3
-  levelDuration: 30
+  timeBeforeSpawnEnd: 10
 --- !u!114 &571393028
 MonoBehaviour:
   m_ObjectHideFlags: 0
