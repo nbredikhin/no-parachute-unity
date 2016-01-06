@@ -215,6 +215,9 @@ public class PlayerController : MonoBehaviour
                 hitParticles.Play();
                 
                 Camera.main.SendMessage("ShakeCamera", shakeCameraHitBody);
+                // Вибрация
+                if (GameSettings.isVibrationEnabled)
+                    Handheld.Vibrate();
         		return null;
         	}
             return hitPlane;

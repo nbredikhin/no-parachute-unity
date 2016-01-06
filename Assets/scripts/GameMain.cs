@@ -175,7 +175,7 @@ public class GameMain: MonoBehaviour
             if (Mathf.Abs(powerUpZ - playerZ) <= fallingSpeed * Time.deltaTime)
             {
                 var diff = new Vector2(player.transform.position.x - currentPU.transform.position.x, player.transform.position.z - currentPU.transform.position.z);
-                if (!isLevelFinished && diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)
+                if (!player.GodMode && !isLevelFinished && (diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2))
                 {
                     currentPU.OnPickUp();
 
