@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeCameraHitLimb: 0.3
-  shakeCameraHitBody: 1
+  shakeCameraHitBody: 0.7
   movementSpeed: 5
   maxAngle: 30
   maxHandsAngle: 10
@@ -2278,7 +2278,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.019607844}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2336,7 +2336,8 @@ MonoBehaviour:
   pipeCount: 6
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
-  SpawnInterval: 3
+  LevelToForceLoad: 10
+  SpawnInterval: 15.5
   timeBeforeSpawnEnd: 10
 --- !u!114 &571393028
 MonoBehaviour:

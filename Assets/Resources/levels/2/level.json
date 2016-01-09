@@ -27,5 +27,6 @@
     ]
   ],
   "CameraRotationSpeed": 0.0,
-  "FallingSpeed": 15.0
+  "LevelDuration" : "60",
+  "FallingSpeed": 11.0
 }

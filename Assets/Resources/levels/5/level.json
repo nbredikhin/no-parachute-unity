@@ -38,6 +38,8 @@
       }
     ]
   ],
+  "PlanesCount" : 7,
+  "LevelDuration" : "80",
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 10.0
+  "FallingSpeed": 13.0
 }

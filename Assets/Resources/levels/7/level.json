@@ -17,6 +17,9 @@
       {
         "RotationSpeed": 10.0,
         "MovementScriptName": "UniformRotation"
+      },
+      {
+        "TexturePath": "4_deco"
       }
     ],
     [
@@ -71,7 +74,9 @@
       }
     ]
   ],
+  "PlanesCount" : 5,
+  "LevelDuration" : "80",
   "CameraRotationScriptName": "FollowingPlayerRotation",
   "CameraRotationSpeed": 4.0,
-  "FallingSpeed": 10
+  "FallingSpeed": 17
 }

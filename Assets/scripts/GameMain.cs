@@ -33,7 +33,9 @@ public class GameMain: MonoBehaviour
     private GameObject[] decorativePlanes;
     private PlaneBehaviour[] planes;
     private List<PowerUp> powerups;
-
+    
+    public int LevelToForceLoad = 0;
+    
     public Level level;
 
     // Таймер для спавна бонусов
@@ -64,7 +66,10 @@ public class GameMain: MonoBehaviour
             level = new Level();
 
         gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
-       
+        
+        if (LevelToForceLoad > 0)
+            SharedData.levelNo = LevelToForceLoad;
+            
         ChangeLevel(SharedData.levelNo);
     }
 
@@ -163,7 +168,7 @@ public class GameMain: MonoBehaviour
             
             if (currentPU.transform.position.y >= 0)
             {
-                Destroy(currentPU);
+                Destroy(currentPU.gameObject);
                 powerups[i] = null;
 
                 powerups.RemoveAt(i--);
@@ -230,6 +235,7 @@ public class GameMain: MonoBehaviour
         movementScript.Setup(level.CameraRotationSpeed);
         
         powerups = new List<PowerUp>();
+        // TODO: сделать по-умному
         timeBeforeSpawnEnd = level.PlanesCount;
         // Боковые стены
         // Загрузка текстур 
@@ -282,6 +288,8 @@ public class GameMain: MonoBehaviour
         levelRunningTime = 0f;
         isLevelFinished = false;
         JoystickInput.isEnabled = true;
+      
+        player.Setup();
     }
 
     private PlaneBehaviour SpawnRandomPlane(Vector3 position)
@@ -368,5 +376,10 @@ public class GameMain: MonoBehaviour
         isDead = false;
         gameUI.ShowScreen(gameUI.gameScreen);
         player.Respawn();
+    }
+    
+    public void PrepareEndlessLevel()
+    {
+        
     }
 }

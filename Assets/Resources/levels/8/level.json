@@ -43,6 +43,8 @@
       }
     ]
   ],
-  "CameraRotationSpeed": 60.0,
-  "FallingSpeed": 12.5
+  "PlanesCount" : 5,
+  "LevelDuration" : "60",
+  "CameraRotationSpeed": 70.0,
+  "FallingSpeed": 15
 }

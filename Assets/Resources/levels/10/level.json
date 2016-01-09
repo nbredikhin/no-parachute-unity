@@ -111,7 +111,9 @@
       }
     ]
   ],
+  "PlanesCount" : 5,
+  "LevelDuration" : "100",
   "CameraRotationScriptName": "SineCameraRotation",
   "CameraRotationSpeed": 90.0,
-  "FallingSpeed": 10
+  "FallingSpeed": 15
 }

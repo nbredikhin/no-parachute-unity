@@ -30,7 +30,7 @@
       {
       },
       {
-        "MovementSpeed": [0.01, 0, 0],
+        "MovementSpeed": [0.017, 0, 0],
         "MovementScriptName": "DoorMoving",
         "TexturePath": "6_deco"
       }
@@ -47,10 +47,13 @@
     [
       {
         "RotationSpeed": -70.0,
-        "MovementScriptName": "UniformRotation",
+        "MovementScriptName": "UniformRotation"
       }
     ]
   ],
+  "PlanesCount" : 4,
+  "LevelDuration" : "80",
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 8.5
+  "FallingSpeed": 10,
+  "FogColor" : "2E1B1BFF"
 }

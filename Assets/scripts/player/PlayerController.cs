@@ -63,6 +63,12 @@ public class PlayerController : MonoBehaviour
         hitParticles = transform.Find("hit_particles").GetComponent<ParticleSystem>();
 		lives = maxLivesCount;
     }
+    
+    // Вызывается после загрузки уровня
+    public void Setup()
+    {
+        movementSpeed = Mathf.Max(gameMain.FallingSpeed / 10f * movementSpeed, movementSpeed);
+    }
 
 	void Update ()
     {
@@ -172,7 +178,7 @@ public class PlayerController : MonoBehaviour
                 RestoreAllLimbs();
                 break;
             case PowerUp.PowerUpType.SpeedUp:
-                gameMain.ChangeFallingSpeed(20, 5);
+                gameMain.ChangeFallingSpeed(gameMain.FallingSpeed * 2, 5);
                 GodMode = true;
                 break;
             case PowerUp.PowerUpType.ExtraLife:
@@ -299,4 +305,5 @@ public class PlayerController : MonoBehaviour
         hitParticles.Stop();
     	lives = maxLivesCount;
     }
+    
 }

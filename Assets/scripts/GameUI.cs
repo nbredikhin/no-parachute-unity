@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour {
     public GameObject darkScreen;
@@ -77,12 +78,12 @@ public class GameUI : MonoBehaviour {
 
 	public void RestartButtonClick()
 	{
-		Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void BackToMenuButtonClick()
 	{
 		Time.timeScale = 1;
-		Application.LoadLevel("LevelsMenu");
+		SceneManager.LoadScene("LevelsMenu");
 	}
 }

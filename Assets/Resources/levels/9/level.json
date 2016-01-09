@@ -31,12 +31,12 @@
     ],
     [
       {
-        "MovementSpeed": [-0.002, 0, 0],
+        "MovementSpeed": [0.002, 0, 0],
         "MovementScriptName": "DoorMoving"
       },
       {
         "TexturePath": "8_deco",
-        "MovementSpeed": [0.002, 0, 0],
+        "MovementSpeed": [-0.002, 0, 0],
         "MovementScriptName": "DoorMoving"
       }
     ],
@@ -83,6 +83,8 @@
       }
     ]
   ],
+  "PlanesCount" : 6,
+  "LevelDuration" : "80",
   "CameraRotationScriptName": "SineCameraRotation",
   "CameraRotationSpeed": 90.0,
   "FallingSpeed": 12

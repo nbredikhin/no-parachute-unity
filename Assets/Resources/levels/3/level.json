@@ -19,7 +19,7 @@
     ],
     [
       {
-        "RotationSpeed": 20.0,
+        "RotationSpeed": 90.0,
         "MovementScriptName": "UniformRotation"
       },
       {
@@ -27,6 +27,7 @@
       }
     ]
   ],
+  "LevelDuration" : "80",
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 10.0
+  "FallingSpeed": 12.0
 }
