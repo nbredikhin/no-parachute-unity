@@ -2336,7 +2336,7 @@ MonoBehaviour:
   pipeCount: 6
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
-  LevelToForceLoad: 10
+  LevelToForceLoad: 0
   SpawnInterval: 15.5
   timeBeforeSpawnEnd: 10
 --- !u!114 &571393028

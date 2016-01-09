@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case PowerUp.PowerUpType.Ring:
-                break;
+                break; 
             case PowerUp.PowerUpType.HealthKit:
                 RestoreAllLimbs();
                 break;
