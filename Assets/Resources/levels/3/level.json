@@ -29,5 +29,6 @@
   ],
   "LevelDuration" : "80",
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 12.0
+  "FallingSpeed": 12.0,
+  "FogColor" : [24, 1, 9]
 }

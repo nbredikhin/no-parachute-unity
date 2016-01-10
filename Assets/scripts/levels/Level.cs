@@ -13,6 +13,7 @@ public class Level
 	public float CameraRotationSpeed;
     public string CameraRotationScript;
 	public float FallingSpeed;
+    public Color32 FogColor;
 	
 	public bool LoadLevel(TextAsset file)
 	{
@@ -45,7 +46,15 @@ public class Level
             LevelDuration = parsedJson["LevelDuration"].AsInt; 
             
 		FallingSpeed = parsedJson["FallingSpeed"].AsFloat;
-		
+	
+        if (parsedJson["FogColor"] == null)
+            FogColor = new Color32(0, 0, 0, 255);
+        else
+        {
+            var RGBarray = parsedJson["FogColor"].AsArray; 
+            FogColor = new Color32((byte)RGBarray[0].AsInt, (byte)RGBarray[1].AsInt, (byte)RGBarray[2].AsInt, 255);
+        }
+    	
 		Planes = new List< List<PlaneProperties> >();
 		var planesArray = parsedJson["Planes"].AsArray;
         int textures_count = 0;

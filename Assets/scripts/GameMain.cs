@@ -234,6 +234,9 @@ public class GameMain: MonoBehaviour
         var movementScript = Camera.main.gameObject.GetComponent<BaseCameraRotationScript>();
         movementScript.Setup(level.CameraRotationSpeed);
         
+        Camera.main.backgroundColor = level.FogColor;
+        RenderSettings.fogColor = level.FogColor;
+        
         powerups = new List<PowerUp>();
         // TODO: сделать по-умному
         timeBeforeSpawnEnd = level.PlanesCount;

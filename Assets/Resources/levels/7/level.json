@@ -78,5 +78,6 @@
   "LevelDuration" : "80",
   "CameraRotationScriptName": "FollowingPlayerRotation",
   "CameraRotationSpeed": 4.0,
-  "FallingSpeed": 17
+  "FallingSpeed": 15,
+  "FogColor" : [45, 10, 0]
 }
