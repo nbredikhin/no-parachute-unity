@@ -54,6 +54,9 @@ public class GameMain: MonoBehaviour
     public int timeBeforeSpawnEnd = 10;
     // Завершен ли уровень: isLevelFinished = levelRunningTime >= levelDuration;
     private bool isLevelFinished = false;
+    
+    // Счётчик прогресса
+    public ProgressCounter progressCounter;
 
     void Start()
     {
@@ -192,6 +195,7 @@ public class GameMain: MonoBehaviour
         if (!isDead && !isPaused)
         {
             levelRunningTime += Time.deltaTime;
+            progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
                        
             if (levelRunningTime >= level.LevelDuration && !isLevelFinished)
             {
@@ -276,7 +280,9 @@ public class GameMain: MonoBehaviour
             int textureIndex = Random.Range(0, decorativeTextures.Count);
             decorativePlane.GetComponent<MeshRenderer>().material.mainTexture = decorativeTextures [textureIndex];
             decorativePlane.transform.Rotate(0, 0, Random.Range(0, 4) * 90);
-            decorativePlanes [i] = decorativePlane;
+            decorativePlanes[i] = decorativePlane;
+            
+            decorativePlane.transform.Translate(Vector3.down * 0.1f, Space.World);
         }
         
         // Тестовое создание плоскостей
