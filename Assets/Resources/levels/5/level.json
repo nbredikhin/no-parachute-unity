@@ -36,6 +36,10 @@
         "RotationSpeed": 40.0,
         "MovementScriptName": "UniformRotation"
       }
+    ],
+    [
+      {
+      }
     ]
   ],
   "PlanesCount" : 7,
