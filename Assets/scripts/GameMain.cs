@@ -195,9 +195,12 @@ public class GameMain: MonoBehaviour
         if (!isDead && !isPaused)
         {
             levelRunningTime += Time.deltaTime;
-            progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
+            if (level.IsEndless)
+                progressCounter.SetValue((int)(levelRunningTime));
+            else
+                progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
                        
-            if (levelRunningTime >= level.LevelDuration && !isLevelFinished)
+            if (!level.IsEndless && levelRunningTime >= level.LevelDuration && !isLevelFinished)
             {
                 isLevelFinished = true;
                 gameUI.ShowScreen(gameUI.passedScreen);

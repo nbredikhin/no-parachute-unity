@@ -14,6 +14,7 @@ public class Level
     public string CameraRotationScript;
 	public float FallingSpeed;
     public Color32 FogColor;
+    public bool IsEndless;
 	
 	public bool LoadLevel(TextAsset file)
 	{
@@ -38,6 +39,12 @@ public class Level
             PlanesCount = 6;
         else
             PlanesCount = parsedJson["PlanesCount"].AsInt;
+            
+        // Бесконечный режим
+        if (parsedJson["EndlessMode"] == null)
+            IsEndless = false;
+        else
+            IsEndless = true;
         
         // Длительность уровня
         if (parsedJson["LevelDuration"] == null)

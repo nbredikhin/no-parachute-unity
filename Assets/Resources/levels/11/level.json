@@ -1,0 +1,13 @@
+{ 
+	   "Number" : "11", 
+	   "FallingSpeed" : "10", 
+	   "CameraRotationSpeed" : "0", 
+       "LevelDuration" : "45",
+       "EndlessMode": "true",
+	   "Planes" : [ 
+	      [ 
+	         { 
+	         }
+	      ]
+	   ]
+	}

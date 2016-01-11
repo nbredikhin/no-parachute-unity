@@ -22,6 +22,12 @@ public class MenuButtonsHandlers : MonoBehaviour
     {
         SceneManager.LoadScene("CreditsMenu");
     }
+    
+    public void EndlessMode()
+    {
+        SharedData.levelNo = 11;
+        SceneManager.LoadScene("Game");
+    }
 
     public void StartLevel()
     {

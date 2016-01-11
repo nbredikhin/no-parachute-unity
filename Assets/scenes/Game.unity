@@ -2410,7 +2410,7 @@ MonoBehaviour:
   pipeCount: 6
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
-  LevelToForceLoad: 10
+  LevelToForceLoad: 11
   SpawnInterval: 15.5
   timeBeforeSpawnEnd: 10
   progressCounter: {fileID: 1039056606}
@@ -3296,11 +3296,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22422500, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 44
+      value: 42.4
       objectReference: {fileID: 0}
     - target: {fileID: 22422500, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -26
+      value: -10.8
       objectReference: {fileID: 0}
     - target: {fileID: 22422500, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
       propertyPath: m_SizeDelta.x
