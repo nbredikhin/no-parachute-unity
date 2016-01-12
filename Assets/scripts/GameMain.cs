@@ -206,6 +206,8 @@ public class GameMain: MonoBehaviour
                 gameUI.ShowScreen(gameUI.passedScreen);
                 JoystickInput.isEnabled = false;
                 
+                MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.5f, 0.25f, false);
+                
                 // Сохранение прогресса
                 var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
                 PlayerPrefs.SetInt("CurrentLevel", Mathf.Max(level.Number + 1, currentLevel));
@@ -300,7 +302,10 @@ public class GameMain: MonoBehaviour
         levelRunningTime = 0f;
         isLevelFinished = false;
         JoystickInput.isEnabled = true;
-      
+        
+        // Музыка
+        MusicManager.PlayMusic("game_theme", 0.5f, 2);
+        
         player.Setup();
     }
 
@@ -388,10 +393,5 @@ public class GameMain: MonoBehaviour
         isDead = false;
         gameUI.ShowScreen(gameUI.gameScreen);
         player.Respawn();
-    }
-    
-    public void PrepareEndlessLevel()
-    {
-        
     }
 }
