@@ -99,12 +99,17 @@ public class MusicManager : MonoBehaviour
     public void BeginMusicFade(AudioSource music, float fadeTime, float targetVolume, bool destroyOnFadeEnd)
     {
         FadeManager manager = new FadeManager();
-        if (fadeTime == 0)
-            fadeTime = 0.0001f;
         manager.fadeTime = fadeTime;
         manager.fadingSource = music;
         manager.destroyOnFadeEnd = destroyOnFadeEnd;
         manager.targetVolume = targetVolume;
+        if (fadeTime == 0)
+        {
+            manager.fadingSource.volume = targetVolume;
+            if (destroyOnFadeEnd)
+                Destroy(manager.fadingSource.gameObject);
+            return;
+        }
         
         manager.fadeStep = (targetVolume - music.volume) / manager.fadeTime; 
         Debug.Log(manager.fadeStep);
