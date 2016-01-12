@@ -62,7 +62,7 @@ public class GameUI : MonoBehaviour {
 		// Пауза
 		ShowScreen(pauseScreen);
 		gameMain.SetGamePaused(true);
-        MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0f, 0.5f, false);
+        MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0f, 0.1f, false);
 	}
 
 	public void ContinueButtonClick()

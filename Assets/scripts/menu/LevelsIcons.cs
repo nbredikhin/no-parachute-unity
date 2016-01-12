@@ -109,6 +109,8 @@ public class LevelsIcons : MonoBehaviour
 
         // Состояние иконки
         var stateImage = icon.transform.FindChild("state").GetComponent<Image>();
+        if (Cheats.UNLOCK_ALL_LEVELS)
+            state = IconState.Normal;
         switch (state)
         {
             case IconState.Locked:
