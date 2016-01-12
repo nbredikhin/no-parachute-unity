@@ -269,9 +269,11 @@ MonoBehaviour:
   maxAngle: 30
   maxHandsAngle: 10
   missingHandsSpeedAdd: 0.4
+  maxLegsRotation: 1.5
+  legsRotationSpeed: 12
   SpeedUpDuration: 5
   detachedLimbsRotationSpeed: 100
-  GodMode: 1
+  GodMode: 0
   Sounds:
   - {fileID: 8300000, guid: d4833493a931440e89cbada862dd4cce, type: 3}
   - {fileID: 8300000, guid: 52cebddb95745449d97b996e9de221cd, type: 3}
@@ -286,7 +288,7 @@ MonoBehaviour:
   maxLivesCount: 3
   lives: 0
   livesHearts: {fileID: 1695891922}
-  skinID: 4
+  skinID: 1
 --- !u!1 &108285293
 GameObject:
   m_ObjectHideFlags: 0

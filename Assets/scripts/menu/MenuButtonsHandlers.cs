@@ -13,6 +13,11 @@ public class MenuButtonsHandlers : MonoBehaviour
         SceneManager.LoadScene("SettingsMenu");
     }
     
+    public void Skins()
+    {
+        SceneManager.LoadScene("SkinsMenu");
+    }
+    
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");

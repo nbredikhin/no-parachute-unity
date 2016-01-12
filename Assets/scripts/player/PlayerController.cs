@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float maxAngle = 30f;
     public float maxHandsAngle = 10f;
     public float missingHandsSpeedAdd = 0.4f;
+    public float maxLegsRotation = 10f;
+    public float legsRotationSpeed = 2f;
     public float SpeedUpDuration = 5;
     public float detachedLimbsRotationSpeed = 500f;
     public bool GodMode = false;
@@ -162,11 +164,17 @@ public class PlayerController : MonoBehaviour
             missingLegsRotationHandsAdd = Mathf.Sin(Time.time * 16f) * 8f;
             missingLegsRotationBodyAdd = Mathf.Sin(Time.time * 3f) * 3f * missingLimbsCount;
         }
+        
+        float limbsAngleAdd = Mathf.Sin(Time.time * legsRotationSpeed) * maxLegsRotation;
         // Поворот рук
         float handsAngle = -JoystickInput.input.x * maxHandsAngle;
-        limbs["left_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle + missingLegsRotationHandsAdd);
-        limbs["right_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle - missingLegsRotationHandsAdd);
-    
+        limbs["left_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle + missingLegsRotationHandsAdd + limbsAngleAdd);
+        limbs["right_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle - missingLegsRotationHandsAdd - limbsAngleAdd);
+        
+        // Поворот ног  
+        limbs["left_leg"].transform.localRotation = Quaternion.Euler(0f, 0f, limbsAngleAdd);
+        limbs["right_leg"].transform.localRotation = Quaternion.Euler(0f, 0f, -limbsAngleAdd);
+           
         // Вращение туловища
         var bodyAngle = -maxAngle * velocity.x - cameraAngle + missingLegsRotationBodyAdd;
         transform.rotation = Quaternion.Euler(90f, 0f, bodyAngle);
