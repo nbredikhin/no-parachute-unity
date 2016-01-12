@@ -248,8 +248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyRenderer: {fileID: 483562209}
   frames:
-  - {fileID: 2800000, guid: 95684d26f4dac4a44ab8728cd98fc90a, type: 3}
-  - {fileID: 2800000, guid: 2ad91a05a2cc14f69a3a8c36c7fe0180, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   maxFrameDelay: 0.07
 --- !u!114 &92463797
 MonoBehaviour:
@@ -275,6 +275,7 @@ MonoBehaviour:
   Sounds:
   - {fileID: 8300000, guid: d4833493a931440e89cbada862dd4cce, type: 3}
   - {fileID: 8300000, guid: 52cebddb95745449d97b996e9de221cd, type: 3}
+  playerAnimation: {fileID: 92463796}
   limbsNames:
   - left_hand
   - right_hand
@@ -285,6 +286,7 @@ MonoBehaviour:
   maxLivesCount: 3
   lives: 0
   livesHearts: {fileID: 1695891922}
+  skinID: 4
 --- !u!1 &108285293
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,7 +2278,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: dea2465c8b54843328cec9d0ccf5d85a, type: 2}
+  - {fileID: 2100000, guid: ab905cb203280467987dcfea4f2af203, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2410,7 +2412,7 @@ MonoBehaviour:
   pipeCount: 6
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
-  LevelToForceLoad: 11
+  LevelToForceLoad: 1
   SpawnInterval: 15.5
   timeBeforeSpawnEnd: 10
   progressCounter: {fileID: 1039056606}
@@ -2804,7 +2806,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: e10cb997fa2db4c27b53c94b0de8143a, type: 2}
+  - {fileID: 2100000, guid: ab905cb203280467987dcfea4f2af203, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2840,8 +2842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureOk: {fileID: 2800000, guid: 99cdf9b901d014cd4bf468c7bdc3ab3f, type: 3}
-  textureMissing: {fileID: 2800000, guid: 78dbfbf39337647aba446b12425947c6, type: 3}
+  textureOk: {fileID: 0}
+  textureMissing: {fileID: 0}
   collisionOffset: {x: -0.4, y: 0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
@@ -3856,7 +3858,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1ba009e37c4094150b5d0c23a5f6bd46, type: 2}
+  - {fileID: 2100000, guid: ab905cb203280467987dcfea4f2af203, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -3892,8 +3894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureOk: {fileID: 2800000, guid: 877a91bd331f34634be966ebdf5f66ad, type: 3}
-  textureMissing: {fileID: 2800000, guid: 2ad408a7172284a448ba94cee469a65e, type: 3}
+  textureOk: {fileID: 0}
+  textureMissing: {fileID: 0}
   collisionOffset: {x: 0.4, y: 0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
@@ -6199,7 +6201,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58b157e6884d0441b962fc1649e9b64d, type: 2}
+  - {fileID: 2100000, guid: ab905cb203280467987dcfea4f2af203, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -6235,8 +6237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureOk: {fileID: 2800000, guid: 67f81ad004dd541569bc5779a2765454, type: 3}
-  textureMissing: {fileID: 2800000, guid: d490c2f62df0e4bf087f6a7e8e7eaa28, type: 3}
+  textureOk: {fileID: 0}
+  textureMissing: {fileID: 0}
   collisionOffset: {x: 0.15, y: -0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
@@ -6550,8 +6552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c34889680a741d39b9006de3b9e3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureOk: {fileID: 2800000, guid: 85f3b8c6920d542628457cd1ecea4927, type: 3}
-  textureMissing: {fileID: 2800000, guid: 2b505f85244df47d3be6fa8bdf5a220f, type: 3}
+  textureOk: {fileID: 0}
+  textureMissing: {fileID: 0}
   collisionOffset: {x: -0.15, y: -0.4}
   detachedRotationSpeedMul: 0
   detachedVelocity: {x: 0, y: 0, z: 0}
@@ -6566,7 +6568,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 47d46564fce714fbab0707a94d808fa3, type: 2}
+  - {fileID: 2100000, guid: ab905cb203280467987dcfea4f2af203, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

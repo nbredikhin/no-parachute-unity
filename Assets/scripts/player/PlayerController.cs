@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     public float detachedLimbsRotationSpeed = 500f;
     public bool GodMode = false;
 	public AudioClip[] Sounds;
-
+    public PlayerAnimation playerAnimation;
+    
     private Vector2 velocity;
     private GameMain gameMain;
 	
@@ -47,6 +48,8 @@ public class PlayerController : MonoBehaviour
     public int maxLivesCount = 3;
     public int lives;
     public LivesHearts livesHearts;
+    
+    public int skinID = 2;
 
 	void Start () 
     {
@@ -68,6 +71,21 @@ public class PlayerController : MonoBehaviour
     public void Setup()
     {
         movementSpeed = Mathf.Max(gameMain.FallingSpeed / 10f * movementSpeed, movementSpeed);
+        SetupSkin();
+    }
+    
+    private void SetupSkin()
+    {
+        playerAnimation.frames[0] = Resources.Load<Texture>("skins/" + skinID.ToString() + "/main1");
+        playerAnimation.frames[1] = Resources.Load<Texture>("skins/" + skinID.ToString() + "/main2");
+        
+        foreach (var name in limbsNames)
+        {
+            limbs[name].textureOk = Resources.Load<Texture>("skins/" + skinID.ToString() + "/" + name + "_ok");
+            limbs[name].textureMissing = Resources.Load<Texture>("skins/" + skinID.ToString() + "/" + name + "_missing");
+            limbs[name].UpdateTexture();
+        }
+        
     }
 
 	void Update ()
@@ -305,5 +323,4 @@ public class PlayerController : MonoBehaviour
         hitParticles.Stop();
     	lives = maxLivesCount;
     }
-    
 }
