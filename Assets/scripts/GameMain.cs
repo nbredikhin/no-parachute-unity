@@ -304,7 +304,10 @@ public class GameMain: MonoBehaviour
         JoystickInput.isEnabled = true;
         
         // Музыка
-        MusicManager.PlayMusic("game_theme", 0.5f, 2);
+        if (!MusicManager.PlayMusic("game_theme", 0.5f, 2))
+        {
+            MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.5f, 1, false);
+        }
         
         player.Setup();
     }
@@ -372,6 +375,7 @@ public class GameMain: MonoBehaviour
         Camera.main.SendMessage("ShakeCamera", shakeCameraDeath);
 
         gameUI.ShowScreen(gameUI.deathScreen);
+        MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.2f, 0.5f, false);
     }
 
     public void ChangeFallingSpeed(float newSpeed, float time = 0)

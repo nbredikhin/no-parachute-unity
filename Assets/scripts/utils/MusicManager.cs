@@ -53,7 +53,7 @@ public class MusicManager : MonoBehaviour
         Debug.Log("Playing music:" + name);
         
         if (nowPLaying == name)
-            return true;
+            return false;
         
         if (CurrentSource != null)
             BeginMusicFade(CurrentSource, prevFade, 0, true);
@@ -114,6 +114,7 @@ public class MusicManager : MonoBehaviour
         manager.fadeStep = (targetVolume - music.volume) / manager.fadeTime; 
         Debug.Log(manager.fadeStep);
         faders.Add(manager);
+        Debug.LogWarning(faders.Count);
     }
     
     private void InitFaders()
@@ -127,14 +128,16 @@ public class MusicManager : MonoBehaviour
         {
             var currentFader = faders[i];
             currentFader.fadingSource.volume += currentFader.fadeStep * Time.deltaTime;
-            if (Mathf.Abs(currentFader.fadingSource.volume - currentFader.targetVolume) < Mathf.Abs(currentFader.fadeStep * Time.deltaTime))
+            Debug.Log(currentFader.fadingSource.volume + " " + currentFader.fadeStep * Time.deltaTime);
+            if (Mathf.Abs(currentFader.fadingSource.volume - currentFader.targetVolume) < Mathf.Abs(currentFader.fadeStep * Time.deltaTime) / 2)
             {
+                currentFader.fadingSource.volume = currentFader.targetVolume;
+                Debug.LogWarning(faders.Remove(currentFader));
+                
                 if (currentFader.destroyOnFadeEnd)
                 {
                     Destroy(currentFader.fadingSource.gameObject);
                 }
-                currentFader.fadingSource.volume = currentFader.targetVolume;
-                Debug.LogWarning(faders.Remove(currentFader));
             }
         }
     }
