@@ -30,7 +30,7 @@
       {
       },
       {
-        "MovementSpeed": [0.017, 0, 0],
+        "MovementSpeed": [0.88, 0, 0],
         "MovementScriptName": "DoorMoving",
         "TexturePath": "6_deco"
       }
@@ -39,7 +39,7 @@
       {
       },
       {
-        "MovementSpeed": [0, 0.01, 0],
+        "MovementSpeed": [0, 1, 0],
         "MovementScriptName": "DoorMoving",
         "TexturePath": "7_deco"
       }

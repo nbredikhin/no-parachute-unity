@@ -28,8 +28,8 @@ public class CameraController : MonoBehaviour {
     {
         // Следование камеры за игроком и тряска
         var currentPosition = transform.position;
-        currentPosition.x = player.transform.position.x + (Random.value - 0.5f) * shakePower * (shakeDelay / shakeTime) * shakePowerMul;
-        currentPosition.z = player.transform.position.z + (Random.value - 0.5f) * shakePower * (shakeDelay / shakeTime) * shakePowerMul; 
+        currentPosition.x = player.transform.position.x + (Random.value - 0.5f) * shakePower * (shakeDelay / shakeTime) * shakePowerMul * Time.timeScale;
+        currentPosition.z = player.transform.position.z + (Random.value - 0.5f) * shakePower * (shakeDelay / shakeTime) * shakePowerMul * Time.timeScale; 
         transform.position = currentPosition;
         
         // Ограничение позиции камеры 
