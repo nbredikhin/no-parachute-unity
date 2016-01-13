@@ -17,15 +17,23 @@ public class GameSettings : MonoBehaviour
     
 	void Start () 
     {
-        soundButton.AddState("enabled", "Sound: enabled");
-        soundButton.AddState("disabled", "Sound: disabled");
+        string enabled = LocalizedStrings.GetString(StringType.StateEnabled),
+               disabled = LocalizedStrings.GetString(StringType.StateDisabled);
+        
+        string sound = LocalizedStrings.GetString(StringType.Sound),
+               quality = LocalizedStrings.GetString(StringType.Quality),
+               vibration = LocalizedStrings.GetString(StringType.Vibration);
+        
+        
+        soundButton.AddState("enabled", sound + ": " + enabled);
+        soundButton.AddState("disabled", sound + ": " + disabled);
 
-        vibrationButton.AddState("enabled", "Vibration: enabled");
-        vibrationButton.AddState("disabled", "Vibration: disabled");
+        vibrationButton.AddState("enabled", vibration + ": " + enabled);
+        vibrationButton.AddState("disabled", vibration + ": " + disabled);
 
-        qualityButton.AddState("low", "Quality: low");
-        qualityButton.AddState("medium", "Quality: medium");
-        qualityButton.AddState("high", "Quality: high");
+        qualityButton.AddState("low", quality + ": " + LocalizedStrings.GetString(StringType.StateLow));
+        qualityButton.AddState("medium", quality + ": " + LocalizedStrings.GetString(StringType.StateMedium));
+        qualityButton.AddState("high", quality + ": " + LocalizedStrings.GetString(StringType.StateHigh));
 
         // Загрузка настроек
         LoadSettings();

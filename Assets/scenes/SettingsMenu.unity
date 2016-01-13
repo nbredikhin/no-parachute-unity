@@ -1027,6 +1027,7 @@ GameObject:
   - 224: {fileID: 1656777465}
   - 222: {fileID: 1656777467}
   - 114: {fileID: 1656777466}
+  - 114: {fileID: 1656777468}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -1110,6 +1111,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1656777464}
+--- !u!114 &1656777468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656777464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d18776285e54391bc5f7241c8605fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 15
 --- !u!1 &1778609037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,6 +1133,7 @@ GameObject:
   - 224: {fileID: 1778609038}
   - 222: {fileID: 1778609040}
   - 114: {fileID: 1778609039}
+  - 114: {fileID: 1778609041}
   m_Layer: 5
   m_Name: Sensitivity
   m_TagString: Untagged
@@ -1141,8 +1155,8 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 127, y: 90}
-  m_SizeDelta: {x: 202, y: 33}
+  m_AnchoredPosition: {x: 211, y: 90}
+  m_SizeDelta: {x: 372.9, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1778609039
 MonoBehaviour:
@@ -1168,23 +1182,33 @@ MonoBehaviour:
     m_FontSize: 37
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 37
     m_Alignment: 3
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Sensitivity:
-
-'
+  m_Text: 'Sensitivity:'
 --- !u!222 &1778609040
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1778609037}
+--- !u!114 &1778609041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1778609037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d18776285e54391bc5f7241c8605fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 7
 --- !u!1001 &1814309241
 Prefab:
   m_ObjectHideFlags: 0

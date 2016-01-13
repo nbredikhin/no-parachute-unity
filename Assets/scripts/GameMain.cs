@@ -206,6 +206,8 @@ public class GameMain: MonoBehaviour
                 gameUI.ShowScreen(gameUI.passedScreen);
                 JoystickInput.isEnabled = false;
                 
+                MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.5f, 0.25f, false);
+                
                 // Сохранение прогресса
                 var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
                 PlayerPrefs.SetInt("CurrentLevel", Mathf.Max(level.Number + 1, currentLevel));
@@ -300,7 +302,13 @@ public class GameMain: MonoBehaviour
         levelRunningTime = 0f;
         isLevelFinished = false;
         JoystickInput.isEnabled = true;
-      
+        
+        // Музыка
+        if (!MusicManager.PlayMusic("game_theme", 0.5f, 2))
+        {
+            MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.5f, 1, false);
+        }
+        
         player.Setup();
     }
 
@@ -367,6 +375,7 @@ public class GameMain: MonoBehaviour
         Camera.main.SendMessage("ShakeCamera", shakeCameraDeath);
 
         gameUI.ShowScreen(gameUI.deathScreen);
+        MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.2f, 0.5f, false);
     }
 
     public void ChangeFallingSpeed(float newSpeed, float time = 0)
@@ -388,10 +397,5 @@ public class GameMain: MonoBehaviour
         isDead = false;
         gameUI.ShowScreen(gameUI.gameScreen);
         player.Respawn();
-    }
-    
-    public void PrepareEndlessLevel()
-    {
-        
     }
 }

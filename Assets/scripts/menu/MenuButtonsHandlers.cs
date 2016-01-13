@@ -31,6 +31,7 @@ public class MenuButtonsHandlers : MonoBehaviour
     public void EndlessMode()
     {
         SharedData.levelNo = 11;
+        
         SceneManager.LoadScene("Game");
     }
 

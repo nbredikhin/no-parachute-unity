@@ -10,6 +10,8 @@ public class MainMenu : MonoBehaviour {
        bool isEndlessEnabled = PlayerPrefs.GetInt("CurrentLevel", 1) >= 10;
 	   endlessModeButton.interactable = isEndlessEnabled;
        unlockText.enabled = !isEndlessEnabled;
+       
+       MusicManager.PlayMusic("menu_theme", 0, 0);
 	}
     
     void Update() {

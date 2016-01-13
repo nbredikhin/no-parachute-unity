@@ -181,6 +181,7 @@ GameObject:
   - 224: {fileID: 394318992}
   - 222: {fileID: 394318994}
   - 114: {fileID: 394318993}
+  - 114: {fileID: 394318995}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -264,6 +265,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 394318991}
+--- !u!114 &394318995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 394318991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d18776285e54391bc5f7241c8605fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 15
 --- !u!1 &956610189
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +523,7 @@ GameObject:
   - 224: {fileID: 1919613009}
   - 222: {fileID: 1919613011}
   - 114: {fileID: 1919613010}
+  - 114: {fileID: 1919613012}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -558,21 +572,34 @@ MonoBehaviour:
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 100
+    m_MinSize: 3
+    m_MaxSize: 30
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "No Parachute! \n\nSome Text\nSome Text\nSomeText\nSomeTexaads\n"
+  m_Text: "No Parachute! \n\nProgramming, design:\nNikita Bredikhin\n\nProgramming,
+    music:\nEugene Morozov\n"
 --- !u!222 &1919613011
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1919613008}
+--- !u!114 &1919613012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1919613008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d18776285e54391bc5f7241c8605fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 14
 --- !u!1001 &2045394192
 Prefab:
   m_ObjectHideFlags: 0

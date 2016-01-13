@@ -62,6 +62,7 @@ public class GameUI : MonoBehaviour {
 		// Пауза
 		ShowScreen(pauseScreen);
 		gameMain.SetGamePaused(true);
+        MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0f, 0.1f, false);
 	}
 
 	public void ContinueButtonClick()
@@ -69,6 +70,7 @@ public class GameUI : MonoBehaviour {
 		// Выход из паузы
 		gameMain.SetGamePaused(false);
 		ShowScreen(gameScreen);
+        MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0f, 1f, false);
 	}
 
 	public void TryAgainButtonClick()
@@ -85,5 +87,6 @@ public class GameUI : MonoBehaviour {
 	{
 		Time.timeScale = 1;
 		SceneManager.LoadScene("LevelsMenu");
+        MusicManager.PlayMusic("menu_theme", 1, 1);
 	}
 }
