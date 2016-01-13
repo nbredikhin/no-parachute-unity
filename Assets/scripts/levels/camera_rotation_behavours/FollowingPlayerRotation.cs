@@ -11,8 +11,8 @@ public class FollowingPlayerRotation : BaseCameraRotationScript
     void Update()
     {
         cameraSpeed -= JoystickInput.input.x * Time.deltaTime * RotationSpeed;
-        cameraSpeed *= 0.99f;
-        transform.Rotate(0f, 0f, cameraSpeed);
+        cameraSpeed *= (1f - 1f * Time.deltaTime);
+        transform.Rotate(0f, 0f, cameraSpeed * Time.deltaTime);
     }
     
     public override void Setup(float RotationSpeed, params Object [] AdditionalArguments)

@@ -79,7 +79,6 @@ public class Level
 				if (propsArray[j]["TexturePath"] == null)
                 {
                     currentProp.TexturePath += (++textures_count).ToString();
-                    Debug.Log(currentProp.TexturePath);
                 }
                 else 
                 {

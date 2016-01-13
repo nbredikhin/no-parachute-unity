@@ -18,6 +18,16 @@ public class PlayerLimb : MonoBehaviour
 		meshRenderer = GetComponent<MeshRenderer>();
 		SetState(true);
 	}
+    
+    public void UpdateTexture()
+    {
+        if (meshRenderer == null)
+        {
+            return;
+        }
+		meshRenderer.material.mainTexture = state ? textureOk : textureMissing;        
+    }
+    
 	public void SetState(bool state)
 	{
 		if (this.state == state || meshRenderer == null)

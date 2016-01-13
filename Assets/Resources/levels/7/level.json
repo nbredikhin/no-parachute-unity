@@ -77,7 +77,7 @@
   "PlanesCount" : 5,
   "LevelDuration" : "80",
   "CameraRotationScriptName": "FollowingPlayerRotation",
-  "CameraRotationSpeed": 4.0,
+  "CameraRotationSpeed": 200,
   "FallingSpeed": 15,
   "FogColor" : [45, 10, 0]
 }
