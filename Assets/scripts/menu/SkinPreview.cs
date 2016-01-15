@@ -8,6 +8,11 @@ public class SkinPreview : MonoBehaviour {
     
     public float maxHandsAngle = 5f;
     public float handsRotationSpeed = 7f;
+    
+    public float maxFrameDelay = 0.07f;
+    private float currentFrameDelay = 0f;
+    private int currentFrame = 0;
+    
 	private string[] limbsNames = {
 		"left_hand", 
 		"right_hand", 
@@ -66,7 +71,7 @@ public class SkinPreview : MonoBehaviour {
             Debug.Log("Error loading skin: " + id);
             return;
         }
-        var bodyTexture2 = (Texture2D)Resources.Load<Texture>("skins/" + id.ToString() + "/main1");
+        var bodyTexture2 = (Texture2D)Resources.Load<Texture>("skins/" + id.ToString() + "/main2");
         if (bodyTexture2 == null)
         {
             Debug.Log("Error loading skin: " + id);
@@ -117,6 +122,25 @@ public class SkinPreview : MonoBehaviour {
        else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
        {
            SelectSkin();
+       }
+       
+       // Анимация
+       if (currentFrameDelay > 0)
+       {
+           currentFrameDelay -= Time.deltaTime;
+       }
+       else
+       {
+           currentFrameDelay = maxFrameDelay;
+           
+           // Следующий кадр
+           currentFrame++;
+           if(currentFrame >= bodyFrames.Length)
+           {
+               currentFrame = 0;
+           }
+           
+           bodyImage.sprite = bodyFrames[currentFrame];
        }
 	}
     
