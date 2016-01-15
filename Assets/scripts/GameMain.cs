@@ -409,4 +409,12 @@ public class GameMain: MonoBehaviour
         gameUI.ShowScreen(gameUI.gameScreen);
         player.Respawn();
     }
+    
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            gameUI.PauseButtonClick();
+        }
+    }
 }
