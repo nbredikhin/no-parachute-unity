@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     public int lives;
     public LivesHearts livesHearts;
     
-    public int skinID = 2;
+    public int skinID = 1;
     private float maxPosition = 0;
 
     public bool HasFullHealth
@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour
 		deathBloodParticles = transform.Find("death_blood").GetComponent<ParticleSystem>();
         hitParticles = transform.Find("hit_particles").GetComponent<ParticleSystem>();
 		lives = maxLivesCount;
+        
+        skinID = PlayerPrefs.GetInt("current_skin", 1);
     }
     
     // Вызывается после загрузки уровня
