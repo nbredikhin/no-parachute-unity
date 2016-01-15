@@ -28,7 +28,7 @@ public class PlayerAnimation : MonoBehaviour {
 
 	void Update ()
     {
-        if (gameMain.IsDead)
+        if (gameMain != null && gameMain.IsDead)
         {
             return;
         }

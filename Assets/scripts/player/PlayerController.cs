@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public LivesHearts livesHearts;
     
     public int skinID = 2;
+    private float maxPosition = 0;
 
 	void Start () 
     {
@@ -72,11 +73,15 @@ public class PlayerController : MonoBehaviour
     // Вызывается после загрузки уровня
     public void Setup()
     {
-        movementSpeed = Mathf.Max(gameMain.FallingSpeed / 10f * movementSpeed, movementSpeed);
+        if (gameMain)
+        {
+            maxPosition = gameMain.pipeSize / 2f - transform.localScale.x / 2f;
+            movementSpeed = Mathf.Max(gameMain.FallingSpeed / 10f * movementSpeed, movementSpeed);
+        }
         SetupSkin();
     }
     
-    private void SetupSkin()
+    public void SetupSkin()
     {
         playerAnimation.frames[0] = Resources.Load<Texture>("skins/" + skinID.ToString() + "/main1");
         playerAnimation.frames[1] = Resources.Load<Texture>("skins/" + skinID.ToString() + "/main2");
@@ -92,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
 	void Update ()
     {
-        if (gameMain.IsPaused || gameMain.IsDead)
+        if (gameMain != null && (gameMain.IsPaused || gameMain.IsDead))
         {
             return;
         }
@@ -149,7 +154,6 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(movement.x, 0f, movement.y), Space.World);
         
         // Столкновения с боковыми стенами
-        float maxPosition = gameMain.pipeSize / 2f - transform.localScale.x / 2f;
         transform.position = new Vector3(
             Mathf.Clamp(transform.position.x, -maxPosition, maxPosition), 
             transform.position.y, 
