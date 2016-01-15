@@ -288,7 +288,7 @@ MonoBehaviour:
   maxLivesCount: 3
   lives: 0
   livesHearts: {fileID: 1695891922}
-  skinID: 3
+  skinID: 2
 --- !u!1 &108285293
 GameObject:
   m_ObjectHideFlags: 0
