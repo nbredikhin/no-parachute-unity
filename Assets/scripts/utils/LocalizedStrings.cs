@@ -22,7 +22,9 @@ public enum StringType
     Continue,
     RestartLevel,
     BackToMenu,
-    TryAgain
+    TryAgain,
+    SelectCharacter,
+    Select
 }
 
 public static class LocalizedStrings
@@ -50,7 +52,9 @@ public static class LocalizedStrings
      {"Continue", "Продолжить"},
      {"Restart level", "Начать сначала"},
      {"Back to menu", "Вернуться в меню"},
-     {"Try again", "Попробовать снова"}
+     {"Try again", "Попробовать снова"},
+     {"Select character", "Выбор персонажа"},
+     {"Select", "Выбрать"}
      };
 
     public static string GetString(StringType title)
