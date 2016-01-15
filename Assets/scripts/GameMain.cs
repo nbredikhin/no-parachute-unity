@@ -103,8 +103,19 @@ public class GameMain: MonoBehaviour
 
         if ((spawnTimer >= SpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)) // Debug
         {
-            int type = Random.Range(1, 4);
-
+            List<int> types = new List<int>();
+            
+            // "Базовые" бонусы - кольцо и увеличение скорости
+            types.Add((int)PowerUp.PowerUpType.Ring);
+            types.Add((int)PowerUp.PowerUpType.SpeedUp);
+            
+            // Если все жизни и есть хоть одна оторванная конеченость или не все жизни - то можем заспавнить дополнительную жизнь
+            if ((player.lives == player.maxLivesCount && !player.HasFullHealth) || player.lives < player.maxLivesCount)
+                types.Add((int)PowerUp.PowerUpType.ExtraLife);
+            if (!player.HasFullHealth)
+                types.Add((int)PowerUp.PowerUpType.HealthKit);
+                
+            int type = Utils.GetRandomNumberFromList(types);
             SpawnPowerUp((PowerUp.PowerUpType)type);
             spawnTimer = 0;
         }
@@ -171,7 +182,7 @@ public class GameMain: MonoBehaviour
             
             if (currentPU.transform.position.y >= 0)
             {
-                Destroy(currentPU.gameObject);
+                Destroy(currentPU.gameObject, currentPU.DisappearingSpeed + 1);
                 powerups[i] = null;
 
                 powerups.RemoveAt(i--);
@@ -194,7 +205,7 @@ public class GameMain: MonoBehaviour
         
         if (!isDead && !isPaused)
         {
-            levelRunningTime += Time.deltaTime;
+            levelRunningTime += Time.deltaTime * (fallingSpeed / level.FallingSpeed);
             if (level.IsEndless)
                 progressCounter.SetValue((int)(levelRunningTime));
             else
@@ -206,7 +217,7 @@ public class GameMain: MonoBehaviour
                 gameUI.ShowScreen(gameUI.passedScreen);
                 JoystickInput.isEnabled = false;
                 
-                MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.5f, 0.25f, false);
+                MusicManager.BeginMusicFade(0.5f, 0.25f, false);
                 
                 // Сохранение прогресса
                 var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
@@ -248,7 +259,7 @@ public class GameMain: MonoBehaviour
         
         powerups = new List<PowerUp>();
         // TODO: сделать по-умному
-        timeBeforeSpawnEnd = level.PlanesCount;
+        timeBeforeSpawnEnd = (int)(1.5 * pipeSize * pipeCount / level.FallingSpeed);
         // Боковые стены
         // Загрузка текстур 
         Texture bufferTexture = Resources.Load<Texture>("levels/" + level.Number.ToString() + "/wall");
@@ -294,7 +305,7 @@ public class GameMain: MonoBehaviour
         planes = new PlaneBehaviour[level.PlanesCount];
         for (int i = 0; i < level.PlanesCount; ++i)
         {
-            planes [i] = SpawnRandomPlane(Vector3.down * pipeSize * pipeCount * ((float)i / level.PlanesCount + 0.5f));
+            planes [i] = SpawnRandomPlane(Vector3.down * (pipeSize * pipeCount) * ((float)i / level.PlanesCount + 1.5f));
         }
         
         player = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -306,7 +317,7 @@ public class GameMain: MonoBehaviour
         // Музыка
         if (!MusicManager.PlayMusic("game_theme", 0.5f, 2))
         {
-            MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.5f, 1, false);
+            MusicManager.BeginMusicFade(0.5f, 1, false);
         }
         
         player.Setup();
@@ -375,7 +386,7 @@ public class GameMain: MonoBehaviour
         Camera.main.SendMessage("ShakeCamera", shakeCameraDeath);
 
         gameUI.ShowScreen(gameUI.deathScreen);
-        MusicManager.Instance.BeginMusicFade(MusicManager.Instance.CurrentSource, 0.2f, 0.5f, false);
+        MusicManager.BeginMusicFade(0.2f, 0.5f, false);
     }
 
     public void ChangeFallingSpeed(float newSpeed, float time = 0)

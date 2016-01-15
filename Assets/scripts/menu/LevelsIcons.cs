@@ -54,7 +54,7 @@ public class LevelsIcons : MonoBehaviour
     private Vector3 previousMousePosition;
 
     void Start ()
-    {
+    {        
         currentUnlockedLevel = PlayerPrefs.GetInt("CurrentLevel", 1) - 1;
         if (Cheats.UNLOCK_ALL_LEVELS)
         {
@@ -76,6 +76,8 @@ public class LevelsIcons : MonoBehaviour
 
         selectedIcon = -1;
         SetSelectedIcon(currentUnlockedLevel);
+       
+        MusicManager.PlayMusic("menu_theme", 1, 1);
         
         menuButtons = GameObject.Find("Canvas").GetComponent<MenuButtonsHandlers>();
     }

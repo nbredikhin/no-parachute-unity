@@ -54,6 +54,11 @@ public class PlayerController : MonoBehaviour
     public int skinID = 2;
     private float maxPosition = 0;
 
+    public bool HasFullHealth
+    {
+        get { return (missingLimbsCount == 0);}
+    }
+
 	void Start () 
     {
         gameMain = Camera.main.GetComponent<GameMain>();

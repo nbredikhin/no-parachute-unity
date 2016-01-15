@@ -21,6 +21,18 @@ public class MusicManager : MonoBehaviour
         public AudioSource fadingSource;
     }
     
+    public static bool IsMuted
+    {
+        get
+        {
+            return Instance.CurrentSource.mute;
+        }
+        set
+        {
+            Instance.CurrentSource.mute = value;
+        }
+    }
+    
     public static MusicManager Instance
     {
         get
@@ -48,6 +60,11 @@ public class MusicManager : MonoBehaviour
         return Instance.PlayMusicInternal(name, prevFadeTime, newFadeTime);
     }
     
+    public static void BeginMusicFade(float fadeTime, float targetVolume, bool destroyOnFadeEnd)
+    {
+        Instance.BeginMusicFadeInternal(Instance.CurrentSource, fadeTime, targetVolume, destroyOnFadeEnd);
+    }
+    
     public bool PlayMusicInternal(string name, float prevFade, float newFade)
     {
         Debug.Log("Playing music:" + name);
@@ -56,7 +73,7 @@ public class MusicManager : MonoBehaviour
             return false;
         
         if (CurrentSource != null)
-            BeginMusicFade(CurrentSource, prevFade, 0, true);
+            BeginMusicFadeInternal(CurrentSource, prevFade, 0, true);
         
         var musicClip = LoadMusic(name);
         if (musicClip == null)
@@ -77,7 +94,7 @@ public class MusicManager : MonoBehaviour
         musicSource.Play();
         nowPLaying = name;
         
-        BeginMusicFade(musicSource, newFade, 1, false);
+        BeginMusicFadeInternal(musicSource, newFade, 1, false);
         CurrentSource = musicSource;
         return true;
     }
@@ -96,7 +113,7 @@ public class MusicManager : MonoBehaviour
         return result;
     }
     
-    public void BeginMusicFade(AudioSource music, float fadeTime, float targetVolume, bool destroyOnFadeEnd)
+    public void BeginMusicFadeInternal(AudioSource music, float fadeTime, float targetVolume, bool destroyOnFadeEnd)
     {
         FadeManager manager = new FadeManager();
         manager.fadeTime = fadeTime;
@@ -112,9 +129,7 @@ public class MusicManager : MonoBehaviour
         }
         
         manager.fadeStep = (targetVolume - music.volume) / manager.fadeTime; 
-        Debug.Log(manager.fadeStep);
         faders.Add(manager);
-        Debug.LogWarning(faders.Count);
     }
     
     private void InitFaders()
@@ -128,16 +143,15 @@ public class MusicManager : MonoBehaviour
         {
             var currentFader = faders[i];
             currentFader.fadingSource.volume += currentFader.fadeStep * Time.deltaTime;
-            Debug.Log(currentFader.fadingSource.volume + " " + currentFader.fadeStep * Time.deltaTime);
+           
             if (Mathf.Abs(currentFader.fadingSource.volume - currentFader.targetVolume) < Mathf.Abs(currentFader.fadeStep * Time.deltaTime) / 2)
             {
                 currentFader.fadingSource.volume = currentFader.targetVolume;
-                Debug.LogWarning(faders.Remove(currentFader));
-                
                 if (currentFader.destroyOnFadeEnd)
                 {
                     Destroy(currentFader.fadingSource.gameObject);
                 }
+                faders.Remove(currentFader);
             }
         }
     }
