@@ -33,6 +33,7 @@ public class GameMain: MonoBehaviour
     private GameObject[] decorativePlanes;
     private PlaneBehaviour[] planes;
     private List<PowerUp> powerups;
+    private List<EnemyController> enemies;
     
     public int LevelToForceLoad = 0;
     
