@@ -12,11 +12,12 @@ public class MusicManager : MonoBehaviour
     
     public AudioSource CurrentSource;
     
-    public struct FadeManager
+    public class FadeManager
     {
         public float fadeTime;
         public float fadeStep;
         public bool destroyOnFadeEnd;
+        public bool delete;
         public float targetVolume;
         public AudioSource fadingSource;
     }
@@ -127,7 +128,15 @@ public class MusicManager : MonoBehaviour
                 Destroy(manager.fadingSource.gameObject);
             return;
         }
-        
+        manager.delete = false;
+        // Удаляем все фейдеры для этого звука
+        Debug.Log("Existing faders: ");
+        for (int i = 0; i < faders.Count; ++i)
+        {
+            var currentFader = faders[i];
+            if (currentFader.fadingSource.gameObject.name == music.gameObject.name)
+                faders[i].delete = true;
+        }
         manager.fadeStep = (targetVolume - music.volume) / manager.fadeTime; 
         faders.Add(manager);
     }
@@ -142,6 +151,11 @@ public class MusicManager : MonoBehaviour
         for (int i = 0; i < faders.Count; ++i)
         {
             var currentFader = faders[i];
+            if (currentFader.delete)
+            {
+                faders.Remove(currentFader);
+                continue;
+            }
             currentFader.fadingSource.volume += currentFader.fadeStep * Time.deltaTime;
            
             if (Mathf.Abs(currentFader.fadingSource.volume - currentFader.targetVolume) < Mathf.Abs(currentFader.fadeStep * Time.deltaTime) / 2)

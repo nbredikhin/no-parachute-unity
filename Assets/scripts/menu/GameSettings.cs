@@ -104,7 +104,7 @@ public class GameSettings : MonoBehaviour
         inputSensitivity = sensitivitySlider.value;
         
         AudioListener.volume = isSoundEnabled ? 1 : 0;
-        MusicManager.IsMuted = isSoundEnabled;
+        MusicManager.IsMuted = !isSoundEnabled;
     }
     
     public void BackButtonClick()
