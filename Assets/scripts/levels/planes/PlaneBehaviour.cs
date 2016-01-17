@@ -59,7 +59,7 @@ public class PlaneBehaviour : MonoBehaviour
             float randomPosY = Random.Range(layerProperties.SpawnMinimum.y, layerProperties.SpawnMaximum.y);
             
             layerGameObject.transform.localPosition = new Vector3(randomPosX, randomPosY, 0);
-			layerGameObject.transform.position += new Vector3(0, 0.01f * (i++), 0);
+			layerGameObject.transform.position += new Vector3(0, -0.01f * (i++), 0);
         }
     }
     

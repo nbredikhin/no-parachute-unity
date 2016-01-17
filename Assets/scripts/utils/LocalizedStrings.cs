@@ -24,7 +24,9 @@ public enum StringType
     BackToMenu,
     TryAgain,
     SelectCharacter,
-    Select
+    Select,
+    DeadText,
+    PausedText
 }
 
 public static class LocalizedStrings
@@ -54,7 +56,9 @@ public static class LocalizedStrings
      {"Back to menu", "Вернуться в меню"},
      {"Try again", "Попробовать снова"},
      {"Select character", "Выбор персонажа"},
-     {"Select", "Выбрать"}
+     {"Select", "Выбрать"},
+     {"YOU ARE DEAD", "ВЫ МЕРТВЫ"},
+     {"PAUSED", "ПАУЗА"}
      };
 
     public static string GetString(StringType title)
