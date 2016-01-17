@@ -6,7 +6,8 @@ public class MainMenu : MonoBehaviour {
     public Button endlessModeButton;
     public Text unlockText;
     
-	void Start () {
+	void Start () 
+    {
        bool isEndlessEnabled = PlayerPrefs.GetInt("CurrentLevel", 1) >= 10;
 	   endlessModeButton.interactable = isEndlessEnabled;
        unlockText.enabled = !isEndlessEnabled;

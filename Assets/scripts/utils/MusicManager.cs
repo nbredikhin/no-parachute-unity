@@ -129,8 +129,7 @@ public class MusicManager : MonoBehaviour
             return;
         }
         manager.delete = false;
-        // Удаляем все фейдеры для этого звука
-        Debug.Log("Existing faders: ");
+        // Удаляем все фейдеры для этого звука 
         for (int i = 0; i < faders.Count; ++i)
         {
             var currentFader = faders[i];
