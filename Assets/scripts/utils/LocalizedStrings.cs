@@ -26,7 +26,10 @@ public enum StringType
     SelectCharacter,
     Select,
     DeadText,
-    PausedText
+    PausedText,
+    Joystick,
+    JoystickFree,
+    JoystickStatic
 }
 
 public static class LocalizedStrings
@@ -58,7 +61,10 @@ public static class LocalizedStrings
      {"Select character", "Выбор персонажа"},
      {"Select", "Выбрать"},
      {"YOU ARE DEAD", "ВЫ МЕРТВЫ"},
-     {"PAUSED", "ПАУЗА"}
+     {"PAUSED", "ПАУЗА"},
+     {"Joystick", "Джойстик"},
+     {"free", "свободный"},
+     {"static", "статичный"}
      };
 
     public static string GetString(StringType title)

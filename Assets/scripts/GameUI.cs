@@ -86,6 +86,14 @@ public class GameUI : MonoBehaviour {
 	public void BackToMenuButtonClick()
 	{
 		Time.timeScale = 1;
-		SceneManager.LoadScene("LevelsMenu");
+        if (gameMain.level.IsEndless)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelsMenu");
+        }
+		
 	}
 }

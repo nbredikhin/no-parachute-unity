@@ -17,11 +17,26 @@ public class JoystickInput : MonoBehaviour
     private bool isTouching;
     private int fingerId;
     private Vector2 startTouchPosition;
+    
+    private bool isJoystickStatic = false;
+    private Vector2 staticJoystickPosition;
 
 	void Start ()
     {
+        // Из настроек
+        isJoystickStatic = GameSettings.isJoystickStatic;
+        
         maxJoystickDistance /= GameSettings.inputSensitivity;
-        joystickImage.enabled = false;
+        
+        if (isJoystickStatic)
+        {
+            joystickImage.color = new Color(1f, 1f, 1f, 1f);
+            staticJoystickPosition = joystickImage.transform.position;
+        }
+        else
+        {
+            joystickImage.color = new Color(1f, 1f, 1f, 0f);
+        }
     }
 
     private void JoystickMove(Vector2 position)
@@ -29,25 +44,38 @@ public class JoystickInput : MonoBehaviour
         var delta = position - startTouchPosition;
         delta = Vector2.ClampMagnitude(delta, maxJoystickDistance);
         input = delta / maxJoystickDistance;
-        //input *= GameSettings.inputSensitivity;
 
         joystickImage.rectTransform.position = startTouchPosition + delta;
-        joystickImage.color = new Color(1f, 1f, 1f, delta.magnitude / maxJoystickDistance);
+        if (!isJoystickStatic)
+            joystickImage.color = new Color(1f, 1f, 1f, delta.magnitude / maxJoystickDistance);
     }
 
     private void JoystickBegin(Vector2 position)
     {
+        if (isJoystickStatic)
+        {
+            position = staticJoystickPosition;
+        }
+        else
+        {
+            joystickImage.color = new Color(1f, 1f, 1f, 0f);
+        }
         startTouchPosition = position;
         isTouching = true;
-        joystickImage.enabled = true;
-        joystickImage.color = new Color(1f, 1f, 1f, 0f);
     }
 
     private void JoystickEnd(Vector2 position)
     {
         isTouching = false;
         input = Vector2.zero;
-        joystickImage.enabled = false;
+        if (isJoystickStatic)
+        {
+            joystickImage.rectTransform.position = staticJoystickPosition;
+        }
+        else
+        {
+            joystickImage.color = new Color(1f, 1f, 1f, 0f);
+        }
     }
 
 	void Update()

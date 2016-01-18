@@ -9,10 +9,12 @@ public class GameSettings : MonoBehaviour
     public static bool isVibrationEnabled;
     public static int graphicsQuality;
     public static float inputSensitivity;
+    public static bool isJoystickStatic;
     
     public ButtonStates soundButton;
     public ButtonStates vibrationButton;
     public ButtonStates qualityButton;
+    public ButtonStates joystickButton;
     public Slider sensitivitySlider;
     
 	void Start () 
@@ -22,7 +24,8 @@ public class GameSettings : MonoBehaviour
         
         string sound = LocalizedStrings.GetString(StringType.Sound),
                quality = LocalizedStrings.GetString(StringType.Quality),
-               vibration = LocalizedStrings.GetString(StringType.Vibration);
+               vibration = LocalizedStrings.GetString(StringType.Vibration),
+               joystick = LocalizedStrings.GetString(StringType.Joystick);
         
         
         soundButton.AddState("enabled", sound + ": " + enabled);
@@ -34,6 +37,9 @@ public class GameSettings : MonoBehaviour
         qualityButton.AddState("low", quality + ": " + LocalizedStrings.GetString(StringType.StateLow));
         qualityButton.AddState("medium", quality + ": " + LocalizedStrings.GetString(StringType.StateMedium));
         qualityButton.AddState("high", quality + ": " + LocalizedStrings.GetString(StringType.StateHigh));
+        
+        joystickButton.AddState("free", joystick + ": " + LocalizedStrings.GetString(StringType.JoystickFree));
+        joystickButton.AddState("static", joystick + ": " + LocalizedStrings.GetString(StringType.JoystickStatic));
 
         // Загрузка настроек
         LoadSettings();
@@ -41,6 +47,7 @@ public class GameSettings : MonoBehaviour
         // Звук и вибрация
         soundButton.SetState(isSoundEnabled ? "enabled" : "disabled");
         vibrationButton.SetState(isVibrationEnabled ? "enabled" : "disabled");
+        joystickButton.SetState(isJoystickStatic ? "static" : "free");
 
         // Качество графики
         switch (graphicsQuality)
@@ -77,9 +84,11 @@ public class GameSettings : MonoBehaviour
         var soundState = soundButton.GetCurrentState();
         var vibrationState = vibrationButton.GetCurrentState();
         var qualityState = qualityButton.GetCurrentState();
+        var joystickState = joystickButton.GetCurrentState();
         
         PlayerPrefs.SetInt("settings_sound", soundState == "enabled" ? 1 : 0);
         PlayerPrefs.SetInt("settings_vibration", vibrationState == "enabled" ? 1 : 0);
+        PlayerPrefs.SetInt("settings_joystick", joystickState == "static" ? 1 : 0);
         
         int quality = 0;
         switch (qualityState)
@@ -102,6 +111,7 @@ public class GameSettings : MonoBehaviour
         isVibrationEnabled = vibrationState == "enabled";
         graphicsQuality = quality;
         inputSensitivity = sensitivitySlider.value;
+        isJoystickStatic = joystickState == "static";
         
         AudioListener.volume = isSoundEnabled ? 1 : 0;
         MusicManager.IsMuted = !isSoundEnabled;

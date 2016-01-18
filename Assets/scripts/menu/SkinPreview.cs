@@ -41,7 +41,7 @@ public class SkinPreview : MonoBehaviour {
         bodyFrames = new Sprite[2];
         bodyImage = transform.Find("main").GetComponent<Image>();
         
-        SetSkin(currentSkinID);
+        SetSkin(PlayerPrefs.GetInt("current_skin", currentSkinID));
 	}
     
     void SetSkin(int id)
