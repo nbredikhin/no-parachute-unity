@@ -28,7 +28,7 @@ public class SkinPreview : MonoBehaviour {
     private GameObject rightLeg;
     
     private int currentSkinID = 1;
-    private int SKINS_COUNT = 9;
+    private int SKINS_COUNT = 10;
     
     public Image selectedImage;
     
