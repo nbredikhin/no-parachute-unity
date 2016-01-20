@@ -23,10 +23,12 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
         Debug.Log("IAP: Starting initialization");
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         // Добавляем то, что мы можем покупать
-        builder.AddProduct("test_purchase", ProductType.NonConsumable, new IDs
+        builder.AddProduct("50_coins", ProductType.Consumable, new IDs
         {
-           {"test_purchase_appl", AppleAppStore.Name},
-           {"test_purchase_google", GooglePlay.Name} 
+           {"50_coins_apple", AppleAppStore.Name},
+           {"50_coins_google", GooglePlay.Name},
+           {"50_coins_winrt", WinRT.Name},
+           {"50_coins_wp", WindowsPhone8.Name}
         });
         
         UnityPurchasing.Initialize(this, builder);
@@ -69,7 +71,11 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
         Debug.Log("IAP: Purchase completed. Product: " + e.purchasedProduct.metadata.localizedTitle);
-        
+        if(e.purchasedProduct.definition.id == "50_coins")
+        {
+            CoinsManager.Balance += 50;
+            Debug.Log("Balance: " + CoinsManager.Balance);
+        }
         return PurchaseProcessingResult.Complete;
     }
     

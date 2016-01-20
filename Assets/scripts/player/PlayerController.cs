@@ -210,6 +210,8 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case PowerUp.PowerUpType.Ring:
+                CoinsManager.Balance += 1;
+                Debug.Log("Balance: " + CoinsManager.Balance);
                 break; 
             case PowerUp.PowerUpType.HealthKit:
                 RestoreAllLimbs();

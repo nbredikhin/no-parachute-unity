@@ -86,6 +86,7 @@ public class MusicManager : MonoBehaviour
         var musicSource =
             Instantiate<GameObject>(Resources.Load<GameObject>("music/music_player")).GetComponent<AudioSource>();
         
+        musicSource.mute = !GameSettings.isSoundEnabled;
         DontDestroyOnLoad(musicSource.gameObject);
         
         musicSource.gameObject.name = name;

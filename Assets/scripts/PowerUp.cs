@@ -15,8 +15,8 @@ public class PowerUp : MonoBehaviour
     public Texture[] Textures;
     public PowerUpType Type;
     public AudioClip[] Sounds;
-
-    public float DisappearingSpeed = 4;
+    public bool IsPickedUp {get {return isDisappearing;}}
+    public float DisappearingSpeed = 2;
 
     private bool isDisappearing;
 
