@@ -349,7 +349,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: BringDat Games
   metroCertificateIssuer: BringDat Games
-  metroCertificateNotAfter: 008cf9ca224fd201
+  metroCertificateNotAfter: 808e53935374d201
   metroApplicationDescription: NoParachute2
   wsaImages: {}
   metroTileShortName: 

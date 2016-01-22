@@ -207,7 +207,7 @@ public class GameMain: MonoBehaviour
         {
             levelRunningTime += Time.deltaTime * (fallingSpeed / level.FallingSpeed);
             if (level.IsEndless)
-                progressCounter.SetValue((int)(levelRunningTime));
+                progressCounter.SetValue((int)(levelRunningTime * 100f));
             else
                 progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
                        
