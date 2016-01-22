@@ -30,7 +30,8 @@ public enum StringType
     Joystick,
     JoystickFree,
     JoystickStatic,
-    GetCoins
+    GetCoins,
+    Purchase
 }
 
 public static class LocalizedStrings
@@ -67,7 +68,8 @@ public static class LocalizedStrings
      {"Joystick", "Джойстик"},
      {"free", "свободный"},
      {"static", "статичный"},
-     {"Get Coins", "Получить монеты"}
+     {"Get Coins", "Получить монеты"},
+     {"Purchase", "Купить"}
      };
 
     public static string GetString(StringType title)

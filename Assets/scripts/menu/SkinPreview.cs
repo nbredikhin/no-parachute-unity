@@ -35,8 +35,17 @@ public class SkinPreview : MonoBehaviour
     
     public Image selectedImage;
     
+    public bool [] purchasedSkins;
+    
 	void Start () 
     {
+        purchasedSkins = new bool [SKINS_COUNT];
+        purchasedSkins[0] = purchasedSkins[1] = true;
+        for (int i = 2; i < SKINS_COUNT; ++i)
+        {
+            purchasedSkins[i] = System.Convert.ToBoolean(PlayerPrefs.GetInt("skin_" + (i + 1).ToString(), 0));
+        }
+        
         leftHand = transform.Find("left_hand").gameObject;
         rightHand = transform.Find("right_hand").gameObject;
         leftLeg = transform.Find("left_leg").gameObject;
@@ -52,6 +61,16 @@ public class SkinPreview : MonoBehaviour
     {
         id = Mathf.Clamp(id, 1, SKINS_COUNT);
         currentSkinID = id;
+        
+        var selectButton = GameObject.Find("select").GetComponent<Button>();
+        
+        string caption = LocalizedStrings.GetString(StringType.Purchase);
+
+        if (purchasedSkins[currentSkinID - 1])
+        {
+            caption = LocalizedStrings.GetString(StringType.Select);
+        }
+        selectButton.GetComponentInChildren<Text>().text = caption;
         
         // Стрелки
         if (currentSkinID == 1)
@@ -96,18 +115,18 @@ public class SkinPreview : MonoBehaviour
         if (PlayerPrefs.GetInt("current_skin", 1) == id)
         {
             selectedImage.gameObject.SetActive(true);
-            GameObject.Find("select").GetComponent<Button>().interactable = false;
+            selectButton.interactable = false;
         }
         else
         {
             selectedImage.gameObject.SetActive(false);
-            GameObject.Find("select").GetComponent<Button>().interactable = true;
+            selectButton.interactable = true;
         }
     }
     
 	void Update () 
     {
-        RingText.text = CoinsManager.Balance.ToString();
+       RingText.text = CoinsManager.Balance.ToString();
         
        transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time * skinRotationSpeed) * maxSkinAngle);
        
@@ -149,6 +168,9 @@ public class SkinPreview : MonoBehaviour
            
            bodyImage.sprite = bodyFrames[currentFrame];
        }
+       
+        if (!purchasedSkins[currentSkinID - 1])
+            GameObject.Find("select").GetComponent<Button>().interactable = (CoinsManager.Balance >= 50);
 	}
     
     public void NextSkin()
@@ -163,7 +185,26 @@ public class SkinPreview : MonoBehaviour
     
     public void SelectSkin()
     {
+        if (!purchasedSkins[currentSkinID - 1])
+        {
+            if(CoinsManager.Balance < 50)
+            {
+                Debug.LogWarning("Not enough coins!");
+                return;
+            }
+            CoinsManager.Balance -= 50;
+            purchasedSkins[currentSkinID - 1] = true;
+            PlayerPrefs.SetInt("skin_" + (currentSkinID).ToString(), 1);
+            PlayerPrefs.Save();
+            
+            SetSkin(currentSkinID);
+            
+            return;
+        }
+        
         PlayerPrefs.SetInt("current_skin", currentSkinID);
         SetSkin(currentSkinID);
+        
+        PlayerPrefs.Save();
     }
 }
