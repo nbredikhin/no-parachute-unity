@@ -85,6 +85,11 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
         controller.InitiatePurchase(productId);
     }
     
+    public void BuyCoins()
+    {
+        controller.InitiatePurchase("50_coins");
+    }
+    
     // Этот метод вызывается по нажатию кнопки "восстановить покупки" на iOS
     // (другие платформы делают это автоматически) 
     public void RestoreTransactions()

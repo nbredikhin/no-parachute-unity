@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class SkinPreview : MonoBehaviour {
+public class SkinPreview : MonoBehaviour 
+{
     public float maxSkinAngle = 10f;
     public float skinRotationSpeed = 1.5f;
     
@@ -27,12 +28,15 @@ public class SkinPreview : MonoBehaviour {
     private GameObject leftLeg;
     private GameObject rightLeg;
     
+    public Text RingText; 
+    
     private int currentSkinID = 1;
     private int SKINS_COUNT = 10;
     
     public Image selectedImage;
     
-	void Start () {
+	void Start () 
+    {
         leftHand = transform.Find("left_hand").gameObject;
         rightHand = transform.Find("right_hand").gameObject;
         leftLeg = transform.Find("left_leg").gameObject;
@@ -101,8 +105,11 @@ public class SkinPreview : MonoBehaviour {
         }
     }
     
-	void Update () {
-	   transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time * skinRotationSpeed) * maxSkinAngle);
+	void Update () 
+    {
+        RingText.text = CoinsManager.Balance.ToString();
+        
+       transform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time * skinRotationSpeed) * maxSkinAngle);
        
        var handsAngle = Mathf.Sin(Time.time * handsRotationSpeed) * maxHandsAngle;
        leftHand.transform.localRotation = Quaternion.Euler(0, 0, handsAngle);

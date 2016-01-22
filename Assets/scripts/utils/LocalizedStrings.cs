@@ -29,7 +29,8 @@ public enum StringType
     PausedText,
     Joystick,
     JoystickFree,
-    JoystickStatic
+    JoystickStatic,
+    GetCoins
 }
 
 public static class LocalizedStrings
@@ -37,7 +38,8 @@ public static class LocalizedStrings
     private static SystemLanguage language = Application.systemLanguage;
 
     private static string[,] localizedStrings =
-    {{"Start game", "Начать игру"},
+    {
+     {"Start game", "Начать игру"},
      {"Endless mode", "Бесконечный режим"},
      {"Complete all levels to unlock", "Пройдите все уровни для открытия"},
      {"Settings", "Настройки"},
@@ -64,7 +66,8 @@ public static class LocalizedStrings
      {"PAUSED", "ПАУЗА"},
      {"Joystick", "Джойстик"},
      {"free", "свободный"},
-     {"static", "статичный"}
+     {"static", "статичный"},
+     {"Get Coins", "Получить монеты"}
      };
 
     public static string GetString(StringType title)

@@ -115,6 +115,8 @@ public class GameSettings : MonoBehaviour
         
         AudioListener.volume = isSoundEnabled ? 1 : 0;
         MusicManager.IsMuted = !isSoundEnabled;
+        
+        PlayerPrefs.Save();
     }
     
     public void BackButtonClick()
