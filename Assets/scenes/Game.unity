@@ -115,6 +115,7 @@ RectTransform:
   - {fileID: 1301157864}
   - {fileID: 1695891921}
   - {fileID: 1039056605}
+  - {fileID: 340423105}
   m_Father: {fileID: 1145883280}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
@@ -2033,7 +2034,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 32
+  m_Text: '0
+
+'
 --- !u!222 &289955640
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2113,6 +2116,73 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 314891379}
+--- !u!1 &340423104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 340423105}
+  - 222: {fileID: 340423107}
+  - 114: {fileID: 340423106}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &340423105
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 340423104}
+  m_LocalRotation: {x: 0, y: 0, z: -0.3870027, w: 0.9220786}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1998753}
+  m_RootOrder: 5
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -271, y: -105}
+  m_SizeDelta: {x: 21, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &340423106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 340423104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 78de1c9ef5fd8408894ef710391f3542, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &340423107
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 340423104}
 --- !u!1 &393255760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,10 +2497,11 @@ MonoBehaviour:
   pipeCount: 6
   maxDecorativeTextures: 50
   decorativePlanesCount: 30
-  LevelToForceLoad: 0
+  LevelToForceLoad: 1
   SpawnInterval: 15.5
   timeBeforeSpawnEnd: 10
   progressCounter: {fileID: 1039056606}
+  TutorEnabled: 0
 --- !u!114 &571393028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3711,7 +3782,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 32
+  m_Text: '0
+
+'
 --- !u!222 &1206218190
 CanvasRenderer:
   m_ObjectHideFlags: 0

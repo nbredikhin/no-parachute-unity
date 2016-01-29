@@ -57,10 +57,13 @@ public class GameMain: MonoBehaviour
     
     // Счётчик прогресса
     public ProgressCounter progressCounter;
-
+    // Включено ли обучение
+    public bool TutorEnabled = true;
+    
     void Start()
     {
         GameSettings.LoadSettings();
+        TutorEnabled = System.Convert.ToBoolean(PlayerPrefs.GetInt("first_time_running", 1));
         
         decorativePlanesCount = (int)((float)decorativePlanesCount * Mathf.Clamp(GameSettings.graphicsQuality / 2f, 0f, 1f));
         
@@ -98,8 +101,9 @@ public class GameMain: MonoBehaviour
                 }
             }
         } 
-
-        spawnTimer += Time.deltaTime;
+        
+        if (!TutorEnabled)
+            spawnTimer += Time.deltaTime;
 
         if ((spawnTimer >= SpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)) // Debug
         {
@@ -129,6 +133,7 @@ public class GameMain: MonoBehaviour
                 currentBox.transform.Translate(Vector3.down * pipeCount * pipeSize);
             }
         }
+        
         // Обработка декоративных плоскостей
         foreach (var currentDecoPlane in decorativePlanes)
         {
@@ -140,6 +145,12 @@ public class GameMain: MonoBehaviour
                 currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
             }
         }
+        
+        if (TutorEnabled)
+            return;
+        
+        Debug.Log("1");
+        
         // Обработка основных плоскостей
         for (int i = 0; i < planes.Length; ++i)
         {
@@ -207,7 +218,7 @@ public class GameMain: MonoBehaviour
         {
             levelRunningTime += Time.deltaTime * (fallingSpeed / level.FallingSpeed);
             if (level.IsEndless)
-                progressCounter.SetValue((int)(levelRunningTime * 100f));
+                progressCounter.SetValue((int)(levelRunningTime * 10f));
             else
                 progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
                        
@@ -250,6 +261,12 @@ public class GameMain: MonoBehaviour
         // Загрузка уровня 
         var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
         level.LoadLevel(levelFile);
+        
+        if (level.Number != 11)
+            progressCounter.SetValue((int)(level.LevelDuration));
+        else 
+            progressCounter.SetValue(0);
+        
         Camera.main.gameObject.AddComponent(System.Type.GetType(level.CameraRotationScript));
         var movementScript = Camera.main.gameObject.GetComponent<BaseCameraRotationScript>();
         movementScript.Setup(level.CameraRotationSpeed);
