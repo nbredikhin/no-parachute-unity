@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
 
         // Скорость
         velocity = Vector2.Lerp(velocity, JoystickInput.input * missingLimbsMul + missingHandsVelocityAdd, 10f * Time.deltaTime);
-
+       
         // Обновление позиции
         float cameraAngle = Camera.main.transform.eulerAngles.y;
         Vector2 movement = Utils.RotateVector2(velocity * movementSpeed * Time.deltaTime, -cameraAngle);
