@@ -59,11 +59,15 @@ public class GameMain: MonoBehaviour
     public ProgressCounter progressCounter;
     // Включено ли обучение
     public bool TutorEnabled = true;
+    private int tutorialPart = 0;
+    public int MaxTutorialParts = 4;
+    private bool prevTouchState = false;
     
     void Start()
     {
         GameSettings.LoadSettings();
         TutorEnabled = System.Convert.ToBoolean(PlayerPrefs.GetInt("first_time_running", 1));
+        
         
         decorativePlanesCount = (int)((float)decorativePlanesCount * Mathf.Clamp(GameSettings.graphicsQuality / 2f, 0f, 1f));
         
@@ -83,7 +87,8 @@ public class GameMain: MonoBehaviour
     {
         if (level.Number <= 0)
             return;
-
+        
+        
         if (speedUpTimer >= 0)
         {
             speedUpTimer -= Time.deltaTime;
@@ -148,8 +153,6 @@ public class GameMain: MonoBehaviour
         
         if (TutorEnabled)
             return;
-        
-        Debug.Log("1");
         
         // Обработка основных плоскостей
         for (int i = 0; i < planes.Length; ++i)
@@ -337,6 +340,8 @@ public class GameMain: MonoBehaviour
             MusicManager.BeginMusicFade(0.5f, 1, false);
         }
         
+        GameObject.Find("tutor").SetActive(TutorEnabled);
+        
         player.Setup();
     }
 
@@ -433,5 +438,22 @@ public class GameMain: MonoBehaviour
         {
             gameUI.PauseButtonClick();
         }
+    }
+    
+    public void ShowNextTutorStep()
+    {
+        Debug.Log("LOOL");
+        var tutor = GameObject.Find("tutor");
+        tutor.transform.GetChild(tutorialPart++).gameObject.SetActive(false);
+        if (tutorialPart >= MaxTutorialParts)
+        {
+            TutorEnabled = false;
+            GameObject.Find("tutor").SetActive(false);
+            // Разкомменть после тестов
+            // PlayerPrefs.SetInt("first_time_running", 0);
+            
+            return;   
+        }
+        tutor.transform.GetChild(tutorialPart).gameObject.SetActive(true);
     }
 }

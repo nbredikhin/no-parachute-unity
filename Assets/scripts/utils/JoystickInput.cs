@@ -14,6 +14,8 @@ public class JoystickInput : MonoBehaviour
     // Отображение джойстика на экране
     public Image joystickImage;
 
+    public static bool IsTouching;
+    
     private bool isTouching;
     private int fingerId;
     private Vector2 startTouchPosition;
@@ -61,12 +63,12 @@ public class JoystickInput : MonoBehaviour
             joystickImage.color = new Color(1f, 1f, 1f, 0f);
         }
         startTouchPosition = position;
-        isTouching = true;
+        JoystickInput.IsTouching = isTouching = true;
     }
 
     private void JoystickEnd(Vector2 position)
     {
-        isTouching = false;
+        JoystickInput.IsTouching = isTouching = false;
         input = Vector2.zero;
         if (isJoystickStatic)
         {
