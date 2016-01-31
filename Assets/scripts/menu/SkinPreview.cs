@@ -36,6 +36,7 @@ public class SkinPreview : MonoBehaviour
     public Image selectedImage;
     
     public bool [] purchasedSkins;
+    public GameObject priceText;
     
 	void Start () 
     {
@@ -66,9 +67,11 @@ public class SkinPreview : MonoBehaviour
         
         string caption = LocalizedStrings.GetString(StringType.Purchase);
 
+        priceText.SetActive(true);
         if (purchasedSkins[currentSkinID - 1])
         {
             caption = LocalizedStrings.GetString(StringType.Select);
+            priceText.SetActive(false);
         }
         selectButton.GetComponentInChildren<Text>().text = caption;
         

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameMain: MonoBehaviour
 {
@@ -61,7 +62,9 @@ public class GameMain: MonoBehaviour
     public bool TutorEnabled = true;
     private int tutorialPart = 0;
     public int MaxTutorialParts = 4;
-    private bool prevTouchState = false;
+    private bool prevTouchState = false; 
+    public ScoreTextManager scoreTextManager;
+    private int endlessModeScore = 0;
     
     void Start()
     {
@@ -220,8 +223,12 @@ public class GameMain: MonoBehaviour
         if (!isDead && !isPaused)
         {
             levelRunningTime += Time.deltaTime * (fallingSpeed / level.FallingSpeed);
+           
             if (level.IsEndless)
-                progressCounter.SetValue((int)(levelRunningTime * 10f));
+            {
+                endlessModeScore = (int)(levelRunningTime * 10f);
+                progressCounter.SetValue(endlessModeScore);
+            }
             else
                 progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
                        
@@ -342,7 +349,12 @@ public class GameMain: MonoBehaviour
         
         GameObject.Find("tutor").SetActive(TutorEnabled);
         
+        if (!level.IsEndless)
+            scoreTextManager.HideBest();
+        
+        endlessModeScore = 0;    
         player.Setup();
+        
     }
 
     private PlaneBehaviour SpawnRandomPlane(Vector3 position)
@@ -409,6 +421,19 @@ public class GameMain: MonoBehaviour
 
         gameUI.ShowScreen(gameUI.deathScreen);
         MusicManager.BeginMusicFade(0.2f, 0.5f, false);
+        
+        // Отображение и сохранение счёта в бесконечном уровне
+        if (level.IsEndless)
+        {
+            int score = endlessModeScore;
+            int bestScore = PlayerPrefs.GetInt("best_score", 0);
+            if (score > bestScore)
+            {
+                PlayerPrefs.SetInt("best_score", score);
+                bestScore = score;
+            }
+            scoreTextManager.ShowScore(score, bestScore);
+        }
     }
 
     public void ChangeFallingSpeed(float newSpeed, float time = 0)
@@ -434,7 +459,7 @@ public class GameMain: MonoBehaviour
     
     void OnApplicationPause(bool pauseStatus)
     {
-        if (pauseStatus)
+        if (pauseStatus && !isDead)
         {
             gameUI.PauseButtonClick();
         }
