@@ -31,7 +31,14 @@ public enum StringType
     JoystickFree,
     JoystickStatic,
     GetCoins,
-    Purchase
+    Purchase,
+    TouchToContinue,
+    GreetingsText,
+    TimerHelpText,
+    LivesHelpText,
+    PauseHelpText,
+    SettingsText,
+    LastInstructionsText
 }
 
 public static class LocalizedStrings
@@ -69,7 +76,14 @@ public static class LocalizedStrings
      {"free", "свободный"},
      {"static", "статичный"},
      {"Get Coins", "Получить монеты"},
-     {"Purchase", "Купить"}
+     {"Purchase", "Купить"},
+     {"Tap to continue", "Коснитесь для продолжения"},
+     {"You have to survive unitll end of the level.\nDodge obstacles!", "Вы должны выжить до конца уровня.\nИзбегайте препятствий!"},
+     {"Level end countdown", "Время до конца уровня"},
+     {"Lives count", "Количество жизней"},
+     {"Pause button", "Кнопка паузы"},
+     {"You can adjust control sensitivity, graphics quality and sounds in settings section in main menu", "Вы можете настроить чувствительность управления, качество графики и звуки в разделе настроек в главном меню"},
+     {"To move player, move your finger anywhere on screen.\nGet ready - game begins after tap!", "Перемещайте палец по экрану, чтобы двигать игрока.\nПриготовьтесь - игра начнется после касания!"}
      };
 
     public static string GetString(StringType title)
