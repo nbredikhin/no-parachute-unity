@@ -87,5 +87,5 @@
   "LevelDuration" : "80",
   "CameraRotationScriptName": "SineCameraRotation",
   "CameraRotationSpeed": 90.0,
-  "FallingSpeed": 12
+  "FallingSpeed": 13
 }

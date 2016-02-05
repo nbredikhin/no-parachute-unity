@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour {
        // Загрузить настройки
        GameSettings.LoadSettings();
        
-       bool isEndlessEnabled = PlayerPrefs.GetInt("CurrentLevel", 1) >= 10;
+       bool isEndlessEnabled = PlayerPrefs.GetInt("CurrentLevel", 1) >= 10 || Cheats.UNLOCK_ALL_LEVELS;
 	   endlessModeButton.interactable = isEndlessEnabled;
        unlockText.enabled = !isEndlessEnabled;
        

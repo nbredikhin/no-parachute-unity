@@ -51,9 +51,9 @@
       }
     ]
   ],
-  "PlanesCount" : 4,
+  "PlanesCount" : 5,
   "LevelDuration" : "80",
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 10,
+  "FallingSpeed": 12,
   "FogColor" : [36, 17, 17]
 }

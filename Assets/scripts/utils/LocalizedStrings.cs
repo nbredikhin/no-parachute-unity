@@ -70,7 +70,7 @@ public static class LocalizedStrings
      {"Try again", "Попробовать снова"},
      {"Select character", "Выбор персонажа"},
      {"Select", "Выбрать"},
-     {"YOU ARE DEAD", "ВЫ МЕРТВЫ"},
+     {"GAME OVER", "GAME OVER"},
      {"PAUSED", "ПАУЗА"},
      {"Joystick", "Джойстик"},
      {"free", "свободный"},
@@ -88,7 +88,7 @@ public static class LocalizedStrings
 
     public static string GetString(StringType title)
     {
-        int lang = -1;
+        int lang = 0;
         if (language == SystemLanguage.English)
             lang = 0;
         else if (language == SystemLanguage.Russian)

@@ -475,7 +475,7 @@ public class GameMain: MonoBehaviour
             TutorEnabled = false;
             GameObject.Find("tutor").SetActive(false);
             // Разкомменть после тестов
-            // PlayerPrefs.SetInt("first_time_running", 0);
+            PlayerPrefs.SetInt("first_time_running", 0);
             
             return;   
         }
