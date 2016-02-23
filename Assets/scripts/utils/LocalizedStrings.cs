@@ -92,7 +92,7 @@ public static class LocalizedStrings
         if (language == SystemLanguage.English)
             lang = 0;
         else if (language == SystemLanguage.Russian)
-            lang = 1;
+            lang = 0;
         return localizedStrings[(uint)title, lang];
     }
 }

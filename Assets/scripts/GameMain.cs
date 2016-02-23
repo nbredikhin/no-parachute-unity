@@ -413,8 +413,11 @@ public class GameMain: MonoBehaviour
         var playerSound = player.GetComponent<AudioSource>();
         playerSound.clip = player.Sounds[0];
         playerSound.Play();
+        
+        #if !UNITY_STANDALONE && !UNITY_WEBPLAYER
         if (GameSettings.isVibrationEnabled)
             Handheld.Vibrate();
+        #endif
         
         player.Die();
         Camera.main.SendMessage("ShakeCamera", shakeCameraDeath);

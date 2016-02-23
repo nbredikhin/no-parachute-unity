@@ -4231,7 +4231,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 185990, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11443014, guid: 3313fed6e1c234bfa90265af6af6424b, type: 2}
       propertyPath: updateTime

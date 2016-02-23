@@ -45,6 +45,8 @@ public class SkinPreview : MonoBehaviour
         for (int i = 2; i < SKINS_COUNT; ++i)
         {
             purchasedSkins[i] = System.Convert.ToBoolean(PlayerPrefs.GetInt("skin_" + (i + 1).ToString(), 0));
+            if (Cheats.UNLOCK_ALL_CHARACTERS)
+                purchasedSkins[i] = true;
         }
         
         leftHand = transform.Find("left_hand").gameObject;

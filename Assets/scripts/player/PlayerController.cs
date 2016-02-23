@@ -261,8 +261,10 @@ public class PlayerController : MonoBehaviour
                 
                 Camera.main.SendMessage("ShakeCamera", shakeCameraHitBody);
                 // Вибрация
+                #if !UNITY_STANDALONE && !UNITY_WEBPLAYER
                 if (GameSettings.isVibrationEnabled)
                     Handheld.Vibrate();
+                #endif
         		return null;
         	}
             return hitPlane;
@@ -284,9 +286,11 @@ public class PlayerController : MonoBehaviour
                 audioSource.clip = Sounds[1];
                 audioSource.Play();
                 
+                #if !UNITY_STANDALONE && !UNITY_WEBPLAYER
                 if (GameSettings.isVibrationEnabled)
                     Handheld.Vibrate();
-                    
+                #endif
+                
                 Camera.main.SendMessage("ShakeCamera", shakeCameraHitLimb);
             }
         }
