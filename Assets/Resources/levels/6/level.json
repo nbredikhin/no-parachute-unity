@@ -30,7 +30,7 @@
       {
       },
       {
-        "MovementSpeed": [0.01, 0, 0],
+        "MovementSpeed": [0.88, 0, 0],
         "MovementScriptName": "DoorMoving",
         "TexturePath": "6_deco"
       }
@@ -39,7 +39,7 @@
       {
       },
       {
-        "MovementSpeed": [0, 0.01, 0],
+        "MovementSpeed": [0, 1, 0],
         "MovementScriptName": "DoorMoving",
         "TexturePath": "7_deco"
       }
@@ -47,10 +47,13 @@
     [
       {
         "RotationSpeed": -70.0,
-        "MovementScriptName": "UniformRotation",
+        "MovementScriptName": "UniformRotation"
       }
     ]
   ],
+  "PlanesCount" : 5,
+  "LevelDuration" : "80",
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 8.5
+  "FallingSpeed": 12,
+  "FogColor" : [36, 17, 17]
 }

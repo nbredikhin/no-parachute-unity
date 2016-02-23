@@ -68,6 +68,7 @@ PlayerSettings:
   n3dsEnableSharedListOpt: 1
   n3dsEnableVSync: 0
   uiUse16BitDepthBuffer: 0
+  ignoreAlphaClear: 0
   xboxOneResolution: 0
   ps3SplashScreen: {fileID: 0}
   videoMemoryForVertexBuffers: 0
@@ -89,7 +90,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.bdg.NoParachute
-  bundleVersion: 0.7
+  bundleVersion: 0.9
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -104,7 +105,7 @@ PlayerSettings:
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  iPhoneBuildNumber: 1
+  iPhoneBuildNumber: 2
   ForceInternetPermission: 0
   ForceSDCardPermission: 0
   CreateWallpaper: 0
@@ -133,6 +134,9 @@ PlayerSettings:
   iPadLandscapeSplashScreen: {fileID: 0}
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   appleTVSplashScreen: {fileID: 0}
+  tvOSSmallIconLayers: []
+  tvOSLargeIconLayers: []
+  tvOSTopShelfImageLayers: []
   iOSLaunchScreenType: 0
   iOSLaunchScreenPortrait: {fileID: 0}
   iOSLaunchScreenLandscape: {fileID: 0}
@@ -169,9 +173,9 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 4b13a39378fca4eb2baef316d6307ba6, type: 3}
-      m_Width: 0
-      m_Height: 0
+      m_Icon: {fileID: 2800000, guid: 28f9f887edba0468caa4c2417d9125d5, type: 3}
+      m_Width: 128
+      m_Height: 128
   m_BuildTargetBatching:
   - m_BuildTarget: iPhone
     m_StaticBatching: 1
@@ -345,7 +349,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: BringDat Games
   metroCertificateIssuer: BringDat Games
-  metroCertificateNotAfter: 008cf9ca224fd201
+  metroCertificateNotAfter: 808e53935374d201
   metroApplicationDescription: NoParachute2
   wsaImages: {}
   metroTileShortName: 
@@ -457,13 +461,21 @@ PlayerSettings:
   WebGL::useEmbeddedResources: 0
   XboxOne::enus: 1
   stringPropertyNames:
+  - Build_ServiceEnabled::Build_ServiceEnabled
+  - ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled
+  - Hub_ServiceEnabled::Hub_ServiceEnabled
+  - UNet_ServiceEnabled::UNet_ServiceEnabled
   - WebGL::emscriptenArgs
   - WebGL::template
   - additionalIl2CppArgs::additionalIl2CppArgs
+  Build_ServiceEnabled::Build_ServiceEnabled: True
+  ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled: False
+  Hub_ServiceEnabled::Hub_ServiceEnabled: False
+  UNet_ServiceEnabled::UNet_ServiceEnabled: True
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: a2f304aa-1c9c-4f68-bfd9-6951a2542fc4
+  projectName: No Parachute
+  organizationId: bringdat-games
   cloudEnabled: 0

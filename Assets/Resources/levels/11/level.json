@@ -1,0 +1,129 @@
+{
+  "Number": 11,
+  "Planes": [
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {        
+        "RotationSpeed": -110.0,
+        "MovementScriptName": "RotationRandomDirection"
+      },
+      {
+          "TexturePath": "11_deco"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 90.0,
+        "MovementScriptName": "RotationRandomDirection"
+      },
+      {
+          "TexturePath": "12_deco"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": 90.0,
+        "MovementScriptName": "RotationRandomDirection"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -220.0,
+        "MovementScriptName": "RotationRandomDirection"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -250.0,
+        "MovementScriptName": "RotationRandomDirection"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -230.0,
+        "MovementScriptName": "RotationRandomDirection"
+      }
+    ],
+    [
+      {
+        "RotationSpeed": -230.0,
+        "MovementScriptName": "UniformRotation"
+      },
+      {
+        "RotationSpeed": 230.0,
+        "MovementScriptName": "UniformRotation",
+        "TexturePath": "21_deco"
+      }
+    ],
+    [
+      {
+      }
+    ],
+    [
+      {
+      }
+    ]
+  ],
+  "PlanesCount" : 3,
+  "LevelDuration" : "999999",
+  "EndlessMode": "da but make it fast BLYAT",
+  "CameraRotationScriptName": "SineCameraRotation",
+  "CameraRotationSpeed": 90.0,
+  "FallingSpeed": 20,
+  "FogColor": [0, 25, 0]	
+}

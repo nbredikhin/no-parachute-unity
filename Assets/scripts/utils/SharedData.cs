@@ -1,5 +1,5 @@
 
 public class SharedData
 {
-	public static int levelNo = 6;
+	public static int levelNo = 1;
 }

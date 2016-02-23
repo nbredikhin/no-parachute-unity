@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour {
+    public GameObject darkScreen;
 	public GameObject gameScreen;
 	public GameObject pauseScreen;
 	public GameObject deathScreen;
@@ -8,23 +10,25 @@ public class GameUI : MonoBehaviour {
 
 	private GameObject currentScreen;
 	private GameMain gameMain;
+    private float shitfuckDelay = 0.01f;
 	
 	private bool isInitalized;
 	void Start () {
 		gameMain = GameObject.Find("Main Camera").GetComponent<GameMain>();
-
+        
+        darkScreen.SetActive(true);
 		gameScreen.SetActive(true);
 		pauseScreen.SetActive(true);
 		deathScreen.SetActive(true);
-		passedScreen.SetActive(true);
-
-		
+		passedScreen.SetActive(true);	
+        
 		isInitalized = false;
 	}
 	
 	void SetupScreens()
 	{
 		// Скрыть все экраны после первого кадра
+        darkScreen.SetActive(false);
 		gameScreen.SetActive(false);
 		pauseScreen.SetActive(false);
 		deathScreen.SetActive(false);
@@ -35,11 +39,12 @@ public class GameUI : MonoBehaviour {
 	
 	void Update()
 	{
-		if (!isInitalized)
+		if (!isInitalized && shitfuckDelay <= 0)
 		{
 			SetupScreens();
 			isInitalized = true;		
 		}
+        shitfuckDelay = shitfuckDelay - Time.deltaTime;
 	}
 
 	public void ShowScreen(GameObject screen)
@@ -57,6 +62,7 @@ public class GameUI : MonoBehaviour {
 		// Пауза
 		ShowScreen(pauseScreen);
 		gameMain.SetGamePaused(true);
+        MusicManager.BeginMusicFade(0f, 0.1f, false);
 	}
 
 	public void ContinueButtonClick()
@@ -64,6 +70,7 @@ public class GameUI : MonoBehaviour {
 		// Выход из паузы
 		gameMain.SetGamePaused(false);
 		ShowScreen(gameScreen);
+        MusicManager.BeginMusicFade(0f, 1f, false);
 	}
 
 	public void TryAgainButtonClick()
@@ -73,12 +80,20 @@ public class GameUI : MonoBehaviour {
 
 	public void RestartButtonClick()
 	{
-		Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void BackToMenuButtonClick()
 	{
 		Time.timeScale = 1;
-		Application.LoadLevel("LevelsMenu");
+        if (gameMain.level.IsEndless)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelsMenu");
+        }
+		
 	}
 }

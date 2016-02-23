@@ -13,6 +13,11 @@ public class MenuButtonsHandlers : MonoBehaviour
         SceneManager.LoadScene("SettingsMenu");
     }
     
+    public void Skins()
+    {
+        SceneManager.LoadScene("SkinsMenu");
+    }
+    
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -21,6 +26,13 @@ public class MenuButtonsHandlers : MonoBehaviour
     public void CreditsMenu()
     {
         SceneManager.LoadScene("CreditsMenu");
+    }
+    
+    public void EndlessMode()
+    {
+        SharedData.levelNo = 11;
+        
+        SceneManager.LoadScene("Game");
     }
 
     public void StartLevel()

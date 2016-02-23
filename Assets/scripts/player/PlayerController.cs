@@ -11,11 +11,14 @@ public class PlayerController : MonoBehaviour
     public float maxAngle = 30f;
     public float maxHandsAngle = 10f;
     public float missingHandsSpeedAdd = 0.4f;
+    public float maxLegsRotation = 10f;
+    public float legsRotationSpeed = 2f;
     public float SpeedUpDuration = 5;
     public float detachedLimbsRotationSpeed = 500f;
     public bool GodMode = false;
 	public AudioClip[] Sounds;
-
+    public PlayerAnimation playerAnimation;
+    
     private Vector2 velocity;
     private GameMain gameMain;
 	
@@ -47,6 +50,14 @@ public class PlayerController : MonoBehaviour
     public int maxLivesCount = 3;
     public int lives;
     public LivesHearts livesHearts;
+    
+    public int skinID = 1;
+    private float maxPosition = 0;
+
+    public bool HasFullHealth
+    {
+        get { return (missingLimbsCount == 0);}
+    }
 
 	void Start () 
     {
@@ -62,11 +73,38 @@ public class PlayerController : MonoBehaviour
 		deathBloodParticles = transform.Find("death_blood").GetComponent<ParticleSystem>();
         hitParticles = transform.Find("hit_particles").GetComponent<ParticleSystem>();
 		lives = maxLivesCount;
+        
+        skinID = PlayerPrefs.GetInt("current_skin", 1);
+    }
+    
+    // Вызывается после загрузки уровня
+    public void Setup()
+    {
+        if (gameMain)
+        {
+            maxPosition = gameMain.pipeSize / 2f - transform.localScale.x / 2f;
+            movementSpeed = Mathf.Max(gameMain.FallingSpeed / 10f * movementSpeed, movementSpeed);
+        }
+        SetupSkin();
+    }
+    
+    public void SetupSkin()
+    {
+        playerAnimation.frames[0] = Resources.Load<Texture>("skins/" + skinID.ToString() + "/main1");
+        playerAnimation.frames[1] = Resources.Load<Texture>("skins/" + skinID.ToString() + "/main2");
+        
+        foreach (var name in limbsNames)
+        {
+            limbs[name].textureOk = Resources.Load<Texture>("skins/" + skinID.ToString() + "/" + name + "_ok");
+            limbs[name].textureMissing = Resources.Load<Texture>("skins/" + skinID.ToString() + "/" + name + "_missing");
+            limbs[name].UpdateTexture();
+        }
+        
     }
 
 	void Update ()
     {
-        if (gameMain.IsPaused || gameMain.IsDead)
+        if (gameMain != null && (gameMain.IsPaused || gameMain.IsDead))
         {
             return;
         }
@@ -116,14 +154,13 @@ public class PlayerController : MonoBehaviour
 
         // Скорость
         velocity = Vector2.Lerp(velocity, JoystickInput.input * missingLimbsMul + missingHandsVelocityAdd, 10f * Time.deltaTime);
-
+       
         // Обновление позиции
         float cameraAngle = Camera.main.transform.eulerAngles.y;
         Vector2 movement = Utils.RotateVector2(velocity * movementSpeed * Time.deltaTime, -cameraAngle);
         transform.Translate(new Vector3(movement.x, 0f, movement.y), Space.World);
         
         // Столкновения с боковыми стенами
-        float maxPosition = gameMain.pipeSize / 2f - transform.localScale.x / 2f;
         transform.position = new Vector3(
             Mathf.Clamp(transform.position.x, -maxPosition, maxPosition), 
             transform.position.y, 
@@ -138,11 +175,17 @@ public class PlayerController : MonoBehaviour
             missingLegsRotationHandsAdd = Mathf.Sin(Time.time * 16f) * 8f;
             missingLegsRotationBodyAdd = Mathf.Sin(Time.time * 3f) * 3f * missingLimbsCount;
         }
+        
+        float limbsAngleAdd = Mathf.Sin(Time.time * legsRotationSpeed) * maxLegsRotation;
         // Поворот рук
         float handsAngle = -JoystickInput.input.x * maxHandsAngle;
-        limbs["left_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle + missingLegsRotationHandsAdd);
-        limbs["right_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle - missingLegsRotationHandsAdd);
-    
+        limbs["left_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle + missingLegsRotationHandsAdd + limbsAngleAdd);
+        limbs["right_hand"].transform.localRotation = Quaternion.Euler(0f, 0f, handsAngle - missingLegsRotationHandsAdd - limbsAngleAdd);
+        
+        // Поворот ног  
+        limbs["left_leg"].transform.localRotation = Quaternion.Euler(0f, 0f, limbsAngleAdd);
+        limbs["right_leg"].transform.localRotation = Quaternion.Euler(0f, 0f, -limbsAngleAdd);
+           
         // Вращение туловища
         var bodyAngle = -maxAngle * velocity.x - cameraAngle + missingLegsRotationBodyAdd;
         transform.rotation = Quaternion.Euler(90f, 0f, bodyAngle);
@@ -167,12 +210,14 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case PowerUp.PowerUpType.Ring:
-                break;
+                CoinsManager.Balance += 1;
+                Debug.Log("Balance: " + CoinsManager.Balance);
+                break; 
             case PowerUp.PowerUpType.HealthKit:
                 RestoreAllLimbs();
                 break;
             case PowerUp.PowerUpType.SpeedUp:
-                gameMain.ChangeFallingSpeed(20, 5);
+                gameMain.ChangeFallingSpeed(gameMain.FallingSpeed * 2, 5);
                 GodMode = true;
                 break;
             case PowerUp.PowerUpType.ExtraLife:
@@ -215,6 +260,11 @@ public class PlayerController : MonoBehaviour
                 hitParticles.Play();
                 
                 Camera.main.SendMessage("ShakeCamera", shakeCameraHitBody);
+                // Вибрация
+                #if !UNITY_STANDALONE && !UNITY_WEBPLAYER
+                if (GameSettings.isVibrationEnabled)
+                    Handheld.Vibrate();
+                #endif
         		return null;
         	}
             return hitPlane;
@@ -236,9 +286,11 @@ public class PlayerController : MonoBehaviour
                 audioSource.clip = Sounds[1];
                 audioSource.Play();
                 
+                #if !UNITY_STANDALONE && !UNITY_WEBPLAYER
                 if (GameSettings.isVibrationEnabled)
                     Handheld.Vibrate();
-                    
+                #endif
+                
                 Camera.main.SendMessage("ShakeCamera", shakeCameraHitLimb);
             }
         }
@@ -271,10 +323,11 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleVisibility()
     {
+        isVisible = !isVisible;
         var childrenRenderers = gameObject.transform.GetComponentsInChildren<MeshRenderer>();
         foreach (var renderer in childrenRenderers)
         {
-            isVisible = renderer.enabled = !renderer.enabled;
+            renderer.enabled = isVisible;
         }
     }
 
@@ -282,6 +335,11 @@ public class PlayerController : MonoBehaviour
     {
     	deathBloodParticles.Play();
         hitParticles.Stop();
+        
+        if (!isVisible)
+        {
+            ToggleVisibility();
+        }
     }
 
     public void Respawn()

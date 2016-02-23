@@ -19,14 +19,21 @@
     ],
     [
       {
-        "RotationSpeed": 20.0,
+        "RotationSpeed": 90.0,
         "MovementScriptName": "UniformRotation"
       },
       {
         "TexturePath": "5_deco"
       }
+    ],
+    [
+      {
+      }
     ]
   ],
+  "LevelDuration" : "80",
   "CameraRotationSpeed": 10.0,
-  "FallingSpeed": 10.0
+  "FallingSpeed": 13.0,
+  "PlanesCount" : 7,
+  "FogColor" : [24, 1, 9]
 }

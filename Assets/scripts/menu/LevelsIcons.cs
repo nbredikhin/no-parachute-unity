@@ -33,6 +33,7 @@ public class LevelsIcons : MonoBehaviour
     public float sizeAnimationSpeed = 20f;
     private Vector3 targetScale;
     private Vector2 targetPosition;
+    private bool isReallyDragging = false;
 
     // Номер выбранного уровня
     public int SeletedLevel
@@ -49,9 +50,11 @@ public class LevelsIcons : MonoBehaviour
     private int fingerId;
     
     private int currentUnlockedLevel; 
+    private MenuButtonsHandlers menuButtons;
+    private Vector3 previousMousePosition;
 
     void Start ()
-    {
+    {        
         currentUnlockedLevel = PlayerPrefs.GetInt("CurrentLevel", 1) - 1;
         if (Cheats.UNLOCK_ALL_LEVELS)
         {
@@ -73,6 +76,10 @@ public class LevelsIcons : MonoBehaviour
 
         selectedIcon = -1;
         SetSelectedIcon(currentUnlockedLevel);
+       
+        MusicManager.PlayMusic("menu_theme", 1, 1);
+        
+        menuButtons = GameObject.Find("Canvas").GetComponent<MenuButtonsHandlers>();
     }
 
     bool isLevelLocked(int index)
@@ -98,7 +105,7 @@ public class LevelsIcons : MonoBehaviour
         // Кнопка
         var button = icon.GetComponent<Button>();
         button.onClick.AddListener(() => { ButtonClick(index); });
-
+        
         // Рамка
         var frameImage = icon.GetComponent<Image>();
         frameImage.color = normalFrameColor;
@@ -109,6 +116,8 @@ public class LevelsIcons : MonoBehaviour
 
         // Состояние иконки
         var stateImage = icon.transform.FindChild("state").GetComponent<Image>();
+        if (Cheats.UNLOCK_ALL_LEVELS)
+            state = IconState.Normal;
         switch (state)
         {
             case IconState.Locked:
@@ -128,8 +137,17 @@ public class LevelsIcons : MonoBehaviour
     }
 
     void ButtonClick(int index)
-    {
-        SetSelectedIcon(index);
+    {   
+        if (isReallyDragging)
+        {
+            return;
+        }
+        if (index == selectedIcon)
+        {
+            menuButtons.StartLevel();                         
+        }
+        else
+            SetSelectedIcon(index);
     }
 
     void SetSelectedIcon(int index)
@@ -167,11 +185,18 @@ public class LevelsIcons : MonoBehaviour
     {
         startDragPosition = position;
         isDragging = true;
+        isReallyDragging = false;
     }
 
     void DragMove(Vector2 position)
     {
         var delta = position.x - startDragPosition.x;
+        //Debug.Log(delta);
+        if (Mathf.Abs(delta) > 10f && !isReallyDragging)
+        {
+            //Debug.Log("NO CLICK");
+            isReallyDragging = true;
+        }
         if (delta > maxDragDelta)
         {
             startDragPosition = position;
@@ -187,6 +212,7 @@ public class LevelsIcons : MonoBehaviour
     void DragEnd(Vector2 position)
     {
         isDragging = false;
+        isReallyDragging = false;
     }
 
     void Update ()
@@ -214,7 +240,7 @@ public class LevelsIcons : MonoBehaviour
                 {
                     DragEnd(touch.position);
                 }
-                else if (!isDragging && touch.phase == TouchPhase.Began)
+                else if (!isDragging && touch.phase == TouchPhase.Moved)
                 {
                     fingerId = touch.fingerId;
                     DragBegin(touch.position);
@@ -231,7 +257,7 @@ public class LevelsIcons : MonoBehaviour
         {
             DragEnd(Input.mousePosition);
         }
-        else if (!isDragging && Input.GetMouseButtonDown(0))
+        else if (!isDragging && Input.GetMouseButton(0))
         {
             DragBegin(Input.mousePosition);
         }
@@ -243,5 +269,7 @@ public class LevelsIcons : MonoBehaviour
         icons[selectedIcon].transform.localScale = scale;
         // Плавное изменение позиции
         rectTransform.anchoredPosition += (targetPosition - rectTransform.anchoredPosition) * slidingAnimationSpeed * Time.deltaTime;
+        
+        previousMousePosition = Input.mousePosition;
     }
 }

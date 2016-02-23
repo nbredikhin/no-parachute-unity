@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PowerUp : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class PowerUp : MonoBehaviour
     public Texture[] Textures;
     public PowerUpType Type;
     public AudioClip[] Sounds;
-
-    public float DisappearingSpeed = 4;
+    public bool IsPickedUp {get {return isDisappearing;}}
+    public float DisappearingSpeed = 2;
 
     private bool isDisappearing;
 
@@ -40,6 +41,23 @@ public class PowerUp : MonoBehaviour
         isDisappearing = true;
     }
 
+    void OnDestroy()
+    {
+        // если музыка еще играет, ждем 
+        var audioSource = gameObject.GetComponent<AudioSource>();
+        if (audioSource.isPlaying)
+        {
+            Debug.Log("Waiting for track to over");
+            Wait(audioSource.time);
+            Debug.Log("Track is over, destroying");
+        }
+    }
+
+    IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
+    } 
+
     void Update()
     {
         if (isDisappearing)
@@ -47,6 +65,7 @@ public class PowerUp : MonoBehaviour
             var material = gameObject.GetComponent<MeshRenderer>().material;
             material.SetColor("_Color", material.color - new Color(0, 0, 0, DisappearingSpeed * Time.deltaTime));
             gameObject.transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, 0) * DisappearingSpeed;
+
         }
     }
 }

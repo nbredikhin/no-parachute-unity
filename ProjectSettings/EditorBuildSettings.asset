@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/scenes/SettingsMenu.unity
   - enabled: 1
     path: Assets/scenes/CreditsMenu.unity
+  - enabled: 1
+    path: Assets/scenes/SkinsMenu.unity

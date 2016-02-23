@@ -2,6 +2,7 @@
 	   "Number" : "1", 
 	   "FallingSpeed" : "10", 
 	   "CameraRotationSpeed" : "0", 
+       "LevelDuration" : "45",
 	   "Planes" : [ 
 	      [ 
 	         { 

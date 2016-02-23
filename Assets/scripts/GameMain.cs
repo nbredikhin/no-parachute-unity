@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameMain: MonoBehaviour
 {
@@ -33,7 +34,9 @@ public class GameMain: MonoBehaviour
     private GameObject[] decorativePlanes;
     private PlaneBehaviour[] planes;
     private List<PowerUp> powerups;
-
+    
+    public int LevelToForceLoad = 0;
+    
     public Level level;
 
     // Таймер для спавна бонусов
@@ -52,10 +55,22 @@ public class GameMain: MonoBehaviour
     public int timeBeforeSpawnEnd = 10;
     // Завершен ли уровень: isLevelFinished = levelRunningTime >= levelDuration;
     private bool isLevelFinished = false;
-
+    
+    // Счётчик прогресса
+    public ProgressCounter progressCounter;
+    // Включено ли обучение
+    public bool TutorEnabled = true;
+    private int tutorialPart = 0;
+    public int MaxTutorialParts = 4;
+    private bool prevTouchState = false; 
+    public ScoreTextManager scoreTextManager;
+    private int endlessModeScore = 0;
+    
     void Start()
     {
         GameSettings.LoadSettings();
+        TutorEnabled = System.Convert.ToBoolean(PlayerPrefs.GetInt("first_time_running", 1));
+        
         
         decorativePlanesCount = (int)((float)decorativePlanesCount * Mathf.Clamp(GameSettings.graphicsQuality / 2f, 0f, 1f));
         
@@ -64,7 +79,10 @@ public class GameMain: MonoBehaviour
             level = new Level();
 
         gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
-       
+        
+        if (LevelToForceLoad > 0)
+            SharedData.levelNo = LevelToForceLoad;
+            
         ChangeLevel(SharedData.levelNo);
     }
 
@@ -72,7 +90,8 @@ public class GameMain: MonoBehaviour
     {
         if (level.Number <= 0)
             return;
-
+        
+        
         if (speedUpTimer >= 0)
         {
             speedUpTimer -= Time.deltaTime;
@@ -90,13 +109,25 @@ public class GameMain: MonoBehaviour
                 }
             }
         } 
-
-        spawnTimer += Time.deltaTime;
+        
+        if (!TutorEnabled)
+            spawnTimer += Time.deltaTime;
 
         if ((spawnTimer >= SpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)) // Debug
         {
-            int type = Random.Range(1, 4);
-
+            List<int> types = new List<int>();
+            
+            // "Базовые" бонусы - кольцо и увеличение скорости
+            types.Add((int)PowerUp.PowerUpType.Ring);
+            types.Add((int)PowerUp.PowerUpType.SpeedUp);
+            
+            // Если все жизни и есть хоть одна оторванная конеченость или не все жизни - то можем заспавнить дополнительную жизнь
+            if ((player.lives == player.maxLivesCount && !player.HasFullHealth) || player.lives < player.maxLivesCount)
+                types.Add((int)PowerUp.PowerUpType.ExtraLife);
+            if (!player.HasFullHealth)
+                types.Add((int)PowerUp.PowerUpType.HealthKit);
+                
+            int type = Utils.GetRandomNumberFromList(types);
             SpawnPowerUp((PowerUp.PowerUpType)type);
             spawnTimer = 0;
         }
@@ -110,6 +141,7 @@ public class GameMain: MonoBehaviour
                 currentBox.transform.Translate(Vector3.down * pipeCount * pipeSize);
             }
         }
+        
         // Обработка декоративных плоскостей
         foreach (var currentDecoPlane in decorativePlanes)
         {
@@ -121,6 +153,10 @@ public class GameMain: MonoBehaviour
                 currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
             }
         }
+        
+        if (TutorEnabled)
+            return;
+        
         // Обработка основных плоскостей
         for (int i = 0; i < planes.Length; ++i)
         {
@@ -163,7 +199,7 @@ public class GameMain: MonoBehaviour
             
             if (currentPU.transform.position.y >= 0)
             {
-                Destroy(currentPU);
+                Destroy(currentPU.gameObject, currentPU.DisappearingSpeed + 1);
                 powerups[i] = null;
 
                 powerups.RemoveAt(i--);
@@ -175,10 +211,10 @@ public class GameMain: MonoBehaviour
             if (Mathf.Abs(powerUpZ - playerZ) <= fallingSpeed * Time.deltaTime)
             {
                 var diff = new Vector2(player.transform.position.x - currentPU.transform.position.x, player.transform.position.z - currentPU.transform.position.z);
-                if (!isLevelFinished && diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)
+                if (!currentPU.IsPickedUp && (!player.GodMode && !isLevelFinished && (diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)))
                 {
                     currentPU.OnPickUp();
-
+                    
                     player.OnPowerUpTaken(currentPU.Type);
                 }
             }
@@ -186,13 +222,23 @@ public class GameMain: MonoBehaviour
         
         if (!isDead && !isPaused)
         {
-            levelRunningTime += Time.deltaTime;
+            levelRunningTime += Time.deltaTime * (fallingSpeed / level.FallingSpeed);
+           
+            if (level.IsEndless)
+            {
+                endlessModeScore = (int)(levelRunningTime * 10f);
+                progressCounter.SetValue(endlessModeScore);
+            }
+            else
+                progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
                        
-            if (levelRunningTime >= level.LevelDuration && !isLevelFinished)
+            if (!level.IsEndless && levelRunningTime >= level.LevelDuration && !isLevelFinished)
             {
                 isLevelFinished = true;
                 gameUI.ShowScreen(gameUI.passedScreen);
                 JoystickInput.isEnabled = false;
+                
+                MusicManager.BeginMusicFade(0.5f, 0.25f, false);
                 
                 // Сохранение прогресса
                 var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
@@ -225,12 +271,22 @@ public class GameMain: MonoBehaviour
         // Загрузка уровня 
         var levelFile = Resources.Load<TextAsset>("levels/" + newLevel.ToString() + "/level");
         level.LoadLevel(levelFile);
+        
+        if (level.Number != 11)
+            progressCounter.SetValue((int)(level.LevelDuration));
+        else 
+            progressCounter.SetValue(0);
+        
         Camera.main.gameObject.AddComponent(System.Type.GetType(level.CameraRotationScript));
         var movementScript = Camera.main.gameObject.GetComponent<BaseCameraRotationScript>();
         movementScript.Setup(level.CameraRotationSpeed);
         
+        Camera.main.backgroundColor = level.FogColor;
+        RenderSettings.fogColor = level.FogColor;
+        
         powerups = new List<PowerUp>();
-        timeBeforeSpawnEnd = level.PlanesCount;
+        // TODO: сделать по-умному
+        timeBeforeSpawnEnd = (int)(1.5 * pipeSize * pipeCount / level.FallingSpeed);
         // Боковые стены
         // Загрузка текстур 
         Texture bufferTexture = Resources.Load<Texture>("levels/" + level.Number.ToString() + "/wall");
@@ -267,14 +323,16 @@ public class GameMain: MonoBehaviour
             int textureIndex = Random.Range(0, decorativeTextures.Count);
             decorativePlane.GetComponent<MeshRenderer>().material.mainTexture = decorativeTextures [textureIndex];
             decorativePlane.transform.Rotate(0, 0, Random.Range(0, 4) * 90);
-            decorativePlanes [i] = decorativePlane;
+            decorativePlanes[i] = decorativePlane;
+            
+            decorativePlane.transform.Translate(Vector3.down * 0.1f, Space.World);
         }
         
         // Тестовое создание плоскостей
         planes = new PlaneBehaviour[level.PlanesCount];
         for (int i = 0; i < level.PlanesCount; ++i)
         {
-            planes [i] = SpawnRandomPlane(Vector3.down * pipeSize * pipeCount * ((float)i / level.PlanesCount + 0.5f));
+            planes [i] = SpawnRandomPlane(Vector3.down * (pipeSize * pipeCount) * ((float)i / level.PlanesCount + 1.5f));
         }
         
         player = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -282,6 +340,21 @@ public class GameMain: MonoBehaviour
         levelRunningTime = 0f;
         isLevelFinished = false;
         JoystickInput.isEnabled = true;
+        
+        // Музыка
+        if (!MusicManager.PlayMusic("game_theme", 0.5f, 2))
+        {
+            MusicManager.BeginMusicFade(0.5f, 1, false);
+        }
+        
+        GameObject.Find("tutor").SetActive(TutorEnabled);
+        
+        if (!level.IsEndless)
+            scoreTextManager.HideBest();
+        
+        endlessModeScore = 0;    
+        player.Setup();
+        
     }
 
     private PlaneBehaviour SpawnRandomPlane(Vector3 position)
@@ -340,13 +413,30 @@ public class GameMain: MonoBehaviour
         var playerSound = player.GetComponent<AudioSource>();
         playerSound.clip = player.Sounds[0];
         playerSound.Play();
+        
+        #if !UNITY_STANDALONE && !UNITY_WEBPLAYER
         if (GameSettings.isVibrationEnabled)
             Handheld.Vibrate();
+        #endif
         
         player.Die();
         Camera.main.SendMessage("ShakeCamera", shakeCameraDeath);
 
         gameUI.ShowScreen(gameUI.deathScreen);
+        MusicManager.BeginMusicFade(0.2f, 0.5f, false);
+        
+        // Отображение и сохранение счёта в бесконечном уровне
+        if (level.IsEndless)
+        {
+            int score = endlessModeScore;
+            int bestScore = PlayerPrefs.GetInt("best_score", 0);
+            if (score > bestScore)
+            {
+                PlayerPrefs.SetInt("best_score", score);
+                bestScore = score;
+            }
+            scoreTextManager.ShowScore(score, bestScore);
+        }
     }
 
     public void ChangeFallingSpeed(float newSpeed, float time = 0)
@@ -368,5 +458,30 @@ public class GameMain: MonoBehaviour
         isDead = false;
         gameUI.ShowScreen(gameUI.gameScreen);
         player.Respawn();
+    }
+    
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus && !isDead)
+        {
+            gameUI.PauseButtonClick();
+        }
+    }
+    
+    public void ShowNextTutorStep()
+    {
+        Debug.Log("LOOL");
+        var tutor = GameObject.Find("tutor");
+        tutor.transform.GetChild(tutorialPart++).gameObject.SetActive(false);
+        if (tutorialPart >= MaxTutorialParts)
+        {
+            TutorEnabled = false;
+            GameObject.Find("tutor").SetActive(false);
+            // Разкомменть после тестов
+            PlayerPrefs.SetInt("first_time_running", 0);
+            
+            return;   
+        }
+        tutor.transform.GetChild(tutorialPart).gameObject.SetActive(true);
     }
 }
