@@ -64,6 +64,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     // Метод вызывается при ошибке во время покупки.  
     public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
     {
+        WaitPanel.SetActive(false);
         Debug.LogError("IAP: Failed to make a purchase for product " + i.metadata.localizedTitle + ". Reason: " + p.ToString());
     }
     
@@ -76,7 +77,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
         {
             CoinsManager.Balance += 50;
             Debug.Log("Balance: " + CoinsManager.Balance);
-        }
+        }            
         WaitPanel.SetActive(false);
         return PurchaseProcessingResult.Complete;
     }
@@ -90,7 +91,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     
     public void BuyCoins()
     {
-        controller.InitiatePurchase("50_coins");
+        InitializePurchase("50_coins");
     }
     
     // Этот метод вызывается по нажатию кнопки "восстановить покупки" на iOS
