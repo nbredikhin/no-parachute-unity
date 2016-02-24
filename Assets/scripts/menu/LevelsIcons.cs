@@ -51,7 +51,6 @@ public class LevelsIcons : MonoBehaviour
     
     private int currentUnlockedLevel; 
     private MenuButtonsHandlers menuButtons;
-    private Vector3 previousMousePosition;
 
     void Start ()
     {        
@@ -269,7 +268,5 @@ public class LevelsIcons : MonoBehaviour
         icons[selectedIcon].transform.localScale = scale;
         // Плавное изменение позиции
         rectTransform.anchoredPosition += (targetPosition - rectTransform.anchoredPosition) * slidingAnimationSpeed * Time.deltaTime;
-        
-        previousMousePosition = Input.mousePosition;
     }
 }

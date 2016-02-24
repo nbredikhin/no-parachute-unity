@@ -1,11 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Purchasing;
 
 public class SimpleIAPManager : MonoBehaviour, IStoreListener 
 {
     private IStoreController controller;
     private IExtensionProvider extensions;
+    
+    public GameObject WaitPanel;
     
     void Start()
     {
@@ -63,6 +64,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     // Метод вызывается при ошибке во время покупки.  
     public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
     {
+        WaitPanel.SetActive(false);
         Debug.LogError("IAP: Failed to make a purchase for product " + i.metadata.localizedTitle + ". Reason: " + p.ToString());
     }
     
@@ -75,19 +77,21 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
         {
             CoinsManager.Balance += 50;
             Debug.Log("Balance: " + CoinsManager.Balance);
-        }
+        }            
+        WaitPanel.SetActive(false);
         return PurchaseProcessingResult.Complete;
     }
     
     // Этот метод можно вызвать по нажатию кнопки "Купить" 
     public void InitializePurchase(string productId)
     {
+        WaitPanel.SetActive(true);
         controller.InitiatePurchase(productId);
     }
     
     public void BuyCoins()
     {
-        controller.InitiatePurchase("50_coins");
+        InitializePurchase("50_coins");
     }
     
     // Этот метод вызывается по нажатию кнопки "восстановить покупки" на iOS

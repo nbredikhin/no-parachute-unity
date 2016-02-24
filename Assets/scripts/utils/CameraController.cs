@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour 
+{
     public GameObject player;
     public GameMain gameMain;
     public float shakePower = 1f;

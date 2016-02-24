@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
-public class SkinsEditor : MonoBehaviour {
+public class SkinsEditor : MonoBehaviour 
+{
     public PlayerController player;
     public InputField inputField;
     public Dropdown limbsDropdown;

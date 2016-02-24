@@ -38,7 +38,10 @@ public enum StringType
     LivesHelpText,
     PauseHelpText,
     SettingsText,
-    LastInstructionsText
+    LastInstructionsText,
+    PurchaseProcessing,
+    PurchaseSuccess,
+    PurchaseFailure
 }
 
 public static class LocalizedStrings
@@ -83,7 +86,8 @@ public static class LocalizedStrings
      {"Lives count", "Количество жизней"},
      {"Pause button", "Кнопка паузы"},
      {"You can adjust control sensitivity, graphics quality and sounds in settings section in main menu", "Вы можете настроить чувствительность управления, качество графики и звуки в разделе настроек в главном меню"},
-     {"To move player, move your finger anywhere on screen.\nGet ready - game begins after tap!", "Перемещайте палец по экрану, чтобы двигать игрока.\nПриготовьтесь - игра начнется после касания!"}
+     {"To move player, move your finger anywhere on screen.\nGet ready - game begins after tap!", "Перемещайте палец по экрану, чтобы двигать игрока.\nПриготовьтесь - игра начнется после касания!"},
+     {"Your purchase is being processed. . .", "Ваш заказ обрабатывается. . ."},
      };
 
     public static string GetString(StringType title)
@@ -92,7 +96,7 @@ public static class LocalizedStrings
         if (language == SystemLanguage.English)
             lang = 0;
         else if (language == SystemLanguage.Russian)
-            lang = 0;
+            lang = 1;
         return localizedStrings[(uint)title, lang];
     }
 }

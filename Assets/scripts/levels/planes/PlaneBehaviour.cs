@@ -32,9 +32,11 @@ public class PlaneBehaviour : MonoBehaviour
 	public void Setup(List<PlaneProperties> layerProps)
 	{
 		layers = new Dictionary<GameObject, PlaneProperties>();
-		foreach (var currentLayerProps in layerProps)
+        for (int i = 0; i < layerProps.Count; ++i)
 		{
+            var currentLayerProps = layerProps[i];
 			var newObject = Instantiate<GameObject>(LayerPrefab);
+            newObject.name = "layer_" + i.ToString();
 			newObject.GetComponent<MeshRenderer>().material.mainTexture = currentLayerProps.MainTexture;
 			newObject.transform.SetParent(gameObject.transform, false);
             
@@ -46,7 +48,18 @@ public class PlaneBehaviour : MonoBehaviour
 		}
         Respawn();
 	}
-	
+    
+    public void ReassignLayers(Dictionary<GameObject, PlaneProperties> original)
+    {
+        layers = new Dictionary<GameObject, PlaneProperties>();
+        int i = 0;
+        foreach (var currentLayerPair in original)
+        {
+            var layerProperties = currentLayerPair.Value;
+            layers.Add(transform.GetChild(i++).gameObject, layerProperties);
+        }
+    }
+    
     public void Respawn()
     {
 		int i = 0;
