@@ -36,7 +36,8 @@ public class GameMain : MonoBehaviour
     private PlaneBehaviour[] planesPool;
     private PlaneBehaviour[] planes;
     private List<PowerUp> powerups;
-
+    
+    public int FallingSpeedForSoftTrack = 15; 
     public int LevelToForceLoad = 0;
 
     public Level level;
@@ -348,9 +349,12 @@ public class GameMain : MonoBehaviour
         levelRunningTime = 0f;
         isLevelFinished = false;
         JoystickInput.isEnabled = true;
-
+        
         // Музыка
-        if (!MusicManager.PlayMusic("game_theme", 0.5f, 2))
+        string music_track = "game_theme";
+        if (level.FallingSpeed <= FallingSpeedForSoftTrack)
+            music_track = "game_theme_soft";
+        if (!MusicManager.PlayMusic(music_track, 0.5f, 2))
         {
             MusicManager.BeginMusicFade(0.5f, 1, false);
         }

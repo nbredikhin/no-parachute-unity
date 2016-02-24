@@ -115,6 +115,6 @@
   "LevelDuration" : "100",
   "CameraRotationScriptName": "SineCameraRotation",
   "CameraRotationSpeed": 90.0,
-  "FallingSpeed": 15,
+  "FallingSpeed": 16,
   "FogColor": [16, 8, 6]	
 }
