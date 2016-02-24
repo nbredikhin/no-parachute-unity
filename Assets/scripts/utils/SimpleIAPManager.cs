@@ -6,6 +6,8 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     private IStoreController controller;
     private IExtensionProvider extensions;
     
+    public GameObject WaitPanel;
+    
     void Start()
     {
         if (controller == null)
@@ -75,12 +77,14 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
             CoinsManager.Balance += 50;
             Debug.Log("Balance: " + CoinsManager.Balance);
         }
+        WaitPanel.SetActive(false);
         return PurchaseProcessingResult.Complete;
     }
     
     // Этот метод можно вызвать по нажатию кнопки "Купить" 
     public void InitializePurchase(string productId)
     {
+        WaitPanel.SetActive(true);
         controller.InitiatePurchase(productId);
     }
     
