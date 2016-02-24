@@ -44,6 +44,8 @@ public class GameMain : MonoBehaviour
 
     // Таймер для спавна бонусов
     public float SpawnInterval = 10; // Test
+    public float CoinsSpawnInterval = 5;
+    private float coinsSpawnTimer = 0;
     private float spawnTimer = 0;
 
     public bool IsPaused { get { return isPaused; } }
@@ -111,8 +113,17 @@ public class GameMain : MonoBehaviour
         }
 
         if (!TutorEnabled)
+        {
             spawnTimer += Time.deltaTime;
+            coinsSpawnTimer += Time.deltaTime;
+        }
 
+       if ((coinsSpawnTimer >= CoinsSpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd))
+       {
+           SpawnPowerUp(PowerUp.PowerUpType.Ring);
+           coinsSpawnTimer = 0;
+       }
+            
         if ((spawnTimer >= SpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)) // Debug
         {
             List<int> types = new List<int>();
