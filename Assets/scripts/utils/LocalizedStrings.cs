@@ -40,8 +40,8 @@ public enum StringType
     SettingsText,
     LastInstructionsText,
     PurchaseProcessing,
-    PurchaseSuccess,
-    PurchaseFailure
+    PurchaseTimeout, 
+    CancelPurchase
 }
 
 public static class LocalizedStrings
@@ -88,6 +88,8 @@ public static class LocalizedStrings
      {"You can adjust control sensitivity, graphics quality and sounds in settings section in main menu", "Вы можете настроить чувствительность управления, качество графики и звуки в разделе настроек в главном меню"},
      {"To move player, move your finger anywhere on screen.\nGet ready - game begins after tap!", "Перемещайте палец по экрану, чтобы двигать игрока.\nПриготовьтесь - игра начнется после касания!"},
      {"Your purchase is being processed. . .", "Ваш заказ обрабатывается. . ."},
+     {"Your purchase is taking long time. . .", "Ваш заказ занимает слишком много времени. . ."},
+     {"CANCEL", "ОТМЕНА"}
      };
 
     public static string GetString(StringType title)
