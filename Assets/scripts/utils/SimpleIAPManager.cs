@@ -13,7 +13,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     public float RequestTimeoutTime = 10;
     private float requestTimeoutTimer = 0;
     private bool isPurchasing = false;
-    
+    public static string IAP_ID = "50_rings";
     
     void Start()
     {
@@ -49,6 +49,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
         }
     }
     
+    
     public void InitializePurchasing()
     {
         if (IsInitialized())
@@ -59,12 +60,12 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
         Debug.Log("IAP: Starting initialization");
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         // Добавляем то, что мы можем покупать
-        builder.AddProduct("50_rings", ProductType.Consumable, new IDs
+        builder.AddProduct(IAP_ID, ProductType.Consumable, new IDs
         {
-           {"50_rings_apple", AppleAppStore.Name},
-           {"50_rings_google", GooglePlay.Name},
-           {"50_rings_winrt", WinRT.Name},
-           {"50_rings_wp", WindowsPhone8.Name}
+           {IAP_ID + "_apple", AppleAppStore.Name},
+           {IAP_ID + "_google", GooglePlay.Name},
+           {IAP_ID + "_winrt", WinRT.Name},
+           {IAP_ID + "_rings_wp", WindowsPhone8.Name}
         });
         
         UnityPurchasing.Initialize(this, builder);
@@ -117,7 +118,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
         Debug.Log("IAP: Purchase completed. Product: " + e.purchasedProduct.metadata.localizedTitle);
-        if(e.purchasedProduct.definition.id == "50_coins")
+        if(e.purchasedProduct.definition.id == IAP_ID)
         {
             CoinsManager.Balance += 50;
             Debug.Log("Balance: " + CoinsManager.Balance);
@@ -139,7 +140,7 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     
     public void BuyCoins()
     {
-        InitializePurchase("50_rings");
+        InitializePurchase(IAP_ID);
     }
     
     // Этот метод вызывается по нажатию кнопки "восстановить покупки" на iOS

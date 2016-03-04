@@ -105,7 +105,7 @@ PlayerSettings:
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  iPhoneBuildNumber: 2
+  iPhoneBuildNumber: 5
   ForceInternetPermission: 0
   ForceSDCardPermission: 0
   CreateWallpaper: 0
@@ -123,16 +123,25 @@ PlayerSettings:
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
-  iPhoneSplashScreen: {fileID: 0}
-  iPhoneHighResSplashScreen: {fileID: 0}
-  iPhoneTallHighResSplashScreen: {fileID: 0}
-  iPhone47inSplashScreen: {fileID: 0}
-  iPhone55inPortraitSplashScreen: {fileID: 0}
-  iPhone55inLandscapeSplashScreen: {fileID: 0}
-  iPadPortraitSplashScreen: {fileID: 0}
-  iPadHighResPortraitSplashScreen: {fileID: 0}
-  iPadLandscapeSplashScreen: {fileID: 0}
-  iPadHighResLandscapeSplashScreen: {fileID: 0}
+  iPhoneSplashScreen: {fileID: 2800000, guid: 1c9251ca9c2214ffc9b1489027216829, type: 3}
+  iPhoneHighResSplashScreen: {fileID: 2800000, guid: 9b11b8ed85aea4853b4c8ae065a10b15,
+    type: 3}
+  iPhoneTallHighResSplashScreen: {fileID: 2800000, guid: 1c9251ca9c2214ffc9b1489027216829,
+    type: 3}
+  iPhone47inSplashScreen: {fileID: 2800000, guid: 1c9251ca9c2214ffc9b1489027216829,
+    type: 3}
+  iPhone55inPortraitSplashScreen: {fileID: 2800000, guid: 1c9251ca9c2214ffc9b1489027216829,
+    type: 3}
+  iPhone55inLandscapeSplashScreen: {fileID: 2800000, guid: 1c9251ca9c2214ffc9b1489027216829,
+    type: 3}
+  iPadPortraitSplashScreen: {fileID: 2800000, guid: 8f3b1fe6f7e5e46919c7521357ec15a3,
+    type: 3}
+  iPadHighResPortraitSplashScreen: {fileID: 2800000, guid: 8f3b1fe6f7e5e46919c7521357ec15a3,
+    type: 3}
+  iPadLandscapeSplashScreen: {fileID: 2800000, guid: 8f3b1fe6f7e5e46919c7521357ec15a3,
+    type: 3}
+  iPadHighResLandscapeSplashScreen: {fileID: 2800000, guid: 8f3b1fe6f7e5e46919c7521357ec15a3,
+    type: 3}
   appleTVSplashScreen: {fileID: 0}
   tvOSSmallIconLayers: []
   tvOSLargeIconLayers: []
