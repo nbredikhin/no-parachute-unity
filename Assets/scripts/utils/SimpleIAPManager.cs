@@ -25,13 +25,13 @@ public class SimpleIAPManager : MonoBehaviour, IStoreListener
     
     private void SetWarning()
     {
-        PanelText.GetComponent<UnityEngine.UI.Text>().text = LocalizedStrings.GetString(StringType.PurchaseTimeout);
+        PanelText.GetComponent<UnityEngine.UI.Text>().text = LocalizedStrings.GetString("characters_menu_iap_timeout");
         Button.SetActive(true);
     }
     
     private void UnsetWarning()
     {
-        PanelText.GetComponent<UnityEngine.UI.Text>().text = LocalizedStrings.GetString(StringType.PurchaseProcessing);
+        PanelText.GetComponent<UnityEngine.UI.Text>().text = LocalizedStrings.GetString("characters_menu_iap_processing");
         Button.SetActive(false);
         requestTimeoutTimer = 0;
     }

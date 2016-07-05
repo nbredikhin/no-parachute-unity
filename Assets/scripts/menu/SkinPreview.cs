@@ -60,18 +60,18 @@ public class SkinPreview : MonoBehaviour
 	}
     
     void SetSkin(int id)
-    {
+    { 
         id = Mathf.Clamp(id, 1, SKINS_COUNT);
         currentSkinID = id;
         
         var selectButton = GameObject.Find("select").GetComponent<Button>();
         
-        string caption = LocalizedStrings.GetString(StringType.Purchase);
+        string caption = LocalizedStrings.GetString("characters_menu_purchase");
 
         priceText.SetActive(true);
         if (purchasedSkins[currentSkinID - 1])
         {
-            caption = LocalizedStrings.GetString(StringType.Select);
+            caption = LocalizedStrings.GetString("characters_menu_select_character");
             priceText.SetActive(false);
         }
         selectButton.GetComponentInChildren<Text>().text = caption;

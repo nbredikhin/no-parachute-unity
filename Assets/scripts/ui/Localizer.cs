@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Localizer : MonoBehaviour 
 {
-    public StringType type;
+    public string type;
     
 	void Start () 
     {

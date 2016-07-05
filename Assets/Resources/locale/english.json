@@ -1,0 +1,50 @@
+{
+    "shared_back": "Back",
+
+    "main_menu_start_game": "Start Game",
+    "main_menu_endless_mode": "Endless mode",
+    "main_menu_unlock_text": "Complete all levels to unlock!",
+    "main_menu_character_select": "Select character",
+    "main_menu_settings": "Settings",
+    "main_menu_credits": "Credits",
+
+    "levels_menu_start_game": "START",
+
+    "characters_menu_select_character": "SELECT",
+    "characters_menu_get_rings": "Get rings",
+    "characters_menu_purchase": "Purchase",
+    "characters_menu_iap_cancel": "CANCEL",
+    "characters_menu_iap_processing": "Your purchase is beeing processed. . .",
+    "characters_menu_iap_timeout": "Your purchase is taking more time than expected. . .",
+    
+    "settings_menu_joystick": "Joystick",
+    "settings_menu_sound": "Sound",
+    "settings_menu_vibration": "Vibration",
+    "settings_menu_quality": "Quality",
+    "settings_menu_sensitivity": "Sensitivity",
+    "settings_menu_state_enabled": "enabled",
+    "settings_menu_state_disabled": "disabled",
+    "settings_menu_state_free": "free",
+    "settings_menu_state_static": "static",
+    "settings_menu_state_low": "low",
+    "settings_menu_state_medium": "medium",
+    "settings_menu_state_high": "high",
+    
+    "credits_text": "No Parachute!\n\nProgramming, design:\nNikita Bredikhin\n\nProgramming, music:\nEugene Morozov",
+
+    "tutorial_continue": "Tap to continue",
+    "tutorial_greetings": "You have to survive unitll end of the level.\nDodge obstacles!",
+    "tutorial_level_countdown": "Level end countdown",
+    "tutorial_lives_count": "Lives count",
+    "tutorial_pause_button": "Pause button",
+    "tutorial_settings": "You can adjust control sensitivity, graphics quality and sounds in settings section in main menu",
+    "tutorial_last_instruction": "To move player, move your finger anywhere on screen.\nGet ready - game begins after tap!",
+
+    "game_paused": "PAUSED",
+    "game_gameover": "GAME OVER",
+    "game_continue": "Continue",
+    "game_restart": "Restart level",
+    "game_to_menu": "Back to menu",
+    "game_try_again": "Try again",
+    "game_best_score": "Best"
+}

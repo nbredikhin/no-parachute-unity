@@ -1,0 +1,50 @@
+{
+    "shared_back": "Назад",
+
+    "main_menu_start_game": "Начать игру",
+    "main_menu_endless_mode": "Бесконечный режим",
+    "main_menu_unlock_text": "Пройдите все уровни для открытия!",
+    "main_menu_character_select": "Выбор персонажа",
+    "main_menu_settings": "Настройки",
+    "main_menu_credits": "Об авторах",
+
+    "levels_menu_start_game": "НАЧАТЬ",
+
+    "characters_menu_select_character": "ВЫБРАТЬ",
+    "characters_menu_get_rings": "Получить кольца",
+    "characters_menu_purchase": "Купить",
+    "characters_menu_iap_cancel": "ОТМЕНА",
+    "characters_menu_iap_processing": "Ваша покупка обрабатывается. . .",
+    "characters_menu_iap_timeout": "Ваша покупка занимает больше времени, чем ожидалось. . .",
+
+    "settings_menu_joystick": "Джойстик",
+    "settings_menu_sound": "Звук",
+    "settings_menu_vibration": "Вибрация",
+    "settings_menu_quality": "Качество",
+    "settings_menu_sensitivity": "Чувствительность",
+    "settings_menu_state_enabled": "вкл.",
+    "settings_menu_state_disabled": "выкл.",
+    "settings_menu_state_free": "свободный",
+    "settings_menu_state_static": "статичный",
+    "settings_menu_state_low": "низкое",
+    "settings_menu_state_medium": "среднее",
+    "settings_menu_state_high": "высокое",
+
+    "credits_text": "No Parachute!\n\nПрограммирование, дизайн:\nНикита Бредихин\n\nПрограммирование, музыка:\nЕвгений Морозов",
+
+    "tutorial_continue": "Коснитесь для продолжения",
+    "tutorial_greetings": "Вы должны выжить до конца уровня.\nИзбегайте препятствий!",
+    "tutorial_level_countdown": "Время до конца уровня",
+    "tutorial_lives_count": "Количество жизней",
+    "tutorial_pause_button": "Кнопка паузы",
+    "tutorial_settings": "Вы можете настроить чувствительность управления, качество графики и звуки в разделе настроек в главном меню",
+    "tutorial_last_instruction": "Перемещайте палец по экрану, чтобы двигать игрока.\nПриготовьтесь - игра начнется после касания!",
+
+    "game_paused": "ПАУЗА",
+    "game_gameover": "GAME OVER",
+    "game_continue": "Продолжить",
+    "game_restart": "Начать сначала", 
+    "game_to_menu": "Вернутся в меню",
+    "game_try_again": "Попробовать снова",
+    "game_best_score": "Лучший счет"
+}

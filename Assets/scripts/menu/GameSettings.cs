@@ -18,14 +18,14 @@ public class GameSettings : MonoBehaviour
     
 	void Start () 
     {
-        string enabled = LocalizedStrings.GetString(StringType.StateEnabled),
-               disabled = LocalizedStrings.GetString(StringType.StateDisabled);
         
-        string sound = LocalizedStrings.GetString(StringType.Sound),
-               quality = LocalizedStrings.GetString(StringType.Quality),
-               vibration = LocalizedStrings.GetString(StringType.Vibration),
-               joystick = LocalizedStrings.GetString(StringType.Joystick);
+        string enabled = LocalizedStrings.GetString("settings_menu_state_enabled"),
+               disabled = LocalizedStrings.GetString("settings_menu_state_disabled");
         
+        string sound = LocalizedStrings.GetString("settings_menu_sound"),
+               quality = LocalizedStrings.GetString("settings_menu_quality"),
+               vibration = LocalizedStrings.GetString("settings_menu_vibration"),
+               joystick = LocalizedStrings.GetString("settings_menu_joystick");
         
         soundButton.AddState("enabled", sound + ": " + enabled);
         soundButton.AddState("disabled", sound + ": " + disabled);
@@ -33,16 +33,15 @@ public class GameSettings : MonoBehaviour
         vibrationButton.AddState("enabled", vibration + ": " + enabled);
         vibrationButton.AddState("disabled", vibration + ": " + disabled);
 
-        qualityButton.AddState("low", quality + ": " + LocalizedStrings.GetString(StringType.StateLow));
-        qualityButton.AddState("medium", quality + ": " + LocalizedStrings.GetString(StringType.StateMedium));
-        qualityButton.AddState("high", quality + ": " + LocalizedStrings.GetString(StringType.StateHigh));
+        qualityButton.AddState("low", quality + ": " + LocalizedStrings.GetString("settings_menu_state_low"));
+        qualityButton.AddState("medium", quality + ": " + LocalizedStrings.GetString("settings_menu_state_medium"));
+        qualityButton.AddState("high", quality + ": " + LocalizedStrings.GetString("settings_menu_state_high"));
         
-        joystickButton.AddState("free", joystick + ": " + LocalizedStrings.GetString(StringType.JoystickFree));
-        joystickButton.AddState("static", joystick + ": " + LocalizedStrings.GetString(StringType.JoystickStatic));
-
+        joystickButton.AddState("free", joystick + ": " + LocalizedStrings.GetString("settings_menu_state_free"));
+        joystickButton.AddState("static", joystick + ": " + LocalizedStrings.GetString("settings_menu_state_static"));
+        
         // Загрузка настроек
         LoadSettings();
-        
         // Звук и вибрация
         soundButton.SetState(isSoundEnabled ? "enabled" : "disabled");
         vibrationButton.SetState(isVibrationEnabled ? "enabled" : "disabled");
