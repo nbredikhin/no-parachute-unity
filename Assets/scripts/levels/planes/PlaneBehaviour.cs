@@ -29,6 +29,18 @@ public class PlaneBehaviour : MonoBehaviour
 		
 	}
 	
+	public void Fade(float speed)
+	{
+		var childRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+		foreach (var renderer in childRenderers)
+		{
+			var material = renderer.material;
+            // material.SetColor("_Color", material.color - new Color(0, 0, 0, speed));
+			material.color = material.color - new Color(0, 0, 0, speed);
+			Debug.Log(material.color);
+		}				
+	}
+
 	public void Setup(List<PlaneProperties> layerProps)
 	{
 		layers = new Dictionary<GameObject, PlaneProperties>();

@@ -176,6 +176,10 @@ public class GameMain : MonoBehaviour
                 continue;
 
             currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
+            if (currentPlane.transform.position.y >= player.transform.position.y)
+            {
+                currentPlane.Fade(-2 * player.transform.position.y / fallingSpeed * Time.deltaTime);
+            }
             if (currentPlane.transform.position.y >= 0)
             {
                 if (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)
