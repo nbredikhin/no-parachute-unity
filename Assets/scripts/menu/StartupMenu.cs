@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class StartupMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () 
 	{
-		LocalizedStrings.LoadLanguage(Application.systemLanguage);	
+		LocalizedStrings.LoadLanguage(SystemLanguage.English);
+		// LocalizedStrings.LoadLanguage(Application.systemLanguage);	
 	}
 	
 	// Update is called once per frame

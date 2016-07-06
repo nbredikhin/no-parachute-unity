@@ -29,15 +29,19 @@ public class GameMain : MonoBehaviour
     private bool isDead;
     private bool isPaused;
 
+    public bool IsPaused { get { return isPaused; } }
+    public bool IsDead { get { return isDead; } }
+
     // Контейнеры игровых объектов
     private GameObject[] pipeWalls;
     private GameObject[] decorativePlanes;
+
     // Попытка исправить фризы на iPad 3 - вводим пул объектов, которые и будут спавниться при изменении
     private PlaneBehaviour[] planesPool;
     private PlaneBehaviour[] planes;
     private List<PowerUp> powerups;
-    
-    public int FallingSpeedForSoftTrack = 15; 
+
+    public int FallingSpeedForSoftTrack = 15;
     public int LevelToForceLoad = 0;
 
     public Level level;
@@ -47,9 +51,6 @@ public class GameMain : MonoBehaviour
     public float CoinsSpawnInterval = 5;
     private float coinsSpawnTimer = 0;
     private float spawnTimer = 0;
-
-    public bool IsPaused { get { return isPaused; } }
-    public bool IsDead { get { return isDead; } }
 
     private float speedUpTimer = 0;
     private float prepareTime = 2;
@@ -65,19 +66,23 @@ public class GameMain : MonoBehaviour
     public ProgressCounter progressCounter;
     // Включено ли обучение
     public bool TutorEnabled = true;
-    private int tutorialPart = 0;
     public int MaxTutorialParts = 4;
+    private int tutorialPart = 0;
+
     public ScoreTextManager scoreTextManager;
     private int endlessModeScore = 0;
-    
+
+    private List<int> powerupTypes;
+
     void Start()
     {
         GameSettings.LoadSettings();
         TutorEnabled = System.Convert.ToBoolean(PlayerPrefs.GetInt("first_time_running", 1));
-
         decorativePlanesCount = (int)((float)decorativePlanesCount * Mathf.Clamp(GameSettings.graphicsQuality / 2f, 0f, 1f));
-
         Application.targetFrameRate = 60;
+
+        // Сделано для отладки. Level передаётся сюда из сцены с выбором уровня. Без этого тоже
+        // будет работать, но только когда запуск уровня идёт из сцены с выбором
         if (level == null)
             level = new Level();
 
@@ -85,15 +90,16 @@ public class GameMain : MonoBehaviour
 
         if (LevelToForceLoad > 0)
             SharedData.levelNo = LevelToForceLoad;
-
+        powerupTypes = new List<int>();
         ChangeLevel(SharedData.levelNo);
     }
-
+    
     void Update()
     {
         if (level.Number <= 0)
             return;
 
+        // Обработка ускорения
         if (speedUpTimer >= 0)
         {
             speedUpTimer -= Time.deltaTime;
@@ -106,54 +112,100 @@ public class GameMain : MonoBehaviour
             else
             {
                 if (speedUpTimer <= prepareTime)
-                {
                     fallingSpeed -= (adjustedFallingSpeed - level.FallingSpeed) / prepareTime * Time.deltaTime;
-                }
             }
         }
 
-        if (!TutorEnabled)
+        // Обработка боковых стен
+        ProcessSideWalls();
+
+        // Обработка декоративных плоскостей
+        ProcessDecoPlanes();
+
+        // Не спавнить плоскости и не давать закончить уровень во время обучения
+        if (TutorEnabled)
+            return;
+        else
         {
             spawnTimer += Time.deltaTime;
             coinsSpawnTimer += Time.deltaTime;
         }
 
-       if ((coinsSpawnTimer >= CoinsSpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd))
-       {
-           SpawnPowerUp(PowerUp.PowerUpType.Ring);
-           coinsSpawnTimer = 0;
-       }
-            
+        // Спавн колец
+        if ((coinsSpawnTimer >= CoinsSpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd))
+        {
+            SpawnPowerUp(PowerUp.PowerUpType.Ring);
+            coinsSpawnTimer = 0;
+        }
+
+        // Спавн бонусов
         if ((spawnTimer >= SpawnInterval && !isDead) && (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)) // Debug
         {
-            List<int> types = new List<int>();
+            powerupTypes.Clear();
 
             // "Базовые" бонусы - кольцо и увеличение скорости
-            types.Add((int)PowerUp.PowerUpType.Ring);
-            types.Add((int)PowerUp.PowerUpType.SpeedUp);
+            powerupTypes.Add((int)PowerUp.PowerUpType.Ring);
+            powerupTypes.Add((int)PowerUp.PowerUpType.SpeedUp);
 
             // Если все жизни и есть хоть одна оторванная конеченость или не все жизни - то можем заспавнить дополнительную жизнь
             if ((player.lives == player.maxLivesCount && !player.HasFullHealth) || player.lives < player.maxLivesCount)
-                types.Add((int)PowerUp.PowerUpType.ExtraLife);
+                powerupTypes.Add((int)PowerUp.PowerUpType.ExtraLife);
             if (!player.HasFullHealth)
-                types.Add((int)PowerUp.PowerUpType.HealthKit);
+                powerupTypes.Add((int)PowerUp.PowerUpType.HealthKit);
 
-            int type = Utils.GetRandomNumberFromList(types);
+            int type = Utils.GetRandomNumberFromList(powerupTypes);
             SpawnPowerUp((PowerUp.PowerUpType)type);
             spawnTimer = 0;
         }
 
-        // Обработка боковых стен
+        // Обработка основных плоскостей
+        ProcessPlanes();
+
+        // Обработка бонусов
+        ProcessPowerUps();
+
+        if (!isDead && !isPaused)
+        {
+            levelRunningTime += Time.deltaTime * (fallingSpeed / level.FallingSpeed);
+
+            // Счёт в бесконечном режиме и время в обычном
+            if (level.IsEndless)
+            {
+                endlessModeScore = (int)(levelRunningTime * 10f);
+                progressCounter.SetValue(endlessModeScore);
+            }
+            else
+                progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
+
+            // Обработка конца уровня
+            if (!level.IsEndless && levelRunningTime >= level.LevelDuration && !isLevelFinished)
+            {
+                isLevelFinished = true;
+                gameUI.ShowScreen(gameUI.passedScreen);
+                JoystickInput.isEnabled = false;
+
+                MusicManager.BeginMusicFade(0.5f, 0.25f, false);
+
+                // Сохранение прогресса
+                var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+                PlayerPrefs.SetInt("CurrentLevel", Mathf.Max(level.Number + 1, currentLevel));
+            }
+        }
+
+    }
+
+    private void ProcessSideWalls()
+    {
         foreach (var currentBox in pipeWalls)
         {
             currentBox.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed);
             if (currentBox.transform.position.y >= pipeSize)
-            {
                 currentBox.transform.Translate(Vector3.down * pipeCount * pipeSize);
-            }
         }
+    }
 
-        // Обработка декоративных плоскостей
+    private void ProcessDecoPlanes()
+    {
         foreach (var currentDecoPlane in decorativePlanes)
         {
             currentDecoPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
@@ -164,11 +216,10 @@ public class GameMain : MonoBehaviour
                 currentDecoPlane.transform.Rotate(0, 0, rotationMul * 90);
             }
         }
+    }
 
-        if (TutorEnabled)
-            return;
-
-        // Обработка основных плоскостей
+    private void ProcessPlanes()
+    {
         for (int i = 0; i < planes.Length; ++i)
         {
             var currentPlane = planes[i];
@@ -176,10 +227,10 @@ public class GameMain : MonoBehaviour
                 continue;
 
             currentPlane.transform.Translate(Vector3.up * Time.deltaTime * fallingSpeed, Space.World);
+            // Плавное исчезновение стен после пролета игрока
             if (currentPlane.transform.position.y >= player.transform.position.y)
-            {
                 currentPlane.Fade(-2 * player.transform.position.y / fallingSpeed * Time.deltaTime);
-            }
+            // Удаление стен после выхода за пределы "трубы"
             if (currentPlane.transform.position.y >= 0)
             {
                 if (level.LevelDuration - levelRunningTime > timeBeforeSpawnEnd)
@@ -200,12 +251,13 @@ public class GameMain : MonoBehaviour
                 var collidedLayer = player.HitTestPlane(currentPlane);
 
                 if (collidedLayer != null)
-                {
                     OnPlayerHitPlane(collidedLayer);
-                }
             }
         }
-        // Обработка бонусов
+    }
+
+    private void ProcessPowerUps()
+    {
         for (int i = 0; i < powerups.Count; ++i)
         {
             var currentPU = powerups[i];
@@ -229,38 +281,10 @@ public class GameMain : MonoBehaviour
                 if (!currentPU.IsPickedUp && (!player.GodMode && !isLevelFinished && (diff.magnitude <= player.transform.localScale.x / 2 + currentPU.transform.localScale.x / 2)))
                 {
                     currentPU.OnPickUp();
-
                     player.OnPowerUpTaken(currentPU.Type);
                 }
             }
         }
-
-        if (!isDead && !isPaused)
-        {
-            levelRunningTime += Time.deltaTime * (fallingSpeed / level.FallingSpeed);
-
-            if (level.IsEndless)
-            {
-                endlessModeScore = (int)(levelRunningTime * 10f);
-                progressCounter.SetValue(endlessModeScore);
-            }
-            else
-                progressCounter.SetValue((int)(level.LevelDuration - levelRunningTime));
-
-            if (!level.IsEndless && levelRunningTime >= level.LevelDuration && !isLevelFinished)
-            {
-                isLevelFinished = true;
-                gameUI.ShowScreen(gameUI.passedScreen);
-                JoystickInput.isEnabled = false;
-
-                MusicManager.BeginMusicFade(0.5f, 0.25f, false);
-
-                // Сохранение прогресса
-                var currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
-                PlayerPrefs.SetInt("CurrentLevel", Mathf.Max(level.Number + 1, currentLevel));
-            }
-        }
-
     }
 
     public void ChangeLevel(int newLevel)
@@ -364,15 +388,13 @@ public class GameMain : MonoBehaviour
         levelRunningTime = 0f;
         isLevelFinished = false;
         JoystickInput.isEnabled = true;
-        
+
         // Музыка
         string music_track = "game_theme";
         if (level.FallingSpeed <= FallingSpeedForSoftTrack)
             music_track = "game_theme_soft";
         if (!MusicManager.PlayMusic(music_track, 0.5f, 2))
-        {
             MusicManager.BeginMusicFade(0.5f, 1, false);
-        }
 
         GameObject.Find("tutor").SetActive(TutorEnabled);
 
@@ -389,7 +411,7 @@ public class GameMain : MonoBehaviour
         var plane = Instantiate(planesPool[planeNo], position, planesPool[planeNo].transform.rotation) as PlaneBehaviour;
         // Переставляем ссылки GameObject'ов слоев
         plane.ReassignLayers(planesPool[planeNo].layers);
-        
+
         plane.Respawn();
         int rotationMul = Random.Range(0, 3);
         plane.gameObject.transform.Rotate(0, rotationMul * 90, 0);
@@ -428,9 +450,7 @@ public class GameMain : MonoBehaviour
     void OnPlayerHitPlane(GameObject collidedLayer)
     {
         if (isDead)
-        {
             return;
-        }
         isDead = true;
         fallingSpeed = 0f;
         // Пока так
@@ -478,9 +498,7 @@ public class GameMain : MonoBehaviour
     public void Respawn()
     {
         if (!isDead)
-        {
             return;
-        }
         fallingSpeed = level.FallingSpeed;
         isDead = false;
         gameUI.ShowScreen(gameUI.gameScreen);
@@ -490,14 +508,11 @@ public class GameMain : MonoBehaviour
     void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus && !isDead)
-        {
             gameUI.PauseButtonClick();
-        }
     }
 
     public void ShowNextTutorStep()
     {
-        Debug.Log("LOOL");
         var tutor = GameObject.Find("tutor");
         tutor.transform.GetChild(tutorialPart++).gameObject.SetActive(false);
         if (tutorialPart >= MaxTutorialParts)
@@ -506,7 +521,6 @@ public class GameMain : MonoBehaviour
             GameObject.Find("tutor").SetActive(false);
             // Разкомменть после тестов
             PlayerPrefs.SetInt("first_time_running", 0);
-
             return;
         }
         tutor.transform.GetChild(tutorialPart).gameObject.SetActive(true);
