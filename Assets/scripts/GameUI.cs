@@ -62,7 +62,7 @@ public class GameUI : MonoBehaviour {
 		// Пауза
 		ShowScreen(pauseScreen);
 		gameMain.SetGamePaused(true);
-        MusicManager.BeginMusicFade(0f, 0.15f, false);
+		MusicManager.SetMusicVolume(0.15f);
 	}
 
 	public void ContinueButtonClick()
@@ -70,7 +70,7 @@ public class GameUI : MonoBehaviour {
 		// Выход из паузы
 		gameMain.SetGamePaused(false);
 		ShowScreen(gameScreen);
-        MusicManager.BeginMusicFade(0f, 1f, false);
+		MusicManager.SetMusicVolume(1);
 	}
 
 	public void TryAgainButtonClick()
