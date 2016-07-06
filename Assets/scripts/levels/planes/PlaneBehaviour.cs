@@ -35,9 +35,7 @@ public class PlaneBehaviour : MonoBehaviour
 		foreach (var renderer in childRenderers)
 		{
 			var material = renderer.material;
-            // material.SetColor("_Color", material.color - new Color(0, 0, 0, speed));
 			material.color = material.color - new Color(0, 0, 0, speed);
-			Debug.Log(material.color);
 		}				
 	}
 
